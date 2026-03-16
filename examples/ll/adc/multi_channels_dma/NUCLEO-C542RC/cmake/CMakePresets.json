@@ -1,0 +1,42 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}"
+        },
+        {
+            "name": "release_GCC_NUCLEO-C542RC",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "${presetName}",
+                "TOOLCHAIN_FILE": "GCC.14.3.1.cmake"
+            },
+            "inherits": "default"
+        },
+        {
+            "name": "debug_GCC_NUCLEO-C542RC",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "${presetName}",
+                "TOOLCHAIN_FILE": "GCC.14.3.1.cmake"
+            },
+            "inherits": "default"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "configurePreset": "default"
+        },
+        {
+            "name": "release_GCC_NUCLEO-C542RC",
+            "configurePreset": "release_GCC_NUCLEO-C542RC"
+        },
+        {
+            "name": "debug_GCC_NUCLEO-C542RC",
+            "configurePreset": "debug_GCC_NUCLEO-C542RC"
+        }
+    ]
+}

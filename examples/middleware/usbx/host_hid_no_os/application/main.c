@@ -1,0 +1,131 @@
+/**
+  ******************************************************************************
+  * file           : main.c
+  * brief          : Main program body
+  *                  main() calls the target system initialization, then calls the example entry point.
+  ******************************************************************************
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+/* Private typedef -----------------------------------------------------------*/
+
+/* Private define ------------------------------------------------------------*/
+/* @user: choose the number of process loops here */
+#define EXAMPLE_LOOP_COUNT 200U
+
+/* @user: configure the delay in milliseconds between 2 loop rounds */
+#define EXAMPLE_LOOP_DELAY_MS 100U
+
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+app_status_t ExecStatus = EXEC_STATUS_UNKNOWN; /* application status */
+uint32_t ProcessLoops   = EXAMPLE_LOOP_COUNT;  /* execution loop control, stops if 0 */
+
+/* Private functions prototype -----------------------------------------------*/
+static void error_handler(void);
+static void success_handler(void);
+
+/** brief:  The application entry point.
+  * retval: none but we specify int to comply with C99 standard
+  */
+int main(void)
+{
+  /** System Init: this generated code placed in targets folder initializes your system.
+    * It calls the initialization (and sets the initial configuration) of the peripherals
+    * you have configured with STM32CubeMX2, if you decided to generate and call this
+    * code at startup.
+    * It also contains the HAL initialization and the initial clock configuration.
+    */
+  if (mx_system_init() != SYSTEM_OK)
+  {
+    ExecStatus = EXEC_STATUS_ERROR; /* memorize the error */
+  }
+  else
+  {
+    ExecStatus = app_init();
+
+    if (ExecStatus != EXEC_STATUS_ERROR)
+    {
+      ExecStatus = app_process();
+
+      if (ExecStatus == EXEC_STATUS_OK)
+      {
+        ExecStatus = app_deinit();
+      }
+    }
+
+  } /* end applicative part */
+
+  /* Report the example status */
+  if (ExecStatus == EXEC_STATUS_OK)
+  {
+    success_handler();
+  }
+  else
+  {
+    error_handler();
+  }
+
+  /* This point must not be reached */
+  return (0);
+} /* end main */
+
+/** The functions below are used to report the example status.
+  * ----------------------------------------------------------
+  */
+
+/** brief:  Error notification
+  * retval: None (infinite loop)
+  */
+static void error_handler(void)
+{
+  /* Initialize MX_STATUS_LED */
+
+  while (1)
+  {
+    /* Repeated flashing status LED (50ms on and 2sec off) when execution loop is exited */
+    led_on(MX_STATUS_LED);
+    HAL_Delay(50);
+    led_off(MX_STATUS_LED);
+    HAL_Delay(2000);
+  }
+} /* end error_handler */
+
+/** Redefines the HardFault handler from the startup file.
+  * brief:  Hard Fault Handler
+  * retval: None (infinite loop)
+  *
+  * The default handler is redefined here so that:
+  * 1. The example status can be updated.
+  * 2. You can easily set a breakpoint to investigate the issue.
+  */
+void HardFault_Handler(void)
+{
+  /* The example encountered an unrecoverable error */
+  ExecStatus = EXEC_STATUS_ERROR;
+
+  /* Take a chance to turn the status LED off (this might fail) */
+  led_off(MX_STATUS_LED);
+
+  /* Unrecoverable error: infinite loop */
+  while (1);
+}
+
+static void success_handler(void)
+{
+  /* Initialize MX_STATUS_LED */
+
+  /* Report success: LED remains turned on */
+  led_on(MX_STATUS_LED);
+
+  while (1);
+} /* end success_handler */

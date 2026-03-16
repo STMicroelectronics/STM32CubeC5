@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="SCHVerif.xsd">
+<Obdata>
+    <Info>
+        <Title>OEMiRoT configuration</Title>
+        <GlobalAlign>16</GlobalAlign>
+    </Info>
+    <File>
+        <Name>Authentication key</Name>
+        <Value>./../../keys/oemirot_authentication.pem</Value>
+        <Align>4</Align>
+        <KeyType>ecdsa-p256</KeyType>
+        <Hash></Hash>
+        <Type>Public</Type>
+        <Default>./../../keys/oemirot_authentication.pem</Default>
+        <Tooltip>Select the key used to authenticate firmware and data images</Tooltip>
+    </File>
+    <File>
+        <Name>Encryption key</Name>
+        <Value>./../../keys/oemirot_encryption.pem</Value>
+        <Align>4</Align>
+        <KeyType>ecdsa-p256</KeyType>
+        <Type>Private_Raw</Type>
+        <Default>./../../keys/oemirot_encryption.pem</Default>
+        <Tooltip>Select the key used to encrypt firmware and data images</Tooltip>
+    </File>
+    <Output>
+        <Name>Output File</Name>
+        <Value>./../../bin/oemirot/oemirot_keys_config.bin</Value>
+        <Default>./../../bin/oemirot/oemirot_keys_config.bin</Default>
+        <Tooltip>Select the OEMiROT configuration output file</Tooltip>
+    </Output>
+</Obdata>
+</Root>

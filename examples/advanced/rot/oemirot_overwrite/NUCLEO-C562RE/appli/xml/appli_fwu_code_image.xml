@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="SCHVerif.xsd">
+<McubootFormat>
+    <GlobalParam>
+        <Command>sign</Command>
+        <Title>Firmware image generation</Title>
+        <LinkedXML>..\..\provisioning\xml\oemirot\oemirot_keys_config.xml</LinkedXML>
+    </GlobalParam>
+    <Param>
+        <Name>Authentication key</Name>
+        <Link />
+        <Type>File</Type>
+        <Command>-k</Command>
+        <Hidden>1</Hidden>
+        <Tooltip>Signature Key used</Tooltip>
+        <Default />
+    </Param>
+    <Param>
+        <Name>Encryption key</Name>
+        <Link>GetPublic</Link>
+        <Type>File</Type>
+        <Command>-E</Command>
+        <Enable>1</Enable>
+        <Hidden>1</Hidden>
+        <Default />
+    </Param>
+    <Param>
+        <Name>Symmetric key length</Name>
+        <Type>Data</Type>
+        <Command>--encrypt-keylen</Command>
+        <Hidden>1</Hidden>
+        <Default>128</Default>
+    </Param>
+    <Param>
+        <Name>Endianness</Name>
+        <Type>Data</Type>
+        <Command>-e</Command>
+        <Hidden>1</Hidden>
+        <Default>little</Default>
+    </Param>
+    <Param>
+        <Name>Public key format</Name>
+        <Type>Data</Type>
+        <Command>--public-key-format</Command>
+        <Hidden>1</Hidden>
+        <Default>full</Default>
+    </Param>
+    <Param>
+        <Name>Firmware area size</Name>
+        <Value>0x34000</Value>
+        <Type>Data</Type>
+        <Command>-S</Command>
+        <Hidden>1</Hidden>
+        <Default>0x74000</Default>
+    </Param>
+    <Param>
+        <Name>Header Size</Name>
+        <Type>Data</Type>
+        <Command>-H</Command>
+        <Hidden>1</Hidden>
+        <Default>0x400</Default>
+    </Param>
+    <Param>
+        <Name>Padding Header</Name>
+        <Type>Data</Type>
+        <Command>--pad-header</Command>
+        <Hidden>1</Hidden>
+        <Default />
+    </Param>
+    <Param>
+        <Name>Version</Name>
+        <Value>2.0.0</Value>
+        <Type>Data</Type>
+        <Command>-v</Command>
+        <Tooltip>Version of the firmware binary. Format is x.y.z</Tooltip>
+        <Default>1.0.0</Default>
+    </Param>
+    <Param>
+        <Name>Security version</Name>
+        <Value>auto</Value>
+        <Type>Data</Type>
+        <Command>-s</Command>
+        <Hidden>1</Hidden>
+        <Tooltip>Value of Security version on which antirollback feature is relying.
+        'auto' (default) : Security version value is automatically aligned to image version.
+        '32 bits value': Security version value manually selected (not aligned with image version).
+        Antirollback feature is inactive if Security version value remains unchanged at each version of image.
+        </Tooltip>
+        <Default>auto</Default>
+    </Param>
+    <Param>
+        <Name>Dependency with data image</Name>
+        <Value>2,2.0.0</Value>
+        <Type>Dependency</Type>
+        <Command>-d</Command>
+        <Enable>0</Enable>
+        <Tooltip>To be enabled when a compatibility with a specific data image version is required. Data image version format is x.y.z</Tooltip>
+        <Default>2,1.0.0</Default>
+    </Param>
+    <Param>
+        <Name>Installation mode</Name>
+        <Type>Data</Type>
+        <Command>--overwrite-only</Command>
+        <Hidden>1</Hidden>
+        <Default />
+    </Param>
+    <Param>
+        <Name>Image type</Name>
+        <Value>0x0</Value>
+        <Type>Data</Type>
+        <Command>--rom-fixed</Command>
+        <Hidden>1</Hidden>
+        <Tooltip>Image type (0x0: App image, 0x2: Data image)</Tooltip>
+        <Default>0x0</Default>
+    </Param>
+    <Param>
+        <Name>Align</Name>
+        <Type>Data</Type>
+        <Command>--align</Command>
+        <Hidden>1</Hidden>
+        <Default>16</Default>
+    </Param>
+    <Param>
+        <Name>Firmware binary input file</Name>
+        <Value>..\..\ewarm\appli\release\Exe\appli.hex</Value>
+        <Type>File</Type>
+        <Tooltip>Select the firmware binary file to be processed for the image generation</Tooltip>
+        <Default>appli.hex</Default>
+    </Param>
+    <Output>
+        <Name>Image output file</Name>
+        <Value>..\..\bin\appli_fwu_enc_sign.bin</Value>
+        <Default>appli_fwu_enc_sign.bin</Default>
+    </Output>
+</McubootFormat>
+</Root>

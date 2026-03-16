@@ -1,0 +1,59 @@
+/**
+******************************************************************************
+* @file    stm32c562xe_flash.icf
+* @brief   Linker File
+******************************************************************************
+* @attention
+*
+* Copyright (c) 2026 STMicroelectronics.
+* All rights reserved.
+*
+* This software is licensed under terms that can be found in the LICENSE file
+* in the root directory of this software component.
+* If no LICENSE file comes with this software, it is provided AS-IS.
+*
+******************************************************************************
+*/
+
+define memory mem with size = 4G;
+define region ROM = mem:[from 0x8000000 size 0x80000];
+define region RAM = mem:[from 0x20000000 size 0x20000];
+/* Reserve last 32 KB of AXI SRAM as non-cacheable */
+define region NCACHE_region     = mem:[from 0x20000000 size 0x00008000]; /* 32 KB */
+
+/* define blocks */
+define block HEAP with alignment = 8, size = 0x200 { };
+define block CSTACK with alignment = 8, size = 0x800 { };
+
+/* setup initialization strategies */
+initialize by copy {
+  readwrite
+};
+
+do not initialize {
+  section .noinit
+};
+
+place at start of ROM { readonly section .intvec } ;
+
+/* sections placements */
+place in ROM {
+  readonly
+};
+
+place in RAM {
+  readwrite,
+  block HEAP,
+  block CSTACK
+};
+
+/* ------------------------------------------------------
+   Blocks and placement
+   ------------------------------------------------------ */
+define block NON_CACHEABLE_BLOCK
+{
+  readwrite section .non_cacheable
+};
+
+/* Place our non-cacheable block into the NCACHE_region */
+place in NCACHE_region { block NON_CACHEABLE_BLOCK };

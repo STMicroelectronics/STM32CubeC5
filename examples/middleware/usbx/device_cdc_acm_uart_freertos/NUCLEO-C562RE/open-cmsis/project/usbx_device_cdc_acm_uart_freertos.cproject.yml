@@ -1,0 +1,322 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.11.0/tools/projmgr/schemas/cproject.schema.json
+project:
+  processor:
+    trustzone: off
+  rte:
+    base-dir: ../../user_modifiable
+  generators:
+    base-dir: ../../generated
+  output:
+    base-name: $Project$
+    type:
+      - elf
+      - bin
+      - hex
+  setups:
+    - setup: release_AC6
+      misc:
+        - ASM:
+            - -Oz
+            - -g
+          C:
+            - -Oz
+            - -g
+            - -std=gnu11
+            - -fno-exceptions
+            - -fno-rtti
+            - -funsigned-char
+            - -Wmissing-prototypes
+          CPP:
+            - -Oz
+            - -g
+            - -std=gnu11
+            - -fno-exceptions
+            - -fno-rtti
+            - -funsigned-char
+            - -Wmissing-prototypes
+          Link-C:
+            - --library_type=microlib
+            - --symbols
+            - --map
+            - --show_full_path
+            - --inline
+            - --any_contingency
+          Link-CPP:
+            - --library_type=microlib
+            - --symbols
+            - --map
+            - --show_full_path
+            - --inline
+            - --any_contingency
+          for-compiler: AC6
+      for-context:
+        - .release_AC6
+    - setup: release_GCC
+      misc:
+        - ASM:
+            - --specs=nano.specs
+            - --specs=nosys.specs
+          C:
+            - -Os
+            - -fdata-sections
+            - -ffunction-sections
+            - -std=gnu11
+            - -Wall
+            - -fstack-usage
+            - --specs=nano.specs
+            - --specs=nosys.specs
+          CPP:
+            - -Os
+            - -fdata-sections
+            - -ffunction-sections
+            - -fno-cxa-atexit
+            - -fno-rtti
+            - -fno-exceptions
+            - -std=gnu++14
+            - -Wall
+            - -fstack-usage
+            - --specs=nano.specs
+            - --specs=nosys.specs
+          for-compiler: GCC
+          Link-C:
+            - -Wl,-Map=$OutDir()$/$Project$.map
+            - -Wl,--gc-sections
+            - -Wl,--start-group -lc -lm -Wl,--end-group
+            - -static
+            - --specs=nano.specs
+            - --specs=nosys.specs
+          Link-CPP:
+            - -Wl,-Map=$OutDir()$/$Project$.map
+            - -Wl,--gc-sections
+            - -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+            - -static
+            - --specs=nano.specs
+            - --specs=nosys.specs
+      for-context:
+        - .release_GCC
+    - setup: debug_AC6
+      misc:
+        - ASM:
+            - -O0
+            - -g
+          C:
+            - -O0
+            - -g
+            - -std=gnu11
+            - -fno-exceptions
+            - -fno-rtti
+            - -funsigned-char
+            - -Wmissing-prototypes
+          CPP:
+            - -O0
+            - -g
+            - -std=gnu11
+            - -fno-exceptions
+            - -fno-rtti
+            - -funsigned-char
+            - -Wmissing-prototypes
+          Link-C:
+            - --library_type=microlib
+            - --symbols
+            - --map
+            - --show_full_path
+            - --inline
+            - --any_contingency
+          Link-CPP:
+            - --library_type=microlib
+            - --symbols
+            - --map
+            - --show_full_path
+            - --inline
+            - --any_contingency
+          for-compiler: AC6
+      for-context:
+        - .debug_AC6
+    - setup: debug_GCC
+      misc:
+        - ASM:
+            - -g3
+            - --specs=nano.specs
+          C:
+            - -g3
+            - -O0
+            - -fdata-sections
+            - -ffunction-sections
+            - -std=gnu11
+            - --specs=nano.specs
+            - -Wall
+            - -fstack-usage
+          CPP:
+            - -g3
+            - -O0
+            - -fdata-sections
+            - -ffunction-sections
+            - -fno-cxa-atexit
+            - -fno-rtti
+            - -fno-exceptions
+            - -std=gnu++14
+            - --specs=nano.specs
+            - -Wall
+            - -fstack-usage
+          Link-C:
+            - --specs=nosys.specs
+            - --specs=nano.specs
+            - -Wl,-Map=$OutDir()$/$Project$.map
+            - -Wl,--gc-sections
+            - -Wl,--start-group -lc -lm -Wl,--end-group
+            - -static
+          Link-CPP:
+            - --specs=nosys.specs
+            - --specs=nano.specs
+            - -Wl,-Map=$OutDir()$/$Project$.map
+            - -Wl,--gc-sections
+            - -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+            - -static
+          for-compiler: GCC
+      for-context:
+        - .debug_GCC
+    - setup: debug_IAR
+      misc:
+        - C:
+            - -On
+            - --debug
+            - --dlib_config DLib_Config_Full.h
+            - --no_wrap_diagnostics
+            - -e
+            - --enable_restrict
+            - --vla
+            - --require_prototypes
+          CPP:
+            - -On
+            - --debug
+            - --dlib_config DLib_Config_Full.h
+            - --no_wrap_diagnostics
+            - -e
+            - --enable_restrict
+            - --vla
+            - --require_prototypes
+          Link-C:
+            - --map=$OutDir()$/$Project$.map
+            - --entry Reset_Handler
+            - --inline
+          Link-CPP:
+            - --map=$OutDir()$/$Project$.map
+            - --entry Reset_Handler
+            - --inline
+          for-compiler: IAR
+      for-context:
+        - .debug_IAR
+    - setup: release_IAR
+      misc:
+        - C:
+            - -Ohz
+            - --debug
+            - --dlib_config DLib_Config_Full.h
+            - --no_wrap_diagnostics
+            - -e
+            - --enable_restrict
+            - --vla
+            - --require_prototypes
+          CPP:
+            - -Ohz
+            - --dlib_config DLib_Config_Full.h
+            - --no_wrap_diagnostics
+            - -e
+            - --enable_restrict
+            - --vla
+            - --require_prototypes
+          Link-C:
+            - --map=$OutDir()$/$Project$.map
+            - --entry Reset_Handler
+            - --inline
+          Link-CPP:
+            - --map=$OutDir()$/$Project$.map
+            - --entry Reset_Handler
+            - --inline
+          for-compiler: IAR
+      for-context:
+        - .release_IAR
+  groups:
+    - files:
+        - file: ../../../application/example.c
+          category: source
+        - file: ../../../application/main.c
+          category: source
+        - file: ../../../application/example.h
+          category: header
+        - file: ../../../application/main.h
+          category: header
+        - file: ../../../README.md
+          category: doc
+      group: application
+    - group: Middleware Generated Code
+      files:
+        - file: ../../generated/middleware/ux_stm32_device_descriptors_config.h
+        - file: ../../generated/middleware/ux_user.h
+        - file: ../../generated/middleware/FreeRTOSConfig.h
+        - file: ../../generated/middleware/mx_usbx_app.h
+        - file: ../../generated/middleware/mx_usbx_app.c
+        - file: ../../generated/middleware/mx_usbx_app_device.h
+        - file: ../../generated/middleware/mx_usbx_app_device.c
+        - file: ../../generated/middleware/mx_usbx_app_device_cdc_acm_uart.h
+        - file: ../../generated/middleware/mx_usbx_app_device_cdc_acm_uart.c
+  components:
+    - component: STMicroelectronics::CMSIS:CORE
+    - component: STMicroelectronics::Device:STM32 HAL DRIVERS CORE:USB CORE DEF
+    - component: STMicroelectronics::Device:STM32 HAL DRIVERS CORE:USB DRD
+    - component: STMicroelectronics::Board Part:LED:GPIO
+    - component: STMicroelectronics::Board Part:STM32CubeMX2 Config:LED
+    - component: STMicroelectronics::Device:STM32 HAL:CORTEX
+    - component: STMicroelectronics::Device:STM32 HAL:Core
+    - component: STMicroelectronics::Device:STM32 HAL:CRS
+    - component: STMicroelectronics::Device:STM32 HAL:DMA
+    - component: STMicroelectronics::Device:STM32 HAL:EXTI
+    - component: STMicroelectronics::Device:STM32 HAL:FLASH
+    - component: STMicroelectronics::Device:STM32 HAL:FLASH_ITF
+    - component: STMicroelectronics::Device:STM32 HAL:GPIO
+    - component: STMicroelectronics::Device:STM32 HAL:ICACHE
+    - component: STMicroelectronics::Device:STM32 HAL:PWR
+    - component: STMicroelectronics::Device:STM32 HAL:PCD
+    - component: STMicroelectronics::Device:STM32 HAL:Q
+    - component: STMicroelectronics::Device:STM32 HAL:RCC
+    - component: STMicroelectronics::Device:STM32 HAL:SBS
+    - component: STMicroelectronics::Device:STM32 HAL:timebases&TIM
+    - component: STMicroelectronics::Device:STM32 HAL:TIM timebase template
+    - component: STMicroelectronics::Device:STM32 HAL:TIM
+    - component: STMicroelectronics::Device:STM32 HAL:UART
+    - component: STMicroelectronics::Device:STM32 LL:BUS
+    - component: STMicroelectronics::Device:STM32 LL:Common
+    - component: STMicroelectronics::Device:STM32 LL:DMA
+    - component: STMicroelectronics::Device:STM32 LL:CRS                                                           
+    - component: STMicroelectronics::Device:STM32 LL:EXTI
+    - component: STMicroelectronics::Device:STM32 LL:FLASH
+    - component: STMicroelectronics::Device:STM32 LL:GPIO
+    - component: STMicroelectronics::Device:STM32 LL:ICACHE
+    - component: STMicroelectronics::Device:STM32 LL:PWR
+    - component: STMicroelectronics::Device:STM32 LL:RCC
+    - component: STMicroelectronics::Device:STM32 LL:UTILS
+    - component: STMicroelectronics::Device:STM32 LL:SBS
+    - component: STMicroelectronics::Device:STM32 LL:SYSTEM
+    - component: STMicroelectronics::Device:STM32 LL:TIM
+    - component: STMicroelectronics::Device:STM32 LL:USART
+    - component: STMicroelectronics::Device:STM32CubeMX2 Codegen:Generated Code
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:CORE
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:CORTEX MPU
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:GPIO
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:PCD
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:ICACHE
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:RCC
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:System
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:TIM
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:UART
+    - component: STMicroelectronics::Device:Startup
+    - component: STMicroelectronics::RTOS:FreeRTOS:Core
+    - component: STMicroelectronics::RTOS:FreeRTOS:MemMang&Heap_4
+    - component: STMicroelectronics::USB:USBX Controllers Driver:Device
+    - component: STMicroelectronics::USB:USBX Core:Common
+    - component: STMicroelectronics::USB:USBX Core:Device
+    - component: STMicroelectronics::USB:USBX Device Class:CDC ACM
+    - component: STMicroelectronics::USB:USBX Device Descriptors Driver:Device
+    - component: STMicroelectronics::Utility:Basic stdio:Core
+    - component: STMicroelectronics::Utility:Basic stdio:itf_io&UART
+    - component: STMicroelectronics::Utility:syscalls&Template syscalls

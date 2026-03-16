@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.11.0/tools/projmgr/schemas/csolution.schema.json
+solution:
+  target-types:
+    - type: NUCLEO-C5A3ZG
+      device: STM32C5A3ZGT6
+      define:
+        - UX_INCLUDE_USER_DEFINE_FILE
+        - USE_EXTERNAL_ENV 
+        - HSE_VALUE: 16000000UL
+  output-dirs:
+    tmpdir: project/tmp
+    outdir: $SolutionDir()$/build/$Project$.$BuildType$
+  generators:
+    base-dir: $ProjectDir()$/generated
+    options:
+      - generator: stm32c5xx_hal_mx2codegen
+        path: ../generated/hal
+      - generator: led_mx2codegen
+        path: ../generated/parts/led
+      - generator: advanced_trace_mx2codegen
+        path: $SolutionDir()$/../generated/utilities/Advanced_Trace
+  packs:
+    - pack: STMicroelectronics::CMSIS
+      path: ../../../../../../arch/cmsis
+    - pack: STMicroelectronics::filex
+      path: ../../../../../../middleware/filex
+    - pack: STMicroelectronics::freertos
+      path: ../../../../../../middleware/freertos
+    - pack: STMicroelectronics::usbx
+      path: ../../../../../../middleware/usbx
+    - pack: STMicroelectronics::led_part_drivers
+      path: ../../../../../../part_drivers/led
+    - pack: STMicroelectronics::stm32c5xx_dfp
+      path: ../../../../../../stm32c5xx_dfp
+    - pack: STMicroelectronics::stm32c5xx_hal_drivers
+      path: ../../../../../../stm32c5xx_drivers
+    - pack: STMicroelectronics::advanced_trace
+      path: ../../../../../../utilities/advanced_trace
+    - pack: STMicroelectronics::syscalls
+      path: ../../../../../../utilities/syscalls
+  build-types:
+    - type: release_AC6
+      compiler: AC6
+    - type: debug_AC6
+      compiler: AC6
+    - type: release_GCC
+      compiler: GCC
+    - type: debug_GCC
+      compiler: GCC
+    - type: release_IAR
+      compiler: IAR
+    - type: debug_IAR
+      compiler: IAR
+  projects:
+    - project: project/usbx_host_msc_freertos.cproject.yml

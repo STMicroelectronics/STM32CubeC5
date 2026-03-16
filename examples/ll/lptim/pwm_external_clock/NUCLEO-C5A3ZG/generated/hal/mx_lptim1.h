@@ -1,0 +1,66 @@
+/**
+  ******************************************************************************
+  * @file           : mx_lptim1.h
+  * @brief          : Header for mx_lptim1.c file.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef MX_LPTIM1_H
+#define MX_LPTIM1_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+/* Includes ------------------------------------------------------------------*/
+#include "stm32_ll.h"
+
+/* Exported types ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
+#define USE_LPTIM1
+
+/* Aliases of channels labels */
+#define MX_LPTIM_X_CHANNEL  LL_LPTIM_CHANNEL_CH2
+
+/** Primary aliases for LPTIM1_IN1 pin */
+#define PB10_PORT                             GPIOB
+#define PB10_PIN                              LL_GPIO_PIN_10
+
+/** Primary aliases for LPTIM1_CH2 pin */
+#define PB4_PORT                              GPIOB
+#define PB4_PIN                               LL_GPIO_PIN_4
+/* Exported macros -----------------------------------------------------------*/
+/* Exported variables --------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+
+/******************************************************************************/
+/* Exported functions for SW instance in LL layer */
+/******************************************************************************/
+/**
+  * @brief mx_lptim1 init function
+  * This function configures the hardware resources used in this example
+  * @retval pointer to handle or NULL in case of failure
+  */
+LPTIM_TypeDef *mx_lptim1_init(void);
+
+/**
+  * @brief  De-initialize mx_lptim1 instance and return it.
+  */
+void mx_lptim1_deinit(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* MX_LPTIM1_H */

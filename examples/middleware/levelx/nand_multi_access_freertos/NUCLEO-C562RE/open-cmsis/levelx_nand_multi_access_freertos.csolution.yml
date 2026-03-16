@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.11.0/tools/projmgr/schemas/csolution.schema.json
+solution:
+  target-types:
+    - type: NUCLEO-C562RE
+      device: STM32C562RET6
+      define:
+        - LX_INCLUDE_USER_DEFINE_FILE
+        - USE_TRACE: 0
+  output-dirs:
+    outdir: $ProjectDir()$/build/$BuildType$
+    tmpdir: app/tmp
+  generators:
+    base-dir: $ProjectDir()$/generated
+    options:
+      - generator: stm32c5xx_hal_mx2codegen
+        path: ../generated/hal
+      - generator: w25n01gvxx_mx2codegen
+        path: ../generated/parts/w25n01gvxx
+  build-types:
+    - type: release_GCC
+      compiler: GCC
+    - type: debug_GCC
+      compiler: GCC
+    - type: release_AC6
+      compiler: AC6
+    - type: debug_AC6
+      compiler: AC6
+    - type: release_IAR
+      compiler: IAR
+    - type: debug_IAR
+      compiler: IAR
+  packs:
+    - pack: STMicroelectronics::CMSIS
+      path: ../../../../../../arch/cmsis
+    - pack: STMicroelectronics::stm32c5xx_dfp
+      path: ../../../../../../stm32c5xx_dfp
+    - pack: STMicroelectronics::stm32c5xx_hal_drivers
+      path: ../../../../../../stm32c5xx_drivers
+    - pack: STMicroelectronics::syscalls
+      path: ../../../../../../utilities/syscalls
+    - pack: STMicroelectronics::w25n01gvxx_part_drivers
+      path: ../../../../../../part_drivers/w25n01gvxx
+    - pack: STMicroelectronics::levelx
+      path: ../../../../../../middleware/levelx
+    - pack: STMicroelectronics::freertos
+      path: ../../../../../../middleware/freertos
+    - pack: STMicroelectronics::basic_stdio
+      path: ../../../../../../utilities/basic_stdio
+  projects:
+    - project: project/levelx_nand_multi_access_freertos.cproject.yml

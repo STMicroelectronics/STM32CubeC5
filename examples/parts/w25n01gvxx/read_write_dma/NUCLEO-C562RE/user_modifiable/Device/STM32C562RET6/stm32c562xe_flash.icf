@@ -1,0 +1,66 @@
+/**
+******************************************************************************
+* @file    stm32c562xe_flash.icf
+* @brief   Linker File
+******************************************************************************
+* @attention
+*
+* Copyright (c) 2026 STMicroelectronics.
+* All rights reserved.
+*
+* This software is licensed under terms that can be found in the LICENSE file
+* in the root directory of this software component.
+* If no LICENSE file comes with this software, it is provided AS-IS.
+*
+******************************************************************************
+*/
+
+define memory mem with size = 4G;
+define region ROM = mem:[from 0x8000000 size 0x80000];
+define region RAM = mem:[from 0x20000000 size 0x20000];
+
+/* define blocks */
+define block HEAP with alignment = 8, size = 0x200 { };
+define block CSTACK with alignment = 8, size = 0x400 { };
+
+/** Block to declare variables that must never be cached.
+  * In this project, this is the buffer used by the CPU and the DMA.
+  *
+  * @user: If you change the buffer size, you must adjust the section size.
+  */
+define symbol __non_cacheable_tx_buffer_size__ = 0x1000;
+define symbol __non_cacheable_rx_buffer_size__ = 0x1000;
+define symbol __non_cacheable_part_obj_size__ = 0x100;
+define block NonCacheableTxBuffer with alignment = 32, size = __non_cacheable_tx_buffer_size__ { section .bss.non_cacheable_tx_buffer };
+define block NonCacheableRxBuffer with alignment = 32, size = __non_cacheable_rx_buffer_size__ { section .bss.non_cacheable_rx_buffer };
+define block NonCacheablePartObj with alignment = 32, size = __non_cacheable_part_obj_size__ { section .bss.non_cacheable_part_obj };
+
+/* setup initialization strategies */
+initialize by copy {
+  readwrite
+};
+
+do not initialize {
+  section .noinit
+};
+
+place at start of ROM { readonly section .intvec } ;
+
+/** Define a symbol at the start and the end of the .bss.non_cacheable_variables section.
+  * These symbols are used to configure the MPU region.
+  * The RAM start address respects all MPU alignment constraints.
+  */
+place at address 0x20000000 { block NonCacheableTxBuffer };
+place at address 0x20001000 { block NonCacheableRxBuffer };
+place at address 0x20002000 { block NonCacheablePartObj };
+
+/* sections placements */
+place in ROM {
+  readonly
+};
+
+place in RAM {
+  readwrite,
+  block HEAP,
+  block CSTACK
+};

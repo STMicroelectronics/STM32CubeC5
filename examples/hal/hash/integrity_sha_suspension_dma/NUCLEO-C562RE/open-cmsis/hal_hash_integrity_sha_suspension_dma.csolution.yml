@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.11.0/tools/projmgr/schemas/csolution.schema.json
+solution:
+  target-types:
+    - type: NUCLEO-C562RE
+      device: STM32C562RET6
+      define:
+        - USE_TRACE: 0
+  output-dirs:
+    tmpdir: project/tmp
+    outdir: $SolutionDir()$/build/$Project$.$BuildType$
+  generators:
+    base-dir: $ProjectDir()$/generated
+    options:
+      - generator: led_mx2codegen
+        path: $SolutionDir()$/../generated/parts/led
+      - generator: stm32c5xx_hal_mx2codegen
+        path: $SolutionDir()$/../generated/hal/
+      - generator: basic_stdio_mx2codegen
+        path: $SolutionDir()$/../generated/utilities/basic_stdio
+      - generator: syscalls_mx2codegen
+        path: $SolutionDir()$/../generated/utilities/syscalls
+  build-types:
+    - type: release_AC6
+      compiler: AC6
+  packs:
+    - pack: STMicroelectronics::CMSIS
+      path: ../../../../../../arch/cmsis
+    - pack: STMicroelectronics::basic_stdio
+      path: ../../../../../../utilities/basic_stdio
+    - pack: STMicroelectronics::led_part_drivers
+      path: ../../../../../../part_drivers/led
+    - pack: STMicroelectronics::stm32c5xx_dfp
+      path: ../../../../../../stm32c5xx_dfp
+    - pack: STMicroelectronics::stm32c5xx_hal_drivers
+      path: ../../../../../../stm32c5xx_drivers
+    - pack: STMicroelectronics::syscalls
+      path: ../../../../../../utilities/syscalls
+  projects:
+    - project: project/hal_hash_integrity_sha_suspension_dma.cproject.yml

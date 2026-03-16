@@ -1,0 +1,99 @@
+/**
+  ******************************************************************************
+  * file           : example.c
+  * brief          : Timeout using the LPTIM through the LL LPTIM API.
+  ******************************************************************************
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+
+/* Includes ------------------------------------------------------------------*/
+#include "example.h"
+#include "ll_example.h"
+
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+volatile uint8_t CompareMatch;
+
+/* Private functions prototype -----------------------------------------------*/
+
+/** ########## Step 1 ##########
+  * Initializes the MX_LPTIMx instance to operate in the deepest possible low power mode and start it in interrupt mode.
+  */
+app_status_t app_init(void)
+{
+  app_status_t return_status = EXEC_STATUS_ERROR;
+
+  if (mx_lptimx_init() == NULL)
+  {
+    goto _app_init_exit;
+  }
+
+  LPTIM_LowPowerConfig();
+
+  LPTIM_Start_IT();
+
+  return_status = EXEC_STATUS_INIT_OK;
+
+_app_init_exit:
+  return return_status;
+} /* end app_init */
+
+
+/** ########## Step 2 ##########
+  * The device goes in low power mode and waits for an interrupt: Trigger or Timeout.
+  */
+app_status_t app_process(void)
+{
+  app_status_t return_status = EXEC_STATUS_ERROR;
+
+  CompareMatch = 0U;
+
+  mx_pwr_enter_low_power();
+
+  if (mx_pwr_system_was_low_power() == 0U)
+  {
+    goto _app_init_exit;
+  }
+
+  mx_pwr_exit_low_power();
+
+  /* Reset the counter before re-entering in low power mode */
+  LPTIM_ResetCounter();
+
+  return_status = EXEC_STATUS_OK;
+
+_app_init_exit:
+  return return_status;
+} /* end app_process */
+
+
+/** Deinitializes the MX_LPTIMx peripheral before leaving the scenario.
+  * In this example, app_deinit is never called and it is provided as a reference only.
+  */
+app_status_t app_deinit(void)
+{
+  mx_lptimx_deinit();
+
+  return EXEC_STATUS_OK;
+} /* end app_deinit */
+
+
+/**
+  * MX_LPTIMx compare match callback
+  * @user This implementation of the MX_LPTIMx compare match callback can be customized.
+  * This function is executed when the MX_LPTIMx compare match interrupt is generated.
+  */
+void LPTIM_CompareMatchCallback(void)
+{
+  CompareMatch = 1U;
+}

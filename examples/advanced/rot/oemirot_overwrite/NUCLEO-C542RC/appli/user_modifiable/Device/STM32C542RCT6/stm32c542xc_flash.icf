@@ -1,0 +1,47 @@
+/**
+******************************************************************************
+* @file    stm32c542xc_flash.icf
+* @brief   Linker File
+******************************************************************************
+* @attention
+*
+* Copyright (c) 2026 STMicroelectronics.
+* All rights reserved.
+*
+* This software is licensed under terms that can be found in the LICENSE file
+* in the root directory of this software component.
+* If no LICENSE file comes with this software, it is provided AS-IS.
+*
+******************************************************************************
+*/
+
+/* Do not edit ROM_APPLI_xxxxxx definitions, updated by the provisioning scripts */
+define symbol ROM_APPLI_ADDRESS               = 0x8018400;
+define symbol ROM_APPLI_SIZE                  = 0x13C00;
+
+define symbol RAM_APPLI_ADDRESS               = 0x20000000;
+define symbol RAM_APPLI_SIZE                  = 0x10000;
+
+define symbol __ICFEDIT_intvec_start__        = ROM_APPLI_ADDRESS;
+
+define symbol __ICFEDIT_size_cstack__         = 0x400;
+define symbol __ICFEDIT_size_heap__           = 0x200;
+
+define memory mem with size = 4G;
+define region ROM = mem:[from ROM_APPLI_ADDRESS size ROM_APPLI_SIZE];
+define region RAM = mem:[from RAM_APPLI_ADDRESS size RAM_APPLI_SIZE];
+
+define block CSTACK    with alignment = 8, size = __ICFEDIT_size_cstack__   { };
+define block HEAP      with alignment = 8, size = __ICFEDIT_size_heap__     { };
+
+define block ER_CODE     with alignment = 8 {readonly};
+define block ER_CODE_END with alignment = 32, size = 0 { };
+
+initialize by copy { readwrite };
+do not initialize  { section .noinit };
+
+place at address mem:__ICFEDIT_intvec_start__ { readonly section .intvec };
+
+place in ROM      { block ER_CODE , last block ER_CODE_END,};
+place in RAM      { readwrite,
+                          block CSTACK, block HEAP };

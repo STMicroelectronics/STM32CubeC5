@@ -1,0 +1,60 @@
+/**
+  ******************************************************************************
+  * @file           : mx_ccb.h
+  * @brief          : Header for mx_ccb.c file.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef MX_CCB_H
+#define MX_CCB_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+/* Includes ------------------------------------------------------------------*/
+#include "stm32_hal.h"
+
+/* Exported types ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
+/* Exported macro ------------------------------------------------------------*/
+/* Exported variables --------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+
+/**********************************************************************************************************************/
+/* Exported functions for CCB in HAL layer */
+/**********************************************************************************************************************/
+/**
+  * @brief mx_ccb init function
+  * This function configures the hardware resources used in this example
+  * @retval pointer to handle or NULL in case of failure
+  */
+hal_ccb_handle_t *mx_ccb_init(void);
+
+/**
+  * @brief  De-initialize ccb instance and return it.
+  */
+void mx_ccb_deinit(void);
+
+/**
+  * @brief  Get the CCB object.
+  * @retval Pointer on the CCB Handle
+  */
+hal_ccb_handle_t *mx_ccb_gethandle(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* MX_CCB_H */

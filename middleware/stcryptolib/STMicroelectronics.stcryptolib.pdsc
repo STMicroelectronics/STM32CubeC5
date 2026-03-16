@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stm32="https://developer.st.com/schemas/stm32cube/1.0.0" schemaVersion="1.7.55" xsi:noNamespaceSchemaLocation="PACK.xsd" xsi:schemaLocation="https://developer.st.com/schemas/stm32cube/1.0.0 stm32cube.xsd" Dvendor="STMicroelectronics:13" Dname="STM32*">
+  <vendor>STMicroelectronics</vendor>
+  <name>stcryptolib</name>
+  <environments>
+    <environment name="STM32Cube">
+      <stm32:pack type="MW" friendlyName="stcryptolib" shortDesc="STM32 Cryptographic library middleware">
+        <relocation-info parent="middleware" layer="" element=""/>
+      </stm32:pack>
+    </environment>
+  </environments>
+  <description overview="README.md">STCryptoLib SW Pack</description>
+  <url>https://developer.st.com/st-pack-server/api/v1/pack/</url>
+  <supportContact/>
+  <ECCN>
+    <ECCN-EU>NEC</ECCN-EU>
+    <ECCN-US>EAR99</ECCN-US>
+  </ECCN>
+  <changelogs>
+    <changelog id="Release Notes" name="Release_Notes.html"/>
+  </changelogs>
+  <releases>
+    <release version="2.0.0" date="2026-03-13">
+      - First official release of STCryptoLib (STM32 Cryptographic library) pack based on CMOX API and libraries v4.0.4.
+    </release>
+  </releases>
+  <license>LICENSE.html</license>
+  <taxonomy>
+    <description Cclass="Security" Cgroup="STCryptoLib">STM32 Cryptographic Implementation</description>
+    <description Cclass="Security" Cgroup="STCryptoLib">STM32 Cryptographic APIs</description>
+  </taxonomy>
+  <keywords>
+    <keyword>STMicroelectronics</keyword>
+    <keyword>ST</keyword>
+    <keyword>STM32</keyword>
+    <keyword>Security</keyword>
+    <keyword>STCryptoLib</keyword>
+    <keyword>Cryptographic</keyword>
+    <keyword>Cryptography</keyword>
+    <keyword>library</keyword>
+  </keywords>
+  <!-- Conditions -->
+  <conditions>
+    <condition id="ARMCC GCC IAR">
+      <accept Tcompiler="ARMCC"/>
+      <accept Tcompiler="GCC"/>
+      <accept Tcompiler="IAR"/>
+    </condition>
+    <condition id="M0">
+      <require condition="ARMCC GCC IAR"/>
+      <require Dvendor="STMicroelectronics:13" Dcore="Cortex-M0"/>
+    </condition>
+    <condition id="M3">
+      <require condition="ARMCC GCC IAR"/>
+      <require Dvendor="STMicroelectronics:13" Dcore="Cortex-M3"/>
+    </condition>
+    <condition id="M33">
+      <require condition="ARMCC GCC IAR"/>
+      <require Dvendor="STMicroelectronics:13" Dcore="Cortex-M33"/>
+    </condition>
+    <condition id="M4">
+      <require condition="ARMCC GCC IAR"/>
+      <require Dvendor="STMicroelectronics:13" Dcore="Cortex-M4"/>
+    </condition>
+    <condition id="M7">
+      <require condition="ARMCC GCC IAR"/>
+      <require Dvendor="STMicroelectronics:13" Dcore="Cortex-M7"/>
+    </condition>
+    <condition id="M85">
+      <require condition="ARMCC GCC IAR"/>
+      <require Dvendor="STMicroelectronics:13" Dcore="Cortex-M85"/>
+    </condition>
+    <condition id="Core condition">
+      <description>Required dependency to HAL CRC</description>
+      <require Cclass="Device" Cgroup="STM32 HAL" Csub="CRC"/>
+    </condition>
+    <condition id="Crypto Core">
+      <description>Ensure STCryptoLib Core was selected before</description>
+      <require Cclass="Security" Cgroup="STCryptoLib" Csub="Core"/>
+    </condition>
+    <condition id="Common APIs">
+      <description>Ensure STCryptoLib common APIs are selected before</description>
+      <require Cclass="Security" Cgroup="STCryptoLib" Csub="CMOX API"/>
+    </condition>
+  </conditions>
+  <generators>
+    <!-- This generator is launched if any component referencing this generator by 'id' is selected and the specified <gpdsc> file does not exist -->
+    <generator id="stcryptolib_mx2codegen">
+      <description>STM32CubeMX2 Code Generation for the STCryptoLib</description>
+      <exe>
+        <!-- pdsc relative path to the execution script -->
+        <command host="win">.config/gen_code.bat</command>
+        <command host="linux">.config/gen_code.sh</command>
+        <command host="mac">.config/gen_code.sh</command>
+        <!-- $S = Device Family Pack base folder -->
+        <argument>$S</argument>
+        <!-- D = Device (Dname/Dvariant as configured by environment) -->
+        <argument>$D</argument>
+        <!-- SW Project folder path (as configured by environment) -->
+        <argument>$P</argument>
+        <!-- SW Project .cprj path -->
+        <argument>#P</argument>
+        <!-- #name of the gpdsc template contained in this PACK (Could follow this pattern packVendor.packName.gpdsc.hbs) -->
+        <argument>STMicroelectronics.stcryptolib_template.gpdsc.hbs</argument>
+        <!-- Generator Id to be passed as an argument to the bootstrap script-->
+        <argument>stcryptolib_mx2codegen</argument>
+        <!-- Absolute path to the Generator Input file-->
+        <argument>$G</argument>
+        <!-- Flag to indicate that this Generator is dry-run capable -->
+        <argument mode="dry-run">--dry-run</argument>
+      </exe>
+      <!-- Default Target folder for the generated gpdsc file -->
+      <gpdsc name="$P/STMicroelectronics.stcryptolib.gpdsc"/>
+    </generator>
+  </generators>
+  <!-- Components definition -->
+  <components>
+    <!-- STCryptoLib configuration -->
+    <component generator="stcryptolib_mx2codegen" Cclass="Security" Cgroup="STM32CubeMX2 Config" Csub="STCryptoLib" Cversion="1.0.0" condition="Common APIs">
+      <description>STM32CubeMX2 Configuration and Code Generation for the STM32 Cryptographic library (STCryptoLib) middleware</description>
+      <environments>
+        <environment name="STM32Cube">
+        </environment>
+      </environments>
+      <files>
+        <file category="genAsset" name=".config/gen_code.bat"/>
+        <file category="genAsset" name=".config/gen_code.sh"/>
+        <file category="genAsset" name=".config/STMicroelectronics.stcryptolib_template.gpdsc.hbs"/>
+        <file category="genAsset" name=".config/template/mx_cmox_config_template.h.hbs"/>
+        <file category="genAsset" name=".config/template/partials/LICENSE_partial.hbs"/>
+        <file category="genAsset" name=".config/template/license/mx_stcryptolib_license_template.md.hbs"/>
+        <file category="genAsset" name=".config/stcryptolib_config_parameters.json"/>
+      </files>
+    </component>
+    <!-- STCryptoLib compiled library -->
+    <component Cclass="Security" Cgroup="STCryptoLib" Csub="Core" Cversion="4.0.4" condition="Core condition">
+      <description>STM32 Cryptographic library according to the Cortex-M architecture</description>
+      <files>
+        <file category="library" name="lib/libSTM32Cryptographic_CM0_CM0PLUS.a" condition="M0"/>
+        <file category="library" name="lib/libSTM32Cryptographic_CM3.a" condition="M3"/>
+        <file category="library" name="lib/libSTM32Cryptographic_CM33.a" condition="M33"/>
+        <file category="library" name="lib/libSTM32Cryptographic_CM4.a" condition="M4"/>
+        <file category="library" name="lib/libSTM32Cryptographic_CM7.a" condition="M7"/>
+        <file category="library" name="lib/libSTM32Cryptographic_CM85.a" condition="M85"/>
+        <file category="doc" name="lib/SHA1SUM"/>
+        <file category="source" name="interfaces/cmox_crc/cmox_low_level.c" attr="config" version="1.0.0"/>
+        <file category="doc" name="LICENSE.html"/>
+        <file category="doc" name="LICENSE.md"/>
+        <file category="doc" name="README.md"/>
+        <file category="doc" name="Release_Notes.html"/>
+        <file category="doc" name="Release_Notes.md"/>
+        <file category="doc" name="SW_Security_Level.md"/>
+      </files>
+    </component>
+    <!-- STCryptoLib APIs components -->
+    <component Cclass="Security" Cgroup="STCryptoLib" Csub="CMOX API" Cversion="4.0.4" condition="Crypto Core">
+      <description>Common STCryptoLib APIs</description>
+      <Pre_Include_Global_h>
+/* Enabling global cmox configuration file */
+#define CMOX_DEFAULT_FILE "mx_cmox_config.h"
+      </Pre_Include_Global_h>
+      <files>
+        <file category="include" name="include/"/>
+        <file category="header" name="include/cmox_common.h"/>
+        <file category="header" name="include/cmox_crypto.h"/>
+        <file category="header" name="include/cmox_cta.h"/>
+        <file category="header" name="include/cmox_default_defs.h"/>
+        <file category="header" name="include/cmox_info.h"/>
+        <file category="header" name="include/cmox_init.h"/>
+        <file category="header" name="include/cmox_default_config.h"/>
+        <file category="header" name="include/cmox_low_level.h"/>
+        <file category="doc" name="CMOX.chm"/>
+        <!-- Cipher lib APIs -->
+        <file category="include" name="include/cipher/"/>
+        <file category="header" name="include/cipher/cmox_cipher.h"/>
+        <file category="header" name="include/cipher/cmox_blockcipher.h"/>
+        <file category="header" name="include/cipher/cmox_cbc.h"/>
+        <file category="header" name="include/cipher/cmox_ccm.h"/>
+        <file category="header" name="include/cipher/cmox_cfb.h"/>
+        <file category="header" name="include/cipher/cmox_chachapoly.h"/>
+        <file category="header" name="include/cipher/cmox_check_default_aes.h"/>
+        <file category="header" name="include/cipher/cmox_check_default_gcm.h"/>
+        <file category="header" name="include/cipher/cmox_cipher_retvals.h"/>
+        <file category="header" name="include/cipher/cmox_ctr.h"/>
+        <file category="header" name="include/cipher/cmox_ecb.h"/>
+        <file category="header" name="include/cipher/cmox_gcm.h"/>
+        <file category="header" name="include/cipher/cmox_keywrap.h"/>
+        <file category="header" name="include/cipher/cmox_ofb.h"/>
+        <file category="header" name="include/cipher/cmox_xts.h"/>
+        <!-- DRBG lib APIs -->
+        <file category="include" name="include/drbg/"/>
+        <file category="header" name="include/drbg/cmox_ctr_drbg.h"/>
+        <file category="header" name="include/drbg/cmox_drbg.h"/>
+        <file category="header" name="include/drbg/cmox_drbg_retvals.h"/>
+        <!-- ECC lib APIs -->
+        <file category="include" name="include/ecc/"/>
+        <file category="header" name="include/ecc/cmox_ecc.h"/>
+        <file category="header" name="include/ecc/cmox_ecc_custom_curves.h"/>
+        <file category="header" name="include/ecc/cmox_ecc_retvals.h"/>
+        <file category="header" name="include/ecc/cmox_ecc_types.h"/>
+        <file category="header" name="include/ecc/cmox_ecdh.h"/>
+        <file category="header" name="include/ecc/cmox_ecdsa.h"/>
+        <file category="header" name="include/ecc/cmox_eddsa.h"/>
+        <file category="header" name="include/ecc/cmox_sm2.h"/>
+        <!-- Hash lib APIs -->
+        <file category="include" name="include/hash/"/>
+        <file category="header" name="include/hash/cmox_hash.h"/>
+        <file category="header" name="include/hash/cmox_hash_retvals.h"/>
+        <file category="header" name="include/hash/cmox_md.h"/>
+        <file category="header" name="include/hash/cmox_sha1.h"/>
+        <file category="header" name="include/hash/cmox_sha3.h"/>
+        <file category="header" name="include/hash/cmox_sha224.h"/>
+        <file category="header" name="include/hash/cmox_sha256.h"/>
+        <file category="header" name="include/hash/cmox_sha384.h"/>
+        <file category="header" name="include/hash/cmox_sha512.h"/>
+        <file category="header" name="include/hash/cmox_sm3.h"/>
+        <file category="header" name="include/hash/cmox_sponge.h"/>
+        <!-- MAC lib APIs -->
+        <file category="include" name="include/mac/"/>
+        <file category="header" name="include/mac/cmox_cmac.h"/>
+        <file category="header" name="include/mac/cmox_hmac.h"/>
+        <file category="header" name="include/mac/cmox_kmac.h"/>
+        <file category="header" name="include/mac/cmox_mac.h"/>
+        <file category="header" name="include/mac/cmox_mac_retvals.h"/>
+        <!-- RSA lib APIs -->
+        <file category="include" name="include/rsa/"/>
+        <file category="header" name="include/rsa/cmox_rsa.h"/>
+        <file category="header" name="include/rsa/cmox_rsa_pkcs1v15.h"/>
+        <file category="header" name="include/rsa/cmox_rsa_pkcs1v22.h"/>
+        <file category="header" name="include/rsa/cmox_rsa_retvals.h"/>
+        <file category="header" name="include/rsa/cmox_rsa_types.h"/>
+        <!-- utils lib APIs -->
+        <file category="include" name="include/utils/"/>
+        <file category="header" name="include/utils/cmox_utils_compare.h"/>
+        <file category="header" name="include/utils/cmox_utils_retvals.h"/>
+      </files>
+    </component>
+  </components>
+</package>

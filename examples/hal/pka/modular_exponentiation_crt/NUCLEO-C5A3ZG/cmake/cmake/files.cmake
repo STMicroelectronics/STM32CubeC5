@@ -1,0 +1,6 @@
+# file-format: 1.0.0
+if(CMAKE_BUILD_TYPE STREQUAL "release_GCC_NUCLEO-C5A3ZG")
+  target_sources(${CMAKE_PROJECT_NAME} PRIVATE ../../application/example.c ../../application/main.c ../../application/example.h ../../application/main.h ../../application/rsa_2048/ciphertext.c ../../application/rsa_2048/plaintext.c ../../application/rsa_2048/rsa_priv_2048.c ../../application/rsa_2048/rsa_pub_2048.c ../../application/rsa_2048/rsa_priv_2048.pem ../../application/rsa_2048/rsa_pub_2048.pem ../../application/rsa_2048/ciphertext.h ../../application/rsa_2048/plaintext.h ../../application/rsa_2048/rsa_priv_2048.h ../../application/rsa_2048/rsa_pub_2048.h)
+elseif(CMAKE_BUILD_TYPE STREQUAL "debug_GCC_NUCLEO-C5A3ZG")
+  target_sources(${CMAKE_PROJECT_NAME} PRIVATE ../../application/example.c ../../application/main.c ../../application/example.h ../../application/main.h ../../application/rsa_2048/ciphertext.c ../../application/rsa_2048/plaintext.c ../../application/rsa_2048/rsa_priv_2048.c ../../application/rsa_2048/rsa_pub_2048.c ../../application/rsa_2048/rsa_priv_2048.pem ../../application/rsa_2048/rsa_pub_2048.pem ../../application/rsa_2048/ciphertext.h ../../application/rsa_2048/plaintext.h ../../application/rsa_2048/rsa_priv_2048.h ../../application/rsa_2048/rsa_pub_2048.h)
+endif()

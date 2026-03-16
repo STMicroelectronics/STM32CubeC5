@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stm32="https://developer.st.com/schemas/stm32cube/1.0.0" schemaVersion="1.7.55" xsi:noNamespaceSchemaLocation="PACK.xsd" xsi:schemaLocation="https://developer.st.com/schemas/stm32cube/1.0.0 stm32cube.xsd">
+  <vendor>STMicroelectronics</vendor>
+  <name>rot_provisioning</name>
+  <environments>
+    <environment name="STM32Cube">
+      <stm32:pack type="ROT" friendlyName="rot_provisioning" shortDesc="STM32 Root of Trust Provisioning">
+        <relocation-info parent="rot" layer="" element=""/>
+      </stm32:pack>
+    </environment>
+  </environments>
+  <description>RoT_Provisioning</description>
+  <ECCN>
+    <ECCN-EU>NEC</ECCN-EU>
+    <ECCN-US>EAR99</ECCN-US>
+  </ECCN>
+  <changelogs>
+    <changelog id="Release Notes" name="Release_Notes.html"/>
+  </changelogs>
+  <url>https://developer.st.com/st-pack-server/api/v1/pack/</url>
+  <supportContact/>
+  <releases>
+    <release version="2.0.0" date="2026-02-11">
+      - First official release, supporting oemirot_overwrite examples for STM32C5xx series.
+    </release>
+  </releases>
+  <license>LICENSE.html</license>
+  <taxonomy>
+    <description Cclass="Security" Cgroup="ROT">STM32 Root of Trust Provisioning</description>
+  </taxonomy>
+  <keywords>
+    <keyword>STMicroelectronics</keyword>
+    <keyword>ST</keyword>
+    <keyword>STM32</keyword>
+    <keyword>Security</keyword>
+    <keyword>mcuboot</keyword>
+    <keyword>Boot path</keyword>
+    <keyword>Root Of Trust</keyword>
+    <keyword>OEMiRoT</keyword>
+    <keyword>provisioning</keyword>
+  </keywords>
+  <!-- Components definition -->
+  <components>
+    <component Cclass="Security" Cgroup="RoT_Provisioning" Csub="Core" Cversion="1.0.0">
+      <description>RoT Provisioning global documentation</description>
+      <files>
+        <file category="doc" name="LICENSE.md"/>
+        <file category="doc" name="LICENSE.html"/>
+        <file category="doc" name="README.md"/>
+        <file category="doc" name="Release_Notes.md"/>
+        <file category="doc" name="Release_Notes.html"/>
+        <file category="doc" name="sbom_cdx.json"/>
+        <file category="doc" name="SW_Security_Level.md"/>
+        <file category="doc" name="doc/subbrand-stm32.svg"/>
+        <file category="utility" name="__init__.py"/>
+      </files>
+    </component>
+    <component Cclass="Security" Cgroup="RoT_Provisioning" Csub="Helper" Cversion="1.0.0">
+      <description>RoT Provisioning Helper component</description>
+      <files>
+        <file category="utility" name="helper/__init__.py"/>
+        <file category="utility" name="helper/common/__init__.py"/>
+        <file category="utility" name="helper/common/cli.py"/>
+        <file category="utility" name="helper/common/hxml.py"/>
+        <file category="utility" name="helper/common/log.py"/>
+        <file category="utility" name="helper/common/misc.py"/>
+        <file category="utility" name="helper/common/singleton.py"/>
+        <file category="utility" name="helper/common/update_file_handler.py"/>
+        <file category="utility" name="helper/exception/__init__.py"/>
+        <file category="utility" name="helper/exception/rot_exception.py"/>
+        <file category="utility" name="helper/config/__init__.py"/>
+        <file category="utility" name="helper/config/appli_config.py"/>
+        <file category="utility" name="helper/config/config_print_utils.py"/>
+        <file category="utility" name="helper/config/example_config.py"/>
+        <file category="utility" name="helper/config/flash_layout_oemirot.py"/>
+        <file category="utility" name="helper/config/generic_config.py"/>
+        <file category="utility" name="helper/config/generic_flash_layout.py"/>
+        <file category="utility" name="helper/config/memory_config.py"/>
+        <file category="utility" name="helper/config/oemirot_config.py"/>
+        <file category="utility" name="helper/config/option_bytes.py"/>
+        <file category="utility" name="helper/config/project_config.py"/>
+        <file category="utility" name="helper/config/provisioning_config.py"/>
+        <file category="utility" name="helper/project/__init__.py"/>
+        <file category="utility" name="helper/project/project_appli.py"/>
+        <file category="utility" name="helper/project/project_generic.py"/>
+        <file category="utility" name="helper/project/project_oemirot.py"/>
+        <file category="utility" name="helper/tools/__init__.py"/>
+        <file category="utility" name="helper/tools/appli_cfg.py"/>
+        <file category="utility" name="helper/tools/cube_programmer.py"/>
+        <file category="utility" name="helper/tools/cube_programmer_rdp.py"/>
+        <file category="utility" name="helper/tools/tools_config.py"/>
+        <file category="utility" name="helper/tools/tpc.py"/>
+        <file category="utility" name="helper/workflow/__init__.py"/>
+        <file category="utility" name="helper/workflow/process.py"/>
+        <file category="utility" name="helper/workflow/step.py"/>
+      </files>
+    </component>
+    <component Cclass="Security" Cgroup="RoT_Provisioning" Csub="OEMiRoT" Cversion="1.0.0">
+      <description>RoT Provisioning Helper component</description>
+      <files>
+        <file category="utility" name="oemirot/__init__.py"/>
+        <file category="utility" name="oemirot/generation_step.py"/>
+        <file category="utility" name="oemirot/generic_provisioning.py"/>
+        <file category="utility" name="oemirot/regression_step.py"/>
+        <file category="utility" name="oemirot/installation_step.py"/>
+      </files>
+    </component>
+  </components>
+</package>

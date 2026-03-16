@@ -1,0 +1,46 @@
+/**
+  ******************************************************************************
+  * file           : stm32c5xx_ll_example.c
+  * brief          : generate an infinite sequence of pulses with precise timing control, with LL API,
+  *                  followed by a permanent reset of the output signal.
+  ******************************************************************************
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+
+/* Includes ------------------------------------------------------------------*/
+#include "ll_example.h"
+
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+/* Private functions prototype -----------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
+
+/**
+  *  Start the MX_TIMx output channel.
+  *  param: channel Specifies the MX_TIMx channel.
+  */
+inline void TIM_StartChannel(uint32_t channel)
+{
+  LL_TIM_CC_EnableChannel(MX_TIMx, channel);
+
+  LL_TIM_EnableAllOutputs(MX_TIMx);
+}
+
+
+/**
+  *  Start the MX_TIMx counter.
+  */
+inline void TIM_Start(void)
+{
+  LL_TIM_EnableCounter(MX_TIMx);
+}

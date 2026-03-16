@@ -1,0 +1,206 @@
+<img src="doc/subbrand-stm32.svg" width="50" alt="STM32 Subbrand Logo"/>
+
+# __Example: *hal_i3c_entdaa_it_controller*__
+
+**Example version:** 2.0.0
+
+[![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
+
+
+
+How to perform multi-target Dynamic Address Assignment (ENTDAA) using the I3C bus protocol and STM32 HAL API, with interrupt-driven (IT) mode.
+
+
+**Note that the terminology Controller/Target characterizes the role taken by each device in the I3C communication, corresponding respectively to the I3C master and I3C slave in legacy terminology.**
+
+
+## __1. Detailed scenario__
+
+This example demonstrates multi-target Dynamic Address Assignment (ENTDAA) using the I3C protocol and STM32 HAL API in interrupt-driven mode. By default, the scenario is set up for two targets connected to the controller.
+
+__Initialization phase__: At main program start, the `mx_system_init()` function is called. It initializes the peripherals, nonvolatile memory (such as flash memory, NVM, or external memories), MPU regions (if applicable), the system clock, and the SysTick.
+
+
+The application executes the following __example steps__:
+
+__Step 1__: Initialization of the I3C peripheral and registration of all user callbacks for controller events.
+
+__Step 2__: The controller starts the ENTDAA procedure by sending the ENTDAA CCC command. Each target responds with its payload (BCR/DCR/PID). The controller assigns a dynamic address to each target in sequence, repeating until all targets are processed or no further responses are received.
+
+__Step 3__: waits for completion of the DAA process or a DAA error interrupt
+
+If an error occurs during DAA, the controller retries the process up to a maximum number of attempts. The procedure ends when all targets are assigned or the maximum attempts are reached.
+
+
+The communication status is reported via the status LED and the variable ExecStatus.
+
+__End of example__: When ENTDAA completes successfully, all targets have received dynamic addresses. If the maximum number of attempts is reached, an error status is reported.
+
+If you enable **`USE_TRACE`**, you can follow these execution steps in the terminal logs:
+
+```text
+[INFO] Step 1: Device initialization COMPLETED
+[INFO] Step 2: DAA initiation COMPLETED.
+[INFO] Step 3: DAA process completed. Number of targets: <N>
+```
+
+
+## __2. Example configuration__
+
+[![Configuration Manual](doc/configure_with-ConfigurationMa.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/configure/config_toc.html "An offline version is also available in the STM32Cube firmware package.")
+
+This example demonstrates the following peripherals.
+
+
+
+__I3C__: is configured as indicated below:
+
+-  The controller assigns dynamic addresses (default: 0x32 and 0x34) to two targets during ENTDAA. These addresses are set in the `Targets_Descriptor` array in the example. You can modify these values or add more addresses by updating the entries in the `Targets_Descriptor` array to support additional targets as needed.
+
+- The bus usage, including the I3C bus and its duty cycle timings, is calculated by STM32CubeMX2 in accordance with the I3C initialization section of the reference manual.
+
+- The I3C bus is configured to run at the maximum supported speed to demonstrate its highest performance.
+  See `__I3C maximum speed__` in section [3.2 Specific board setups](#32-specific-board-setups).
+- The event and error interrupts of the I3C instance are configured and enabled in the NVIC.
+
+To test this example with the target, you can use the corresponding *hal_i3c_entdaa_it_target* example pack.
+
+
+## __3. Hardware environment and setup__
+
+### __3.1. Generic Setup__
+
+- The controller board is connected to the target board through the two I3C lines and a common GND.
+
+<!--
+@startuml
+@startditaa{doc/example_hal_i3c_entdaa_it_controller-setup.png} -E -S
+    /-------------------------\                     /-------------------------\
+    |    /--------------------+                     +--------------\          |
+    |    |STM32 I3Ci          |                     |  STM32 I3Ci  |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |I3Ci_SCL------------+---------------------+ I3Ci_SCL     |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |                    |                     |              |          |
+    |    |I3Ci_SDA------------+---------------------+ I3Ci_SDA     |          |
+    |    |               c4BE |                     |       c4BE   |          |
+    |    \--------------------+                     +--------------/          |
+    |                         |                     |                         |
+    |                     GND +---------------------+ GND                     |
+    |                         |                     |                         |
+    |     STM32 MCU on        |                     |     STM32 MCU on        |
+    |     Controller board    |                     |     target board        |
+    \-------------------------/                     \-------------------------/
+
+@endditaa
+@endumldd
+-->
+
+
+![example_hal_i3c_entdaa_it_controller-setup](doc/example_hal_i3c_entdaa_it_controller-setup.png)
+
+### __3.2. Specific board setups__
+
+The I3C serial clock (SCL) and data (SDA) lines can be observed by connecting an oscilloscope or a logic analyzer to the corresponding board connectors.
+
+This section describes the exact hardware configurations of your project.
+
+<details>
+  <summary>On STM32C5 series.</summary>
+  <details>
+    <summary>I3C maximum speed</summary>
+
+  The maximum speed configured for these series is 12,5MHz.
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C542RC.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |    OSC_IN     |
+  |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
+  |    PA2    |   USART2_TX   |      PA2      |
+  |    PB6    |   I3C1_SCL    |      PB6      |
+  |    PB7    |   I3C1_SDA    |      PB7      |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C562RE.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |    OSC_IN     |
+  |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
+  |    PA2    |   USART2_TX   |      PA2      |
+  |    PB6    |   I3C1_SCL    |      PB6      |
+  |    PB7    |   I3C1_SDA    |      PB7      |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C5A3ZG.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN   |
+  |    PH1    |  RCC_OSC_OUT  |  PH1_OSC_OUT  |
+  |    PA2    |   USART2_TX   | DBGIN_VCP_TX  |
+  |    PB6    |   I3C1_SCL    |      PB6      |
+  |    PB7    |   I3C1_SDA    |      PB7      |
+
+  </details>
+</details>
+
+## __4. Troubleshooting__
+
+[![Troubleshooting](doc/debug_with-Troubleshooting.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/debug/debug_toc.html "An offline version is also available in the STM32Cube firmware package.")
+
+Here are the points of attention for this specific example:
+
+  1. __Dynamic Address Assignment (DAA)__: DAA is started by the controller using the `ENTDAA` command, one of the I3C Common Command Codes (CCC), standard broadcast commands used to manage devices on the bus. The controller enumerates each target, which responds with its identification payload (PID, BCR, DCR). The controller then assigns a unique dynamic address to each target, which is used for all further private transfers.
+  In this example, DAA completion and address verification are handled via interrupts (see Step 2).
+
+  2. If there are no I3C signals observed, remember to check these points first:
+     - The GND pins of the controller and target boards are connected.
+     - Use the shortest possible wires between the boards to improve signal integrity.
+
+  3. For correct synchronization, always run the target application before running the controller. This ensures the target is ready to respond to the controller's DAA request.
+
+
+## __5. See Also__
+
+[![SeeAlso](doc/go_further_with-STM32.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/more/more_toc.html "An offline version is also available in the STM32Cube firmware package.")
+
+- You can find the application note AN5879 related to the I3C MANUAL on the [AN5879](https://www.st.com/resource/en/application_note/an5879-introduction-to-i3c-for-stm32-mcus-stmicroelectronics.pdf) website if you want to go further on some technical details of the I3C bus
+
+- You can refer to the *hal_i3c_entdaa_it_target* example pack to have a look at the target's board application.
+
+The documentation of the drivers of the relevant STM32 series contains more detailed information.
+
+For instance for the STM32C5 series: [HAL documentation](https://dev.st.com/stm32cube-docs/stm32c5xx-hal-drivers/latest/en/index.html).
+
+More information about the STM32 ecosystem can be found in the [STM32 MCU Developer Zone](https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/embedded-software.html).
+
+
+## __6. License__
+
+Copyright (c) 2026 STMicroelectronics.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory
+of this software component.
+If no LICENSE file comes with this software, it is provided AS-IS.
