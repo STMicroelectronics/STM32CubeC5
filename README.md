@@ -25,3 +25,6 @@ git clone --recursive https://github.com/STMicroelectronics/STM32CubeC5.git
 ```
 git pull; git submodule update --init --recursive
 ```
+
+> [!NOTE]
+> * If GitHub "Download ZIP" option is used instead of the `git clone` command, then the different submodules have to be **collected** and **added manually**.
