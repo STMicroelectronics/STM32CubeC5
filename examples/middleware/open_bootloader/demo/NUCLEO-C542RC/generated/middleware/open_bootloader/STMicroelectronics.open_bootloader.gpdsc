@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<package xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.0"
+  xs:noNamespaceSchemaLocation="https://github.com/Open-CMSIS-Pack/Open-CMSIS-Pack-Spec/blob/main/schema/PACK.xsd">
+  <vendor>STMicroelectronics</vendor>
+  <name>open_bootloader</name>
+  <url>https://developer.st.com/st-pack-server/api/v1/pack/</url>
+  <releases>
+    <release version="0.0.1" date="2026-03-30">
+      - First GPDSC OpenBootloader Model Release
+    </release>
+  </releases>
+  <conditions>
+<condition id="OpenBL_C5">
+    <description>Open Bootloader ready to use files on STM2C5</description>
+    <require Dvendor="STMicroelectronics:13" Dname="STM32C5*"/>
+  </condition>
+  <condition id="Use EXTMEM"/>
+  <condition id="Use full features">
+    <description>OpenBootloader global configuration :dependency to different files</description>
+    <require condition="Use USART"/>
+    <require condition="Use I2C"/>
+    <require condition="Use SPI"/>
+    <require condition="Use USB"/>
+    <require condition="Use FLASH"/>
+    <require condition="Use RAM"/>
+    <require condition="Use OB"/>
+    <require condition="Use EEPROM"/>
+    <require condition="Use OTP"/>
+    <require condition="Use ENGI"/>
+    <require condition="Use RO"/>
+    <require condition="Use ICP"/>
+    <require condition="Use EXTMEM"/>
+    <require condition="Use IWDG"/>
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader Core" Csub="Common"/>
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader Interface" Csub="Interface"/>
+  </condition>
+  <condition id="Use USART">
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader USART Module" Csub="USART_Module"/>
+    </condition>
+  <condition id="Use I2C">
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader I2C Module" Csub="I2C_Module"/>
+    </condition>
+  <condition id="Use I3C">
+    </condition>
+  <condition id="Use SPI">
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader SPI Module" Csub="SPI_Module"/>
+    </condition>
+  <condition id="Use FDCAN">
+    </condition>
+  <condition id="Use USB">
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader USB Module" Csub="USB_Module"/>
+    </condition>
+  <condition id="Use CAN">
+    </condition>
+  <condition id="Use FLASH">
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader Flash Module" Csub="Flash_Module"/>
+  </condition>
+  <condition id="Use RAM">
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader Ram Module" Csub="Ram_Module"/>
+  </condition>
+  <condition id="Use OB">
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader OB Module" Csub="OB_Module"/>
+  </condition>
+  <condition id="Use EEPROM">
+  </condition>
+  <condition id="Use OTP">
+  </condition>
+  <condition id="Use ENGI">
+  </condition>
+  <condition id="Use RO">
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader RO Bytes Module" Csub="RO_Module"/>
+  </condition>
+  <condition id="Use ICP">
+  </condition>
+  <condition id="Use IWDG">
+    <require Cclass="BOOTLOADER" Cgroup="OpenBootloader IWDG Module" Csub="IWDG_Module"/>
+  </condition>
+  </conditions>
+
+  <components>
+    <component generator="openbootloader_mx2codegen" Cclass="BOOTLOADER" Cgroup="STM32CubeMX2 Config" Csub="OpenBootloader"   Cversion="7.0.0" condition="Use full features">
+      <description>TO BE DEFINED</description>
+      <files>
+        <file category="source" name="mx_openbl_user.c" />
+        <file category="header" name="mx_openbl_user.h" />
+        <file category="header" name="openbl_conf.h" />
+        <file category="source" name="mx_openbl.c" />
+        <file category="header" name="mx_openbl.h" />
+      </files>
+    </component>
+  </components>
+</package>

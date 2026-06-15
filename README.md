@@ -1,6 +1,6 @@
 # STM32CubeC5 MCU Software Package
 
-![tag](https://img.shields.io/badge/tag-v2.0.0-brightgreen.svg)
+![tag](https://img.shields.io/badge/tag-2.1.0-brightgreen.svg)
 [![release note](https://img.shields.io/badge/release_note-view_html-gold.svg)](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/STM32CubeC5/blob/main/Release_Notes.html)
 [![documentation](https://img.shields.io/badge/online_doc-browse-blue.svg)](https://dev.st.com/stm32cube-docs/stm32c5-mcu-package/latest/en/index.html)
 [![offer](https://img.shields.io/badge/stm32cube_mcu_offer-browse-orange.svg)](https://github.com/STMicroelectronics/STM32Cube_MCU_Overall_Offer)

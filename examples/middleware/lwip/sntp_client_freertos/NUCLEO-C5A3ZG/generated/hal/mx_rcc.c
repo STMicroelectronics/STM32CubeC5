@@ -113,7 +113,7 @@ system_status_t mx_rcc_peripherals_clock_config(void)
     return SYSTEM_CLOCK_ERROR;
   }
 
-  hal_rcc_psi_config_t config_psi;
+    hal_rcc_psi_config_t config_psi;
   config_psi.psi_source = HAL_RCC_PSI_SRC_HSE;
   config_psi.psi_ref = HAL_RCC_PSI_REF_48MHZ;
   config_psi.psi_out = HAL_RCC_PSI_OUT_100MHZ;
@@ -139,7 +139,7 @@ system_status_t mx_rcc_peripherals_clock_config(void)
     /* In order to simplify the code generation and management for the user, the write protection is not enabled by
        default. In real case application, we advise to enable it once all the necessary configurations are done. */
     /* Enable RTC Domain Write Protection */
-    //HAL_PWR_EnableRTCDomainWriteProtection();
+    /* HAL_PWR_EnableRTCDomainWriteProtection(); */
 
     return SYSTEM_CLOCK_ERROR;
   }
@@ -147,7 +147,7 @@ system_status_t mx_rcc_peripherals_clock_config(void)
   /* In order to simplify the code generation and management for the user, the write protection is not enabled by
      default. In real case application, we advise to enable it once all the necessary configurations are done. */
   /* Enable RTC Domain Write Protection */
-  //HAL_PWR_EnableRTCDomainWriteProtection();
+  /* HAL_PWR_EnableRTCDomainWriteProtection(); */
 
   /* Peripherals using ETH1_DIV (50 MHz):
     ETH1

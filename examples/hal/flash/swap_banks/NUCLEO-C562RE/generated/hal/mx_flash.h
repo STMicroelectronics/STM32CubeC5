@@ -5,12 +5,12 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -25,9 +25,11 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_hal.h"
+#include "mx_def.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -51,7 +53,6 @@ void mx_flash_deinit(void);
   * @retval Pointer on the FLASH Handle
   */
 hal_flash_handle_t *mx_flash_gethandle(void);
-
 
 #ifdef __cplusplus
 }

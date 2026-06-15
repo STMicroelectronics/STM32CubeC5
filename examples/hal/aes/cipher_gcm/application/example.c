@@ -25,6 +25,7 @@
 /* Private define ------------------------------------------------------------*/
 #define AES_TIMEOUT_MS  100
 
+#define AES_ALIGNMENT         (4U) /* AES data alignment */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_aes_gcm_config_t p_gcm_config;  /* pointer referencing the GCM handle from the generated code */
@@ -48,6 +49,7 @@ hal_aes_handle_t *pAES;
   * CT = 8886e196010cb3849d9c1a182abe1eeab0a5f3ca423c3669a4a8703c0f146e8e956fb122e0d721b869d2b6fcd4216d7d4d3758
   * Tag = 2469cecd70fd98fec9264f71df1aee9a
   */
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t Key[8] =
 {
   0x463b4129, 0x11767d57, 0xa0b33969, 0xe674ffe7,
@@ -55,11 +57,13 @@ const uint32_t Key[8] =
 };
 
 /* Initialization vector */
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t IV[4] =
 {
   0x611ce6f9, 0xa6880750, 0xde7da6cb, 0x00000002
 };
 
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t plainText[13] =
 {
   0xe7d1dcf6, 0x68e28768, 0x61940e01, 0x2fe52a98,
@@ -69,6 +73,7 @@ uint32_t plainText[13] =
 };
 
 /* Additional authenticated data */
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t addData[12] =
 {
   0x0a682fbc, 0x6192e1b4, 0x7a5e0868, 0x787ffdaf,
@@ -90,8 +95,13 @@ const uint32_t expectedTag[4] =
 };
 
 /* Computed data buffers */
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t computedCiphertext[13] = {0};
+
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t computedPlaintext[13] = {0};
+
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t Tag[4] = {0};
 
 /* Private functions prototype -----------------------------------------------*/

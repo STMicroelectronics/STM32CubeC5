@@ -77,6 +77,8 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
+
+  /* Initialize RCC peripheral */
   if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
@@ -94,24 +96,22 @@ system_status_t mx_system_init(void)
     Peripheral init section
   */
 
-  /** mx_gpio_default_init()has been generated,
-    * (mx_example_exti_trigger_init)
+  /** gpio_default: mx_gpio_default_init() has been generated,
     * but it is expected that application will call it when best needed
     * according to application needs.
     * See Cube code generator options: Generate and call Initialization function
     */
 
-  /** mx_tim6_init()has been generated,
-    * but TIM6 is used as timebase
-    * then it is initialized in stm32_hal_timebase_tim.c.
-    */
-
-  /*
-  */
+  /** USART2 */
   if (mx_usart2_uart_init() == NULL)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
+
+  /** mx_tim6_init() has been generated,
+    * but TIM6 is used as timebase
+    * then it is initialized in stm32_hal_timebase_tim.c.
+    */
 
   if (post_system_init_hook() != SYSTEM_OK)
   {

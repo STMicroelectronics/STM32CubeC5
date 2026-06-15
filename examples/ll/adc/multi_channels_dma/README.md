@@ -2,7 +2,7 @@
 
 # __Example: *ll_adc_multi_channels_dma*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -74,7 +74,6 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
   The example uses ADC1 on channel ADC1_IN4.
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -87,7 +86,6 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
   The example uses ADC1 on channel ADC1_IN4.
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -101,7 +99,6 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

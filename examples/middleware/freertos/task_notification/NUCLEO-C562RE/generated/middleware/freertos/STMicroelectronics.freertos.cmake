@@ -32,7 +32,7 @@ endif()
 
 # Enable all components in this package
 if(CMSIS_ENTIRE_generated_STMicroelectronics_freertos_2_0_0)
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:RTOS#Cgroup:STM32CubeMX2 Config#Csub:FreeRTOS#Cversion:2.0.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:RTOS#Cgroup:STM32CubeMX2 Config#Csub:FreeRTOS#Cversion:2.1.0#generated:true")
 endif()
 
 # All conditions used by this package
@@ -149,9 +149,9 @@ set(generated_STMicroelectronics.freertos.2.0.0_Stream_Buffers_condition "1")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.freertos.2.0.0_Stream_Buffers_condition enabled")
 
 # Files and components in this package
-if("Cvendor:STMicroelectronics#Cclass:RTOS#Cgroup:STM32CubeMX2 Config#Csub:FreeRTOS#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_RTOS_STM32CubeMX2_Config_FreeRTOS_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_freertos_2_0_0 INTERFACE "$<${generated_STMicroelectronics.freertos.2.0.0_FreeRTOS_Init_condition}:-DCMSIS_USE_generated_RTOS_STM32CubeMX2_Config_FreeRTOS_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:RTOS#Cgroup:STM32CubeMX2 Config#Csub:FreeRTOS#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_RTOS_STM32CubeMX2_Config_FreeRTOS_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_freertos_2_0_0 INTERFACE "$<${generated_STMicroelectronics.freertos.2.0.0_FreeRTOS_Init_condition}:-DCMSIS_USE_generated_RTOS_STM32CubeMX2_Config_FreeRTOS_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_freertos_2_0_0 INTERFACE "$<${generated_STMicroelectronics.freertos.2.0.0_FreeRTOS_Init_condition}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_freertos_2_0_0 INTERFACE "$<${generated_STMicroelectronics.freertos.2.0.0_FreeRTOS_Init_condition}:${CMAKE_CURRENT_LIST_DIR}/mx_freertos_app.c>")
 endif()

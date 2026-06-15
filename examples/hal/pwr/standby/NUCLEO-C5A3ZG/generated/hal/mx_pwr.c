@@ -24,7 +24,7 @@
 /* Private functions prototype------------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for PWR in HAL layer (SW instance PWR) */
+/* Exported functions for PWR in HAL layer */
 /******************************************************************************/
 
 system_status_t mx_pwr_init(void)

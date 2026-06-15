@@ -24,6 +24,7 @@
 
 #include "mx_hal_def.h"       /* aliases to the target-specific generated code */
 #include "mx_led.h"           /* led_part_drivers */
+#include "mx_system.h"
 
 #ifdef __cplusplus
 extern "C" {

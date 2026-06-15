@@ -26,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 static hal_rng_handle_t hRNG;
 /******************************************************************************/
-/* Exported functions for RNG in HAL layer (SW instance MyRNG_1) */
+/* Exported functions for RNG in HAL layer */
 /******************************************************************************/
 hal_rng_handle_t *mx_rng_init(void)
 {
@@ -43,7 +43,6 @@ hal_rng_handle_t *mx_rng_init(void)
   }
 
   /* Code HAL_RNG_Config....*/
-  HAL_RNG_SetCandidateNISTConfig(&hRNG);
 
   return &hRNG;
 }
@@ -53,8 +52,6 @@ void mx_rng_deinit(void)
   (void)HAL_RNG_DeInit(&hRNG);
 
   HAL_RCC_RNG_Reset();
-
-  HAL_RCC_RNG_DisableClock();
 }
 
 hal_rng_handle_t *mx_rng_gethandle(void)

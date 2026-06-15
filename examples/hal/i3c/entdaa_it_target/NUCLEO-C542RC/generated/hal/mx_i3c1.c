@@ -27,7 +27,7 @@
 static hal_i3c_handle_t hI3C1;
 
 /******************************************************************************/
-/* Exported functions for I3C in HAL layer (SW instance MyI3C_1) */
+/* Exported functions for I3C in HAL layer */
 /******************************************************************************/
 hal_i3c_handle_t *mx_i3c1_init(void)
 {
@@ -66,24 +66,24 @@ hal_i3c_handle_t *mx_i3c1_init(void)
     return NULL;
   }
 
+  /* ### I3C1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOB_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    I3C1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB6     ------>   I3C1_SCL
-       PB7     ------>   I3C1_SDA
+       PB6     ------>   I3C1_SCL   ------>  PB6
+       PB7     ------>   I3C1_SDA   ------>  PB7
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
   gpio_config.alternate   = HAL_GPIO_AF_3;
-  HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOB, PB6_PIN | PB7_PIN, &gpio_config);
 
   /* Enable the Event interrupt for I3C1 */
   HAL_CORTEX_NVIC_SetPriority(I3C1_EV_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
@@ -110,8 +110,8 @@ void mx_i3c1_deinit(void)
 
   HAL_RCC_I3C1_DisableClock();
 
-  /* De-initialize all GPIO pins associated with I3C1 */
-  HAL_GPIO_DeInit(HAL_GPIOB, HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7);
+  /* De-initialize all GPIOB pins associated with I3C1 */
+  HAL_GPIO_DeInit(HAL_GPIOB, PB6_PIN | PB7_PIN);
 }
 
 hal_i3c_handle_t *mx_i3c1_gethandle(void)

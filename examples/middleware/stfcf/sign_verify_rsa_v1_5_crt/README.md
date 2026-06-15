@@ -2,7 +2,7 @@
 
 # __Example: *stfcf_sign_verify_rsa_v1_5_crt*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -39,8 +39,8 @@ The application executes the following __example steps__:
 
  - __Step 2__: Computes the signature of the message using the Chinese Remainder Theorem (CRT) representation, so that generated signature can be compared to the known signature.
 
-      Step 2.2: Computes directly the signature using the CRT private key representation.
-      Step 2.3: Verifies the message with the known signature.
+      Step 2.1: Computes directly the signature using the CRT private key representation.
+      Step 2.2: Verifies the message with the previously computed signature.
 
  - __Step 3__: Deinitializes the RNG instance and clears data of the PSA layer before leaving the scenario.
 
@@ -55,7 +55,7 @@ If you enable `USE_TRACE`, you can follow these execution steps in the terminal 
 [INFO] Step 1.1: RNG initialization COMPLETED.
 [INFO] Step 1.2: PSA key configuration COMPLETED.
 [INFO] Step 2.1: Compute signature using the CRT private key representation COMPLETED.
-[INFO] Step 2.2: Verify message COMPLETED.
+[INFO] Step 2.2: Verify the message with the previously computed signature COMPLETED.
 [INFO] Step 3.1: Cleanup COMPLETED.
 [INFO] Step 3.2: RNG deinitialization COMPLETED.
 ```
@@ -74,8 +74,42 @@ No generic hardware dependencies for this example.
 
 ### __3.2. Specific board setups__
 
-No specific hardware dependencies for this example.
+<details>
+  <summary>On STM32C5 series.</summary>
+  <details>
+    <summary>On board NUCLEO-C542RC.</summary>
 
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |    OSC_IN     |
+  |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
+  |    PA2    |   USART2_TX   |      PA2      |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C562RE.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |    OSC_IN     |
+  |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
+  |    PA2    |   USART2_TX   |      PA2      |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C5A3ZG.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN   |
+  |    PH1    |  RCC_OSC_OUT  |  PH1_OSC_OUT  |
+  |    PA2    |   USART2_TX   | DBGIN_VCP_TX  |
+
+  </details>
+</details>
 
 ## __4. Troubleshooting__
 

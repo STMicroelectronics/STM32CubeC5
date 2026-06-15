@@ -1,6 +1,6 @@
 <img src="doc/subbrand-stm32.svg" width="50" alt="STM32 Subbrand Logo"/>
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 # __Template: *example_template_start_from_nucleo*__
 

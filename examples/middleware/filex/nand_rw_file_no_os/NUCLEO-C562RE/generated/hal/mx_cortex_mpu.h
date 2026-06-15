@@ -24,6 +24,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
+
 #include "stm32_hal.h"
 #include "mx_def.h"
 
@@ -33,7 +34,7 @@ extern "C" {
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /******************************************************************************/
-/* Exported functions for CORTEX in HAL layer */
+/* Exported functions for CORTEX_MPU in HAL layer */
 /******************************************************************************/
 /**
   * @brief mx_cortex_mpu init function

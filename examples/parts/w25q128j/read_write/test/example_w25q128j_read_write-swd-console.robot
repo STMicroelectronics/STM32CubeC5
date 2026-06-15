@@ -1,0 +1,61 @@
+*** Comments ***
+Copyright (c) 2026 STMicroelectronics.
+All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file
+in the root directory of this software component.
+If no LICENSE file comes with this software, it is provided AS-IS.
+
+Documentation on how to run    test suites: https://codex.cro.st.com/plugins/mediawiki/wiki/stm32cube/index.php?title=Developer_Journey:_Running_Robot_tests
+Documentation on how to write test suites: https://codex.cro.st.com/plugins/mediawiki/wiki/stm32cube/index.php?title=Developer_Journey:_Writing_a_Robot_test
+
+
+*** Settings ***
+Documentation       Automatic test for example_w25q128j_read_write.
+...                 This test suite is verifying that the application binary runs without error,
+...                 according to the README documentation.
+
+Library             robot_for_stm32
+Library             robot_for_stm32.STM32CubeProgrammer
+Library             robot_for_stm32.Console
+Variables           robot_for_stm32.cube_examples_constants
+
+Test Setup          Default Setup    ${TEST_CONFIG_FILE}
+Test Teardown       Default Cleanup
+
+Test Tags           ip:parts_w25q128j    profile:printf
+
+
+*** Test Cases ***
+${TEST_ID} Scenario adherence
+    [Documentation]    This test checks that the application binary runs according to
+    ...    the scenario described in the README.
+    Example Step 1
+    Example Step 2
+    Example Step 3
+    Example Step 4
+    Example Step 5
+
+
+*** Keywords ***
+Example Step 1
+    [Documentation]    Initializes the w25q128j part.
+    Comment    Can't check ExecStatus = EXEC_STATUS_INIT_OK: this value is transient.
+    Read Console Until    [INFO] Step 1: Device initialization COMPLETED.
+
+Example Step 2
+    [Documentation]    Erases the sector in witch we want to write
+    Read Console Until    [INFO] Step 2: Sector erased .
+
+Example Step 3
+    [Documentation]    Writes a data buffer to the flash memory.
+    Read Console Until    [INFO] Step 3: Data buffer written to the flash memory.
+
+Example Step 4
+    [Documentation]    Reads the same data buffer from the flash memory, and checks that it matches the buffer written in step 2.
+    Read Console Until    [INFO] Step 4: Data buffer read from the flash memory and matching the initial value.
+
+Example Step 5
+    [Documentation]    Deinitializes the w25q128j before leaving the scenario.
+    Read Console Until    [INFO] Step 5: Device de-initialization.
+    Check Integer Variable    ExecStatus    ${EXEC_STATUS_OK}    timeout=5s

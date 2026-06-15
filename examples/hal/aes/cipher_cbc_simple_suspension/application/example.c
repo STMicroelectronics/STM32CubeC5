@@ -23,6 +23,8 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define AES_TIMEOUT_MS 1000
+
+#define AES_ALIGNMENT         (4U) /* AES data alignment */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_aes_handle_t *pAES; /* pointer referencing the AES handle from the generated code */
@@ -52,17 +54,20 @@ hal_tim_handle_t *pTim; /* pointer referencing the TIM handle from the generated
   * Output Block 3ff1caa1681fac09120eca307586e1a7
   * Ciphertext 3ff1caa1 681fac09 120eca30 7586e1a7
   */
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t Key[4] =
 {
   0x2b7e1516, 0x28aed2a6, 0xabf71588, 0x09cf4f3c
 };
 
 /* Initialization vector */
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t IV[4] =
 {
   0x00010203, 0x04050607, 0x08090a0b, 0x0c0d0e0f
 };
 
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t plainText[16] =
 {
   0x6bc1bee2, 0x2e409f96, 0xe93d7e11, 0x7393172a,
@@ -79,15 +84,19 @@ const uint32_t expectedCiphertext[16] =
   0x3ff1caa1, 0x681fac09, 0x120eca30, 0x7586e1a7
 };
 /* Computed data buffers */
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t computedCiphertext[16] = {0};
 /* Set to 1 if the output transfer is correctly completed */
-uint32_t OutTransferCpltCb;
+volatile uint32_t OutTransferCpltCb;
 /* Set to 1 if a transfer error is detected */
-uint32_t ErrorCb;
+volatile uint32_t ErrorCb;
 /* Set to 1 if a suspension is detected */
-uint32_t SuspendCb;
-uint32_t Suspendflag = 0;
+volatile uint32_t SuspendCb;
+volatile uint32_t Suspendflag = 0;
 /* Private functions prototype -----------------------------------------------*/
+
+/* Function executed in case of a data Transfer error */
+static app_status_t HandleTransferError(uint32_t hal_status, uint32_t aes_error_code);
 /* Functions allowing the user to configure dynamically the AES callbacks instead of weak functions */
 static void OutTransfertCpltCallback(hal_aes_handle_t *pAES);
 static void ErrorCallback(hal_aes_handle_t *pAES);
@@ -165,6 +174,9 @@ _app_init_exit:
 app_status_t app_process(void)
 {
   app_status_t return_status = EXEC_STATUS_ERROR;
+  hal_status_t hal_status;
+  /* Memorizes the AES error code limited to the last process */
+  uint32_t aes_error_code;
   hal_aes_save_context_t p_aes_context;
   HAL_TIM_Start_IT(pTim);
   /** ########## Step 2.1 ##########
@@ -198,7 +210,8 @@ app_status_t app_process(void)
     goto _app_process_exit;
   }
   /* Resume the IT encryption process */
-  if (HAL_AES_Resume(pAES) != HAL_OK)
+  hal_status = HAL_AES_Resume(pAES);
+  if (hal_status != HAL_OK)
   {
     goto _app_process_exit;
   }
@@ -208,8 +221,19 @@ app_status_t app_process(void)
     *  Verifies if the IT encryption process is completed.
     */
 
-  if ((ErrorCb == 1) && (OutTransferCpltCb == 0))
+  /* Waits for one of these AES interrupts: output transfer complete or transfer error.*/
+  while ((OutTransferCpltCb == 0) && (ErrorCb == 0))
   {
+    /** Put the CPU in Wait For Interrupt state. An AES interrupt or a SystTick interrupt can wake up the CPU.
+      * @user: This process is used to illustrate the interest of the interrupts. It can be replaced by your own code.
+      */
+    __WFI();
+  }
+  if (ErrorCb == 1)
+  {
+    /* An error occurs at the startup of the AES output transfer*/
+    aes_error_code = HAL_AES_GetLastErrorCodes(pAES);
+    return_status = HandleTransferError(hal_status, aes_error_code);
     goto _app_process_exit;
   }
 
@@ -280,3 +304,17 @@ void HAL_TIM_UpdateCallback(hal_tim_handle_t *pTIM)
     }
   }
 }
+
+
+/** brief:  This function is executed in case of a data error.
+  * param hal_status:  HAL status of the AES operations.
+  * param aes_error_code:  AES Error Code.
+  * retval: example status
+  */
+static app_status_t HandleTransferError(uint32_t hal_status, uint32_t aes_error_code)
+{
+  PRINTF("[ERROR] Transfer ERROR: hal_status = %" PRIu32 ", \
+  HAL_AES_GetLastErrorCodes = %" PRIu32 ". TRYING AGAIN.\n", hal_status, aes_error_code);
+
+  return EXEC_STATUS_ERROR;
+} /* end HandleTransferError */

@@ -26,6 +26,10 @@
 /* @user: must be equal to the size (in bytes) of the buffer received from the controller */
 #define BUFFER_SIZE 41U
 
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+   Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ALIGNMENT        (8U)
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_i2c_handle_t *pI2C;  /* pointer referencing the I2C handle from the generated code */
@@ -34,9 +38,9 @@ hal_i2c_handle_t *pI2C;  /* pointer referencing the I2C handle from the generate
   * - Buffer placed in non-cacheable memory for data cache consistency.
   * Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
   * - Buffer aligned for DMA constraints. As DMA is configured for bytes transfer, byte-alignment is required.
-  * This is always ensured but the aligned(1) directive is harmless.
+  * This is always ensured but the aligned(DMA_ALIGNMENT) directive is harmless.
   */
-__attribute__((section(".non_cacheable_variables"), aligned(1)))
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 uint8_t RxBuffer[BUFFER_SIZE] = {0U};
 
 volatile uint8_t TxTransferComplete; /* Set to 1 if the write transfer is correctly completed */

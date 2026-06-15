@@ -28,9 +28,8 @@ static hal_tim_handle_t hTIM1;
 static hal_dma_handle_t hLPDMA1_CH0;
 
 /* Exported function definition ----------------------------------------------*/
-
 /******************************************************************************/
-/* Exported functions for TIM1 in HAL layer (SW instance MyTIM_1) */
+/* Exported functions for TIM1 in HAL layer */
 /******************************************************************************/
 hal_tim_handle_t *mx_tim1_init(void)
 {
@@ -77,7 +76,7 @@ hal_tim_handle_t *mx_tim1_init(void)
 
   oc_compare_unit_config.mode  = HAL_TIM_OC_PWM1;
   oc_compare_unit_config.pulse = 0x8000;
-  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, hal_tim_oc_channel_to_compare_unit(HAL_TIM_CHANNEL_2),
+  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, HAL_TIM_OC_COMPARE_UNIT_2,
                                       &oc_compare_unit_config) != HAL_OK)
   {
     return NULL;
@@ -98,7 +97,7 @@ hal_tim_handle_t *mx_tim1_init(void)
   }
   oc_compare_unit_config.mode  = HAL_TIM_OC_PWM1;
   oc_compare_unit_config.pulse = 0x8000;
-  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, hal_tim_oc_channel_to_compare_unit(HAL_TIM_CHANNEL_3),
+  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, HAL_TIM_OC_COMPARE_UNIT_3,
                                       &oc_compare_unit_config) != HAL_OK)
   {
     return NULL;
@@ -119,7 +118,7 @@ hal_tim_handle_t *mx_tim1_init(void)
   }
   oc_compare_unit_config.mode  = HAL_TIM_OC_PWM1;
   oc_compare_unit_config.pulse = 0x8000;
-  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, hal_tim_oc_channel_to_compare_unit(HAL_TIM_CHANNEL_4),
+  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, HAL_TIM_OC_COMPARE_UNIT_4,
                                       &oc_compare_unit_config) != HAL_OK)
   {
     return NULL;
@@ -149,25 +148,25 @@ hal_tim_handle_t *mx_tim1_init(void)
     return NULL;
   }
 
+  /* ### TIM1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    TIM1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA9     ------>   TIM1_CH2
-       PA10    ------>   TIM1_CH3
-       PA11    ------>   TIM1_CH4
+       PA9     ------>   TIM1_CH2   ------>  PA9
+       PA10    ------>   TIM1_CH3   ------>  PA10
+       PA11    ------>   TIM1_CH4   ------>  USB_FS_N
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_1;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_9 | HAL_GPIO_PIN_10 | HAL_GPIO_PIN_11, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOA, PA9_PIN | PA10_PIN | USB_FS_N_PIN, &gpio_config);
 
   /* Timer Update DMA Request Configuration */
       if (HAL_DMA_Init(&hLPDMA1_CH0, HAL_LPDMA1_CH0) != HAL_OK)
@@ -212,8 +211,8 @@ void mx_tim1_deinit(void)
 
   HAL_RCC_TIM1_Reset();
 
-  /* De-initialize all GPIO pins associated with TIM1 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_9 | HAL_GPIO_PIN_10 | HAL_GPIO_PIN_11);
+  /* De-initialize all GPIOA pins associated with TIM1 */
+  HAL_GPIO_DeInit(HAL_GPIOA, PA9_PIN | PA10_PIN | USB_FS_N_PIN);
 
   /* De-initialize the DMA channel */
   HAL_DMA_DeInit(&hLPDMA1_CH0);

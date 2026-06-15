@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file           : mx_seq.h
-  * @brief          : header for mx_seq.c
+  * @brief          : Header for mx_seq.c
   ******************************************************************************
   * @attention
   *
@@ -30,34 +30,35 @@ extern "C" {
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-/* Private function ----------------------------------------------------------*/
+/* Private function prototypes -----------------------------------------------*/
 
 /******************************************************************************/
-/* Exported defines for mx_seq in sequencer utility                           */
+/* Exported defines for the Sequencer utility                                 */
 /******************************************************************************/
 
 /**
-  * @brief  user tasks ID definition
+  * @brief  User task ID definitions.
   */
 #define  MX_TASK_TOGGLE  SEQ_TASK_0
 
 /* Exported functions ------------------------------------------------------- */
 
 /******************************************************************************/
-/* Exported functions for mx_seq in sequencer utility                         */
+/* Exported functions for the Sequencer utility                               */
 /******************************************************************************/
 
 /**
-  * @brief seq initialization function
-  * This function call the seq init function
+  * @brief  Sequencer initialization function.
   */
+
 void mx_seq_init(void);
 
 /**
-  * @brief task functions definition
-  *
+  * @brief  Task function declarations.
   */
+
 void gpio_toggle(void);
+
 
 #ifdef __cplusplus
 }

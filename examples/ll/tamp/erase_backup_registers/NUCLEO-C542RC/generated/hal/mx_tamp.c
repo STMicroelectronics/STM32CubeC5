@@ -26,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for TAMP in LL layer (SW instance MyTAMP_1) */
+/* Exported functions for TAMP in LL layer */
 /******************************************************************************/
 system_status_t mx_tamp_init(void)
 {
@@ -58,3 +58,11 @@ void mx_tamp_deinit(void)
   /* Disable the interuption for TAMP */
   NVIC_DisableIRQ(TAMP_IRQn);
 }
+
+/******************************************************************************/
+/*         Tamper global interrupts is managed directly in user code.         */
+/******************************************************************************/
+/* void TAMP_IRQHandler(void)
+{
+}
+  */

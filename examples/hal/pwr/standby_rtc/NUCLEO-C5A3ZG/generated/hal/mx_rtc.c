@@ -25,8 +25,9 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/** Exported functions for RTC in HAL layer (SW instance MyRTC_1)            **/
+/** Exported functions for RTC in HAL layer            **/
 /******************************************************************************/
+
 system_status_t mx_rtc_init(void)
 {
   /* Disable RTC Domain Write Protection */
@@ -35,7 +36,7 @@ system_status_t mx_rtc_init(void)
   /* Clock configuration */
   if (HAL_RCC_RTC_SetKernelClkSource(HAL_RCC_RTC_CLK_SRC_LSE) != HAL_OK)
   {
-    return SYSTEM_CLOCK_ERROR;
+    return SYSTEM_PERIPHERAL_ERROR;
   }
 
   HAL_RCC_RTCAPB_EnableClock();
@@ -105,8 +106,8 @@ void mx_rtc_deinit(void)
   HAL_CORTEX_NVIC_DisableIRQ(RTC_IRQn);
 }
 
- /******************************************************************************/
-/**                     RTC global non-secure interrupts                     **/
+/******************************************************************************/
+/*                      RTC global non-secure interrupts                      */
 /******************************************************************************/
 void RTC_IRQHandler(void)
 {

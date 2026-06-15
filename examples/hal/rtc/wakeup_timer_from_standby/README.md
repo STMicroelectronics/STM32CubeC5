@@ -2,7 +2,7 @@
 
 # __Example: *hal_rtc_wakeup_timer_from_standby*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.4
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -19,7 +19,6 @@ __Step 1__:
 
  - __Step 1.1__: Detects whether the device resumed from Standby or this is the first start.
  - __Step 1.2__: On first start, initializes the RTC peripheral once.
- - __Step 1.3__: Starts the RTC Wake-Up Timer with interrupt enabled.
 
 __Step 2__: Handles the Standby phase.
 
@@ -42,11 +41,10 @@ You can verify that the example runs properly via the status LED and the `ExecSt
 If you enable `USE_TRACE`, you can follow these execution steps in the terminal logs:
 
 ```text
-[INFO] Step 1.1: First start.
-[INFO] Step 1.2: Device initialization COMPLETED.
-[INFO] Step 1.3: Enable RTC wakeup interrupt.
+[INFO] Step 1.1: RTC initialization.
+[INFO] Step 1.2: RTC initialization COMPLETED.
 [INFO] Step 2.1: Enter STANDBY mode - After 3s RTC will generate a wakeup interrupt.
-[INFO] Step 2.2: Restart from STANDBY mode.
+[INFO] Step 2.2: Resumed from STANDBY mode and count the wakeups.
 ...
 [INFO] Step 3: Target wakeup count reached.
 [INFO] Step 4: RTC deinitialization COMPLETED.
@@ -100,7 +98,6 @@ This section describes the exact hardware configuration of your project.
   |    PA2    |   USART2_TX   |      PA2      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -114,7 +111,6 @@ This section describes the exact hardware configuration of your project.
   |    PA2    |   USART2_TX   |      PA2      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -137,7 +133,6 @@ This section describes the exact hardware configuration of your project.
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

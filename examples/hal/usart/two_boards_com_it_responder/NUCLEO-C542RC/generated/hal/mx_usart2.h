@@ -70,7 +70,6 @@ hal_usart_handle_t *mx_usart2_usart_gethandle(void);
 /******************************************************************************/
 /*                          USART2 global interrupt                           */
 /******************************************************************************/
-
 void USART2_IRQHandler(void);
 #ifdef __cplusplus
 }

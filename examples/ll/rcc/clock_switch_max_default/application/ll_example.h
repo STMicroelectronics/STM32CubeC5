@@ -1,0 +1,57 @@
+/**
+  ******************************************************************************
+  * file           : ll_example.h
+  * brief          : Header for stm32ynxx_ll_example.c files.
+  *                  This file contains example-specific declarations to interface with example.c functions.
+  ******************************************************************************
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef LL_EXAMPLE_H
+#define LL_EXAMPLE_H
+
+/* Includes ------------------------------------------------------------------*/
+#include "mx_hal_def.h"       /* aliases to the target-specific generated code */
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+/* Exported types ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
+#ifndef USE_LL_APP_TIMEOUT
+#define USE_LL_APP_TIMEOUT 0U
+#endif /* USE_LL_APP_TIMEOUT */
+
+/* Exported macros -----------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+
+/** brief: Reset the MX_RCCx instance clock configuration to the default system clock (HSIDIV3 at 48 MHz).
+  */
+system_status_t RCC_ResetSystemClock(void);
+
+/** brief: MX_RCCx disable oscillator.
+  */
+void RCC_DisableOscillator(void);
+
+/** brief: Wait for approximate delay in milliseconds.
+  */
+void DelayMs(uint32_t delay_ms);
+
+/** brief: Get current SYSCLK frequency based on the active system clock source.
+  */
+uint32_t RCC_GetSYSCLKFreq(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* LL_EXAMPLE_H */

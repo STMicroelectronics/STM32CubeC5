@@ -50,6 +50,8 @@ hal_pcd_handle_t *mx_usb_drd_fs_device_init(void)
 
   pcd_config.phy_interface = HAL_PCD_PHY_EMBEDDED_FS;
   pcd_config.pcd_speed = HAL_PCD_SPEED_FS;
+
+  pcd_config.sof_enable = HAL_PCD_SOF_DISABLED;
   pcd_config.battery_charging_enable = HAL_PCD_BCD_DISABLED;
   pcd_config.lpm_enable = HAL_PCD_LPM_DISABLED;
   pcd_config.bulk_doublebuffer_enable = HAL_PCD_BULK_DB_DISABLED;
@@ -59,6 +61,8 @@ hal_pcd_handle_t *mx_usb_drd_fs_device_init(void)
   HAL_PCD_PMAConfig(&hUSB_DRD_FS_PCD, 0x80, HAL_PCD_SNG_BUF, 0x20);
   HAL_PCD_PMAConfig(&hUSB_DRD_FS_PCD, 0x0, HAL_PCD_SNG_BUF, 0x60);
   HAL_PCD_PMAConfig(&hUSB_DRD_FS_PCD, 0x81, HAL_PCD_SNG_BUF, 0xA0);
+
+  /* No GPIO configuration required for USB */
 
   /* Enable the interruption for PCD */
   HAL_CORTEX_NVIC_SetPriority(USB_DRD_FS_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_6, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
@@ -71,7 +75,6 @@ void mx_usb_drd_fs_device_deinit(void)
   /* Deinititialize hUSB_DRD_FS_PCD */
   HAL_PCD_DeInit(&hUSB_DRD_FS_PCD);
 }
-
 /**
   * @brief Get USB PCD handle
   * @param None

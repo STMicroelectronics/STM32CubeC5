@@ -77,6 +77,8 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
+
+  /* Initialize RCC peripheral */
   if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
@@ -93,27 +95,24 @@ system_status_t mx_system_init(void)
   /*
     Peripheral init section
   */
-  /*
-  */
-  if (mx_crs_init() == NULL)
-  {
-    return SYSTEM_PERIPHERAL_ERROR;
-  }
 
-  /*
-    mx_example_exti_trigger_init
-  */
+  /** gpio_default */
   if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
-  /** mx_usb_drd_fs_device_init()has been generated,
-    * (mx_example_pcd_init)
+  /** USB_DRD_FS_DEVICE: mx_usb_drd_fs_device_init() has been generated,
     * but it is expected that application will call it when best needed
     * according to application needs.
     * See Cube code generator options: Generate and call Initialization function
     */
+
+  /** CRS */
+  if (mx_crs_init() == NULL)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
 
   if (post_system_init_hook() != SYSTEM_OK)
   {

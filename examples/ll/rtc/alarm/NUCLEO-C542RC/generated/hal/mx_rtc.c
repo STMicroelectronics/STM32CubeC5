@@ -17,6 +17,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "mx_rtc.h"
+#include "mx_rcc.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
@@ -25,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/** Exported functions for RTC in LL layer (SW instance MyRTC_1)            **/
+/** Exported functions for RTC in LL layer            **/
 /******************************************************************************/
 
 system_status_t mx_rtc_init(void)
@@ -34,7 +35,10 @@ system_status_t mx_rtc_init(void)
   LL_PWR_DisableRTCDomainWriteProtection();
 
   /* Clock configuration */
-  LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSE);
+  if (mx_rcc_rtc_clock_config() != SYSTEM_OK)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
 
   LL_APB3_GRP1_EnableClock(LL_APB3_GRP1_PERIPH_RTCAPB);
   LL_RCC_EnableRTC();
@@ -112,6 +116,8 @@ system_status_t mx_rtc_init(void)
   /* Enable write protection */
   LL_RTC_EnableWriteProtection();
 
+  /* No GPIO configuration required for RTC */
+
   NVIC_SetPriority(RTC_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
   NVIC_EnableIRQ(RTC_IRQn);
 
@@ -121,13 +127,13 @@ system_status_t mx_rtc_init(void)
 void mx_rtc_deinit(void)
 {
   NVIC_DisableIRQ(RTC_IRQn);
+  /* No GPIO de-initialization required for RTC */
 }
 
 /******************************************************************************/
-/*    RTC global non-secure interrupts is managed directly in user code.   */
+/*     RTC global non-secure interrupts is managed directly in user code.     */
 /******************************************************************************/
-/*
-void RTC_IRQHandler(void)
+/* void RTC_IRQHandler(void)
 {
 }
   */

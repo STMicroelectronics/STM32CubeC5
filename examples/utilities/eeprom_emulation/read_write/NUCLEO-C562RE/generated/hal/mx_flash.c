@@ -1,15 +1,16 @@
 /**
   ******************************************************************************
   * @file           : mx_flash.c
-  * @brief          : Flash initialisation
+  * @brief          : FLASH Peripheral initialization
   ******************************************************************************
+  * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -17,35 +18,40 @@
 /* Includes ------------------------------------------------------------------*/
 #include "mx_flash.h"
 
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
+/* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-/* Private variables  -------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
-/* Exported variables by reference -------------------------------------------*/
-/*flash handle*/
-
+/* Private macros ------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+/* Private functions prototype------------------------------------------------*/
+/* Exported variables by reference--------------------------------------------*/
 static hal_flash_handle_t hFLASH;
-
-hal_flash_handle_t *flash_instance0_cfg1_init(void)
+/******************************************************************************/
+/*     Exported functions for FLASH in HAL layer */
+/******************************************************************************/
+hal_flash_handle_t *mx_flash_init(void)
 {
-  /* Init Flash */
   if (HAL_FLASH_Init(&hFLASH, HAL_FLASH) != HAL_OK)
   {
-    return NULL;
+   return NULL;
   }
-  else
-  {
-    return &hFLASH;
-  }
+
+  return &hFLASH;
 }
 
-void flash_deinit(void)
+void mx_flash_deinit(void)
 {
-  (void)HAL_FLASH_DeInit(&hFLASH);
+  HAL_FLASH_DeInit(&hFLASH);
 }
 
-hal_flash_handle_t *mx_hal_flash_gethandle(void)
+hal_flash_handle_t *mx_flash_gethandle(void)
 {
   return &hFLASH;
+}
+
+/******************************************************************************/
+/*                            FLASH NMI interrupt                             */
+/******************************************************************************/
+system_status_t FLASH_NMI_IRQHandler(void)
+{
+  return ((HAL_FLASH_NMI_IRQHandler(&hFLASH) == HAL_OK) ? SYSTEM_OK : SYSTEM_PERIPHERAL_ERROR);
 }

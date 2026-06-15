@@ -17,7 +17,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-#include "basic_stdio_core.h"
+#include "mx_basic_stdio_app.h"
 
 /* Private typedef -----------------------------------------------------------*/
 
@@ -53,10 +53,8 @@ int main(void)
   }
   else
   {
-#if defined(USE_TRACE) && USE_TRACE != 0
     /* Initialize basic_stdio separately, but after system init. */
-    BASIC_STDIO_Init(mx_basic_stdio_gethandle());
-#endif /* defined(USE_TRACE) && USE_TRACE != 0 */
+    mx_basic_stdio_init();
 
     /** Example execution: this hardware and IDE agnostic code contains the scenario that we demonstrate.
       * This is the applicative code showing how to use the peripheral (functionality-wise).

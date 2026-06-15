@@ -2,7 +2,7 @@
 
 # __Example: *freertos_task_notification*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -59,6 +59,11 @@ If you enable `USE_TRACE`, you can follow these execution steps in the terminal 
 
 [![Configuration Manual](doc/configure_with-ConfigurationMa.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/configure/config_toc.html "An offline version is also available in the Cube Firmware package.")
 
+__TIM__:
+
+FreeRTOS exclusively uses the SysTick as its timebase. Thus a timer should be configured to be used as a separate timebase for the HAL.
+To do so, the HALCore is configured to use the desired TIM peripheral. The initialization is handled through the HAL within HAL_InitTick() function.
+
 
 ## __3. Hardware environment and setup__
 
@@ -72,6 +77,8 @@ Please find the exact hardware configurations of your project below.
   <summary>On STM32C5 series.</summary>
   <details>
   <summary>On board NUCLEO-C562RE.</summary>
+
+  The `TIM6`, is used as a separate timebase for the HAL.
 
   | Board connector   | MCU pin | Signal name      | ARDUINO pin |
   | :---:             | :---:   | :---:            | :---:       |

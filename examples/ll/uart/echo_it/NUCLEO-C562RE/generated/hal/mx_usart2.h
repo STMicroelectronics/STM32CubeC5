@@ -61,7 +61,6 @@ void mx_usart2_uart_deinit(void);
 /******************************************************************************/
 /*         USART2 global interrupt is managed directly in user code.          */
 /******************************************************************************/
-
 /* void USART2_IRQHandler(void); */
 #ifdef __cplusplus
 }

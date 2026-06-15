@@ -33,6 +33,7 @@ extern "C" {
 #include "mx_gpio_default.h"
 #include "mx_icache.h"
 #include "mx_rcc.h"
+#include "mx_rng.h"
 #include "mx_tim2.h"
 #include "mx_usart2.h"
 
@@ -89,6 +90,12 @@ extern "C" {
     RCC: No software label has been defined for this peripheral instance
       in the STM32CubeMX2 configuration panel.
       As a result, no aliases are generated for mx_rcc_init
+    ************************************************************* */
+
+  /* *************************************************************
+    RNG: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_rng_init
     ************************************************************* */
 
   /* ***********************************************************
@@ -153,6 +160,12 @@ extern "C" {
       As a result, no aliases are generated for mx_icache_deinit
     ************************************************************* */
 
+  /* *************************************************************
+    RNG: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_rng_deinit
+    ************************************************************* */
+
   /* ***********************************************************
       TIM2: aliases for De-Initialization functions
     *********************************************************** */
@@ -188,6 +201,12 @@ extern "C" {
     ICACHE: No software label has been defined for this peripheral instance
       in the STM32CubeMX2 configuration panel.
       As a result, no aliases are generated for mx_icache_gethandle
+    ************************************************************* */
+
+  /* *************************************************************
+    RNG: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_rng_gethandle
     ************************************************************* */
 
   /* ***********************************************************

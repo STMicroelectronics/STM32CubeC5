@@ -303,7 +303,7 @@ static system_status_t I2C_WaitOnFlagUntilTimeout(uint32_t flag, uint32_t status
 #endif /* USE_LL_APP_ERROR */
 
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout-- == 0)
       {
@@ -374,7 +374,7 @@ static system_status_t I2C_WaitOnRXNEFlagUntilTimeout(uint32_t timeout_ms)
     }
 
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout-- == 0)
       {
@@ -422,7 +422,7 @@ static system_status_t I2C_IsErrorOccurred(uint32_t it_flags, uint32_t timeout_m
     {
       /* Check for the timeout */
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-      if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+      if (SysTick_IsActiveCounterFlag() != 0)
       {
         if (timeout-- == 0)
         {
@@ -442,7 +442,7 @@ static system_status_t I2C_IsErrorOccurred(uint32_t it_flags, uint32_t timeout_m
           {
             /* Check for the timeout */
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-            if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+            if (SysTick_IsActiveCounterFlag() != 0)
             {
               if (timeout-- == 0)
               {

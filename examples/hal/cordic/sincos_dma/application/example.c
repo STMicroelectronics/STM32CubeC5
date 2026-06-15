@@ -25,7 +25,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Size of data array */
 #define ARRAY_SIZE        64U
-#define DMA_ALIGNMENT     4U  /* User constant to match the DMA transfer size: 4 bytes alignment for word transfer */
+#define DMA_ALIGNMENT     8U  /* User constant to match the DMA transfer size: 8 bytes alignment for word transfer */
 
 
 /** Reference values in Q1.31 format
@@ -72,7 +72,7 @@ static float32_t AnglesDivPi[ARRAY_SIZE];
   * Refer to the README and the STM32 reference manual for data cache details.
   * Non-cacheable section not mapped if unnecessary.
   */
-__attribute__((section(".non_cacheable_variables"), aligned(DMA_ALIGNMENT)))
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 static q31_t Q1_31[ARRAY_SIZE];
 
 /** Output array of the CORDIC calculated sines (even indexes) and cosines (odd indexes) in Q1.31 format, used by CPU
@@ -84,7 +84,7 @@ static q31_t Q1_31[ARRAY_SIZE];
   * Refer to the README and the STM32 reference manual for data cache details.
   * Non-cacheable section not mapped if unnecessary.
   */
-__attribute__((section(".non_cacheable_variables"), aligned(DMA_ALIGNMENT)))
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 static int32_t CalculatedSinCos[2 * ARRAY_SIZE];
 
 /** HAL CORDIC data buffer descriptors

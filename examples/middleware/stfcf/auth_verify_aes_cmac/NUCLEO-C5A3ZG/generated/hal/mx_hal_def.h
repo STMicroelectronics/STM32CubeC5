@@ -27,10 +27,12 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "mx_def.h"
 #include "stm32_hal.h"
+#include "mx_aes.h"
 #include "mx_cortex_mpu.h"
 #include "mx_cortex_nvic.h"
 #include "mx_crc.h"
 #include "mx_gpio_default.h"
+#include "mx_hash.h"
 #include "mx_icache.h"
 #include "mx_rcc.h"
 #include "mx_rng.h"
@@ -42,6 +44,12 @@ extern "C" {
 /* Exported macros -----------------------------------------------------------*/
 
 /* ########### Aliases to initialization functions ########### */
+
+  /* *************************************************************
+    AES: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_aes_init
+    ************************************************************* */
 
   /* *************************************************************
     Cortex_MPU: No software label has been defined for this peripheral instance
@@ -80,6 +88,12 @@ extern "C" {
 #define mx_gpio_status_led_init mx_gpio_default_init
 
   /* *************************************************************
+    HASH: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_hash_init
+    ************************************************************* */
+
+  /* *************************************************************
     ICACHE: No software label has been defined for this peripheral instance
       in the STM32CubeMX2 configuration panel.
       As a result, no aliases are generated for mx_icache_init
@@ -112,6 +126,12 @@ extern "C" {
 /* ########################################################### */
 
 /* ########### Aliases to De-Initialization functions ########### */
+
+  /* *************************************************************
+    AES: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_aes_deinit
+    ************************************************************* */
 
   /* *************************************************************
     Cortex_MPU: No software label has been defined for this peripheral instance
@@ -148,6 +168,12 @@ extern "C" {
 #define mx_gpio_status_led_deinit mx_gpio_default_deinit
 
   /* *************************************************************
+    HASH: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_hash_deinit
+    ************************************************************* */
+
+  /* *************************************************************
     ICACHE: No software label has been defined for this peripheral instance
       in the STM32CubeMX2 configuration panel.
       As a result, no aliases are generated for mx_icache_deinit
@@ -174,6 +200,12 @@ extern "C" {
 
 /* ########### Aliases to get HAL handle functions ########### */
 
+  /* *************************************************************
+    AES: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_aes_gethandle
+    ************************************************************* */
+
   /* ***********************************************************
       CRC: aliases for get handle functions
     *********************************************************** *//**
@@ -183,6 +215,12 @@ extern "C" {
   * @retval hal_crc_handle_t Pointer on the handle on the CRC instance
   */
 #define mx_example_crc_gethandle mx_crc_gethandle
+
+  /* *************************************************************
+    HASH: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_hash_gethandle
+    ************************************************************* */
 
   /* *************************************************************
     ICACHE: No software label has been defined for this peripheral instance

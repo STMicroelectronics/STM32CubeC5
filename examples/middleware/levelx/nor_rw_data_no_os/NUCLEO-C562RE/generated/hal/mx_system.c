@@ -18,6 +18,7 @@
   *
   ******************************************************************************
   */
+
 /* Includes ------------------------------------------------------------------*/
 #include "mx_system.h"
 
@@ -38,7 +39,7 @@ system_status_t mx_system_init(void)
   /*
     CORTEX MPU initialization in case of isolation is not activated
   */
-  if (mycortex_mpu_1_init() != SYSTEM_OK)
+  if (mx_cortex_mpu_init() != SYSTEM_OK)
   {
     return SYSTEM_RESOURCES_ISOLATION_ERROR;
   }
@@ -60,15 +61,15 @@ system_status_t mx_system_init(void)
   }
 
   /*
-    myicache_1_init
+    ICACHE section
   */
-  if (myicache_1_init() == NULL)
+  if (mx_icache_init() == NULL)
   {
     return SYSTEM_STARTUP_ERROR;
   }
 
   /* ICACHE automatically started at startup */
-  if (HAL_ICACHE_Start(myicache_1_gethandle(), HAL_ICACHE_IT_NONE) != HAL_OK)
+  if (HAL_ICACHE_Start(mx_icache_gethandle(), HAL_ICACHE_IT_NONE) != HAL_OK)
   {
     return SYSTEM_STARTUP_ERROR;
   }
@@ -76,6 +77,8 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
+
+  /* Initialize RCC peripheral */
   if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
@@ -92,39 +95,21 @@ system_status_t mx_system_init(void)
   /*
     Peripheral init section
   */
-  /** mx_cortex_nvic_init()has been generated,
-    * but it is expected that application will call it when best needed
-    * according to application needs.
-    * See Cube code generator options: Generate and call Initialization function
-    */
 
-  /*
-    mx_gpio_status_led_init
-  */
+  /** gpio_default */
   if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
-  if (mx_spi1_init() == NULL)
-  {
-    return SYSTEM_PERIPHERAL_ERROR;
-  }
-
-  if (dma1_channel0_cfg1_init() == NULL)
-  {
-    return SYSTEM_PERIPHERAL_ERROR;
-  }
-
-  if (dma1_channel1_cfg1_init() == NULL)
-  {
-    return SYSTEM_PERIPHERAL_ERROR;
-  }
-
-  /*
-    mx_basic_stdio_init
-  */
+  /** USART2 */
   if (mx_usart2_uart_init() == NULL)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
+
+  /** SPI1 */
+  if (mx_spi1_init() == NULL)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
@@ -137,13 +122,28 @@ system_status_t mx_system_init(void)
   return SYSTEM_OK;
 }
 
+/******************************************************************************/
+/*                            Systick Handler                                 */
+/******************************************************************************/
+/**
+  * @brief   This function handles SysTick Handler
+  * @warning Systick_Handler is generated as NVIC peripheral has not been activated
+  *          By default it is generated in HAL.
+  *          It must be located into mx_cortex_nvic.c file
+  */
+void SysTick_Handler(void)
+{
+  HAL_IncTick();
+  HAL_CORTEX_SYSTICK_IRQHandler();
+}
+
 /**
   * @brief  User hook function called before the HAL_Init() function
   * @retval system_status_t System status
   */
 __WEAK system_status_t pre_system_init_hook(void)
 {
-  /* NOTE : This function must not be modified, when the callback is needed,
+  /* NOTE : This function must not be modified. When the callback is needed,
             the pre_system_init_hook can be implemented in the user file
    */
   return SYSTEM_OK;
@@ -155,7 +155,7 @@ __WEAK system_status_t pre_system_init_hook(void)
   */
 __WEAK system_status_t post_system_init_hook(void)
 {
-  /* NOTE : This function must not be modified, when the callback is needed,
+  /* NOTE : This function must not be modified. When the callback is needed,
             the post_system_init_hook can be implemented in the user file
    */
   return SYSTEM_OK;

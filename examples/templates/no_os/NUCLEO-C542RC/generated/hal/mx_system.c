@@ -77,6 +77,8 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
+
+  /* Initialize RCC peripheral */
   if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;

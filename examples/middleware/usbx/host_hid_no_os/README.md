@@ -2,7 +2,7 @@
 
 # __Example: *usbx_host_hid_no_os*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.2
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube Firmware package.")
 
@@ -56,6 +56,7 @@ __USB PCD__:
 
 The USB is configured with the following settings:
 
+- Full-speed
 - Embedded PHY Interface
 - SOF Disabled
 
@@ -87,10 +88,11 @@ The UART is configured with the following settings:
 [![Troubleshooting](doc/debug_with-Troubleshooting.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/debug/debug_toc.html "An offline version is also available in the Cube Firmware package.")
 
 Here are the points of attention for this specific example:
+
   1. If there is an issue, remember to check that:
-     - External 5v injection for Vbus
-     - COM port number is correct
-	 - Baudrate is set to 115200
+      - External 5v injection for Vbus
+      - COM port number is correct
+      - Baudrate is set to 115200
   2. Depending on STM32 series, and USB instance used (FS/HS) specific USB configurations must be respected (Endpoint Max Packet Size, Clock)
      For details, refer to the reference manual of your MCU.
 
@@ -102,6 +104,8 @@ Here are the points of attention for this specific example:
 This [wiki](https://wiki.st.com/stm32mcu/wiki/Introduction_to_USBX)introduction to USBX.
 
 More information about the STM32 Cube Drivers can be found in the drivers' user manual of the STM32 series you are using.
+
+For instance, for the STM32C5 series: [User Manual](https://www.st.com).
 
 More information about the STM32 ecosystem can be found in the [STM32 MCU Developer Zone](https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/embedded-software.html).
 

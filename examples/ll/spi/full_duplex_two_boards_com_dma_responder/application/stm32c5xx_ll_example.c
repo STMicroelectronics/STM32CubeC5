@@ -98,6 +98,8 @@ void mx_spix_irqhandler(void)
     LL_SPI_DisableDMAReq_RX(MX_SPIx);
 
     SPI_TransferCpltCallback();
+
+    return;
   }
 
 #if defined(USE_LL_APP_ERROR) && (USE_LL_APP_ERROR == 1)

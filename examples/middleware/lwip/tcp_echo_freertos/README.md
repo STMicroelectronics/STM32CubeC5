@@ -2,7 +2,7 @@
 
 # __Example: *lwip_tcp_echo_freertos*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -51,12 +51,12 @@ participant "TCP Echo Server Thread" as Server
 
 loop Endless
 
-    Client --> Server: Connect\n    Address: APP_TCP_ECHO_REMOTE_SERVER_ADDR\n    Port: APP_TCP_ECHO_REMOTE_SERVER_PORT
+    Client -> Server: Connect\n    Address: APP_TCP_ECHO_REMOTE_SERVER_ADDR\n    Port: APP_TCP_ECHO_REMOTE_SERVER_PORT
     loop APP_TCP_CLIENT_ECHO_NUMBER_BY_CONNECTION times
         Client -> Server: Send\n    Buffer (size of APP_TCP_ECHO_CLIENT_BUF_LEN)
         Server -> Client: Send back\n    Buffer received
     end
-    Client --> Server: Disconnect
+    Client -> Server: Disconnect
 
     Client -> Client: Wait\n    During APP_TCP_CLIENT_CONNECT_DELAY_MS
 end
@@ -97,7 +97,7 @@ This section describes how to configure the example for different network enviro
 
 - **Two STM32 MCUs running the example:**
 
-    <!--
+<!--
     @startuml
     @startditaa{doc/ASCII_ditaa_network_setup1.png}
         +-------------------------+        +---------------- +
@@ -129,7 +129,7 @@ This section describes how to configure the example for different network enviro
     - Set `APP_TCP_ECHO_REMOTE_SERVER_ADDR` to `stm32_host_custom_1`.
 
 - **One STM32 MCU and a PC on LAN (PC runs echo server/client):**
-    <!--
+<!--
     @startuml
     @startditaa{doc/ASCII_ditaa_network_setup2.png}
         +-------------------------+        +---------------- +
@@ -152,28 +152,28 @@ This section describes how to configure the example for different network enviro
     -->
     ![network setup 2](doc/ASCII_ditaa_network_setup2.png)
 
-        - Running a TCP Echo Server on Linux on port 4242:
+    - Running a TCP Echo Server on Linux on port 4242:
 
-            ```sh
-            SERVER_PORT=4242
-            socat TCP4-LISTEN:$SERVER_PORT,fork EXEC:cat
-            ```
+        ```sh
+        SERVER_PORT=4242
+        socat TCP4-LISTEN:$SERVER_PORT,fork EXEC:cat
+        ```
 
-        - On the STM32 MCU:
-            - Set `APP_LWIP_MDNS_HOSTNAME` to `stm32_host_custom_1`.
-            - Set `APP_TCP_ECHO_REMOTE_SERVER_ADDR` to the Linux computer's IP address, for example, `192.168.1.3`.
-            - Set `APP_TCP_ECHO_REMOTE_SERVER_PORT` to the Linux computer's TCP echo server port, previously set to `4242`.
+    - On the STM32 MCU:
+        - Set `APP_LWIP_MDNS_HOSTNAME` to `stm32_host_custom_1`.
+        - Set `APP_TCP_ECHO_REMOTE_SERVER_ADDR` to the Linux computer's IP address, for example, `192.168.1.3`.
+        - Set `APP_TCP_ECHO_REMOTE_SERVER_PORT` to the Linux computer's TCP echo server port, previously set to `4242`.
 
-        - Running a TCP Echo Client on Linux to send 10 Mbit of random data:
+    - Running a TCP Echo Client on Linux to send 10 Mbit of random data:
 
-            ```sh
-            SERVER_ADDR="stm32_host_custom_1"
-            SERVER_PORT=7
-            head -c 10M /dev/urandom | nc $SERVER_ADDR $SERVER_PORT -q 1
-            ```
+        ```sh
+        SERVER_ADDR="stm32_host_custom_1"
+        SERVER_PORT=7
+        head -c 10M /dev/urandom | nc $SERVER_ADDR $SERVER_PORT -q 1
+        ```
 
 - **One STM32 MCU and a remote TCP echo server on the internet:**
-    <!--
+<!--
     @startuml
     @startditaa{doc/ASCII_ditaa_network_setup3.png}
         +-------------------------+        |-----------------|        +-----------+        +------------------+
@@ -188,9 +188,9 @@ This section describes how to configure the example for different network enviro
     -->
     ![network setup 3](doc/ASCII_ditaa_network_setup3.png)
 
-        - On the STM32 MCU:
-            - Set `APP_TCP_ECHO_REMOTE_SERVER_ADDR` to the remote server address, for example, `tcpbin.com`.
-            - Set `APP_TCP_ECHO_REMOTE_SERVER_PORT` to the remote server's TCP echo port, for example, `4242`.
+    - On the STM32 MCU:
+        - Set `APP_TCP_ECHO_REMOTE_SERVER_ADDR` to the remote server address, for example, `tcpbin.com`.
+        - Set `APP_TCP_ECHO_REMOTE_SERVER_PORT` to the remote server's TCP echo port, for example, `4242`.
 
 
 ## __3. Hardware environment and setup__

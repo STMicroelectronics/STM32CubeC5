@@ -29,6 +29,11 @@
 #define I2C_RESPONDER_ADDR_7BIT_SHIFTED (I2C_RESPONDER_ADDR_7BIT << 1U)
 /* @user: set the payload size in bytes. The I2C message is a string made of this payload and terminated by '\0'. */
 #define I2C_PAYLOAD_SIZE 40U
+
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+   Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ALIGNMENT        (8U)
+
 /**
   * Size of the TX and RX buffers in bytes.
   * +1 is used to store the null character as the transmitted I2C message is a null-terminated string.
@@ -55,9 +60,9 @@ const uint8_t *pTxData = NULL;
   * - Buffer placed in non-cacheable memory for data cache consistency.
   * Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
   * - Buffer aligned for DMA constraints. As DMA is configured for bytes transfer, byte-alignment is required.
-  * This is always ensured but the aligned(1) directive is harmless
+  * This is always ensured but the aligned(DMA_ALIGNMENT) directive is harmless
   */
-__attribute__((section(".non_cacheable_variables"), aligned(1)))
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 uint8_t RxBuffer[BUFFER_SIZE] = {0U};
 
 /* Private functions prototype -----------------------------------------------*/

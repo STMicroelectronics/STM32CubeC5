@@ -21,6 +21,11 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define IC_DMA_BUFFER_SIZE 10U
+
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+   Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ALIGNMENT      (8U)
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_tim_handle_t *pTIM;  /* pointer referencing the TIM handle from the generated code */
@@ -39,6 +44,12 @@ volatile uint32_t AvgFrequencyHz = 0U;
 /* Timer counter clock (Hz) */
 uint32_t TimerCounterClock = 0U;
 
+/** Reception buffer for CPU and DMA.
+  * - Non-cacheable memory for data cache consistency.
+  * - Aligned for DMA constraints.
+  * - Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
+  */
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 /* DMA capture buffer for input capture values */
 uint32_t IcDmaBuffer[IC_DMA_BUFFER_SIZE];
 

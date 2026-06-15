@@ -52,7 +52,6 @@ void mx_ccb_deinit(void);
   * @retval Pointer on the CCB Handle
   */
 hal_ccb_handle_t *mx_ccb_gethandle(void);
-
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

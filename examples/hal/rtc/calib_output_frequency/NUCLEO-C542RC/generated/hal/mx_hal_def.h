@@ -72,11 +72,17 @@ extern "C" {
       As a result, no aliases are generated for mx_icache_init
     ************************************************************* */
 
-  /* *************************************************************
-    RCC: No software label has been defined for this peripheral instance
-      in the STM32CubeMX2 configuration panel.
-      As a result, no aliases are generated for mx_rcc_init
-    ************************************************************* */
+  /* ***********************************************************
+      RCC: aliases for initialization functions
+    *********************************************************** */
+
+/**
+  * @brief  Initialize the mx_rcc with HAL layer
+  *         Name of the User label:
+  *                   mx_clock
+  * @retval system_status_t Value based on the system_status_t
+  */
+#define mx_clock_init mx_rcc_init
 
   /* ***********************************************************
       RTC: aliases for initialization functions

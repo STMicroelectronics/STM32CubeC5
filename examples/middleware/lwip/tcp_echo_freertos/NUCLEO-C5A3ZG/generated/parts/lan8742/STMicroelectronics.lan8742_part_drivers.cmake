@@ -18,7 +18,7 @@ add_library(generated_STMicroelectronics_lan8742_part_drivers_0_0_1 INTERFACE)
 
 # Enable all components in this package
 if(CMSIS_ENTIRE_generated_STMicroelectronics_lan8742_part_drivers_0_0_1)
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Board Part#Cgroup:STM32CubeMX2 Config#Csub:LAN8742#Cversion:1.0.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Board Part#Cgroup:STM32CubeMX2 Config#Csub:LAN8742#Cversion:1.1.0#generated:true")
 endif()
 
 # All conditions used by this package
@@ -47,9 +47,9 @@ set(generated_STMicroelectronics.lan8742_part_drivers.0.0.1_LAN8742_IO_MDIO_Cond
 message(DEBUG "CMSIS condition generated_STMicroelectronics.lan8742_part_drivers.0.0.1_LAN8742_IO_MDIO_Condition enabled")
 
 # Files and components in this package
-if("Cvendor:STMicroelectronics#Cclass:Board Part#Cgroup:STM32CubeMX2 Config#Csub:LAN8742#Cversion:1.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Board_Part_STM32CubeMX2_Config_LAN8742_1_0_0")
-  target_compile_definitions(generated_STMicroelectronics_lan8742_part_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.lan8742_part_drivers.0.0.1_LAN8742_CFG_Condition}:-DCMSIS_USE_generated_Board_Part_STM32CubeMX2_Config_LAN8742_1_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Board Part#Cgroup:STM32CubeMX2 Config#Csub:LAN8742#Cversion:1.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Board_Part_STM32CubeMX2_Config_LAN8742_1_1_0")
+  target_compile_definitions(generated_STMicroelectronics_lan8742_part_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.lan8742_part_drivers.0.0.1_LAN8742_CFG_Condition}:-DCMSIS_USE_generated_Board_Part_STM32CubeMX2_Config_LAN8742_1_1_0=1>")
   target_include_directories(generated_STMicroelectronics_lan8742_part_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.lan8742_part_drivers.0.0.1_LAN8742_CFG_Condition}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_lan8742_part_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.lan8742_part_drivers.0.0.1_LAN8742_CFG_Condition}:${CMAKE_CURRENT_LIST_DIR}/mx_lan8742.c>")
   target_sources(generated_STMicroelectronics_lan8742_part_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.lan8742_part_drivers.0.0.1_LAN8742_CFG_Condition}:${CMAKE_CURRENT_LIST_DIR}/mx_phy1.c>")

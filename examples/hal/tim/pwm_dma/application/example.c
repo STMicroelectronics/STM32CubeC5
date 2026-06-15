@@ -18,17 +18,22 @@
 #include "example.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define BUFFER_SIZE 3U
+#define BUFFER_SIZE_WORD (3U)
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+          Therefore, 8-byte alignment is the minimum recommended alignment for DMA
+          buffers across STM32 devices. */
+#define DMA_ALIGNMENT        (8U)
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_tim_handle_t *pTIM;   /* pointer referencing the TIM handle from the generated code */
 
 /* Compare buffer */
-uint32_t CompareBuffer[BUFFER_SIZE] =
+__attribute__((aligned(DMA_ALIGNMENT)))
+const uint32_t CompareBuffer[BUFFER_SIZE_WORD] =
 {
-  MX_PERIOD_VALUE * 1 / 4,
-  MX_PERIOD_VALUE * 2 / 4,
-  MX_PERIOD_VALUE * 3 / 4
+  (MX_PERIOD_VALUE * 1U) / 4U,
+  (MX_PERIOD_VALUE * 2U) / 4U,
+  (MX_PERIOD_VALUE * 3U) / 4U
 };
 
 /* Private functions prototype -----------------------------------------------*/
@@ -62,7 +67,7 @@ app_status_t app_process(void)
     * Data buffer size in byte
     */
   if (HAL_TIM_OC_StartChannel_DMA(pTIM, MX_TIM_CHANNEL, (uint8_t *)CompareBuffer,
-                                  BUFFER_SIZE * sizeof(uint32_t)) != HAL_OK)
+                                  BUFFER_SIZE_WORD * sizeof(uint32_t)) != HAL_OK)
   {
     goto _app_process_exit;
   }

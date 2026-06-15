@@ -13,10 +13,19 @@ solution:
   generators:
     base-dir: $ProjectDir()$/generated
     options:
-      - generator: stm32c5xx_hal_mx2codegen
-        path: ../generated/hal
+      - generator: button_mx2codegen
+        path: $SolutionDir()$/../generated/parts/button
       - generator: led_mx2codegen
-        path: ../generated/parts
+        path: $SolutionDir()$/../generated/parts/led
+      - generator: stm32c5xx_hal_mx2codegen
+        path: $SolutionDir()$/../generated/hal/
+      - generator: basic_stdio_mx2codegen
+        path: $SolutionDir()$/../generated/utilities/basic_stdio
+      - generator: syscalls_mx2codegen
+        path: $SolutionDir()$/../generated/utilities/syscalls
+  build-types:
+    - type: release_AC6
+      compiler: AC6
   packs:
     - pack: STMicroelectronics::CMSIS
       path: ../../../../../../arch/cmsis
@@ -32,18 +41,5 @@ solution:
       path: ../../../../../../stm32c5xx_drivers
     - pack: STMicroelectronics::syscalls
       path: ../../../../../../utilities/syscalls
-  build-types:
-    - type: release_AC6
-      compiler: AC6
-    - type: debug_AC6
-      compiler: AC6
-    - type: release_GCC
-      compiler: GCC
-    - type: debug_GCC
-      compiler: GCC
-    - type: release_IAR
-      compiler: IAR
-    - type: debug_IAR
-      compiler: IAR
   projects:
     - project: project/hal_flash_swap_bank1.cproject.yml

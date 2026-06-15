@@ -25,7 +25,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/** Exported functions for RTC in LL layer (SW instance MyRTC_1)            **/
+/** Exported functions for RTC in LL layer            **/
 /******************************************************************************/
 
 system_status_t mx_rtc_init(void)
@@ -101,22 +101,22 @@ system_status_t mx_rtc_init(void)
   /* Enable write protection */
   LL_RTC_EnableWriteProtection();
 
+  /* ### RTC GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOC);
 
   /**
-    RTC GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PC13    ------>   RTC_TS
+       PC13    ------>   RTC_TS   ------>  PC13
     **/
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_13, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PC13_PORT, PC13_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  /* LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_13, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinMode(PC13_PORT, PC13_PIN, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
 
   NVIC_SetPriority(RTC_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
   NVIC_EnableIRQ(RTC_IRQn);
@@ -130,29 +130,28 @@ void mx_rtc_deinit(void)
   /* ### GPIO deinitialization of RTC: RTC_TS ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_13, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PC13_PORT, PC13_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOC, LL_GPIO_PIN_13, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_8_15(PC13_PORT, PC13_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOC, LL_GPIO_PIN_13, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PC13_PORT, PC13_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOC, LL_GPIO_PIN_13, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(PC13_PORT, PC13_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_13, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PC13_PORT, PC13_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOC, LL_GPIO_PIN_13, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PC13_PORT, PC13_PIN, LL_GPIO_PIN_RESET);
 }
 
 /******************************************************************************/
-/*    RTC global non-secure interrupts is managed directly in user code.   */
+/*     RTC global non-secure interrupts is managed directly in user code.     */
 /******************************************************************************/
-/*
-void RTC_IRQHandler(void)
+/* void RTC_IRQHandler(void)
 {
 }
   */

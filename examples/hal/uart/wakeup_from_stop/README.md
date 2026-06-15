@@ -2,7 +2,7 @@
 
 # __Example: *hal_uart_wakeup_from_stop*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -139,7 +139,6 @@ This section describes the exact hardware configurations of your project.
   |    PB0    |     GPIO      |       -       |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -159,7 +158,6 @@ This section describes the exact hardware configurations of your project.
     - **During UART transmission, Sleep mode is used (not Stop mode) to allow proper wake-up by UART TX interrupts, due to a hardware limitation on STM32C5.**
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -174,24 +172,6 @@ This section describes the exact hardware configurations of your project.
 
   </details>
 </details>
-
-### __3.3. Testing the Example__
-
-This example can be tested in two different ways:
-
-__3.3.1. Using Another STM32 Board as Controller
-You can use one of the following examples to act as the controller that sends messages to wake up the responder:
-
-hal_uart_two_boards_com_polling_controller: The controller side in a polling mode UART communication.
-hal_uart_two_boards_com_it_controller: The controller side in an interrupt mode UART communication.
-hal_uart_two_boards_com_dma_controller: The controller side in a DMA mode UART communication.
-These examples will send UART messages to the responder, which will wake up from STOP mode upon receiving these messages.
-
-__3.3.2. Using a Terminal on a PC**
-Alternatively, you can test this example by connecting the STM32 board to a PC via the STLink UART interface.
-To do this, you need to change the UART pins from USART2 (PD6 and PD5) to USART1 (PA9 and PA10), which are connected to the STLink.
-This allows you to send UART messages from a terminal on the PC to wake up the responder.
-
 
 ## __4. Troubleshooting__
 

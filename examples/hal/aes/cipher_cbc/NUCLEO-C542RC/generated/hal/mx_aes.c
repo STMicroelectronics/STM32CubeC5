@@ -37,7 +37,7 @@ uint32_t AESIV[4] =
   };
 
 /******************************************************************************/
-/* Exported functions for AES in HAL layer (SW instance MyAES_1) */
+/* Exported functions for AES in HAL layer */
 /******************************************************************************/
 hal_aes_handle_t *mx_aes_init(void)
 {

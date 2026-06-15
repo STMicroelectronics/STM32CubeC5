@@ -181,6 +181,8 @@ app_status_t app_process(void)
 
       com_attempts ++;
 
+      /* Let the target finish wake-up before starting the transfer. */
+      DelayMs(5U);
 
       /** ########## Step 3 ##########
         * Transmits in interrupt mode the buffer A or buffer B (fixed-size payload),

@@ -8,7 +8,7 @@
 
 
 // RTE Content
-#if (CMSIS_USE_generated_USB_STM32CubeMX2_Config_USBX_2_0_0)
+#if (CMSIS_USE_generated_USB_STM32CubeMX2_Config_USBX_2_1_0)
     #define UX_INCLUDE_USER_DEFINE_FILE
 #endif
 

@@ -14,18 +14,18 @@ add_library(generated_STMicroelectronics_usbx_0_0_1 INTERFACE)
 
 # Include Pre_Include_Global.h globally if needed
 if(CMSIS_Tcompiler STREQUAL "IAR")
-    target_compile_options(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "SHELL:--preinclude ${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h")
+    target_compile_options(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "SHELL:--preinclude $<QUOTE>${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h$<QUOTE>")
 else()
-    target_compile_options(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "SHELL:-include ${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h")
+    target_compile_options(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "SHELL:-include $<QUOTE>${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h$<QUOTE>")
 endif()
 
 
 
 # Enable all components in this package
 if(CMSIS_ENTIRE_generated_STMicroelectronics_usbx_0_0_1)
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Codegen#Csub:Device_Core#Cversion:2.0.0#generated:true")
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Codegen#Csub:HID_Mouse_Device_Class#Cversion:2.0.0#generated:true")
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Config#Csub:USBX#Cversion:2.0.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Codegen#Csub:Device_Core#Cversion:2.1.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Codegen#Csub:HID_Mouse_Device_Class#Cversion:2.1.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Config#Csub:USBX#Cversion:2.1.0#generated:true")
 endif()
 
 # All conditions used by this package
@@ -234,23 +234,23 @@ set(generated_STMicroelectronics.usbx.0.0.1_usbx_standalone_condition "$<NOT:$<S
 message(DEBUG "CMSIS condition generated_STMicroelectronics.usbx.0.0.1_usbx_standalone_condition enabled")
 
 # Files and components in this package
-if("Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Codegen#Csub:Device_Core#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_USB_STM32CubeMX2_Codegen_Device_Core_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_Use_Device_Core}:-DCMSIS_USE_generated_USB_STM32CubeMX2_Codegen_Device_Core_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Codegen#Csub:Device_Core#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_USB_STM32CubeMX2_Codegen_Device_Core_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_Use_Device_Core}:-DCMSIS_USE_generated_USB_STM32CubeMX2_Codegen_Device_Core_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_Use_Device_Core}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_Use_Device_Core}:${CMAKE_CURRENT_LIST_DIR}/mx_usbx_device.c>")
 endif()
 
-if("Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Codegen#Csub:HID_Mouse_Device_Class#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_USB_STM32CubeMX2_Codegen_HID_Mouse_Device_Class_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_Use_HID_Mouse_Device_Class}:-DCMSIS_USE_generated_USB_STM32CubeMX2_Codegen_HID_Mouse_Device_Class_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Codegen#Csub:HID_Mouse_Device_Class#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_USB_STM32CubeMX2_Codegen_HID_Mouse_Device_Class_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_Use_HID_Mouse_Device_Class}:-DCMSIS_USE_generated_USB_STM32CubeMX2_Codegen_HID_Mouse_Device_Class_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_Use_HID_Mouse_Device_Class}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_Use_HID_Mouse_Device_Class}:${CMAKE_CURRENT_LIST_DIR}/mx_usbx_device_hid_mouse.c>")
 endif()
 
-if("Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Config#Csub:USBX#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_USB_STM32CubeMX2_Config_USBX_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_usbx_core_condition}:-DCMSIS_USE_generated_USB_STM32CubeMX2_Config_USBX_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:USB#Cgroup:STM32CubeMX2 Config#Csub:USBX#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_USB_STM32CubeMX2_Config_USBX_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_usbx_core_condition}:-DCMSIS_USE_generated_USB_STM32CubeMX2_Config_USBX_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_usbx_core_condition}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_usbx_0_0_1 INTERFACE "$<${generated_STMicroelectronics.usbx.0.0.1_usbx_core_condition}:${CMAKE_CURRENT_LIST_DIR}/mx_usbx_app.c>")
 endif()

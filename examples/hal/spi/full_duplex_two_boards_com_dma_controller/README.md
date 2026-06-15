@@ -2,7 +2,7 @@
 
 # __Example: *hal_spi_full_duplex_two_boards_com_dma_controller*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -154,6 +154,19 @@ Refer to application note AN4899 in case of issues.
   </details>
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label  |
+  |:---------:|:-------------:|:------------:|
+  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN  |
+  |    PH1    |  RCC_OSC_OUT  | PH1_OSC_OUT  |
+  |    PA2    |   USART2_TX   | DBGIN_VCP_TX |
+  |    PA5    |   SPI1_SCK    |     PA5      |
+  |    PA6    |   SPI1_MISO   |     PA6      |
+  |    PA7    |   SPI1_MOSI   |     PA7      |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C5Q1ZG.</summary>
 
   |  MCU pin  |  Signal name  |  User Label  |
   |:---------:|:-------------:|:------------:|

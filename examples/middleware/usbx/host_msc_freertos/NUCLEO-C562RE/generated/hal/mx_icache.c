@@ -1,3 +1,4 @@
+
 /**
   ******************************************************************************
   * @file           : mx_icache.c
@@ -5,12 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -27,9 +28,10 @@
 static hal_icache_handle_t hICACHE;
 
 /******************************************************************************/
-/* Exported functions for ICACHE in HAL layer (SW instance MyICACHE_1) */
+/* Exported functions for ICACHE in HAL layer */
 /******************************************************************************/
-hal_icache_handle_t *mx_icache_hal_init(void)
+
+hal_icache_handle_t *mx_icache_init(void)
 {
   if (HAL_ICACHE_Init(&hICACHE, HAL_ICACHE) != HAL_OK)
   {
@@ -38,17 +40,15 @@ hal_icache_handle_t *mx_icache_hal_init(void)
 
   /* Associativity mode set to default value 2-ways */
 
-
   return &hICACHE;
 }
 
-void mx_icache_hal_deinit(void)
+void mx_icache_deinit(void)
 {
   (void)HAL_ICACHE_DeInit(&hICACHE);
 }
 
-hal_icache_handle_t *mx_icache_hal_gethandle(void)
+hal_icache_handle_t *mx_icache_gethandle(void)
 {
   return &hICACHE;
 }
-

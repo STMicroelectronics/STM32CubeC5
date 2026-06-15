@@ -2,7 +2,7 @@
 
 # __Example: *hal_dma_trigger*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -95,7 +95,6 @@ This example can run without external setup.
   |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -106,7 +105,6 @@ This example can run without external setup.
   |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -118,7 +116,6 @@ This example can run without external setup.
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

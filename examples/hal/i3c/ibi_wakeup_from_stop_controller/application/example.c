@@ -166,14 +166,23 @@ app_status_t app_process(void)
   bcr = HAL_I3C_GET_BCR(Targets_Descriptor.target_bcr_dcr_pid);
 
   /* IBI capability (from BCR). */
-  DeviceConf[0].ibi_ack = (HAL_I3C_GET_IBI_CAPABLE(bcr) == HAL_I3C_IBI_REQ_ENABLED) ? HAL_I3C_CTRL_IBI_ACK_ENABLED : HAL_I3C_CTRL_IBI_ACK_DISABLED;
+  DeviceConf[0].ibi_ack =
+    (HAL_I3C_GET_IBI_CAPABLE(bcr) == HAL_I3C_IBI_REQ_ENABLED) ?
+    HAL_I3C_CTRL_IBI_ACK_ENABLED :
+    HAL_I3C_CTRL_IBI_ACK_DISABLED;
 
   /* IBI payload capability (from BCR). */
-  DeviceConf[0].ibi_payload = (HAL_I3C_GET_IBI_PAYLOAD(bcr) == HAL_I3C_IBI_PAYLOAD_ENABLED) ? HAL_I3C_CTRL_IBI_PAYLOAD_ENABLED: HAL_I3C_CTRL_IBI_PAYLOAD_DISABLED;
+  DeviceConf[0].ibi_payload =
+    (HAL_I3C_GET_IBI_PAYLOAD(bcr) == HAL_I3C_IBI_PAYLOAD_ENABLED) ?
+    HAL_I3C_CTRL_IBI_PAYLOAD_ENABLED :
+    HAL_I3C_CTRL_IBI_PAYLOAD_DISABLED;
 
 
   /* Controller role request capability (from BCR). */
-  DeviceConf[0].ctrl_role_req_ack = (HAL_I3C_GET_CTRL_ROLE_CAPABLE(bcr) == HAL_I3C_CTRL_ROLE_ENABLED) ? HAL_I3C_CTRL_ROLE_ACK_ENABLED : HAL_I3C_CTRL_ROLE_ACK_DISABLED;
+  DeviceConf[0].ctrl_role_req_ack =
+    (HAL_I3C_GET_CTRL_ROLE_CAPABLE(bcr) == HAL_I3C_CTRL_ROLE_ENABLED) ?
+    HAL_I3C_CTRL_ROLE_ACK_ENABLED :
+    HAL_I3C_CTRL_ROLE_ACK_DISABLED;
 
   /* No forced STOP transfer for this target. */
   DeviceConf[0].ctrl_stop_transfer = HAL_I3C_CTRL_STOP_TRANSFER_DISABLED;

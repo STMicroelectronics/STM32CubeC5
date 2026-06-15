@@ -34,7 +34,7 @@ extern "C" {
 #define PC13_PORT                             HAL_GPIOC
 #define PC13_PIN                              HAL_GPIO_PIN_13
 /******************************************************************************/
-/* Exported defines for TAMP in HAL layer (SW instance MyTAMP_1) */
+/* Exported defines for TAMP in HAL layer */
 /******************************************************************************/
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
@@ -55,7 +55,7 @@ system_status_t mx_tamp_init(void);
 void mx_tamp_deinit(void);
 
 /******************************************************************************/
-/*                     Tamper global interrupts                    */
+/*                          Tamper global interrupts                          */
 /******************************************************************************/
 void TAMP_IRQHandler(void);
 

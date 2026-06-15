@@ -23,7 +23,7 @@ define region NCACHE_region     = mem:[from 0x20000000 size 0x00008000]; /* 32 K
 
 /* define blocks */
 define block HEAP with alignment = 8, size = 0x200 { };
-define block CSTACK with alignment = 8, size = 0x800 { };
+define block CSTACK with alignment = 8, size = 0x400 { };
 
 /* setup initialization strategies */
 initialize by copy {

@@ -30,15 +30,27 @@
   * @user: Set the maximum size of the buffer.
   */
 #define BUFFER_SIZE 50U
+
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+   Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ALIGNMENT      (8U)
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_uart_handle_t *pUART;  /* pointer referencing the UART handle from the generated code */
 
 /* Text strings printed on PC Com port for user information */
-uint8_t TxStartMessage[] = "\r\nUART Example : Enter characters to fill reception buffers.\r\n";
+__attribute__((aligned(DMA_ALIGNMENT)))
+static const uint8_t TxStartMessage[] = "\r\nUART Example : Enter characters to fill reception buffers.\r\n";
 
-/* Buffer used in User callback */
+/** Reception buffer for CPU and DMA.
+  * - Non-cacheable memory for data cache consistency.
+  * - Aligned for DMA constraints.
+  * - Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
+  */
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 uint8_t RxBuffer[BUFFER_SIZE] = {0U};
+
 /* Size of the received buffer */
 uint32_t NbReceivedChars;
 

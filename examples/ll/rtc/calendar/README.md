@@ -2,7 +2,7 @@
 
 # __Example: *ll_rtc_calendar*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -60,7 +60,6 @@ With a Battery Connected to the VBAT pin, the RTC configuration won't be lost wh
   |    PA5    |     GPIO      | MX_STATUS_LED |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -73,7 +72,6 @@ With a Battery Connected to the VBAT pin, the RTC configuration won't be lost wh
   |    PA5    |     GPIO      | MX_STATUS_LED |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -87,7 +85,6 @@ With a Battery Connected to the VBAT pin, the RTC configuration won't be lost wh
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

@@ -2,7 +2,7 @@
 
 # __Example: *ll_i2c_two_boards_com_polling_controller*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://confluence.st.com/display/E01/Cube+Firmware+Examples+Documentation "An offline version is also available in the STM32Cube firmware package.")
 

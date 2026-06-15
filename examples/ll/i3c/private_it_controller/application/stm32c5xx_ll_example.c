@@ -209,8 +209,6 @@ void mx_i3cx_err_irqhandler(void)
   I3C_ErrorCallback();
 }
 
-
-#if defined(USE_LL_APP_ERROR) && (USE_LL_APP_ERROR == 1)
 /**
   * brief: This function provides delay (in milliseconds) based on SysTick counter flag.
   * param: delay_ms Number of milliseconds to delay.
@@ -219,7 +217,6 @@ inline void DelayMs(uint32_t delay_ms)
 {
   LL_Delay_NoISR(delay_ms);
 }
-#endif /* USE_LL_APP_ERROR */
 
 
 /** brief: Writes one control word into the MX_I3Cx Control FIFO when space is available.

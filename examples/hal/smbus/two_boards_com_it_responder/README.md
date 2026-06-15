@@ -2,7 +2,7 @@
 
 # __Example: *hal_smbus_two_boards_com_it_responder*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the Cube Firmware package.")
 
@@ -142,7 +142,6 @@ Please find the exact hardware configurations of your project below.
   |   PA15    |   I2C1_SMBA   |   NetR16_2    |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -157,7 +156,6 @@ Please find the exact hardware configurations of your project below.
   |    PA9    |   I2C1_SMBA   |      PA9      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -173,7 +171,6 @@ Please find the exact hardware configurations of your project below.
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

@@ -63,22 +63,20 @@ void mx_spi1_deinit(void);
 /******************************************************************************/
 /*          SPI1 global interrupt is managed directly in user code.           */
 /******************************************************************************/
-
 /* void SPI1_IRQHandler(void); */
 
 /******************************************************************************/
 /*     LPDMA1 channel0 global interrupt is managed directly in user code.     */
 /******************************************************************************/
-
 /* void LPDMA1_CH0_IRQHandler(void); */
 
 /******************************************************************************/
 /*     LPDMA1 channel1 global interrupt is managed directly in user code.     */
 /******************************************************************************/
-
 /* void LPDMA1_CH1_IRQHandler(void); */
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
 #endif /* MX_SPI1_H */

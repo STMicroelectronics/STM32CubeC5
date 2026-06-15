@@ -108,9 +108,6 @@ app_status_t app_init(void)
 {
   app_status_t return_status = EXEC_STATUS_ERROR;
 
-  /* Set the LDO enable pin to power on the external memory */
-  HAL_GPIO_WritePin(MX_LDO_EN_PORT, MX_LDO_EN_PIN, MX_LDO_EN_ACTIVE_STATE);
-
   /* Wait for the power-up guard time for memory supply stabilization before accepting XSPI commands */
   HAL_Delay(MX25_LDO_POWER_ON_DELAY_MS);
 

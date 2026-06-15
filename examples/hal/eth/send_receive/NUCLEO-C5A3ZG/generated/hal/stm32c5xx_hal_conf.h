@@ -8,9 +8,9 @@
   * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -51,7 +51,7 @@ extern "C" {
 /**
   * @brief This is the HAL system configuration section
   */
-#define  USE_HAL_TICK_INT_PRIORITY              HAL_TICK_INT_LOWEST_PRIORITY  /*!< tick interrupt priority (lowest by default) */
+#define  USE_HAL_TICK_INT_PRIORITY              15U     /*!< tick interrupt priority */
 #define  USE_HAL_FLASH_PREFETCH                 1U     /*!< Enable FLASH prefetch */
 /**
   * @}
@@ -76,7 +76,7 @@ extern "C" {
 /**
   * @brief Run time parameter check activation
   */
-#define USE_HAL_CHECK_PARAM                     1U
+#define USE_HAL_CHECK_PARAM                     0U
 #define USE_HAL_SECURE_CHECK_PARAM              0U
 /**
   * @}
@@ -125,6 +125,7 @@ extern "C" {
 #define USE_HAL_AES_GCM_GMAC_ALGO               0U
 #define USE_HAL_AES_CCM_ALGO                    0U
 #define USE_HAL_AES_SUSPEND_RESUME              0U
+#define USE_HAL_AES_RNG_RECOVERY                1U
 /**
   * @}
   */
@@ -137,6 +138,7 @@ extern "C" {
 #define USE_HAL_CCB_CLK_ENABLE_MODEL            HAL_CLK_ENABLE_NO
 #define USE_HAL_CCB_USER_DATA                   0U
 #define USE_HAL_CCB_GET_LAST_ERRORS             0U
+#define USE_HAL_CCB_RNG_RECOVERY                1U
 /**
   * @}
   */
@@ -248,8 +250,8 @@ extern "C" {
 #define USE_HAL_ETH_MODULE                      1U
 #define USE_HAL_ETH_REGISTER_CALLBACKS          1U
 #define USE_HAL_ETH_CLK_ENABLE_MODEL            HAL_CLK_ENABLE_NO
-#define USE_HAL_ETH_USER_DATA                   1U
-#define USE_HAL_ETH_GET_LAST_ERRORS             1U
+#define USE_HAL_ETH_USER_DATA                   0U
+#define USE_HAL_ETH_GET_LAST_ERRORS             0U
 #define USE_HAL_ETH_ATOMIC_CHANNEL_LOCK         0U
 #define USE_HAL_ETH_MAX_TX_CH_NB                1U
 #define USE_HAL_ETH_MAX_RX_CH_NB                1U
@@ -461,7 +463,7 @@ extern "C" {
 #define USE_HAL_PCD_USB_LPM                     0U
 #define USE_HAL_PCD_USB_BCD                     0U
 #define USE_HAL_PCD_USB_EP_TYPE_ISOC            0U
-#define USE_HAL_PCD_MAX_ENDPOINT_NB             16U
+#define USE_HAL_PCD_MAX_ENDPOINT_NB             8U
 /**
   * @}
   */
@@ -475,6 +477,7 @@ extern "C" {
 #define USE_HAL_PKA_REGISTER_CALLBACKS          0U
 #define USE_HAL_PKA_USER_DATA                   0U
 #define USE_HAL_PKA_GET_LAST_ERRORS             0U
+#define USE_HAL_PKA_RNG_RECOVERY                1U
 /**
   * @}
   */
@@ -483,7 +486,7 @@ extern "C" {
   * @{
   */
 /* ########################## HAL_PWR Config #################################### */
-#define USE_HAL_PWR_MODULE                      0U
+#define USE_HAL_PWR_MODULE                      1U
 /**
   * @}
   */
@@ -535,7 +538,7 @@ extern "C" {
   * @{
   */
 /* ########################## HAL_SBS Config #################################### */
-#define USE_HAL_SBS_MODULE                      1U
+#define USE_HAL_SBS_MODULE                      0U
 /**
   * @}
   */
@@ -617,10 +620,10 @@ extern "C" {
 /* ########################## HAL_UART Config ################################### */
 #define USE_HAL_UART_MODULE                     1U
 #define USE_HAL_UART_CLK_ENABLE_MODEL           HAL_CLK_ENABLE_NO
-#define USE_HAL_UART_REGISTER_CALLBACKS         1U
+#define USE_HAL_UART_REGISTER_CALLBACKS         0U
 #define USE_HAL_UART_USER_DATA                  0U
 #define USE_HAL_UART_GET_LAST_ERRORS            0U
-#define USE_HAL_UART_DMA                        1U
+#define USE_HAL_UART_DMA                        0U
 /**
   * @}
   */

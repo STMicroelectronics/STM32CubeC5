@@ -1,7 +1,7 @@
 /**
   **********************************************************************************************************************
   * @file    seq_user_conf.h
-  * @brief   Sequencer configuration file
+  * @brief   Sequencer configuration header file
   ******************************************************************************
   * @attention
   *
@@ -26,49 +26,51 @@ extern "C" {
 #include "cmsis_compiler.h"
 #include <string.h>
 
-
 /* Exported macros ---------------------------------------------------------------------------------------------------*/
+
 /**
-  * @brief  macro used to init the critical section.
+  * @brief  Macro used to initialize the critical section.
   */
 #define SEQ_INIT_CRITICAL_SECTION( )
+
 /**
-  * @brief macro used to enter the critical section.
+  * @brief  Macro used to enter the critical section.
   */
 #define SEQ_ENTER_CRITICAL_SECTION( )      uint32_t primask_bit = __get_PRIMASK( );\
   __disable_irq( )
+
 /**
-  * @brief  macro used to exit the critical section.
+  * @brief  Macro used to exit the critical section.
   */
 #define SEQ_EXIT_CRITICAL_SECTION( )       __set_PRIMASK( primask_bit )
 
 /**
-  * @brief  definition of number of tasks.
+  * @brief  Number of tasks.
   */
-#define SEQ_CONF_TASK_NBR                  1U
+#define SEQ_CONF_TASK_NBR                  (1U)
 
 /**
-  * @brief  definition of priority number.
+  * @brief  Number of priority levels.
   */
-#define SEQ_CONF_PRIO_NBR                  2U
+#define SEQ_CONF_PRIO_NBR                  (2U)
+
 
 /**
-  * @brief memset macro.
+  * @brief  Memory fill macro.
   */
 #define SEQ_MEMSET8(dest, value, size)     memset((dest),(value),(size));
 
 /**
-  * @brief macro used to enter the critical section before calling the IDLE function
-  * @note  in a basic configuration must be identical to the macro
-  *        SEQ_ENTER_CRITICAL_SECTION. The redefinition of this macro will allow
-  *        to perform specific operation
+  * @brief  Macro used to enter the critical section before calling the idle function.
+  * @note   In a basic configuration, this macro should be identical to
+  *         SEQ_ENTER_CRITICAL_SECTION. Redefine it if specific operations are required.
   */
 #define SEQ_ENTER_CRITICAL_SECTION_IDLE( )    SEQ_ENTER_CRITICAL_SECTION( )
 
 /**
-  * @brief macro used to exit the critical section when exiting the IDLE function
-  * @note  the behavior of the macro must be symmetrical with the macro
-  *        SEQ_ENTER_CRITICAL_SECTION_IDLE
+  * @brief  Macro used to exit the critical section after the idle function returns.
+  * @note   The behavior of this macro must be symmetrical with
+  *         SEQ_ENTER_CRITICAL_SECTION_IDLE.
   */
 #define SEQ_EXIT_CRITICAL_SECTION_IDLE( )     SEQ_EXIT_CRITICAL_SECTION( )
 

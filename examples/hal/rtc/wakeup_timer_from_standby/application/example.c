@@ -23,7 +23,7 @@
 #define APP_TARGET_SECONDS_AT_COUNT  (15U)  /* Expected RTC seconds value when wakeup count reached */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-volatile uint32_t WakeupNumber = 0U; /* Number of wakeups from standby mode */
+volatile uint32_t WakeupNumber; /* Number of wakeups from standby mode */
 
 /* Private functions prototype -----------------------------------------------*/
 
@@ -32,13 +32,14 @@ app_status_t app_init(void)
   app_status_t return_status = EXEC_STATUS_ERROR;
 
   /** ########## Step 1.1 ##########
-    * The applicative code detects whether the device resumed from standby.
+    * The applicative code detects whether the device resumed from standby
+    * or another source of reset.
     */
 
   /* Check whether we resumed from standby or it's the first start */
   if (LL_PWR_IsActiveFlag_SB() == 0U)
   {
-    PRINTF("[INFO] Step 1.1: First start.\n");
+    PRINTF("[INFO] Step 1.1: RTC initialization.\n");
 
     /** ########## Step 1.2 ##########
       * The applicative code initializes the RTC on the first start (Step 1.2).
@@ -47,10 +48,20 @@ app_status_t app_init(void)
     /* RTC init resets the RTC domain; perform it only once on first start */
     if (mx_example_rtc_init() != SYSTEM_OK)
     {
-      PRINTF("[ERROR] Step 1.2: Device initialization ERROR.\n");
+      PRINTF("[ERROR] Step 1.2: RTC initialization ERROR.\n");
       goto _app_process_exit;
     }
-    PRINTF("[INFO] Step 1.2: Device initialization COMPLETED.\n");
+
+    if (HAL_RTC_WAKEUP_Start(HAL_RTC_WAKEUP_IT_ENABLE) != HAL_OK)
+    {
+      PRINTF("[ERROR] Step 1.2: Start RTC wakeup interrupt ERROR.\n");
+      goto _app_process_exit;
+    }
+
+    /* Reset the wakeup from standby counter */
+    WakeupNumber = 0;
+
+    PRINTF("[INFO] Step 1.2: RTC initialization COMPLETED.\n");
     return_status = EXEC_STATUS_INIT_OK;
   }
   else
@@ -59,10 +70,13 @@ app_status_t app_init(void)
       * The applicative code updates the wakeup number after each restart.
       */
 
-    /* Re-enable the RTC clock after a restart from Standby mode; no full reconfiguration is required. */
-    HAL_RCC_RTCAPB_EnableClock();
+    PRINTF("[INFO] Step 2.2: Resumed from STANDBY mode and count the wakeups.\n");
 
-    PRINTF("[INFO] Step 2.2: Restart from STANDBY mode.\n");
+    /* Clear pending Standby flag  */
+    LL_PWR_ClearFlag_SB();
+    /* Enable the RTC APB clock to restore access to the RTC domain. */
+    HAL_PWR_DisableRTCDomainWriteProtection();
+    HAL_RCC_RTCAPB_EnableClock();
 
     /* Get the number of wakeups from standby mode and update it */
     WakeupNumber = HAL_TAMP_ReadBackupRegisterValue(HAL_TAMP_BACKUP_REG_0) + 1;
@@ -72,20 +86,6 @@ app_status_t app_init(void)
 
     return_status = EXEC_STATUS_INIT_OK;
   }
-
-  /** ########## Step 1.3 ##########
-    * The applicative code starts the RTC wakeup interrupt.
-    */
-
-  /* Start RTC wakeup timer with interrupt enabled */
-  if (HAL_RTC_WAKEUP_Start(HAL_RTC_WAKEUP_IT_ENABLE) != HAL_OK)
-  {
-    PRINTF("[ERROR] Step 1.3: Enable RTC wakeup interrupt ERROR.\n");
-    return_status = EXEC_STATUS_ERROR;
-    goto _app_process_exit;
-  }
-
-  PRINTF("[INFO] Step 1.3: Enable RTC wakeup interrupt.\n");
 
 _app_process_exit:
 
@@ -158,3 +158,22 @@ app_status_t app_deinit(void)
 
   return EXEC_STATUS_OK;
 } /* end app_deinit */
+
+
+/**  User hook function called before the HAL_Init() function
+  */
+system_status_t pre_system_init_hook(void)
+{
+  /** Check whether we resumed from standby mode or if it is a reset event.
+    * A reset event can be pin reset, power-on reset, software reset, etc.
+    */
+  /* Check the standby flag  */
+  if (LL_PWR_IsActiveFlag_SB() == 0U)
+  {
+    /* Reset the RTC domain */
+    HAL_PWR_DisableRTCDomainWriteProtection();
+    HAL_RCC_ResetRTCDomain();
+  }
+
+  return SYSTEM_OK;
+}

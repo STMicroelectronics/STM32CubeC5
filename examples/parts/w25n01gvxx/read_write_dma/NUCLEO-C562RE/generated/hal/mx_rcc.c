@@ -36,7 +36,7 @@
   *            SYSCLK(Hz)                     = 144000000
   *            HCLK(Hz)                       = 144000000
   *            AHB Prescaler                  = 1
-  *            APB1 Prescaler                 = 2
+  *            APB1 Prescaler                 = 1
   *            APB2 Prescaler                 = 1
   *            APB3 Prescaler                 = 1
   *            Flash Latency(WS)              = 4
@@ -48,7 +48,7 @@ system_status_t mx_rcc_init(void)
     return SYSTEM_CLOCK_ERROR;
   }
 
-  hal_rcc_psi_config_t config_psi;
+    hal_rcc_psi_config_t config_psi;
   config_psi.psi_source = HAL_RCC_PSI_SRC_HSE;
   config_psi.psi_ref = HAL_RCC_PSI_REF_24MHZ;
   config_psi.psi_out = HAL_RCC_PSI_OUT_144MHZ;
@@ -65,7 +65,7 @@ system_status_t mx_rcc_init(void)
   /** Initializes the CPU, AHB and APB busses clocks */
   hal_rcc_bus_clk_config_t config_bus;
   config_bus.hclk_prescaler  = HAL_RCC_HCLK_PRESCALER1;
-  config_bus.pclk1_prescaler = HAL_RCC_PCLK_PRESCALER2;
+  config_bus.pclk1_prescaler = HAL_RCC_PCLK_PRESCALER1;
   config_bus.pclk2_prescaler = HAL_RCC_PCLK_PRESCALER1;
   config_bus.pclk3_prescaler = HAL_RCC_PCLK_PRESCALER1;
   if (HAL_RCC_SetBusClockConfig(&config_bus) != HAL_OK)
@@ -103,7 +103,7 @@ void mx_rcc_deinit(void)
   */
 system_status_t mx_rcc_peripherals_clock_config(void)
 {
-  /* Peripherals using PCLK1 (72 MHz):
+  /* Peripherals using PCLK1 (144 MHz):
     USART2
   */
 

@@ -25,9 +25,8 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_flash_handle_t hFLASH;
-
 /******************************************************************************/
-/*     Exported functions for FLASH in HAL layer (SW instance MyFLASH_1)      */
+/*     Exported functions for FLASH in HAL layer */
 /******************************************************************************/
 hal_flash_handle_t *mx_flash_init(void)
 {

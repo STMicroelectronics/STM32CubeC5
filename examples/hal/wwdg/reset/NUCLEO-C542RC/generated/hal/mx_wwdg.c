@@ -24,10 +24,9 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_wwdg_handle_t hWWDG;
-
-/******************************************************************************/
-/* Exported functions for WWDG in HAL layer (SW instance MyWWDG_1) */
-/******************************************************************************/
+/********************************************/
+/* Exported functions for WWDG in HAL layer */
+/********************************************/
 hal_wwdg_handle_t *mx_wwdg_init(void)
 {
   if (HAL_WWDG_Init(&hWWDG, HAL_WWDG1) != HAL_OK)
@@ -45,7 +44,7 @@ hal_status_t mx_wwdg_start(void)
   return HAL_WWDG_Start(&hWWDG, 0UL, 233UL, 0UL);
 }
 
-hal_wwdg_handle_t *mx_wwdg_wwdg_gethandle(void)
+hal_wwdg_handle_t *mx_wwdg_gethandle(void)
 {
   return &hWWDG;
 }

@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * file           : example.c
-  * brief          : ADC Analog Wotchdog to monitor a channel in interrupt mode with LL API
+  * brief          : ADC Analog Watchdog to monitor a channel in interrupt mode with LL API
   ******************************************************************************
   *
   * Copyright (c) 2026 STMicroelectronics.
@@ -84,7 +84,6 @@ app_status_t app_process(void)
     * Waits until the analog watchdog is out of window (or an error is raised).
     * Retrieves the MX_ADCx value in millivolt for GPIO conversions.
     */
-  GPIO_mV = ADC_GetDataGPIOmV();
 
   while (AnalogWatchdogStatus != 1U)
   {

@@ -4,8 +4,8 @@ solution:
     - type: NUCLEO-C542RC
       device: STM32C542RCT6
   output-dirs:
-    outdir: $ProjectDir()$/build/$BuildType$
-    tmpdir: project/tmp
+    tmpdir: build/tmp
+    outdir: $SolutionDir()$/build/$Project$.$BuildType$
   generators:
     base-dir: $ProjectDir()$/generated
     options:
@@ -14,18 +14,14 @@ solution:
       - generator: led_mx2codegen
         path: ../generated/parts/led
   build-types:
+    - type: release_AC6
+      compiler: AC6
+    - type: release_IAR
+      compiler: IAR
     - type: release_GCC
       compiler: GCC
     - type: debug_GCC
       compiler: GCC
-    - type: release_AC6
-      compiler: AC6
-    - type: debug_AC6
-      compiler: AC6
-    - type: release_IAR
-      compiler: IAR
-    - type: debug_IAR
-      compiler: IAR
   packs:
     - pack: STMicroelectronics::CMSIS
       path: ../../../../../../arch/cmsis

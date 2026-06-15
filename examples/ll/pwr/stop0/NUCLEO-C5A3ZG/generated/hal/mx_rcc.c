@@ -67,6 +67,8 @@ system_status_t mx_rcc_init(void)
   LL_SetSystemCoreClock(48000000U);
   LL_Init1msTick(SystemCoreClock);
 
+  /* No GPIO configuration required for RCC */
+
   return SYSTEM_OK;
 }
 

@@ -5,12 +5,12 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -31,6 +31,7 @@ extern "C" {
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+
 /******************************************************************************/
 /* Exported functions for ICACHE in HAL layer */
 /******************************************************************************/
@@ -42,10 +43,9 @@ extern "C" {
 hal_icache_handle_t *mx_icache_init(void);
 
 /**
-  * @brief  De-initialize icache instance and return it.
+  * @brief  De-initialize icache instance.
   */
 void mx_icache_deinit(void);
-
 
 /**
   * @brief  Get the ICACHE object.

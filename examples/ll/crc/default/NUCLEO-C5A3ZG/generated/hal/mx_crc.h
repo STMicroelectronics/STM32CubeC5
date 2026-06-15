@@ -1,7 +1,7 @@
 /**
-  ******************************************************************************
-  * @file           : mx_crc.h
-  * @brief          : Header for mx_crc.c file.
+******************************************************************************
+* @file : mx_crc.h
+* @brief : Header for mx_crc.c file.
   ******************************************************************************
   * @attention
   *
@@ -38,15 +38,15 @@ extern "C" {
 /* Exported functions for CRC in LL layer */
 /******************************************************************************/
 /**
-  * @brief mx_crc init function
-  * This function configures the hardware resources used in this example
-  * @retval pointer to handle or NULL in case of failure
-  */
+* @brief mx_crc init function
+* This function configures the hardware resources used in this example
+* @retval pointer to handle or NULL in case of failure
+*/
 CRC_TypeDef *mx_crc_init(void);
 
 /**
-  * @brief  De-initialize crc instance and return it.
-  */
+* @brief De-initialize crc instance and return it.
+*/
 void mx_crc_deinit(void);
 
 #ifdef __cplusplus

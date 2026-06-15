@@ -5,7 +5,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
@@ -24,6 +24,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
+
 #include "stm32_hal.h"
 #include "mx_def.h"
 
@@ -33,7 +34,7 @@ extern "C" {
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /******************************************************************************/
-/* Exported functions for CORTEX in HAL layer */
+/* Exported functions for CORTEX_MPU in HAL layer */
 /******************************************************************************/
 /**
   * @brief mx_cortex_mpu init function

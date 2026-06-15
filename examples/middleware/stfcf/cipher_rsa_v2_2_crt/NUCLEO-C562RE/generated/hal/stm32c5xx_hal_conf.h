@@ -114,17 +114,18 @@ extern "C" {
   * @{
   */
 /* ########################## HAL_AES Config #################################### */
-#define USE_HAL_AES_MODULE                      0U
+#define USE_HAL_AES_MODULE                      1U
 #define USE_HAL_AES_CLK_ENABLE_MODEL            HAL_CLK_ENABLE_NO
 #define USE_HAL_AES_REGISTER_CALLBACKS          0U
 #define USE_HAL_AES_USER_DATA                   0U
 #define USE_HAL_AES_GET_LAST_ERRORS             0U
 #define USE_HAL_AES_DMA                         0U
-#define USE_HAL_AES_ECB_CBC_ALGO                0U
+#define USE_HAL_AES_ECB_CBC_ALGO                1U
 #define USE_HAL_AES_CTR_ALGO                    0U
 #define USE_HAL_AES_GCM_GMAC_ALGO               0U
 #define USE_HAL_AES_CCM_ALGO                    0U
 #define USE_HAL_AES_SUSPEND_RESUME              0U
+#define USE_HAL_AES_RNG_RECOVERY                1U
 /**
   * @}
   */
@@ -137,6 +138,7 @@ extern "C" {
 #define USE_HAL_CCB_CLK_ENABLE_MODEL            HAL_CLK_ENABLE_NO
 #define USE_HAL_CCB_USER_DATA                   0U
 #define USE_HAL_CCB_GET_LAST_ERRORS             0U
+#define USE_HAL_CCB_RNG_RECOVERY                1U
 /**
   * @}
   */
@@ -322,7 +324,7 @@ extern "C" {
   * @{
   */
 /* ########################## HAL_HASH Config ################################### */
-#define USE_HAL_HASH_MODULE                     0U
+#define USE_HAL_HASH_MODULE                     1U
 #define USE_HAL_HASH_CLK_ENABLE_MODEL           HAL_CLK_ENABLE_NO
 #define USE_HAL_HASH_REGISTER_CALLBACKS         0U
 #define USE_HAL_HASH_USER_DATA                  0U
@@ -475,6 +477,7 @@ extern "C" {
 #define USE_HAL_PKA_REGISTER_CALLBACKS          0U
 #define USE_HAL_PKA_USER_DATA                   0U
 #define USE_HAL_PKA_GET_LAST_ERRORS             0U
+#define USE_HAL_PKA_RNG_RECOVERY                1U
 /**
   * @}
   */

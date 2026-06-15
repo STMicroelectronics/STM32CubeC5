@@ -30,7 +30,7 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /******************************************************************************/
-/* Exported defines for gpio_default in LL layer (SW instance MyGPIO_1) */
+/* Exported defines for gpio_default in LL layer                             */
 /******************************************************************************/
 
 /* Primary aliases for GPIO PA5 pin */
@@ -63,7 +63,7 @@ extern "C" {
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /******************************************************************************/
-/* Exported functions for gpio_default in LL layer (SW instance MyGPIO_1) */
+/* Exported functions for gpio_default in LL layer                           */
 /******************************************************************************/
 /**
   * @brief mx_gpio_default init function
@@ -81,7 +81,6 @@ system_status_t mx_gpio_default_deinit(void);
 /******************************************************************************/
 /*          EXTI Line13 interrupt is managed directly in user code.           */
 /******************************************************************************/
-
 /* void EXTI13_IRQHandler(void); */
 
 #ifdef __cplusplus

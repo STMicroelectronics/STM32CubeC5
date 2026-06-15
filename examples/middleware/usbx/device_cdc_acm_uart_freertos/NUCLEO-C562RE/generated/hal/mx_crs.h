@@ -5,36 +5,56 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32_CRS_H
-#define STM32_CRS_H
+#ifndef MX_CRS_H
+#define MX_CRS_H
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_hal.h"
-#include "stm32c5xx_hal_def.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
 
-hal_status_t crs_init(void);
-hal_status_t crs_deinit(void);
+/* Exported macros -----------------------------------------------------------*/
+/* Exported variables --------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+/******************************************************************************/
+/* Exported functions for CRS in HAL layer */
+/******************************************************************************/
+/**
+  * @brief mx_crs init function
+  * This function configures the hardware resources used in this example
+  * @retval pointer to handle or NULL in case of failure
+  */
+hal_crs_handle_t *mx_crs_init(void);
+
+/**
+  * @brief  De-initialize crs instance and return it.
+  */
+void mx_crs_deinit(void);
+
+/**
+  * @brief  Get the CRS object.
+  * @retval Pointer on the CRS Handle
+  */
+hal_crs_handle_t *mx_crs_gethandle(void);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
-#endif /* STM32_CRS_H */
+#endif /* MX_CRS_H */

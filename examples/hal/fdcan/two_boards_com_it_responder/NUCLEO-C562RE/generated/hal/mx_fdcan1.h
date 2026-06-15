@@ -64,7 +64,6 @@ hal_fdcan_handle_t *mx_fdcan1_gethandle(void);
 /******************************************************************************/
 /*                             FDCAN1 Interrupt 0                             */
 /******************************************************************************/
-
 void FDCAN1_IT0_IRQHandler(void);
 
 #ifdef __cplusplus

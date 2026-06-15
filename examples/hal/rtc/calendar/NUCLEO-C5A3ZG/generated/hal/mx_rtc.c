@@ -17,6 +17,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "mx_rtc.h"
+#include "mx_rcc.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
@@ -25,19 +26,19 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/** Exported functions for RTC in HAL layer (SW instance MyRTC_1)            **/
+/** Exported functions for RTC in HAL layer            **/
 /******************************************************************************/
+
 system_status_t mx_rtc_init(void)
 {
   /* Disable RTC Domain Write Protection */
   HAL_PWR_DisableRTCDomainWriteProtection();
 
   /* Clock configuration */
-  if (HAL_RCC_RTC_SetKernelClkSource(HAL_RCC_RTC_CLK_SRC_LSE) != HAL_OK)
+  if (mx_rcc_rtc_clock_config() != SYSTEM_OK)
   {
-    return SYSTEM_CLOCK_ERROR;
+    return SYSTEM_PERIPHERAL_ERROR;
   }
-
   HAL_RCC_RTCAPB_EnableClock();
 
   HAL_RCC_RTC_EnableKernelClock();

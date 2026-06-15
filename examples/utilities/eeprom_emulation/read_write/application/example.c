@@ -15,7 +15,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "mx_eeprom_emul.h"   /* aliases to the eeprom_emul generated code       */
+#include "mx_eeprom_emulation_app.h"   /* aliases to the eeprom_emul generated code       */
 #include "example.h"
 
 /* Private typedef -----------------------------------------------------------*/

@@ -29,7 +29,7 @@ static hal_hash_handle_t hHASH;
 static hal_dma_handle_t hLPDMA1_CH0;
 
 /******************************************************************************/
-/* Exported functions for HASH in HAL layer (SW instance MyHASH_1) */
+/* Exported functions for HASH in HAL layer */
 /******************************************************************************/
 hal_hash_handle_t *mx_hash_init(void)
 {

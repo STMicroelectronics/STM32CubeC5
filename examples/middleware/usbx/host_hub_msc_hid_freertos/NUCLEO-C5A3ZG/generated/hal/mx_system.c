@@ -9,15 +9,16 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+
 /* Includes ------------------------------------------------------------------*/
 #include "mx_system.h"
 
@@ -43,7 +44,6 @@ system_status_t mx_system_init(void)
     return SYSTEM_RESOURCES_ISOLATION_ERROR;
   }
 
-
   /*
     startup system section
   */
@@ -61,6 +61,7 @@ system_status_t mx_system_init(void)
   }
 
   /*
+    ICACHE section
   */
   if (mx_icache_init() == NULL)
   {
@@ -76,7 +77,9 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
-  if (mx_rcc_hal_init() != SYSTEM_OK)
+
+  /* Initialize RCC peripheral */
+  if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
   }
@@ -92,35 +95,29 @@ system_status_t mx_system_init(void)
   /*
     Peripheral init section
   */
-  /** mx_cortex_nvic_init()has been generated,
-    * but it is expected that application will call it when best needed
-    * according to application needs.
-    * See Cube code generator options: Generate and call Initialization function
-    */
 
-  /** mx_crc_init()has been generated,
-    * (mx_example_crc_init)
-    * but it is expected that application will call it when best needed
-    * according to application needs.
-    * See Cube code generator options: Generate and call Initialization function
-    */
-
-  /*
-    mx_gpio_status_led_init
-  */
+  /** gpio_default */
   if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
-  /*
-    mx_basic_stdio_init
-  */
-  if (mx_usart2_hal_uart_init() == NULL)
+  /** USB_DRD_FS_HOST: mx_usb_drd_fs_host_init() has been generated,
+    * but it is expected that application will call it when best needed
+    * according to application needs.
+    * See Cube code generator options: Generate and call Initialization function
+    */
+
+  /** USART2 */
+  if (mx_usart2_uart_init() == NULL)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
+  /** mx_tim6_init() has been generated,
+    * but TIM6 is used as timebase
+    * then it is initialized in stm32_hal_timebase_tim.c.
+    */
 
   if (post_system_init_hook() != SYSTEM_OK)
   {
@@ -136,7 +133,7 @@ system_status_t mx_system_init(void)
   */
 __WEAK system_status_t pre_system_init_hook(void)
 {
-  /* NOTE : This function must not be modified, when the callback is needed,
+  /* NOTE : This function must not be modified. When the callback is needed,
             the pre_system_init_hook can be implemented in the user file
    */
   return SYSTEM_OK;
@@ -148,7 +145,7 @@ __WEAK system_status_t pre_system_init_hook(void)
   */
 __WEAK system_status_t post_system_init_hook(void)
 {
-  /* NOTE : This function must not be modified, when the callback is needed,
+  /* NOTE : This function must not be modified. When the callback is needed,
             the post_system_init_hook can be implemented in the user file
    */
   return SYSTEM_OK;

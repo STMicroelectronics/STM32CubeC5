@@ -2,7 +2,7 @@
 
 # __Example: *hal_fdcan_two_boards_com_it_controller*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -109,6 +109,14 @@ The FDCAN lines can be observed by connecting an oscilloscope or a logic analyze
 
 On several ST boards, an FDCAN transceiver is already present.
 
+If not, you can use an external FDCAN transceiver like [MIKROE - MCP2542 CLICK](https://www.mikroe.com/mcp2542-click).
+
+To connect the module, please follow these wiring indications:
+
+- Connect GND, 5V and 3V3 on the MCP2545 CLICK board.
+- Connect MCP2545 CLICK TX pin to FDCAN RX pin.
+- Connect MCP2545 CLICK RX pin to FDCAN TX pin.
+
 <!-- YOUR BOARDS ADDED HERE BY README GENERATION -->
 <details>
   <summary>On STM32C5 series.</summary>
@@ -124,6 +132,7 @@ On several ST boards, an FDCAN transceiver is already present.
   |    PB9    |   FDCAN1_TX   |      PB9      |
   |    PB8    |   FDCAN1_RX   |      PB8      |
 
+  An FDCAN transceiver is present on this board, FDCAN signals are available on a dedicated connector.
   </details>
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
@@ -137,6 +146,7 @@ On several ST boards, an FDCAN transceiver is already present.
   |    PB9    |   FDCAN1_TX   |      PB9      |
   |    PB8    |   FDCAN1_RX   |      PB8      |
 
+  An FDCAN transceiver is present on this board, FDCAN signals are available on a dedicated connector.
   </details>
 </details>
 

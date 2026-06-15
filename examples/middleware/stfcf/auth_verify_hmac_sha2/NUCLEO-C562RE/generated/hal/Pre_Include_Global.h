@@ -8,7 +8,7 @@
 
 
 // RTE Content
-#if (CMSIS_USE_generated_Device_STM32CubeMX2_Config_RCC_2_0_0)
+#if (CMSIS_USE_generated_Device_STM32CubeMX2_Config_RCC_2_1_0)
     #define USE_EXTERNAL_ENV
 #endif
 

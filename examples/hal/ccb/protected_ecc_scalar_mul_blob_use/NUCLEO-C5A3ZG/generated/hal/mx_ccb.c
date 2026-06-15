@@ -27,9 +27,8 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_ccb_handle_t hCCB;
-
 /******************************************************************************/
-/* Exported functions for CCB in HAL layer (SW instance MyCCB_1) */
+/* Exported functions for CCB in HAL layer */
 /******************************************************************************/
 hal_ccb_handle_t *mx_ccb_init(void)
 {
@@ -38,17 +37,17 @@ hal_ccb_handle_t *mx_ccb_init(void)
     return NULL;
   }
 
+  if (mx_rcc_ccb_clock_config() != SYSTEM_OK)
+  {
+    return NULL;
+  }
   HAL_RCC_RNG_EnableClock();
 
   HAL_RCC_PKA_EnableClock();
 
   HAL_RCC_SAES_EnableClock();
-  HAL_RCC_CCB_EnableClock();
 
-  if (mx_rcc_ccb_clock_config() != SYSTEM_OK)
-  {
-    return NULL;
-  }
+  HAL_RCC_CCB_EnableClock();
 
   return &hCCB;
 }

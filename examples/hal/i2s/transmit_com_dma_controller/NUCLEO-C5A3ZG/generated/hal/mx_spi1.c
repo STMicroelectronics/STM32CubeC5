@@ -27,7 +27,7 @@
 static hal_i2s_handle_t hSPI1;
 static hal_dma_handle_t hLPDMA1_CH0;
 /******************************************************************************/
-/* Exported functions for I2S in HAL layer (SW instance MyI2S_1) */
+/* Exported functions for I2S in HAL layer */
 /******************************************************************************/
 hal_i2s_handle_t *mx_spi1_i2s_init(void)
 {
@@ -62,39 +62,36 @@ hal_i2s_handle_t *mx_spi1_i2s_init(void)
     return NULL;
   }
 
+  /* ### SPI1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    SPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA5     ------>   I2S1_CK
-       PA6     ------>   I2S1_SDI
-       PA7     ------>   I2S1_SDO
+       PA5     ------>   I2S1_CK   ------>  PA5
+       PA7     ------>   I2S1_SDO   ------>  PA7
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_5;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_5 | HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOA, PA5_PIN | PA7_PIN, &gpio_config);
 
   /**
-    SPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA15    ------>   I2S1_WS
+       PA15    ------>   I2S1_WS   ------>  NETR53_2
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_UP;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_5;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_15, &gpio_config);
+  HAL_GPIO_Init(NETR53_2_PORT, NETR53_2_PIN, &gpio_config);
 
   /* Configure the DMA TX */
       if (HAL_DMA_Init(&hLPDMA1_CH0, HAL_LPDMA1_CH0) != HAL_OK)
@@ -133,26 +130,19 @@ hal_dma_direct_xfer_config_t xfer_cfg_spi1_tx_dma;
     return NULL;
   }
 
-  /* Enable the interruption for I2S */
-    HAL_CORTEX_NVIC_SetPriority(SPI1_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
-  HAL_CORTEX_NVIC_EnableIRQ(SPI1_IRQn);
-
   return &hSPI1;
 }
 
 void mx_spi1_i2s_deinit(void)
 {
-  /* Disable the interruption for I2S */
-  HAL_CORTEX_NVIC_DisableIRQ(SPI1_IRQn);
-
   (void)HAL_I2S_DeInit(&hSPI1);
 
   HAL_RCC_SPI1_Reset();
 
   HAL_RCC_SPI1_DisableClock();
 
-  /* De-initialize all GPIO pins associated with SPI1 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_5 | HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7 | HAL_GPIO_PIN_15);
+  /* De-initialize all GPIOA pins associated with SPI1 */
+  HAL_GPIO_DeInit(HAL_GPIOA, PA5_PIN | PA7_PIN | NETR53_2_PIN);
 
   /* De-initialize the DMA channel */
   HAL_DMA_DeInit(&hLPDMA1_CH0);
@@ -172,12 +162,4 @@ hal_i2s_handle_t *mx_spi1_i2s_gethandle(void)
 void LPDMA1_CH0_IRQHandler(void)
 {
   HAL_DMA_IRQHandler(&hLPDMA1_CH0);
-}
-
-/******************************************************************************/
-/*                           SPI1 global interrupt                            */
-/******************************************************************************/
-void SPI1_IRQHandler(void)
-{
-  HAL_I2S_IRQHandler(&hSPI1);
 }

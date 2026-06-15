@@ -26,18 +26,18 @@
 static hal_adc_handle_t hADC1;
 
 /******************************************************************************/
-/* Exported functions for ADC1 in HAL layer (SW instance MyADC_1) */
+/* Exported functions for ADC1 in HAL layer */
 /******************************************************************************/
 hal_adc_handle_t *mx_adc1_init(void)
 {
-  HAL_RCC_ADC12_EnableClock();
-
-  if (HAL_RCC_ADCDAC_SetKernelClkSource(HAL_RCC_ADCDAC_CLK_SRC_PSIS) != HAL_OK)
+  if (HAL_ADC_Init(&hADC1, HAL_ADC1) != HAL_OK)
   {
     return NULL;
   }
 
-  if (HAL_ADC_Init(&hADC1, HAL_ADC1) != HAL_OK)
+  HAL_RCC_ADC12_EnableClock();
+
+  if (HAL_RCC_ADCDAC_SetKernelClkSource(HAL_RCC_ADCDAC_CLK_SRC_PSIS) != HAL_OK)
   {
     return NULL;
   }
@@ -82,20 +82,20 @@ hal_adc_handle_t *mx_adc1_init(void)
   adc_awd_config.channel        = HAL_ADC_CHANNEL_4;
   HAL_ADC_SetConfigAnalogWD(&hADC1, HAL_ADC_AWD_1, &adc_awd_config);
 
+  /* ### ADC1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    ADC1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA4     ------>   ADC1_IN4
+       PA4     ------>   ADC1_IN4   ------>  PA4
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ANALOG;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_4, &gpio_config);
+  HAL_GPIO_Init(PA4_PORT, PA4_PIN, &gpio_config);
 
   /* Enable the interruption for ADC */
   HAL_CORTEX_NVIC_SetPriority(ADC1_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
@@ -111,8 +111,8 @@ void mx_adc1_deinit(void)
   /* Disable the interruption for ADC */
   HAL_CORTEX_NVIC_DisableIRQ(ADC1_IRQn);
 
-  /* De-initialize all GPIO pins associated with ADC1 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_4);
+  /* De-initialize all GPIOA pins associated with ADC1 */
+  HAL_GPIO_DeInit(PA4_PORT, PA4_PIN);
 }
 
 hal_adc_handle_t *mx_adc1_gethandle(void)

@@ -9,9 +9,9 @@
 #ifndef PRE_INCLUDE_GLOBAL_H
 #define PRE_INCLUDE_GLOBAL_H
 
-/* STMicroelectronics::Device:STM32CubeMX2 Config:RCC@2.0.0 */
+/* STMicroelectronics::Device:STM32CubeMX2 Config:RCC@2.1.0 */
 #define USE_EXTERNAL_ENV
-/* STMicroelectronics::Utility:STM32CubeMX2 Config:SEQUENCER@1.0.0 */
+/* STMicroelectronics::Utility:STM32CubeMX2 Config:SEQUENCER@1.1.0 */
 #define SEQ_USER_CONFIG
 
 

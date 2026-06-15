@@ -28,7 +28,7 @@
 hal_pka_handle_t hPKA;
 
 /******************************************************************************/
-/* Exported functions for PKA in HAL layer (SW instance MyPKA_1) */
+/* Exported functions for PKA in HAL layer */
 /******************************************************************************/
 hal_pka_handle_t *mx_pka_init(void)
 {
@@ -37,16 +37,14 @@ hal_pka_handle_t *mx_pka_init(void)
     return NULL;
   }
 
-  HAL_RCC_RNG_EnableClock();
-
-  HAL_RCC_RNG_EnableClock();
-
-  HAL_RCC_PKA_EnableClock();
-
   if (HAL_RCC_CK48_SetKernelClkSource(HAL_RCC_CK48_CLK_SRC_HSIDIV3) != HAL_OK)
   {
     return NULL;
   }
+
+  HAL_RCC_RNG_EnableClock();
+
+  HAL_RCC_PKA_EnableClock();
 
   return &hPKA;
 }

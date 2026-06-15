@@ -52,8 +52,6 @@ int main(void)
     while (ExecStatus != EXEC_STATUS_ERROR)
     {
       ExecStatus = app_process();
-      /* Report success: LED remains turned on */
-      led_on(MX_STATUS_LED);
     }
     if (ExecStatus == EXEC_STATUS_OK)
     {
@@ -100,7 +98,7 @@ static void success_handler(void)
 {
   /* Initialize LED */
   /* Report success: the LED remains turned on */
-  led_off(MX_STATUS_LED);
+  led_on(MX_STATUS_LED);
 
   while (1);
 } /* end success_handler */
@@ -119,7 +117,6 @@ void HardFault_Handler(void)
   ExecStatus = EXEC_STATUS_ERROR;
 
   /* Take a chance to turn the status LED off (this might fail) */
-  led_off(MX_STATUS_LED);
   led_off(MX_STATUS_LED);
 
   /* Unrecoverable error: infinite loop */

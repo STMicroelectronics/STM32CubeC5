@@ -25,17 +25,17 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_aes_handle_t hAES;
-uint32_t InitVector[4] =
+uint32_t AESInitVector[4] =
   {
     0x00000000, 0x00000000, 0x00000000, 0x00000002
   };
-uint32_t HeaderMessage[1] =
+uint32_t AESHeaderMessage[1] =
   {
     0x00
   };
 
 /******************************************************************************/
-/* Exported functions for AES in HAL layer (SW instance MyAES_1) */
+/* Exported functions for AES in HAL layer */
 /******************************************************************************/
 hal_aes_handle_t *mx_aes_init(void)
 {
@@ -47,8 +47,8 @@ hal_aes_handle_t *mx_aes_init(void)
   HAL_RCC_AES_EnableClock();
 
   hal_aes_gcm_config_t p_gcm_config;
-  p_gcm_config.p_init_vect          = InitVector;
-  p_gcm_config.p_header             = HeaderMessage;
+  p_gcm_config.p_init_vect          = AESInitVector;
+  p_gcm_config.p_header             = AESHeaderMessage;
   p_gcm_config.header_size_byte     = 1;
 
   if (HAL_AES_GCM_GMAC_SetConfig(&hAES, &p_gcm_config) != HAL_OK)

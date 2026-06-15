@@ -2,7 +2,7 @@
 
 # __Example: *hal_i3c_direct_dma_controller*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/read/read_toc.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -18,7 +18,7 @@ The example implements the controller's code in I3C direct mode, using DMA.
 
 In this example, the MCU and the DMA share a buffer to manage the data: `RxBuffer`.
 On an STM32 device with data cache enabled, it is mandatory to ensure the buffer is never cached, as this scenario does not include data cache maintenance operations.
-To do so, we place the buffer in the `.non_cacheable_variables` memory section and apply the appropriate MCU settings during system initialization in `mx_system_init()`.
+To do so, we place the buffer in the `.bss.non_cacheable_area` memory section and apply the appropriate MCU settings during system initialization in `mx_system_init()`.
 
 __Initialization phase__: At main program start, the `mx_system_init()` function is called. It initializes the peripherals, nonvolatile memory (such as flash memory, NVM, or external memories), MCU regions (if applicable), the system clock, and the SysTick.
 
@@ -134,7 +134,6 @@ This section describes the exact hardware configurations of your project.
   The maximum speed configured for these series is 12,5MHz.
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C542RC.</summary>
 
@@ -148,7 +147,6 @@ This section describes the exact hardware configurations of your project.
   |    PB7    |   I3C1_SDA    |      PB7      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -162,7 +160,6 @@ This section describes the exact hardware configurations of your project.
   |    PB7    |   I3C1_SDA    |      PB7      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -177,7 +174,6 @@ This section describes the exact hardware configurations of your project.
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

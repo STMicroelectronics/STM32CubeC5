@@ -77,6 +77,8 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
+
+  /* Initialize RCC peripheral */
   if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
@@ -93,47 +95,41 @@ system_status_t mx_system_init(void)
   /*
     Peripheral init section
   */
-  /*
-    mx_lwip_example_eth_init
-  */
-  if (mx_eth1_init() == NULL)
-  {
-    return SYSTEM_PERIPHERAL_ERROR;
-  }
 
-  /*
-    mx_gpio_status_led_init
-  */
+  /** gpio_default */
   if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
-  /*
-  */
+  /** USART2 */
+  if (mx_usart2_uart_init() == NULL)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
+
+  /** ETH1 */
+  if (mx_eth1_init() == NULL)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
+
+  /** RNG */
   if (mx_rng_init() == NULL)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
-  /** mx_rtc_init()has been generated,
-    * (mx_example_rtc_init)
+  /** RTC: mx_rtc_init() has been generated,
     * but it is expected that application will call it when best needed
     * according to application needs.
     * See Cube code generator options: Generate and call Initialization function
     */
 
-  /** mx_tim6_init()has been generated,
+  /** mx_tim6_init() has been generated,
     * but TIM6 is used as timebase
     * then it is initialized in stm32_hal_timebase_tim.c.
     */
-
-  /*
-  */
-  if (mx_usart2_uart_init() == NULL)
-  {
-    return SYSTEM_PERIPHERAL_ERROR;
-  }
 
   if (post_system_init_hook() != SYSTEM_OK)
   {

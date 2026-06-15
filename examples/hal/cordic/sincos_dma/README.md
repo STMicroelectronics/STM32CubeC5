@@ -2,7 +2,7 @@
 
 # __Example: *hal_cordic_sincos_dma*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the Cube Firmware package.")
 
@@ -81,7 +81,7 @@ This section describes the exact hardware configurations of your project.
 <details>
   <summary>On STM32C5 series.</summary>
   <details>
-  <summary>On board NUCLEO-C562RE.</summary>
+    <summary>On board NUCLEO-C562RE.</summary>
 
   | Board connector   | MCU pin | Signal name      | ARDUINO pin |
   | :---:             | :---:   | :---:            | :---:       |

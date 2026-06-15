@@ -147,13 +147,6 @@ extern "C" {
 
 /* ########### Aliases to get IRQ Handlers functions ########### */
   /* *************************************************************
-    SPI1: SPI1 global interrupt
-    Alias on SPI1_IRQHandler and SPI1_IRQn
-    ************************************************************* */
-#define mx_i2sx_irqhandler SPI1_IRQHandler
-#define MX_I2SX_IRQN       SPI1_IRQn
-
-  /* *************************************************************
     SPI1 / LPDMA1_CH0: LPDMA1 channel0 global interrupt
     Alias on LPDMA1_CH0_IRQHandler and LPDMA1_CH0_IRQn
     ************************************************************* */

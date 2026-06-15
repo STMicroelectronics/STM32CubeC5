@@ -43,7 +43,7 @@ volatile uint8_t TransferError;      /* Set to 1 if a transmission or a receptio
   * - Buffer aligned for DMA constraints. As DMA is configured for bytes transfer, byte-alignment is required.
   * This is always ensured but the aligned(1) directive is harmless
   */
-__attribute__((section(".non_cacheable_variables"), aligned(1)))
+__attribute__((section("non_cacheable_area"), aligned(1)))
 uint8_t DataBuffer[BUFFER_SIZE];
 
 /* Message to be sent at the start */

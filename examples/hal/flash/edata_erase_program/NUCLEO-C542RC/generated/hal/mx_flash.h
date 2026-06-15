@@ -57,7 +57,6 @@ hal_flash_handle_t *mx_flash_gethandle(void);
 /******************************************************************************/
 /*                            FLASH NMI interrupt                             */
 /******************************************************************************/
-
 system_status_t FLASH_NMI_IRQHandler(void);
 
 #ifdef __cplusplus

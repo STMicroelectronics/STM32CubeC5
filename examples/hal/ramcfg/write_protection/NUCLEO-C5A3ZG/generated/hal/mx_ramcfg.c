@@ -46,15 +46,3 @@ void RAMCFG_IRQHandler(void)
 {
 }
 */
-
-/******************************************************************************/
-/* RAMCFG NMI interrupt */
-/******************************************************************************/
-__WEAK system_status_t RAMCFG_SRAM2_NMI_IRQHandler(void)
-{
-  /* NOTE : This function is a weak implementation for the RAMCFG NMI handler.
-            User can override it to handle ECC NMI errors for RAMCFG.
-  */
-  /* Status to be updated to SYSTEM_OK when the user IRQhandler manages the NMI error */
-  return SYSTEM_PERIPHERAL_ERROR;
-}

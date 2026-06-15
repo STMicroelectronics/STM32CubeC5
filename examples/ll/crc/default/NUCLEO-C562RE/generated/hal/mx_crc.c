@@ -26,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for CRC (SW instance MyCRC_1 in LL) layer */
+/* Exported functions for CRC in LL layer */
 /******************************************************************************/
 CRC_TypeDef *mx_crc_init(void)
 {

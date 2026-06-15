@@ -24,6 +24,8 @@
 /* Private define ------------------------------------------------------------*/
 /* timeout value in milliseconds */
 #define AES_TIMEOUT 100
+
+#define AES_ALIGNMENT         (4U) /* AES data alignment */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_aes_handle_t *pSAES; /* pointer referencing the SAES handle from the generated code */
@@ -53,6 +55,7 @@ hal_aes_handle_t *pSAES; /* pointer referencing the SAES handle from the generat
   * Output Block 3ff1caa1681fac09120eca307586e1a7
   * Ciphertext 3ff1caa1 681fac09 120eca30 7586e1a7
   */
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t Key[8] =
 {
   0x603DEB10, 0x15CA71BE, 0x2B73AEF0, 0x857D7781,
@@ -60,11 +63,13 @@ const uint32_t Key[8] =
 };
 
 /* Initialization vector */
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t IV[4] =
 {
   0x00010203, 0x04050607, 0x08090A0B, 0x0C0D0E0F
 };
 
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t plainText[16] =
 {
   0x6bc1bee2, 0x2e409f96, 0xe93d7e11, 0x7393172a,
@@ -81,8 +86,13 @@ const uint32_t expectedCipherText[16] =
   0xB2EB05E2, 0xC39BE9FC, 0xDA6C1907, 0x8C6A9D1B
 };
 /* Computed data buffers */
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t computedCiphertext[16] = {0};
+
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t computedPlaintext [16] = {0};
+
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t encryptedKey256Bit[8] = {0};
 
 /* Private functions prototype -----------------------------------------------*/

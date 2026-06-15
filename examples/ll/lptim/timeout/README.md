@@ -2,9 +2,9 @@
 
 # __Example: *ll_lptim_timeout*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.4
 
-[![User Manual](doc/read_the-UM.svg)](https://confluence.st.com/display/E01/Cube+Firmware+Examples+Documentation "An offline version is also available in the STM32Cube firmware package.")
+[![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
 How to implement a timeout to wake-up the system using the Low-Power Timer (LPTIM), through the LL LPTIM API.
 
@@ -24,7 +24,7 @@ __End of example__: If no error occurs, the device enters in low power mode inde
 
 ## __2. Example configuration__
 
-[![Configuration Manual](doc/configure_with-ConfigurationMa.svg)](https://confluence.st.com/display/E01/Cube+Firmware+Examples+Documentation#:~:text=config "An offline version is also available in the STM32Cube firmware package.")
+[![Configuration Manual](doc/configure_with-ConfigurationMa.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/configure/config_toc.html "An offline version is also available in the STM32Cube firmware package.")
 
 __LPTIM__: The LPTIM is configured with these specific parameters:
 
@@ -133,7 +133,8 @@ This section describes the exact hardware configurations of your project.
 
 ## __4. Troubleshooting__
 
-[![Troubleshooting](doc/debug_with-Troubleshooting.svg)](https://confluence.st.com/display/E01/Cube+Firmware+Examples+Documentation#:~:text=Troubleshooting "An offline version is also available in the STM32Cube firmware package.")
+[![Troubleshooting](doc/debug_with-Troubleshooting.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/debug/debug_toc.html "An offline version is also available in the STM32Cube firmware package.")
+
 
 Here are the points of attention for this specific example:
 
@@ -150,7 +151,7 @@ __Timeout management__: Polling flag instructions can cause the example to enter
 
 ## __5. See Also__
 
-[![SeeAlso](doc/go_further_with-STM32.svg)](https://confluence.st.com/display/E01/Cube+Firmware+Examples+Documentation#:~:text=See%20Also "An offline version is also available in the STM32Cube firmware package.")
+[![SeeAlso](doc/go_further_with-STM32.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/more/more_toc.html "An offline version is also available in the STM32Cube firmware package.")
 
 This [application note](https://www.st.com/content/ccc/resource/technical/document/application_note/group0/bd/16/1d/53/4a/ef/4e/0e/DM00290631/files/DM00290631.pdf/jcr:content/translations/en.DM00290631.pdf)
 explains common LPTIM usages, including timeout.

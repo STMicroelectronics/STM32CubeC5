@@ -1,0 +1,59 @@
+/**
+******************************************************************************
+* @file    stm32c5a3xg_flash.icf
+* @brief   Linker File
+******************************************************************************
+* @attention
+*
+* Copyright (c) 2026 STMicroelectronics.
+* All rights reserved.
+*
+* This software is licensed under terms that can be found in the LICENSE file
+* in the root directory of this software component.
+* If no LICENSE file comes with this software, it is provided AS-IS.
+*
+******************************************************************************
+*/
+
+/* Do not edit FLASH_xxxxxx definitions, updated by the provisioning scripts */
+define symbol ROM_ROT_ADDRESS = 0x8000000;
+define symbol ROM_ROT_SIZE = 0x12000;
+
+/* RAM_ROT_xxxx definitions shall be aligned with SRAM_ROT_xxxx definitions of region_defs.h */
+define symbol RAM_ROT_ADDRESS = 0x20020000;
+define symbol RAM_ROT_SIZE = 0x5000;
+
+define memory mem with size = 4G;
+define region ROM = mem:[from ROM_ROT_ADDRESS size ROM_ROT_SIZE];
+define region RAM = mem:[from RAM_ROT_ADDRESS size RAM_ROT_SIZE];
+
+/* define blocks */
+define block HEAP with alignment = 8, size = 0x0 { };
+define block CSTACK with alignment = 8, size = 0x1000 { };
+define block CODE with fixed order, alignment = 8 {
+       readonly,
+       readonly section .ROT_Error_Code
+       };
+
+/* setup initialization strategies */
+initialize by copy {
+  section .data
+};
+
+do not initialize {
+  section .noinit,
+  section .bss
+};
+
+place at start of ROM { readonly section .intvec } ;
+
+/* sections placements */
+place in ROM {
+  block CODE
+};
+
+place in RAM {
+  readwrite,
+  block HEAP,
+  block CSTACK
+};

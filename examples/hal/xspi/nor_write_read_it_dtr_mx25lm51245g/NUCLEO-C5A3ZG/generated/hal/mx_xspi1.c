@@ -26,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 static hal_xspi_handle_t hXSPI1;
 /******************************************************************************/
-/* Exported functions for XSPI in HAL layer (SW instance MyXSPI_1) */
+/* Exported functions for XSPI in HAL layer */
 /******************************************************************************/
 hal_xspi_handle_t *mx_xspi1_init(void)
 {
@@ -79,6 +79,8 @@ hal_xspi_handle_t *mx_xspi1_init(void)
     return NULL;
   }
 
+  /* ### XSPI1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOF_EnableClock();
 
   HAL_RCC_GPIOB_EnableClock();
@@ -88,96 +90,84 @@ hal_xspi_handle_t *mx_xspi1_init(void)
   hal_gpio_config_t  gpio_config;
 
   /**
-    XSPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PF10    ------>   XSPI1_CLK
+       PF10    ------>   XSPI1_CLK   ------>  PF10
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
   gpio_config.alternate   = HAL_GPIO_AF_9;
-  HAL_GPIO_Init(HAL_GPIOF, HAL_GPIO_PIN_10, &gpio_config);
+  HAL_GPIO_Init(PF10_PORT, PF10_PIN, &gpio_config);
 
   /**
-    XSPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB2     ------>   XSPI1_DQS
+       PB2     ------>   XSPI1_DQS   ------>  PB2
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_UP;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_11;
-  HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_2, &gpio_config);
+  HAL_GPIO_Init(PB2_PORT, PB2_PIN, &gpio_config);
 
   /**
-    XSPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PF9     ------>   XSPI1_IO0
-       PF8     ------>   XSPI1_IO1
-       PF7     ------>   XSPI1_IO2
-       PF6     ------>   XSPI1_IO3
+       PF9     ------>   XSPI1_IO0   ------>  PF9
+       PF8     ------>   XSPI1_IO1   ------>  PF8
+       PF7     ------>   XSPI1_IO2   ------>  PF7
+       PF6     ------>   XSPI1_IO3   ------>  PF6
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
   gpio_config.alternate   = HAL_GPIO_AF_11;
-  HAL_GPIO_Init(HAL_GPIOF, HAL_GPIO_PIN_9 | HAL_GPIO_PIN_8 | HAL_GPIO_PIN_7 | HAL_GPIO_PIN_6, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOF, PF9_PIN | PF8_PIN | PF7_PIN | PF6_PIN, &gpio_config);
 
   /**
-    XSPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PE7     ------>   XSPI1_IO4
-       PE8     ------>   XSPI1_IO5
-       PE9     ------>   XSPI1_IO6
-       PE10    ------>   XSPI1_IO7
+       PE7     ------>   XSPI1_IO4   ------>  PE7
+       PE8     ------>   XSPI1_IO5   ------>  PE8
+       PE9     ------>   XSPI1_IO6   ------>  PE9
+       PE10    ------>   XSPI1_IO7   ------>  PE10
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
   gpio_config.alternate   = HAL_GPIO_AF_11;
-  HAL_GPIO_Init(HAL_GPIOE, HAL_GPIO_PIN_7 | HAL_GPIO_PIN_8 | HAL_GPIO_PIN_9 | HAL_GPIO_PIN_10, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOE, PE7_PIN | PE8_PIN | PE9_PIN | PE10_PIN, &gpio_config);
 
   /**
-    XSPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB12    ------>   XSPI1_NCLK
+       PB12    ------>   XSPI1_NCLK   ------>  PB12
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_11;
-  HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_12, &gpio_config);
+  HAL_GPIO_Init(PB12_PORT, PB12_PIN, &gpio_config);
 
   /**
-    XSPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PE11    ------>   XSPI1_NCS1
+       PE11    ------>   XSPI1_NCS1   ------>  PE11
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_UP;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
   gpio_config.alternate   = HAL_GPIO_AF_11;
-  HAL_GPIO_Init(HAL_GPIOE, HAL_GPIO_PIN_11, &gpio_config);
+  HAL_GPIO_Init(PE11_PORT, PE11_PIN, &gpio_config);
 
-  /* Enable the interruption for XSPI */
+  /* Enable the interrupt for XSPI */
   HAL_CORTEX_NVIC_SetPriority(XSPI1_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
   HAL_CORTEX_NVIC_EnableIRQ(XSPI1_IRQn);
       /* Delay block configuration */
@@ -197,7 +187,7 @@ hal_xspi_handle_t *mx_xspi1_init(void)
 
 void mx_xspi1_deinit(void)
 {
-  /* Disable the interruption for XSPI */
+  /* Disable the interrupt for XSPI */
   HAL_CORTEX_NVIC_DisableIRQ(XSPI1_IRQn);
 
   (void)HAL_XSPI_DeInit(&hXSPI1);
@@ -206,12 +196,14 @@ void mx_xspi1_deinit(void)
 
   HAL_RCC_XSPI1_DisableClock();
 
-  /* De-initialize all GPIO pins associated with XSPI1 */
-  HAL_GPIO_DeInit(HAL_GPIOF, HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7 | HAL_GPIO_PIN_8 | HAL_GPIO_PIN_9 | HAL_GPIO_PIN_10);
+  /* De-initialize all GPIOF pins associated with XSPI1 */
+  HAL_GPIO_DeInit(HAL_GPIOF, PF6_PIN | PF7_PIN | PF8_PIN | PF9_PIN | PF10_PIN);
 
-  HAL_GPIO_DeInit(HAL_GPIOB, HAL_GPIO_PIN_2 | HAL_GPIO_PIN_12);
+  /* De-initialize all GPIOB pins associated with XSPI1 */
+  HAL_GPIO_DeInit(HAL_GPIOB, PB2_PIN | PB12_PIN);
 
-  HAL_GPIO_DeInit(HAL_GPIOE, HAL_GPIO_PIN_7 | HAL_GPIO_PIN_8 | HAL_GPIO_PIN_9 | HAL_GPIO_PIN_10 | HAL_GPIO_PIN_11);
+  /* De-initialize all GPIOE pins associated with XSPI1 */
+  HAL_GPIO_DeInit(HAL_GPIOE, PE7_PIN | PE8_PIN | PE9_PIN | PE10_PIN | PE11_PIN);
   }
 
 hal_xspi_handle_t *mx_xspi1_gethandle(void)

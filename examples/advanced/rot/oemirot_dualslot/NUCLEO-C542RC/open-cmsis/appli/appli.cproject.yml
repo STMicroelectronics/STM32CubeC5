@@ -1,0 +1,158 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.11.0/tools/projmgr/schemas/cproject.schema.json
+project:
+  processor:
+    trustzone: off
+  rte:
+    base-dir: ../../appli/user_modifiable
+  generators:
+    base-dir: $ProjectDir()$/generated
+    options:
+      - generator: stm32c5xx_hal_mx2codegen
+        path: $SolutionDir()$/../appli/generated/hal/
+      - generator: basic_stdio_mx2codegen
+        path: $SolutionDir()$/../appli/generated/utilities/basic_stdio
+      - generator: syscalls_mx2codegen
+        path: $SolutionDir()$/../appli/generated/utilities/syscalls
+  output:
+    base-name: ../../../bin/$Project$
+    type:
+      - elf
+      - bin
+      - hex
+  components:
+    - component: STMicroelectronics::CMSIS:CORE
+    - component: STMicroelectronics::Device:STM32 HAL:CORTEX
+    - component: STMicroelectronics::Device:STM32 HAL:CRC
+    - component: STMicroelectronics::Device:STM32 HAL:Core
+    - component: STMicroelectronics::Device:STM32 HAL:DMA
+    - component: STMicroelectronics::Device:STM32 HAL:FLASH
+    - component: STMicroelectronics::Device:STM32 HAL:FLASH_ITF
+    - component: STMicroelectronics::Device:STM32 HAL:GPIO
+    - component: STMicroelectronics::Device:STM32 HAL:ICACHE
+    - component: STMicroelectronics::Device:STM32 HAL:PWR
+    - component: STMicroelectronics::Device:STM32 HAL:Q
+    - component: STMicroelectronics::Device:STM32 HAL:RCC
+    - component: STMicroelectronics::Device:STM32 HAL:SBS
+    - component: STMicroelectronics::Device:STM32 HAL:UART
+    - component: STMicroelectronics::Device:STM32 HAL:timebases&SYSTICK
+    - component: STMicroelectronics::Device:STM32 LL:BUS
+    - component: STMicroelectronics::Device:STM32 LL:CRC
+    - component: STMicroelectronics::Device:STM32 LL:Common
+    - component: STMicroelectronics::Device:STM32 LL:DMA
+    - component: STMicroelectronics::Device:STM32 LL:EXTI
+    - component: STMicroelectronics::Device:STM32 LL:FLASH
+    - component: STMicroelectronics::Device:STM32 LL:GPIO
+    - component: STMicroelectronics::Device:STM32 LL:ICACHE
+    - component: STMicroelectronics::Device:STM32 LL:PWR
+    - component: STMicroelectronics::Device:STM32 LL:RCC
+    - component: STMicroelectronics::Device:STM32 LL:SBS
+    - component: STMicroelectronics::Device:STM32 LL:USART
+    - component: STMicroelectronics::Device:STM32 LL:UTILS
+    - component: STMicroelectronics::Device:STM32CubeMX2 Codegen:Generated Code
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:CORE
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:CORTEX MPU
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:CORTEX NVIC
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:CRC
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:FLASH
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:ICACHE
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:RCC
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:SBS
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:System
+    - component: STMicroelectronics::Device:STM32CubeMX2 Config:UART
+    - component: STMicroelectronics::Device:Startup
+    - component: STMicroelectronics::Utility:Basic stdio:Core
+    - component: STMicroelectronics::Utility:Basic stdio:itf_io&UART
+    - component: STMicroelectronics::Utility:STM32CubeMX2 Config:Basic stdio
+    - component: STMicroelectronics::Utility:STM32CubeMX2 Config:syscalls
+    - component: STMicroelectronics::Utility:syscalls&Standalone syscalls
+    - component: STMicroelectronics::Utility:sysmem&Standalone sysmem
+  groups:
+    - files:
+        - file: ../../appli/main.c
+          category: source
+        - file: ../../appli/data.c
+          category: source
+        - file: ../../appli/com.c
+          category: source
+        - file: ../../appli/common.c
+          category: source
+        - file: ../../appli/fw_update_app.c
+          category: source
+        - file: ../../appli/low_level_device.c
+          category: source
+        - file: ../../appli/low_level_flash.c
+          category: source
+        - file: ../../appli/ymodem.c
+          category: source
+        - file: ../../appli/main.h
+          category: header
+        - file: ../../appli/data.h
+          category: header
+        - file: ../../appli/appli_flash_layout.h
+          category: header
+        - file: ../../appli/com.h
+          category: header
+        - file: ../../appli/common.h
+          category: header
+        - file: ../../appli/Driver_Common.h
+          category: header
+        - file: ../../appli/Driver_Flash.h
+          category: header
+        - file: ../../appli/fw_update_app.h
+          category: header
+        - file: ../../appli/low_level_flash.h
+          category: header
+        - file: ../../appli/ymodem.h
+          category: header
+      group: appli
+  setups:
+    - setup: release_AC6
+      misc:
+        - ASM:
+            - -Oz
+            - -g
+          C:
+            - -Oz
+            - -g
+            - -std=gnu11
+            - -fno-exceptions
+            - -fno-rtti
+            - -funsigned-char
+            - -Wmissing-prototypes
+          CPP:
+            - -Oz
+            - -g
+            - -std=gnu11
+            - -fno-exceptions
+            - -fno-rtti
+            - -funsigned-char
+            - -Wmissing-prototypes
+          Link-C:
+            - --library_type=microlib
+            - --symbols
+            - --map
+            - --show_full_path
+            - --inline
+            - --any_contingency
+          Link-CPP:
+            - --library_type=microlib
+            - --symbols
+            - --map
+            - --show_full_path
+            - --inline
+            - --any_contingency
+          for-compiler: AC6
+      for-context:
+        - .release_AC6
+  executes:
+    - execute: prebuild
+      run: python ./../../../$Project$/project_$Project$.py prebuild --compiler $Compiler$
+      always:
+      for-context:
+        - .release_AC6
+    - execute: postbuild
+      run: python ./../../../$Project$/project_$Project$.py postbuild
+      input:
+        - $elf()$
+      for-context:
+        - .release_AC6

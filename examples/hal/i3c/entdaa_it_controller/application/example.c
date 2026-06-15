@@ -143,7 +143,7 @@ app_status_t app_process(void)
 
     }
 
-    PRINTF("[INFO] Step 2: DAA initiation COMPLETED.");
+    PRINTF("[INFO] Step 2: DAA initiation COMPLETED.\n");
 
     /** ########## Step 3 ##########
       * Wait for completion of the DAA process or a DAA error interrupt.

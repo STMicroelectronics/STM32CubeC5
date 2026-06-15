@@ -2,7 +2,7 @@
 
 # __Example: *hal_wwdg_reset*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -43,32 +43,25 @@ If you enable `USE_TRACE`, you can follow these execution steps in the terminal 
 ## __2. Example configuration__
 
 [![Configuration Manual](doc/configure_with-ConfigurationMa.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/configure/config_toc.html "An offline version is also available in the STM32Cube firmware package.")
-> The WWDG_WINDOW, PRESCALER and RELOAD parameters are calculated based on WWDG_MAX_TIME_VALUE(ms) and WWDG_MAX_TIME_VALUE(ms) in the function HAL_WWDG_Start().
+> The WWDG_WINDOW, PRESCALER and RELOAD parameters are calculated based on WWDG_MIN_TIME_VALUE(ms) and WWDG_MAX_TIME_VALUE(ms) in the function HAL_WWDG_Start().
 > To ensure that the WWDG operates correctly, the application must reload the counter value within the specified window. The reload operation should occur when the counter value is between the window register value and 0x3F, and the value written to the WWDG_CR register must be between 0xFF and 0xC0.
 > The WWDG_TIMEOUT value is calculated as follows: `WWDG_TIMEOUT = tPCLK x 4096 x 2^WDGTB[2:0] x (T[5:0] + 1)`
+> Consequently, the maximum and minimum values depends on the tPCLK which is the APB clock period.
+
+We want to set the WWDG timeout to be 209ms. So the tPCLK clock should be set accordingly to be sure this value can be reached.
 
 
 ## __3. Hardware environment and setup__
 
 ### __3.1. Generic Setup__
 
-The frequency used for the WWDG_TIMEOUT parameter calculation depends on the board and setup you are using:
-<details>
-  <summary>On STM32U5 series.</summary>
-
-The APB frequency is equal to 160 MHz. The value for the frequency can change if you change the clock divider, which is by default equal to 1.
-During the WWDG initialization, the WWDG_INTERNAL_DIVIDER is set to 4096, `WDGTB[2:0]` is set to 7 and `T[5:0]` is set to 63.
-Below is the calculation of the WWDG_TIMEOUT based on this configuration:
-
-> WWDG_TIMEOUT = (1 / 160000000) * 4096 * 2^7 * (63 + 1) = 209.72 ms.
-> After the WWDG is refreshed, it will expire after approximately 209.71 milliseconds and generate a reset if the counter is not reloaded within this time frame.
-
-
-</details>
+The frequency used for the WWDG_TIMEOUT parameter calculation depends on the board and setup you are using. So, you have to be sure the WWDG can perform a timeout for your case. You can refer to the datasheet to retrieve typical timeout values configuration.
+The following section provide some explanation on the maximal timeout reachable according to the series.
 
 ### __3.2. Specific board setups__
 
-No specific board setup needed for this example.
+
+
 
 
 ## __4. Troubleshooting__
@@ -90,6 +83,10 @@ Enabling the trace can cause issues when the watchdog is configured with a low r
 
 The time spent by the trace mechanism alone may be enough to trigger a watchdog timeout.
 To avoid this, we recommend setting the watchdog reload value to at least 60 when the trace is enabled.
+
+__Maximal timeout value__:
+The maximal timeout value for the WWDG depends on the clock used by the counter.
+You might need to adapt this clock to be sure the WWDG handle the specified timeout.
 
 
 ## __5. See Also__

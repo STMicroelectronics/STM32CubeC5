@@ -26,15 +26,15 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /* Exported function definition ----------------------------------------------*/
+/******************************************************************************/
+/* Exported functions for TIM1 in LL layer */
+/******************************************************************************/
 
-/******************************************************************************/
-/* Exported functions for TIM1 in LL layer (SW instance MyTIM_1) */
-/******************************************************************************/
 TIM_TypeDef *mx_tim1_init(void)
 {
   LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_TIM1);
 
-  /* Timer configuration to reach the output frequency at 8000 Hz */
+  /* Timer configuration to reach the output frequency at 8 kHz */
   LL_TIM_SetPrescaler(TIM1, 2249);
   /* LL_TIM_SetCounterMode(TIM1, LL_TIM_COUNTERMODE_UP); */ /* Configuration matches register reset state at startup. */
   LL_TIM_SetAutoReload(TIM1, 7);
@@ -43,12 +43,14 @@ TIM_TypeDef *mx_tim1_init(void)
   /* LL_TIM_SetClockSource(TIM1, LL_TIM_CLK_INTERNAL); */ /* Configuration matches register reset state at startup. */
 
   /* Channel 1 Configuration */
-  /* LL_TIM_OC_ConfigOutput(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_OCPOLARITY_HIGH | LL_TIM_OCIDLESTATE_RESET); */ /* Configuration matches register reset state at startup. */
+  /* LL_TIM_OC_SetPolarity(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_OCPOLARITY_HIGH); */ /* Configuration matches register reset state at startup. */
+  /* LL_TIM_OC_SetIdleState(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_OCIDLESTATE_RESET); */ /* Configuration matches register reset state at startup. */
   /* LL_TIM_OC_SetOverrideState(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_OCOVERRIDE_RESET); */ /* Configuration matches register reset state at startup. */
   /* LL_TIM_OC_SetBreakMode(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_OCBREAKMODE_IMMEDIATE); */ /* Configuration matches register reset state at startup. */
 
   /* Channel 1N Configuration */
-  /* LL_TIM_OC_ConfigOutput(TIM1, LL_TIM_CHANNEL_CH1N, LL_TIM_OCPOLARITY_HIGH | LL_TIM_OCIDLESTATE_RESET); */ /* Configuration matches register reset state at startup. */
+  /* LL_TIM_OC_SetPolarity(TIM1, LL_TIM_CHANNEL_CH1N, LL_TIM_OCPOLARITY_HIGH); */ /* Configuration matches register reset state at startup. */
+  /* LL_TIM_OC_SetIdleState(TIM1, LL_TIM_CHANNEL_CH1N, LL_TIM_OCIDLESTATE_RESET); */ /* Configuration matches register reset state at startup. */
   /* LL_TIM_OC_SetOverrideState(TIM1, LL_TIM_CHANNEL_CH1N, LL_TIM_OCOVERRIDE_RESET); */ /* Configuration matches register reset state at startup. */
   /* LL_TIM_OC_SetBreakMode(TIM1, LL_TIM_CHANNEL_CH1N, LL_TIM_OCBREAKMODE_IMMEDIATE); */ /* Configuration matches register reset state at startup. */
 
@@ -65,36 +67,36 @@ TIM_TypeDef *mx_tim1_init(void)
   LL_TIM_SetFallingDeadTime(TIM1, 226);
   LL_TIM_EnableAsymmetricalDeadTime(TIM1);
 
+  /* ### TIM1 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
 
   /**
-    TIM1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA8     ------>   TIM1_CH1
-       PA7     ------>   TIM1_CH1N
+       PA8     ------>   TIM1_CH1   ------>  PA8
+       PA7     ------>   TIM1_CH1N   ------>  PA7
     **/
 
   /* Configure IO output speed (Low, Medium, High or Very-High) */
-  /* LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_8, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_7, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PA8_PORT, PA8_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PA7_PORT, PA7_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_8 | LL_GPIO_PIN_7, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinOutputType(GPIOA, PA8_PIN | PA7_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_8, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_7, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA8_PORT, PA8_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA7_PORT, PA7_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_8, LL_GPIO_AF_1);
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_7, LL_GPIO_AF_1);
+  LL_GPIO_SetAFPin_8_15(PA8_PORT, PA8_PIN, LL_GPIO_AF_1);
+  LL_GPIO_SetAFPin_0_7(PA7_PORT, PA7_PIN, LL_GPIO_AF_1);
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_8, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_7, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PA8_PORT, PA8_PIN, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PA7_PORT, PA7_PIN, LL_GPIO_MODE_ALTERNATE);
 
   return TIM1;
 }
@@ -109,24 +111,24 @@ void mx_tim1_deinit(void)
   /* ### GPIO deinitialization of TIM1: TIM1_CH1,TIM1_CH1N ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_8, LL_GPIO_MODE_ANALOG);
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_7, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA8_PORT, PA8_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA7_PORT, PA7_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_8, LL_GPIO_AF_0);
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_7, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_8_15(PA8_PORT, PA8_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA7_PORT, PA7_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_8, LL_GPIO_SPEED_FREQ_LOW);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_7, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA8_PORT, PA8_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA7_PORT, PA7_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_8 | LL_GPIO_PIN_7, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(GPIOA, PA8_PIN | PA7_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_8, LL_GPIO_PULL_NO);
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_7, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA8_PORT, PA8_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA7_PORT, PA7_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOA, LL_GPIO_PIN_8 | LL_GPIO_PIN_7, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PA8_PORT, PA8_PIN | PA7_PIN, LL_GPIO_PIN_RESET);
 }

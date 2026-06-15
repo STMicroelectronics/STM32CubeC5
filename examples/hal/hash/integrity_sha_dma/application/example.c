@@ -20,25 +20,31 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define MESSAGE_BUFFER_SIZE 32
+#define MESSAGE_BUFFER_SIZE_BYTE (32U)
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_hash_handle_t *pHASH;
-hal_hash_config_t p_hashconfig;
+
 /* Message to be computed */
-uint8_t Message [4] __attribute__((aligned(256))) =
+__attribute__((aligned(256)))
+const uint8_t Message [4] =
 {
   0x86, 0x46, 0xc6, 0x0
 };
-/*The expected message of the compute process */
-uint8_t ExpectedHash [MESSAGE_BUFFER_SIZE] __attribute__((aligned(256))) =
+
+/* The expected message of the compute process */
+__attribute__((aligned(256)))
+const uint8_t ExpectedHash [MESSAGE_BUFFER_SIZE_BYTE] =
 {
   0xba, 0x78, 0x16, 0xbf, 0x8f, 0x01, 0xcf, 0xea, 0x41, 0x41, 0x40, 0xde,
   0x5d, 0xae, 0x22, 0x23, 0xb0, 0x03, 0x61, 0xa3, 0x96, 0x17, 0x7a, 0x9c, 0xb4, 0x10, 0xff, 0x61, 0xf2, 0x00,
   0x15, 0xad
 };
-/*The input message to be hashed by the update process */
-uint8_t Msg65Input [65] __attribute__((aligned(256))) =
+
+/* The input message to be hashed by the update process */
+__attribute__((aligned(256)))
+const uint8_t Msg65Input [65] =
 {
   0x52, 0x43, 0x31, 0x5f, 0x53, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x61, 0x50, 0x72, 0x6f, 0x6a, 0x65,
   0x63, 0x74, 0x5f, 0x53, 0x46, 0x55, 0x61, 0x45, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x73, 0x61,
@@ -46,31 +52,40 @@ uint8_t Msg65Input [65] __attribute__((aligned(256))) =
   0x41, 0x52, 0x4d, 0x61, 0x53, 0x54, 0x4d, 0x33, 0x32, 0x32, 0x78, 0x47, 0x5f, 0x45, 0x56, 0x41,
   0x4c
 };
-/*The expected message of the update process */
-uint8_t Msg65expectedSHA256 [MESSAGE_BUFFER_SIZE] __attribute__((aligned(256))) =
+
+/* The expected message of the update process */
+__attribute__((aligned(256)))
+const uint8_t Msg65expectedSHA256 [MESSAGE_BUFFER_SIZE_BYTE] =
 {
   0xf6, 0x9c, 0x82, 0x20, 0x48, 0x97, 0x13, 0x5e, 0xbc, 0x18, 0xb3, 0xf3, 0x16,
   0x08, 0x91, 0x78, 0x79, 0x89, 0x34, 0x39, 0x80, 0x43, 0xa0, 0xb5,
   0xf8, 0x9e, 0x6a, 0x2e, 0x3e, 0x6b, 0x92, 0x1c
 };
+
 /* The HASH message output of update process */
-uint8_t SHA256_Output [MESSAGE_BUFFER_SIZE] __attribute__((aligned(256))) = {0};
+__attribute__((aligned(256)))
+uint8_t SHA256_Output [MESSAGE_BUFFER_SIZE_BYTE] = {0};
 uint32_t SHA256_OutputSize;
+
 /* The HASH message output of compute process */
-uint8_t computed_hash_message [MESSAGE_BUFFER_SIZE] __attribute__((aligned(256))) = {0};
+__attribute__((section("non_cacheable_area"), aligned(256)))
+uint8_t computed_hash_message [MESSAGE_BUFFER_SIZE_BYTE] = {0};
 uint32_t ComputedSize;
-/* Set to 1 if the computation/ update is correctly completed */
-uint32_t ComputeCpltCb;
-uint32_t ComputeErrorCb;
+
+/* Input complete, compute complete and compute error flags */
+volatile uint32_t InputComplete = 0U;
+volatile uint32_t ComputeComplete = 0U;
+volatile uint32_t ComputeError = 0U;
+
 /* Private functions prototype -----------------------------------------------*/
+static void InputCpltCallback(hal_hash_handle_t *pHASH);
 static void DigestCpltCallback(hal_hash_handle_t *pHASH);
 static void ErrorCallback(hal_hash_handle_t *pHASH);
 
 
 /** ########## Step 1 ##########
-  * Initializes the HASH and the DMA peripheral.
+  * Initializes the HASH and the DMA peripherals.
   */
-
 app_status_t app_init(void)
 {
   app_status_t return_status = EXEC_STATUS_ERROR;
@@ -81,13 +96,21 @@ app_status_t app_init(void)
   {
     goto _app_init_exit;
   }
-  /* Register the user hash error Callback*/
-  if (HAL_HASH_RegisterErrorCpltCallback(pHASH, ErrorCallback) != HAL_OK)
+
+  /* Register the user hash digest Callback */
+  if (HAL_HASH_RegisterInputCpltCallback(pHASH, InputCpltCallback) != HAL_OK)
   {
     goto _app_init_exit;
   }
-  /* Register the user hash digest Callback*/
+
+  /* Register the user hash digest Callback */
   if (HAL_HASH_RegisterDigestComputationCpltCallback(pHASH, DigestCpltCallback) != HAL_OK)
+  {
+    goto _app_init_exit;
+  }
+
+  /* Register the user hash error Callback */
+  if (HAL_HASH_RegisterErrorCpltCallback(pHASH, ErrorCallback) != HAL_OK)
   {
     goto _app_init_exit;
   }
@@ -112,6 +135,7 @@ _app_init_exit:
   */
 app_status_t app_process(void)
 {
+  hal_hash_config_t p_hashconfig;
   app_status_t return_status = EXEC_STATUS_ERROR;
 
   /** ########## Step 2.1 ##########
@@ -119,33 +143,38 @@ app_status_t app_process(void)
     */
 
   /* Compute the HASH message in DMA mode */
-  HAL_HASH_Compute_DMA(pHASH, Message, 3, computed_hash_message, MESSAGE_BUFFER_SIZE, &ComputedSize);
+  if (HAL_HASH_Compute_DMA(pHASH,
+                           Message,
+                           3U,
+                           computed_hash_message,
+                           MESSAGE_BUFFER_SIZE_BYTE,
+                           &ComputedSize) != HAL_OK)
+  {
+    goto _app_process_exit;
+  }
 
   /* Wait for one of these HASH interrupts: compute complete or compute error */
-  while ((ComputeCpltCb == 0) && (ComputeErrorCb == 0))
+  while ((ComputeComplete == 0U) && (ComputeError == 0U))
   {
     /* Put the CPU in Wait For Interrupt state.*/
     __WFI();
   }
 
   /* Check if there's an error occurred while the computation */
-  if (ComputeErrorCb == 1)
+  if (ComputeError == 1)
   {
     goto _app_process_exit;
   }
 
   /* Verify the computed HASH message */
-  if (memcmp(computed_hash_message, ExpectedHash, 32) != 0)
+  if (memcmp(computed_hash_message, ExpectedHash, MESSAGE_BUFFER_SIZE_BYTE) != 0U)
   {
     goto _app_process_exit;
   }
 
-  /* Clear all data */
-  memset((void *)computed_hash_message, 0U, sizeof(computed_hash_message));
-
   PRINTF("[INFO] Step 2.1: HASH message compute and verification COMPLETED.\n");
 
-  ComputeCpltCb = 0;
+  ComputeComplete = 0U;
 
   /** ########## Step 2.2 ##########
     * Updates and verifies the HASH message in DMA mode.
@@ -160,52 +189,67 @@ app_status_t app_process(void)
   {
     goto _app_process_exit;
   }
+
+  InputComplete = 0U;
+
   /* Update process in DMA mode with the first input buffer */
-  if (HAL_HASH_Update_DMA(pHASH, Msg65Input, 60) != HAL_OK)
+  if (HAL_HASH_Update_DMA(pHASH, Msg65Input, 60U) != HAL_OK)
   {
     goto _app_process_exit;
   }
-  if (HAL_HASH_Update_DMA(pHASH, Msg65Input + 60, 5) != HAL_OK)
+
+  /* Wait for one of these HASH interrupts: compute complete or compute error */
+  while ((InputComplete == 0U) && (ComputeError == 0U))
+  {
+    /* Put the CPU in Wait For Interrupt state.*/
+    __WFI();
+  }
+
+  /* Check if there's an error occurred while the computation */
+  if (ComputeError == 1U)
   {
     goto _app_process_exit;
   }
+
+  InputComplete = 0U;
+
+  if (HAL_HASH_Update_DMA(pHASH, Msg65Input + 60U, 5U) != HAL_OK)
+  {
+    goto _app_process_exit;
+  }
+
+  /* Wait for one of these HASH interrupts: compute complete or compute error */
+  while ((InputComplete == 0U) && (ComputeError == 0U))
+  {
+    /* Put the CPU in Wait For Interrupt state.*/
+    __WFI();
+  }
+
+  /* Check if there's an error occurred while the computation */
+  if (ComputeError == 1U)
+  {
+    goto _app_process_exit;
+  }
+
   /* Stop HASH update process in DMA mode */
-  if (HAL_HASH_Finish(pHASH, SHA256_Output, MESSAGE_BUFFER_SIZE, &SHA256_OutputSize, 1000) != HAL_OK)
+  if (HAL_HASH_Finish(pHASH, SHA256_Output, MESSAGE_BUFFER_SIZE_BYTE, &SHA256_OutputSize, 1000U) != HAL_OK)
   {
     goto _app_process_exit;
   }
-  if (ComputeErrorCb == 1)
-  {
-    goto _app_process_exit;
-  }
+
   /* Verify the HASH message with the expected one */
-  if (memcmp((const void *)SHA256_Output, (const void *)Msg65expectedSHA256, 28) != 0)
+  if (memcmp((const void *)SHA256_Output, Msg65expectedSHA256, 28U) != 0U)
   {
     goto _app_process_exit;
   }
 
   PRINTF("[INFO] Step 2.2: HASH message update and verification COMPLETED.\n");
 
-  /* Clear all data */
-  memset((void *)SHA256_Output, 0U, sizeof(SHA256_Output));
-
   return_status = EXEC_STATUS_OK;
 
 _app_process_exit:
   return return_status;
 } /* end app_process*/
-
-
-/* Digest computation complete call back */
-static void DigestCpltCallback(hal_hash_handle_t *pHASH)
-{
-  ComputeCpltCb = 1U;
-}
-/* HASH error callback.*/
-static void ErrorCallback(hal_hash_handle_t *pHASH)
-{
-  ComputeErrorCb = 1U;
-}
 
 
 /** ########## Step 3 ##########
@@ -221,3 +265,21 @@ app_status_t app_deinit(void)
   return EXEC_STATUS_OK;
 } /* end app_deinit*/
 
+
+/* Digest computation complete call back */
+static void InputCpltCallback(hal_hash_handle_t *pHASH)
+{
+  InputComplete = 1U;
+}
+
+/* Digest computation complete call back */
+static void DigestCpltCallback(hal_hash_handle_t *pHASH)
+{
+  ComputeComplete = 1U;
+}
+
+/* HASH error callback.*/
+static void ErrorCallback(hal_hash_handle_t *pHASH)
+{
+  ComputeError = 1U;
+}

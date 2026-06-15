@@ -108,7 +108,7 @@ static inline system_status_t WaitRegistersSynchronizationFlag(void)
   while (LL_RTC_IsActiveFlag_RS() == 0U)
   {
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout_ms-- == 0)
       {

@@ -5,15 +5,16 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef MX_CORTEX_MPU_H
 #define MX_CORTEX_MPU_H
@@ -23,19 +24,29 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
+
 #include "stm32_hal.h"
 #include "mx_def.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macros -----------------------------------------------------------*/
+/* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+/******************************************************************************/
+/* Exported functions for CORTEX_MPU in HAL layer */
+/******************************************************************************/
+/**
+  * @brief mx_cortex_mpu init function
+  * This function configures the hardware resources used in this example
+  * @retval pointer to handle or NULL in case of failure
+  */
+system_status_t mx_cortex_mpu_init(void);
 
 /**
-  * @brief  MPU initialization
-  * @retval Status
+  * @brief  De-initialize cortex_mpu instance and return it.
   */
-system_status_t mx_cortex_mpu_hal_init(void);
+void mx_cortex_mpu_deinit(void);
 
 #ifdef __cplusplus
 }

@@ -65,3 +65,18 @@ app_status_t app_deinit(void)
 
   return EXEC_STATUS_OK;
 } /* end app_deinit */
+
+
+/**  User hook function called before the HAL_Init() function
+  */
+system_status_t pre_system_init_hook(void)
+{
+  /** Reset the backup domain to prevent reusing any previous RTC calendar and alarm. So RTC peripheral registers and
+    * RTC clock source (LSE or LSI) will be in their reset state whatever was programmed before.
+    * This is implemented before the LSE or the LSI is properly configured in `system_clock_config()`.
+    */
+  HAL_PWR_DisableRTCDomainWriteProtection();
+  HAL_RCC_ResetRTCDomain();
+
+  return SYSTEM_OK;
+}

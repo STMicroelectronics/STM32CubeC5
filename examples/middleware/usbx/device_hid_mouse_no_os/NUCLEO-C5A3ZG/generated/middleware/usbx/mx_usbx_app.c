@@ -47,7 +47,6 @@ UINT app_usbx_init(VOID)
   {
     return status;
   }
-
   status = app_usbx_device_init();
 
   if (status != UX_SUCCESS)
@@ -73,16 +72,12 @@ UINT app_usbx_deinit(VOID)
   * @brief  Application USBX Process.
   * @retval none
   */
-UINT app_usbx_process(VOID)
+VOID app_usbx_process(VOID)
 {
-  UINT return_status = UX_SUCCESS;
-  return_status = app_usbx_device_process();
-  if (return_status != UX_SUCCESS)
+  while (1)
   {
-    return return_status;
+    app_usbx_device_process();
   }
-
-  return return_status;
 }
 
 /**

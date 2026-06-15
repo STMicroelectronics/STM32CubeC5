@@ -22,6 +22,10 @@
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+          Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ACCESS_ALIGNMENT        (8U)
+
 /* Timeout period in milliseconds for handling XSPI operations */
 #define TIMEOUT                          2000U
 
@@ -82,9 +86,12 @@
 hal_xspi_handle_t *pXSPI;  /* pointer referencing the XSPI handle from the generated code */
 
 /* Buffer used for sending data to the memory, initialized at the start of the application */
+__attribute__((section("non_cacheable_area"), aligned(DMA_ACCESS_ALIGNMENT)))
 uint8_t TxBuffer[BUFFER_SIZE];
+
 /* Buffer used for receiving data from the memory */
-uint8_t RxBuffer[BUFFER_SIZE] = {0U};
+__attribute__((section("non_cacheable_area"), aligned(DMA_ACCESS_ALIGNMENT)))
+uint8_t RxBuffer[BUFFER_SIZE];
 
 volatile uint8_t RxCplt = 0U; /* Set to 1 if the receive transfer is correctly completed */
 volatile uint8_t TxCplt = 0U; /* Set to 1 if the transmit transfer is correctly completed */
@@ -273,6 +280,7 @@ app_status_t app_process(void)
   command.instruction = MX25_OCTAL_IO_DTR_READ_CMD;
   command.addr        = MX25_FIRST_PAGE_ADDR;
   command.size_byte   = BUFFER_SIZE;
+  command.dqs_mode_status = HAL_XSPI_DQS_ENABLED;
   command.dummy_cycle = MX25_OCTAL_READ_20_DUMMY_CYCLES;
   if (HAL_XSPI_SendRegularCmd(pXSPI, &command, TIMEOUT) != HAL_OK)
   {

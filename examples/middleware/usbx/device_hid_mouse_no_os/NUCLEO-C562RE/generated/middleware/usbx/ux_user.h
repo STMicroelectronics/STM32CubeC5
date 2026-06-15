@@ -35,7 +35,7 @@
 /*  PORT SPECIFIC C INFORMATION                            RELEASE        */
 /*                                                                        */
 /*    ux_user.h                                           PORTABLE C      */
-/*                                                           6.4.3        */
+/*                                                           6.5.0        */
 /*                                                                        */
 /*  AUTHOR                                                                */
 /*                                                                        */
@@ -53,6 +53,10 @@
 
 #ifndef UX_USER_H
 #define UX_USER_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 /* Define various build options for the USBX port.  The application should either make changes
    here by commenting or un-commenting the conditional compilation defined OR supply the defines
@@ -77,7 +81,6 @@
 /* Defined, this enables function parameters checking. This define is typically used
    when the application is debugging and removed after the application is fully debugged.  */
 #define UX_ENABLE_PARAM_CHECKING
-
 
 /* This value actually defines the time slice that will be used for threads. */
 /* #define UX_NO_TIME_SLICE (0ul) */
@@ -111,7 +114,6 @@
    If referenced by pointer the address pointer to const string is saved, the pointers are compared to confirm match.
  */
 /* #define UX_NAME_REFERENCED_BY_POINTER */
-
 /* Defined, this value is the maximum number of classes in the device stack that can be loaded by
    USBX. */
 /* #define UX_MAX_SLAVE_CLASS_DRIVER 2 */
@@ -150,7 +152,7 @@
 /* #define UX_MAX_DEVICE_INTERFACES 6 */
 
 /* Defined, this macro enables device bi-directional-endpoint support.  */
-/* #define UX_DEVICE_BIDIRECTIONAL_ENDPOINT_SUPPORT */
+#define UX_DEVICE_BIDIRECTIONAL_ENDPOINT_SUPPORT
 
 /* Defined, this value represents the endpoint buffer owner.
    0 - The default, endpoint buffer is managed by core stack. Each endpoint takes ux_slave_request_data_max_length bytes.
@@ -195,9 +197,7 @@
     calculate and allocate the queue.
  */
 /* #define UX_DEVICE_CLASS_HID_ZERO_COPY */
-
-
-
-
-
+#ifdef __cplusplus
+}
+#endif
 #endif /* UX_USER_H */

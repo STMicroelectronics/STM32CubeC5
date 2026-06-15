@@ -3,57 +3,64 @@
   * @file           : mx_flash.h
   * @brief          : Header for mx_flash.c file.
   ******************************************************************************
+  * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef MX_FLASH_H
 #define MX_FLASH_H
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_hal.h"
+#include "mx_def.h"
 
-/* Private define ------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+
+/* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+/******************************************************************************/
+/* Exported functions for FLASH in HAL layer */
+/******************************************************************************/
+/**
+  * @brief mx_flash init function
+  * This function configures the hardware resources used in this example
+  * @retval pointer to handle or NULL in case of failure
+  */
+hal_flash_handle_t *mx_flash_init(void);
 
 /**
-  * @brief nvm init function
-
-  * @param None
-  * @retval
+  * @brief  De-initialize flash instance and return it.
   */
-hal_flash_handle_t *flash_instance0_cfg1_init(void);
+void mx_flash_deinit(void);
 
 /**
-  * @brief nvm peripheral deinitialization function
-  * @param None
-  * @retval None
+  * @brief  Get the FLASH object.
+  * @retval Pointer on the FLASH Handle
   */
-void flash_deinit(void);
+hal_flash_handle_t *mx_flash_gethandle(void);
 
-/**
-  * @brief  Get the nvm object.
-  * @param None
-  * @retval Pointer on the nvm Handle
-  */
-hal_flash_handle_t *mx_hal_flash_gethandle(void);
+/******************************************************************************/
+/*                            FLASH NMI interrupt                             */
+/******************************************************************************/
+system_status_t FLASH_NMI_IRQHandler(void);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 #endif /* MX_FLASH_H */

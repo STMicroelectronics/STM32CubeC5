@@ -1,0 +1,89 @@
+{{!--
+  ******************************************************************************
+  * file           : mx_lps22hh_template.c.hbs
+  * brief          : Code generation for the LPS22HH part driver.
+  ******************************************************************************
+  * attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+~--}}
+/**
+  ******************************************************************************
+  * file           : mx_lps22hh.c
+  * brief          : Code generation for the LPS22HH part driver.
+  ******************************************************************************
+  * attention
+  *
+  * Copyright (c) {{#unless (eq 2026 (toInt (year)))}}2026-{{/unless}}{{year}} STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the mx_lps22hh_license.md file
+  * in the same directory as the generated code.
+  * If no mx_lps22hh_license.md file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+
+{{assign 'lps22hh_instances'  (@root.SWConfigurationAPI.getInstances "STMicroelectronics::Board Part:STM32CubeMX2 Config:LPS22HH")~}}
+
+/* Includes ------------------------------------------------------------------*/
+#include "mx_lps22hh.h"
+
+{{#each @root.lps22hh_instances}}
+{{assign 'ctx' (@root.SWConfigurationAPI.getSwInstanceConfiguration this)~}}
+{{assign 'info'  @root.ctx.info~}}
+static lps22hh_object_t lps22hh_{{@index~}}_obj;
+{{/each}}
+int32_t lps22hh_io_init(lps22hh_io_t *pio)
+{
+  switch (pio->id)
+  {
+{{#each @root.lps22hh_instances}}
+{{assign 'ctx' (@root.SWConfigurationAPI.getSwInstanceConfiguration this)~}}
+{{assign 'info' @root.ctx.info~}}
+{{~assign 'resourcesAllocation' @root.ctx.resourcesAllocation}}
+  case LPS22HH_{{@index}}:
+{{#if (eq @root.info.interface 'I2C')}}
+    pio->hi2c = LPS22HH_{{@index}}_I2C_GETHANDLE();
+    pio->addr = LPS22HH_{{@index}}_I2C_ADDRESS;
+{{#if (eq @root.resourcesAllocation.i2cCfg.interruptIsEnabled true)}}
+    pio->hexti = LPS22HH_{{@index}}_EXTI_GETHANDLE();
+{{else}}
+    pio->hexti = NULL;
+{{/if}}
+    break;
+{{/if}}
+{{#if (eq @root.info.interface 'SPI')}}
+    pio->hspi  = LPS22HH_{{@index}}_SPI_GETHANDLE();
+    pio->cs_port = LPS22HH_{{@index}}_CS_PORT;
+    pio->cs_pin = LPS22HH_{{@index}}_CS_PIN;
+{{#if (eq @root.resourcesAllocation.spiCfg.interruptIsEnabled true)}}
+    pio->hexti = LPS22HH_{{@index}}_EXTI_GETHANDLE();
+{{else}}
+    pio->hexti = NULL;
+{{/if}}
+    break;
+{{/if}}
+{{/each}}
+  default:
+    break;
+  }
+  return 0;
+}
+
+{{#each @root.lps22hh_instances~}}
+{{assign 'ctx' (@root.SWConfigurationAPI.getSwInstanceConfiguration this)~}}
+{{assign 'info' @root.ctx.info~}}
+lps22hh_object_t *mx_lps22hh_{{@index}}_getobject(void)
+{
+  return &lps22hh_{{@index~}}_obj;
+}
+{{/each}}
+

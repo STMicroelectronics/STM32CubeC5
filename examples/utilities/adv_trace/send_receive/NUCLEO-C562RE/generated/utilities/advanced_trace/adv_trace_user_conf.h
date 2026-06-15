@@ -1,7 +1,7 @@
 /**
   **********************************************************************************************************************
   * @file    adv_trace_user_conf.h
-  * @brief   advanced trace configuration file
+  * @brief   Advanced Trace configuration header file
   ******************************************************************************
   * @attention
   *
@@ -27,57 +27,59 @@ extern "C" {
 #include <stdio.h>
 #include <string.h>
 
-
 /* Exported macros ---------------------------------------------------------------------------------------------------*/
 
-#define ADV_TRACE_CONDITIONAL   /* Enable the conditional mode */
+/**
+  * @brief  Enable conditional logging support.
+  */
+#define ADV_TRACE_CONDITIONAL
+
 
 
 
 /**
   * @brief  Definition of the maximum size for the temporary trace formatting buffer.
   */
-#define ADV_TRACE_MAX_FORMAT_BUF_SIZE        (128U)
+#define ADV_TRACE_MAX_FORMAT_BUF_SIZE         (128U)
 
 
 /**
-  * @brief Definition of the trace fifo size.
+  * @brief  Definition of the trace FIFO size.
   */
-#define ADV_TRACE_FIFO_SIZE                      (256U)
+#define ADV_TRACE_FIFO_SIZE                     (256U)
 
-/* User memory address location of the trace buffer */
+/* Optional user-defined memory location override for the trace buffer. */
 #define ADV_TRACE_MEMLOCATION
 
 
 /**
-  * @brief Macro used to initialize the critical section in trace feature.
+  * @brief  Macro used to initialize the critical section.
   */
 #define ADV_TRACE_INIT_CRITICAL_SECTION( )
 
 /**
-  * @brief Macro used to enter the critical section in trace feature.
+  * @brief  Macro used to enter the critical section.
   */
-#define ADV_TRACE_ENTER_CRITICAL_SECTION( )     uint32_t primask_bit = __get_PRIMASK( );\
+#define ADV_TRACE_ENTER_CRITICAL_SECTION( )   uint32_t primask_bit = __get_PRIMASK( );\
   __disable_irq( )
 
 /**
-  * @brief Macro used to exit the critical section in trace feature.
+  * @brief  Macro used to exit the critical section.
   */
-#define ADV_TRACE_EXIT_CRITICAL_SECTION( )      __set_PRIMASK( primask_bit )
+#define ADV_TRACE_EXIT_CRITICAL_SECTION( )    __set_PRIMASK( primask_bit )
 
 /**
-  * @brief ADV_TRACE_MEMSET8 macro definition
+  * @brief  Memory fill macro.
   */
-#define ADV_TRACE_MEMSET8( dest, value, size)   memset((dest),(value),(size));
+#define ADV_TRACE_MEMSET8(dest, value, size)  memset((dest), (value), (size));
 
 /**
-  * @brief ADV_TRACE_VSNPRINTF macro definition
+  * @brief  Formatted output macro mapped to vsnprintf.
   */
-#define ADV_TRACE_VSNPRINTF(...)                vsnprintf(__VA_ARGS__)
-
+#define ADV_TRACE_VSNPRINTF(...)              vsnprintf(__VA_ARGS__)
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /*ADV_TRACE_USER_CONF_H */
+#endif /* ADV_TRACE_USER_CONF_H */

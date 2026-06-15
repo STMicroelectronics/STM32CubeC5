@@ -1,17 +1,16 @@
 /**
   ******************************************************************************
   * @file    stm32_hal_timebase.h
-  * @author  GPAM Application Team
   * @brief   Include file used for stm32_hal_timebase.c
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -34,10 +33,10 @@ extern "C" {
 /******************************************************************************/
 /*   TIMEBASE ALIASES   (private aliases)                                     */
 /******************************************************************************/
-#define timebase_gethandle   mx_tim6_hal_gethandle
+#define timebase_gethandle   mx_tim6_gethandle
 
-#define timebase_init        mx_tim6_cfg1_hal_init
-#define timebase_deinit      mx_tim6_cfg1_hal_deinit
+#define timebase_init        mx_tim6_init
+#define timebase_deinit      mx_tim6_deinit
 
 #define TIMEBASE_IRQ         TIM6_IRQn
 

@@ -27,9 +27,8 @@
 static hal_tim_handle_t hTIM2;
 
 /* Exported function definition ----------------------------------------------*/
-
 /******************************************************************************/
-/* Exported functions for TIM2 in HAL layer (SW instance MyTIM_1) */
+/* Exported functions for TIM2 in HAL layer */
 /******************************************************************************/
 hal_tim_handle_t *mx_tim2_init(void)
 {

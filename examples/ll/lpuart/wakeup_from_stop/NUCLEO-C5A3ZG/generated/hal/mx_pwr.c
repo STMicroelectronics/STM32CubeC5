@@ -25,7 +25,7 @@
 /* Private functions prototype------------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for PWR in LL layer (SW instance PWR) */
+/* Exported functions for PWR in LL layer */
 /******************************************************************************/
 
 system_status_t mx_pwr_init(void)
@@ -48,6 +48,9 @@ system_status_t mx_pwr_enter_low_power(void)
 
   LL_PWR_SetPowerMode(LL_PWR_STOP0_MODE);
 
+  /* DSB to ensure there are no outstanding memory transactions prior to executing WFI and going to STOP0_MODE */
+  __DSB();
+
   /* Wait for interrupt request */
   __WFI();
 
@@ -67,5 +70,6 @@ system_status_t mx_pwr_exit_low_power(void)
 
 uint32_t mx_pwr_system_was_low_power(void)
 {
+  /* Check the flag that indicates if the system was resumed from a low power mode */
   return (LL_PWR_IsActiveFlag_STOP());
 }

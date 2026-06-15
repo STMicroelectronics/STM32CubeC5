@@ -2,7 +2,7 @@
 
 # __Example: *hal_lptim_one_pulse_it*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -84,11 +84,11 @@ The PWM signals generated on the LPTIM channel can be displayed by connecting an
   <summary>On STM32C5 series.</summary>
   <details>
     <summary>LPTIM PWM Signal Generation: Frequency and Duty Cycle Configuration</summary>
-
-    <details>
+  <details>
       <summary>Clock Setup and Prescaler Configuration</summary>
 
    - **System Clock (SYSCLK)** is set to 144 MHz.
+
 - **AHB clock (HCLK)** and **APB clock (PCLK)** prescalers are both set to 1, so:
 
     HCLK = PCLK = SYSCLK = 144 MHz
@@ -106,7 +106,7 @@ The PWM signals generated on the LPTIM channel can be displayed by connecting an
     lptim_cnt_ck = lptim_ker_ck / PRESC = 144 MHz / 4 = 36 MHz
 
     </details>
-
+    </details>
     <details>
       <summary>Calculating the PWM Period (ARR)</summary>
 
@@ -119,7 +119,6 @@ The PWM signals generated on the LPTIM channel can be displayed by connecting an
     period = (36 000 000 / 1 000) - 1 = 36 000 - 1 = 35 999
 
     </details>
-
     <details>
       <summary>Calculating the PWM Pulse (CCR) for Duty Cycle</summary>
 
@@ -132,7 +131,6 @@ The PWM signals generated on the LPTIM channel can be displayed by connecting an
       pulse = 0.5 x (35 999 + 1) = 0.5 x (36 000) = 18 000
 
     </details>
-
     <details>
       <summary>Summary Table</summary>
 
@@ -148,9 +146,7 @@ The PWM signals generated on the LPTIM channel can be displayed by connecting an
 
 To generate a PWM signal with a different frequency or duty cycle, replace $f_{PWM}$ and $D$ in the formulas accordingly.
 
-    </details>
   </details>
-
   <details>
     <summary>On board NUCLEO-C542RC.</summary>
 
@@ -162,7 +158,6 @@ To generate a PWM signal with a different frequency or duty cycle, replace $f_{P
   |   PB13    |  LPTIM1_CH1   |     PB13      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -174,7 +169,6 @@ To generate a PWM signal with a different frequency or duty cycle, replace $f_{P
   |   PB13    |  LPTIM1_CH1   |     PB13      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -186,8 +180,7 @@ To generate a PWM signal with a different frequency or duty cycle, replace $f_{P
   |   PB13    |  LPTIM1_CH1   |     PB13      |
 
   </details>
-</details>
-
+  </details>
 
 ## __4. Troubleshooting__
 

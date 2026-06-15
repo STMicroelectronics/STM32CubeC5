@@ -17,7 +17,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-#include "basic_stdio_core.h"
+#include "mx_basic_stdio_app.h"
 
 /* Private typedef -----------------------------------------------------------*/
 
@@ -54,7 +54,7 @@ int main(void)
   {
 #if defined(USE_TRACE) && USE_TRACE != 0
     /* Initialize basic_stdio separately, but after system init. */
-    BASIC_STDIO_Init(mx_basic_stdio_gethandle());
+    mx_basic_stdio_init();
 #endif /* defined(USE_TRACE) && USE_TRACE != 0 */
 
     /** Example execution: this hardware and IDE agnostic code contains the scenario that we demonstrate.

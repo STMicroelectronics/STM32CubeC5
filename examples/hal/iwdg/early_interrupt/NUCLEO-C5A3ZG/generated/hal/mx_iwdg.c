@@ -25,10 +25,9 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_iwdg_handle_t hIWDG;
-
-/******************************************************************************/
-/* Exported functions for IWDG in HAL layer (SW instance MyIWDG_1) */
-/******************************************************************************/
+/********************************************/
+/* Exported functions for IWDG in HAL layer */
+/********************************************/
 hal_iwdg_handle_t *mx_iwdg_init(void)
 {
   if (HAL_IWDG_Init(&hIWDG, HAL_IWDG1) != HAL_OK)
@@ -54,7 +53,7 @@ hal_status_t mx_iwdg_start(void)
   return HAL_IWDG_Start(&hIWDG, 0UL, 131072UL, 0UL);
 }
 
-hal_iwdg_handle_t *mx_iwdg_iwdg_gethandle(void)
+hal_iwdg_handle_t *mx_iwdg_gethandle(void)
 {
   return &hIWDG;
 }

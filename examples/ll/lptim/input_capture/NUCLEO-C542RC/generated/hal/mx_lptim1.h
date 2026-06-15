@@ -37,10 +37,10 @@ extern "C" {
 #define PB13_PORT                             GPIOB
 #define PB13_PIN                              LL_GPIO_PIN_13
 
-    #define MX_LPTIMX_IRQN       LPDMA1_CH0_IRQn
-    #define MX_LPTIMX_IRQHANDLER LPDMA1_CH0_IRQHandler
-    #define MYLPTIM_1_IRQN       MX_LPTIMX_IRQN
-    #define MYLPTIM_1_IRQHANDLER MX_LPTIMX_IRQHANDLER
+#define MX_LPTIMX_IRQN       LPDMA1_CH0_IRQn
+#define MX_LPTIMX_IRQHANDLER LPDMA1_CH0_IRQHandler
+#define MYLPTIM_1_IRQN       MX_LPTIMX_IRQN
+#define MYLPTIM_1_IRQHANDLER MX_LPTIMX_IRQHANDLER
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -63,7 +63,6 @@ void mx_lptim1_deinit(void);
 /******************************************************************************/
 /*     LPDMA1 channel0 global interrupt is managed directly in user code.     */
 /******************************************************************************/
-
 /* void LPDMA1_CH0_IRQHandler(void); */
 #ifdef __cplusplus
 }

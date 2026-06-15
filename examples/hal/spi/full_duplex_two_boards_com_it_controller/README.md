@@ -2,7 +2,7 @@
 
 # __Example: *hal_spi_full_duplex_two_boards_com_it_controller*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -181,6 +181,9 @@ __GPIO speed__: The GPIO slew rate is an important parameter that affects the pe
 __Initial synchronization__: If the responder board is not prepared to exchange messages with the controller, the controller transmits and receives data. However, the reception buffer is empty in this case. This leads to an error during the check of the buffers. If **`USE_TRACE`** is enabled, you can see errors messages on the terminal.
 
 __LED twinkling__: Most boards have a LED connected to the same pin as SPI SCK from arduino connector. This LED can twinkle during SPI communications.
+
+__HAL_SPI_TransmitReceive_DMA immediate error__: In DMA/IT mode, the HAL function only configures SPI/DMA, starts the transfer, then returns. Any failure at this stage indicates that something is wrong in the configuration sequence (SPI/DMA configuration, handle state, buffer pointers/size, clocks/GPIOs, etc.).
+If this function returns an error immediately (not via callbacks), the cause is always a static configuration or state issue, not a temporary problem that might be due to an incorrect wiring or a waiting for a communication bus is ready.
 
 
 ## __5. See Also__

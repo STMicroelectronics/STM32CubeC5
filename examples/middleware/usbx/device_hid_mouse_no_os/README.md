@@ -2,7 +2,7 @@
 
 # __Example: *usbx_device_hid_mouse_no_os*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 How to configure a USB Human Interface Device "HID" mouse in bare metal mode based on USBX stack.
 
@@ -45,9 +45,9 @@ In case of failure:
 
 This example uses the following peripheral:
 
-__USB PCD OTG FS__: is configured as indicated below:
+__USB PCD__: is configured as indicated below:
 
-  - Full-speed operation
+  - Full-speed
   - Embedded PHY Interface
   - SOF Disabled
 
@@ -112,7 +112,7 @@ This [wiki](https://wiki.st.com/stm32mcu/wiki/Introduction_to_USBX) introduction
 
 More information about the STM32 Cube Drivers can be found in the drivers' user manual of the STM32 series you are using.
 
-For instance, for the STM32U5 series: [User Manual](https://www.st.com/resource/en/user_manual/dm00813340-.pdf).
+For instance, for the STM32C5 series: [User Manual](https://www.st.com).
 
 More information about the STM32 ecosystem can be found in the [STM32 MCU Developer Zone](https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/embedded-software.html).
 

@@ -65,15 +65,9 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
+
+  /* Initialize RCC peripheral */
   if (mx_rcc_init() != SYSTEM_OK)
-  {
-    return SYSTEM_CLOCK_ERROR;
-  }
-
-  /* peripherals clock configuration and activation
-    is centralized: no clock activation/deactivation in pppi_init */
-
-  if (mx_rcc_peripherals_clock_config() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
   }
@@ -81,15 +75,14 @@ system_status_t mx_system_init(void)
   /*
     Peripheral init section
   */
-  /*
-  */
+
+  /** gpio_default */
   if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
-  /** mx_rtc_init()has been generated,
-    * (mx_rtcx_init)
+  /** RTC: mx_rtc_init() has been generated,
     * but it is expected that application will call it when best needed
     * according to application needs.
     * See Cube code generator options: Generate and call Initialization function

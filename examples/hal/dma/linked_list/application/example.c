@@ -57,11 +57,11 @@ const uint32_t SrcBuffer3[BUFFER3_SIZE_IN_WORDS] =
   0x51525354, 0x55565758, 0x595A5B5C, 0x5D5E5F60,
 };
 
-__attribute__((section(".non_cacheable_variables"), aligned(DMA_ALIGNMENT)))
+__attribute__((section(".bss.non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 uint32_t DstBuffer1[BUFFER1_SIZE_IN_WORDS];
-__attribute__((section(".non_cacheable_variables"), aligned(DMA_ALIGNMENT)))
+__attribute__((section(".bss.non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 uint32_t DstBuffer2[BUFFER2_SIZE_IN_WORDS];
-__attribute__((section(".non_cacheable_variables"), aligned(DMA_ALIGNMENT)))
+__attribute__((section(".bss.non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 uint32_t DstBuffer3[BUFFER3_SIZE_IN_WORDS];
 
 volatile uint8_t TransferError;    /* Set to 1 if a transfer error is detected        */

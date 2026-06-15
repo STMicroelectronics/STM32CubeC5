@@ -63,8 +63,9 @@ uint32_t DstTriggeringBuffer[BUFFER_SIZE_IN_WORDS];
 __attribute__((section(".bss.non_cacheable_variables"), aligned(DMA_ALIGNMENT)))
 uint32_t DstTriggeredBuffer[BUFFER_SIZE_IN_WORDS];
 
-volatile uint32_t BlkDataLength = 0U;
-volatile uint32_t NumberOfBlocksToTransfer = 0U;
+uint32_t BlkDataLength = 0U;
+uint32_t NumberOfBlocksToTransfer = 0U;
+
 volatile uint8_t TriggeringTransferComplete;
 volatile uint8_t TriggeringTransferError;
 volatile uint8_t TriggeredTransferComplete;
@@ -133,12 +134,9 @@ _app_init_exit:
 app_status_t app_process(void)
 {
   app_status_t return_status = EXEC_STATUS_ERROR;
-  uint32_t nbBlocks;
-  uint32_t blkLength;
 
   /* Total bytes to transfer for triggering channel */
   NumberOfBlocksToTransfer = BUFFER_SIZE_IN_WORDS * 4;
-  nbBlocks  = NumberOfBlocksToTransfer;
 
   /* Clear Triggered DMA flags */
   TriggeredTransferComplete = 0U;
@@ -159,9 +157,8 @@ app_status_t app_process(void)
     * from the triggering DMA.
     */
   BlkDataLength = HAL_DMA_GetDirectXferRemainingDataByte(pDMA_Triggered);
-  blkLength = BlkDataLength;
 
-  if (nbBlocks != blkLength)
+  if (NumberOfBlocksToTransfer != BlkDataLength)
   {
     goto _app_process_exit;
   }
@@ -193,25 +190,24 @@ app_status_t app_process(void)
       goto _app_process_exit;
     }
 
+    /* Wait for the triggering DMA transfer to complete or an error to occur */
+    while ((TriggeringTransferComplete == 0U) && (TriggeringTransferError != 1U));
+
+    /* Check DMA error */
+    if (TriggeringTransferError == 1U)
+    {
+      goto _app_process_exit;
+    }
+
     /* Update remaining bytes count for triggering DMA */
     NumberOfBlocksToTransfer -= TRIGGERCHANNEL_BLOCK_SIZE;
-    nbBlocks  = NumberOfBlocksToTransfer;
 
     /** Verify that the triggered DMA transfer remains waiting for triggers.
       * The remaining data length on the triggered DMA matches the updated count
       */
     BlkDataLength = HAL_DMA_GetDirectXferRemainingDataByte(pDMA_Triggered);
-    blkLength = BlkDataLength;
-    if (nbBlocks != blkLength)
-    {
-      goto _app_process_exit;
-    }
 
-    /* Wait for the triggering DMA transfer to complete or an error to occur */
-    while ((!TriggeringTransferComplete) && (TriggeringTransferError != 1));
-
-    /* Check DMA error */
-    if (TriggeringTransferError == 1)
+    if (NumberOfBlocksToTransfer != BlkDataLength)
     {
       goto _app_process_exit;
     }
@@ -225,10 +221,10 @@ app_status_t app_process(void)
     * all triggered transfers,
     * Checks DMA transfers complete.
     */
-  while ((!TriggeredTransferComplete) && (TriggeredTransferError != 1));
+  while ((TriggeredTransferComplete == 0U) && (TriggeredTransferError != 1U));
 
   /* Check of transfer DMA error */
-  if (TriggeredTransferError == 1)
+  if (TriggeredTransferError == 1U)
   {
     goto _app_process_exit;
   }

@@ -5,6 +5,7 @@ solution:
       device: STM32C5A3ZGT6
       define:
         - USE_TRACE: 0
+          MX_RCC_RESET_FLAG_IWDG: HAL_RCC_RESET_FLAG_IWDG
   output-dirs:
     tmpdir: project/tmp
     outdir: $SolutionDir()$/build/$Project$.$BuildType$

@@ -26,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 static hal_rng_handle_t hRNG;
 /******************************************************************************/
-/* Exported functions for RNG in HAL layer (SW instance MyRNG_1) */
+/* Exported functions for RNG in HAL layer */
 /******************************************************************************/
 hal_rng_handle_t *mx_rng_init(void)
 {
@@ -43,7 +43,6 @@ hal_rng_handle_t *mx_rng_init(void)
   }
 
   /* Code HAL_RNG_Config....*/
-  HAL_RNG_SetCandidateGermanBSIConfig(&hRNG);
 
   return &hRNG;
 }

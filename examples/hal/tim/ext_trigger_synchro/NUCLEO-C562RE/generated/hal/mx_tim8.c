@@ -27,9 +27,8 @@
 static hal_tim_handle_t hTIM8;
 
 /* Exported function definition ----------------------------------------------*/
-
 /******************************************************************************/
-/* Exported functions for TIM8 in HAL layer (SW instance MyTIM_3) */
+/* Exported functions for TIM8 in HAL layer */
 /******************************************************************************/
 hal_tim_handle_t *mx_tim8_init(void)
 {
@@ -40,7 +39,7 @@ hal_tim_handle_t *mx_tim8_init(void)
 
   HAL_RCC_TIM8_EnableClock();
 
-  /* Timer configuration to reach the output frequency at 24390 Hz */
+  /* Timer configuration to reach the output frequency at 24.39 kHz */
   hal_tim_config_t config;
   config.prescaler              = 143;
   config.counter_mode           = HAL_TIM_COUNTER_UP;
@@ -76,7 +75,7 @@ hal_tim_handle_t *mx_tim8_init(void)
 
   oc_compare_unit_config.mode  = HAL_TIM_OC_PWM1;
   oc_compare_unit_config.pulse = 0x14;
-  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM8, hal_tim_oc_channel_to_compare_unit(HAL_TIM_CHANNEL_1),
+  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM8, HAL_TIM_OC_COMPARE_UNIT_1,
                                       &oc_compare_unit_config) != HAL_OK)
   {
     return NULL;
@@ -106,23 +105,23 @@ hal_tim_handle_t *mx_tim8_init(void)
     return NULL;
   }
 
+  /* ### TIM8 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOB_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    TIM8 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB10    ------>   TIM8_CH1
+       PB10    ------>   TIM8_CH1   ------>  PB10
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_2;
-  HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_10, &gpio_config);
+  HAL_GPIO_Init(PB10_PORT, PB10_PIN, &gpio_config);
 
   return &hTIM8;
 }
@@ -135,8 +134,8 @@ void mx_tim8_deinit(void)
 
   HAL_RCC_TIM8_Reset();
 
-  /* De-initialize all GPIO pins associated with TIM8 */
-  HAL_GPIO_DeInit(HAL_GPIOB, HAL_GPIO_PIN_10);
+  /* De-initialize all GPIOB pins associated with TIM8 */
+  HAL_GPIO_DeInit(PB10_PORT, PB10_PIN);
 }
 
 hal_tim_handle_t *mx_tim8_gethandle(void)

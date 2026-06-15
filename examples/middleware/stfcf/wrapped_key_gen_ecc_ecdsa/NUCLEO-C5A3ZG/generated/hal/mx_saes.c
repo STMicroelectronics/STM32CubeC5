@@ -27,7 +27,7 @@
 static hal_aes_handle_t hSAES;
 
 /******************************************************************************/
-/* Exported functions for SAES in HAL layer (SW instance MyAES_1) */
+/* Exported functions for SAES in HAL layer */
 /******************************************************************************/
 hal_aes_handle_t *mx_saes_init(void)
 {

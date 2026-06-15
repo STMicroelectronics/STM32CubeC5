@@ -24,12 +24,10 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
-
 /* Handle for UART */
 static hal_uart_handle_t hUSART2;
 
 /* Exported function definition ----------------------------------------------*/
-
 /******************************************************************************/
 /* Exported functions for UART in HAL layer */
 /******************************************************************************/
@@ -66,24 +64,24 @@ hal_uart_handle_t *mx_usart2_uart_init(void)
     return NULL;
   }
 
+  /* ### USART2 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    USART2 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA3     ------>   USART2_RX
-       PA2     ------>   USART2_TX
+       PA3     ------>   USART2_RX   ------>  PA3
+       PA2     ------>   USART2_TX   ------>  PA2
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_7;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_3 | HAL_GPIO_PIN_2, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOA, PA3_PIN | PA2_PIN, &gpio_config);
 
   return &hUSART2;
 }
@@ -96,8 +94,8 @@ void mx_usart2_uart_deinit(void)
 
   HAL_RCC_USART2_DisableClock();
 
-  /* De-initialize all GPIO pins associated with USART2 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_2 | HAL_GPIO_PIN_3);
+  /* De-initialize all GPIOA pins associated with USART2 */
+  HAL_GPIO_DeInit(HAL_GPIOA, PA2_PIN | PA3_PIN);
 }
 hal_uart_handle_t *mx_usart2_uart_gethandle(void)
 {

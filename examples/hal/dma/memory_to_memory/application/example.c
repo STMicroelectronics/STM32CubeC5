@@ -49,7 +49,7 @@ const uint32_t SrcBuffer[BUFFER_SIZE_IN_WORDS] =
   * - Aligned for DMA constraints.
   * - Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
   */
-__attribute__((section(".bss.non_cacheable_area"), aligned(DMA_ALIGNMENT)))
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 uint32_t DstBuffer[BUFFER_SIZE_IN_WORDS];
 
 volatile uint8_t TransferError;    /* Set to 1 if a transfer error is detected */

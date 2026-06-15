@@ -1,0 +1,194 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.11.0/tools/projmgr/schemas/cproject.schema.json
+project:
+  processor:
+    trustzone: off
+    dsp: off
+    fpu: off
+  define:
+  - OEMIROT_DEV_MODE
+  - NDEBUG
+  rte:
+    base-dir: $SolutionDir()$/../oemirot/user_modifiable
+  generators:
+    base-dir: $ProjectDir()$/generated
+    options:
+    - generator: stm32c5xx_hal_mx2codegen
+      path: $SolutionDir()$/../oemirot/generated/hal/
+    - generator: stcryptolib_mx2codegen
+      path: $SolutionDir()$/../oemirot/generated/middleware/stcryptolib
+    - generator: stfcf_mx2codegen
+      path: $SolutionDir()$/../oemirot/generated/middleware/stfcf
+    - generator: basic_stdio_mx2codegen
+      path: $SolutionDir()$/../oemirot/generated/utilities/basic_stdio
+    - generator: syscalls_mx2codegen
+      path: $SolutionDir()$/../oemirot/generated/utilities/syscalls
+  output:
+    base-name: ../../../bin/$Project$
+    type:
+    - elf
+    - bin
+    - hex
+  setups:
+  - setup: release_AC6
+    misc:
+    - ASM:
+      - -Oz
+      - -g
+      C:
+      - -Oz
+      - -g
+      - -std=gnu11
+      - -fno-exceptions
+      - -fno-rtti
+      - -funsigned-char
+      - -Wmissing-prototypes
+      CPP:
+      - -Oz
+      - -g
+      - -std=gnu11
+      - -fno-exceptions
+      - -fno-rtti
+      - -funsigned-char
+      - -Wmissing-prototypes
+      Link-C:
+      - --library_type=microlib
+      - --symbols
+      - --map
+      - --show_full_path
+      - --inline
+      - --any_contingency
+      Link-CPP:
+      - --library_type=microlib
+      - --symbols
+      - --map
+      - --show_full_path
+      - --inline
+      - --any_contingency
+      for-compiler: AC6
+    for-context:
+    - .release_AC6
+  components:
+  - component: STMicroelectronics::CMSIS:CORE
+  - component: STMicroelectronics::Device:STM32 HAL:AES
+  - component: STMicroelectronics::Device:STM32 HAL:CORTEX
+  - component: STMicroelectronics::Device:STM32 HAL:CRC
+  - component: STMicroelectronics::Device:STM32 HAL:Core
+  - component: STMicroelectronics::Device:STM32 HAL:DMA
+  - component: STMicroelectronics::Device:STM32 HAL:FLASH
+  - component: STMicroelectronics::Device:STM32 HAL:FLASH_ITF
+  - component: STMicroelectronics::Device:STM32 HAL:GPIO
+  - component: STMicroelectronics::Device:STM32 HAL:HASH
+  - component: STMicroelectronics::Device:STM32 HAL:ICACHE
+  - component: STMicroelectronics::Device:STM32 HAL:PKA
+  - component: STMicroelectronics::Device:STM32 HAL:PWR
+  - component: STMicroelectronics::Device:STM32 HAL:Q
+  - component: STMicroelectronics::Device:STM32 HAL:RAMCFG
+  - component: STMicroelectronics::Device:STM32 HAL:RCC
+  - component: STMicroelectronics::Device:STM32 HAL:RNG
+  - component: STMicroelectronics::Device:STM32 HAL:SBS
+  - component: STMicroelectronics::Device:STM32 HAL:TAMP
+  - component: STMicroelectronics::Device:STM32 HAL:UART
+  - component: STMicroelectronics::Device:STM32 HAL:timebases&SYSTICK
+  - component: STMicroelectronics::Device:STM32 LL:BUS
+  - component: STMicroelectronics::Device:STM32 LL:CRC
+  - component: STMicroelectronics::Device:STM32 LL:Common
+  - component: STMicroelectronics::Device:STM32 LL:DMA
+  - component: STMicroelectronics::Device:STM32 LL:EXTI
+  - component: STMicroelectronics::Device:STM32 LL:FLASH
+  - component: STMicroelectronics::Device:STM32 LL:GPIO
+  - component: STMicroelectronics::Device:STM32 LL:ICACHE
+  - component: STMicroelectronics::Device:STM32 LL:PKA
+  - component: STMicroelectronics::Device:STM32 LL:PWR
+  - component: STMicroelectronics::Device:STM32 LL:RAMCFG
+  - component: STMicroelectronics::Device:STM32 LL:RCC
+  - component: STMicroelectronics::Device:STM32 LL:RNG
+  - component: STMicroelectronics::Device:STM32 LL:SBS
+  - component: STMicroelectronics::Device:STM32 LL:TAMP
+  - component: STMicroelectronics::Device:STM32 LL:USART
+  - component: STMicroelectronics::Device:STM32 LL:UTILS
+  - component: STMicroelectronics::Device:STM32CubeMX2 Codegen:Generated Code
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:AES
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:CORE
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:CORTEX NVIC
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:CRC
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:FLASH
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:HASH
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:ICACHE
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:PKA
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:RAMCFG
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:RCC
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:RNG
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:SBS
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:System
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:TAMP
+  - component: STMicroelectronics::Device:STM32CubeMX2 Config:UART
+  - component: STMicroelectronics::Device:Startup
+  - component: STMicroelectronics::Security:MCUboot:Core
+  - component: STMicroelectronics::Security:MCUboot:Platform Common
+  - component: STMicroelectronics::Security:MbedTLS:Core
+  - component: STMicroelectronics::Security:MbedTLS:MBED API
+  - component: STMicroelectronics::Security:MbedTLS:PSA API
+  - component: STMicroelectronics::Security:MbedTLS:SW Crypto
+  - component: STMicroelectronics::Security:STFCF:MbedTLS Alt Common
+  - component: STMicroelectronics::Security:STFCF:MbedTLS Alt HAL
+  - component: STMicroelectronics::Security:STFCF:PSA API
+  - component: STMicroelectronics::Security:STM32CubeMX2 Config:STFCF
+  - component: STMicroelectronics::Utility:Basic stdio:Core
+  - component: STMicroelectronics::Utility:Basic stdio:itf_io&UART
+  - component: STMicroelectronics::Utility:STM32CubeMX2 Config:Basic stdio
+  - component: STMicroelectronics::Utility:STM32CubeMX2 Config:syscalls
+  - component: STMicroelectronics::Utility:syscalls&Standalone syscalls
+  - component: STMicroelectronics::Utility:sysmem&Standalone sysmem
+  groups:
+  - group: oemirot
+    files:
+    - file: ../../oemirot/boot_hal.c
+      category: source
+    - file: ../../oemirot/boot_hal_cfg.h
+      category: header
+    - file: ../../oemirot/boot_hal_flowcontrol.h
+      category: header
+    - file: ../../oemirot/boot_hal_hash_ref.c
+      category: source
+    - file: ../../oemirot/boot_hal_hash_ref.h
+      category: header
+    - file: ../../oemirot/boot_hal_imagevalid.h
+      category: header
+    - file: ../../oemirot/boot_hal_utils.h
+      category: header
+    - file: ../../oemirot/boot_nv_counters.c
+      category: source
+    - file: ../../oemirot/cmsis.h
+      category: header
+    - file: ../../oemirot/flash_layout.h
+      category: header
+    - file: ../../oemirot/keys_map.c
+      category: source
+    - file: ../../oemirot/low_level_device.c
+      category: source
+    - file: ../../oemirot/low_level_flash.c
+      category: source
+    - file: ../../oemirot/low_level_flash.h
+      category: header
+    - file: ../../oemirot/low_level_rng.c
+      category: source
+    - file: ../../oemirot/low_level_rng.h
+      category: header
+    - file: ../../oemirot/low_level_security.c
+      category: source
+    - file: ../../oemirot/low_level_security.h
+      category: header
+    - file: ../../oemirot/low_level_security_config.h
+      category: header
+    - file: ../../oemirot/mcuboot_config.h
+      category: header
+    - file: ../../oemirot/region_defs.h
+      category: header
+    - file: ../../oemirot/tick.c
+      category: source
+  executes:
+  - execute: prebuild
+    run: python ./../../../oemirot/project_oemirot.py prebuild --compiler $Compiler$
+    always:
+    for-context:
+    - .release_AC6

@@ -2,11 +2,11 @@
 project:
   processor:
     trustzone: off
-  description: hal_cordic_sincos_dma with config Debug
+    dsp: on
   rte:
-    base-dir: ../../user_modifiable
+    base-dir: $SolutionDir()$/../user_modifiable
   generators:
-    base-dir: ../../generated
+    base-dir: generated
   output:
     base-name: $Project$
     type:
@@ -14,132 +14,6 @@ project:
       - bin
       - hex
   setups:
-    - setup: release_GCC
-      misc:
-        - ASM:
-            - --specs=nano.specs
-            - --specs=nosys.specs
-          C:
-            - -Os
-            - -fdata-sections
-            - -ffunction-sections
-            - -std=gnu11
-            - -Wall
-            - -fstack-usage
-            - -fcyclomatic-complexity
-            - --specs=nano.specs
-            - --specs=nosys.specs
-          CPP:
-            - -Os
-            - -fdata-sections
-            - -ffunction-sections
-            - -fno-cxa-atexit
-            - -fno-rtti
-            - -fno-exceptions
-            - -std=gnu++14
-            - -Wall
-            - -fstack-usage
-            - -fcyclomatic-complexity
-            - --specs=nano.specs
-            - --specs=nosys.specs
-          for-compiler: GCC
-          Link-C:
-            - -Wl,-Map=$OutDir()$/$Project$.map
-            - -Wl,--gc-sections
-            - -Wl,--start-group -lc -lm -Wl,--end-group
-            - -static
-            - --specs=nano.specs
-            - --specs=nosys.specs
-          Link-CPP:
-            - -Wl,-Map=$OutDir()$/$Project$.map
-            - -Wl,--gc-sections
-            - -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-            - -static
-            - --specs=nano.specs
-            - --specs=nosys.specs
-      for-context:
-        - .release_GCC
-    - setup: debug_GCC
-      misc:
-        - ASM:
-            - -g3
-            - --specs=nano.specs
-          C:
-            - -g3
-            - -O0
-            - -fdata-sections
-            - -ffunction-sections
-            - -std=gnu11
-            - --specs=nano.specs
-            - -Wall
-            - -fstack-usage
-          CPP:
-            - -g3
-            - -O0
-            - -fdata-sections
-            - -ffunction-sections
-            - -fno-cxa-atexit
-            - -fno-rtti
-            - -fno-exceptions
-            - -std=gnu++14
-            - --specs=nano.specs
-            - -Wall
-            - -fstack-usage
-          Link-C:
-            - --specs=nosys.specs
-            - --specs=nano.specs
-            - -Wl,-Map=$OutDir()$/$Project$.map
-            - -Wl,--gc-sections
-            - -Wl,--start-group -lc -lm -Wl,--end-group
-            - -static
-          Link-CPP:
-            - --specs=nosys.specs
-            - --specs=nano.specs
-            - -Wl,-Map=$OutDir()$/$Project$.map
-            - -Wl,--gc-sections
-            - -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-            - -static
-          for-compiler: GCC
-      for-context:
-        - .debug_GCC
-    - setup: debug_AC6
-      misc:
-        - ASM:
-            - -O0
-            - -g
-          C:
-            - -O0
-            - -g
-            - -std=gnu11
-            - -fno-exceptions
-            - -fno-rtti
-            - -funsigned-char
-            - -Wmissing-prototypes
-          CPP:
-            - -O0
-            - -g
-            - -std=gnu11
-            - -fno-exceptions
-            - -fno-rtti
-            - -funsigned-char
-            - -Wmissing-prototypes
-          Link-C:
-            - --library_type=microlib
-            - --symbols
-            - --map
-            - --show_full_path
-            - --inline
-            - --any_contingency
-          Link-CPP:
-            - --library_type=microlib
-            - --symbols
-            - --map
-            - --show_full_path
-            - --inline
-            - --any_contingency
-          for-compiler: AC6
-      for-context:
-        - .debug_AC6
     - setup: release_AC6
       misc:
         - ASM:
@@ -147,24 +21,25 @@ project:
             - -g
           C:
             - -Oz
-            - -g
             - -std=gnu11
             - -fno-exceptions
             - -fno-rtti
             - -funsigned-char
+            - -g
             - -Wmissing-prototypes
           CPP:
             - -Oz
-            - -g
-            - -std=gnu11
+            - -std=gnu++14
             - -fno-exceptions
             - -fno-rtti
             - -funsigned-char
+            - -g
             - -Wmissing-prototypes
+          for-compiler: AC6
           Link-C:
+            - --map
             - --library_type=microlib
             - --symbols
-            - --map
             - --show_full_path
             - --inline
             - --any_contingency
@@ -175,40 +50,8 @@ project:
             - --show_full_path
             - --inline
             - --any_contingency
-          for-compiler: AC6
       for-context:
         - .release_AC6
-    - setup: debug_IAR
-      misc:
-        - C:
-            - -On
-            - --debug
-            - --dlib_config DLib_Config_Full.h
-            - --no_wrap_diagnostics
-            - -e
-            - --enable_restrict
-            - --vla
-            - --require_prototypes
-          CPP:
-            - -On
-            - --debug
-            - --dlib_config DLib_Config_Full.h
-            - --no_wrap_diagnostics
-            - -e
-            - --enable_restrict
-            - --vla
-            - --require_prototypes
-          Link-C:
-            - --map=$OutDir()$/$Project$.map
-            - --entry Reset_Handler
-            - --inline
-          Link-CPP:
-            - --map=$OutDir()$/$Project$.map
-            - --entry Reset_Handler
-            - --inline
-          for-compiler: IAR
-      for-context:
-        - .debug_IAR
     - setup: release_IAR
       misc:
         - C:
@@ -239,6 +82,99 @@ project:
           for-compiler: IAR
       for-context:
         - .release_IAR
+    - setup: release_GCC
+      misc:
+        - ASM:
+            - --specs=nano.specs
+            - --specs=nosys.specs
+          C:
+            - -Os
+            - -fdata-sections
+            - -ffunction-sections
+            - -std=gnu11
+            - -Wall
+            - -fstack-usage
+            - --specs=nano.specs
+            - --specs=nosys.specs
+            - -Werror=implicit-function-declaration
+          CPP:
+            - -Os
+            - -fdata-sections
+            - -ffunction-sections
+            - -fno-cxa-atexit
+            - -fno-rtti
+            - -fno-exceptions
+            - -std=gnu++14
+            - -Wall
+            - -fstack-usage
+            - --specs=nano.specs
+            - --specs=nosys.specs
+            - -Werror=implicit-function-declaration
+          for-compiler: GCC
+          Link-C:
+            - -Wl,-Map=$OutDir()$/$Project$.map
+            - -Wl,--gc-sections
+            - -Wl,--start-group -lc -lm -Wl,--end-group
+            - -static
+            - --specs=nano.specs
+            - --specs=nosys.specs
+          Link-CPP:
+            - -Wl,-Map=$OutDir()$/$Project$.map
+            - -Wl,--gc-sections
+            - -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+            - -static
+            - --specs=nano.specs
+            - --specs=nosys.specs
+      for-context:
+        - .release_GCC
+    - setup: debug_GCC
+      misc:
+        - ASM:
+            - -g3
+            - --specs=nano.specs
+            - --specs=nosys.specs
+          C:
+            - -g3
+            - -O0
+            - -fdata-sections
+            - -ffunction-sections
+            - -std=gnu11
+            - -Wall
+            - -fstack-usage
+            - --specs=nano.specs
+            - --specs=nosys.specs
+            - -Werror=implicit-function-declaration
+          CPP:
+            - -g3
+            - -O0
+            - -fdata-sections
+            - -ffunction-sections
+            - -fno-cxa-atexit
+            - -fno-rtti
+            - -fno-exceptions
+            - -std=gnu++14
+            - -Wall
+            - -fstack-usage
+            - --specs=nano.specs
+            - --specs=nosys.specs
+            - -Werror=implicit-function-declaration
+          for-compiler: GCC
+          Link-C:
+            - -Wl,-Map=$OutDir()$/$Project$.map
+            - -Wl,--gc-sections
+            - -Wl,--start-group -lc -lm -Wl,--end-group
+            - -static
+            - --specs=nano.specs
+            - --specs=nosys.specs
+          Link-CPP:
+            - -Wl,-Map=$OutDir()$/$Project$.map
+            - -Wl,--gc-sections
+            - -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+            - -static
+            - --specs=nano.specs
+            - --specs=nosys.specs
+      for-context:
+        - .debug_GCC
   components:
     - component: STMicroelectronics::CMSIS:CORE
     - component: STMicroelectronics::CMSIS:DSP&Source
@@ -282,7 +218,6 @@ project:
     - component: STMicroelectronics::Device:STM32CubeMX2 Config:UART
     - component: STMicroelectronics::Device:Startup
     - component: STMicroelectronics::Utility:syscalls&Template syscalls
-
   groups:
     - files:
         - file: ../../../application/example.h

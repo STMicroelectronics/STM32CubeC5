@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:stm32="https://developer.st.com/schemas/stm32cube/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.7.55" xsi:noNamespaceSchemaLocation="PACK.xsd" xsi:schemaLocation="https://developer.st.com/schemas/stm32cube/1.0.0 stm32cube.xsd">
+  <vendor>STMicroelectronics</vendor>
+  <name>lps22hh_part_drivers</name>
+  <description>Board part pack of the LPS22HH MEMS sensor</description>
+  <url>https://developer.st.com/st-pack-server/api/v1/pack/</url>
+  <repository type="git">https://github.com/STMicroelectronics/stm32-lps22hh-part-drivers</repository>
+  <license>LICENSE.md</license>
+  <environments>
+    <environment name="STM32Cube">
+      <stm32:pack type="PARTDRV" friendlyName="lps22hh" shortDesc="lps22hh part driver">
+        <relocation-info parent="part_drivers" layer="" element=""/>
+        <compatibility>
+          <release version="1.0.0">
+            <applicable-schema schemaType="sw-configuration" schemaVersion="3.7.0"/>
+            <applicable-api-group apiType="codegen-getters">
+              <applicable-api apiType="ExtiAPI" apiVersion="1.0.0"/>
+              <applicable-api apiType="pinoutAPI" apiVersion="1.0.0"/>
+              <applicable-api apiType="SWConfigurationAPI" apiVersion="1.0.0"/>
+            </applicable-api-group>
+          </release>
+        </compatibility>
+      </stm32:pack>
+    </environment>
+  </environments>
+  <ECCN>
+    <ECCN-EU>NEC</ECCN-EU>
+    <ECCN-US>EAR99</ECCN-US>
+  </ECCN>
+  <changelogs>
+    <changelog id="Release Notes" name="Release_Notes.md"/>
+  </changelogs>
+  <releases>
+    <release version="1.0.0" date="2026-02-24">
+      Initial release of STMicroelectronics.lps22hh_part_drivers.
+    </release>
+  </releases>
+  <keywords>
+    <keyword>ST</keyword>
+    <keyword>STMicroelectronics Board Part Package</keyword>
+    <keyword>BSP</keyword>
+    <keyword>Parts</keyword>
+    <keyword>Drivers</keyword>
+    <keyword>LPS22HH</keyword>
+    <keyword>MEMS</keyword>
+    <keyword>Sensor</keyword>
+  </keywords>
+  <conditions>
+    <condition id="LPS22HH Core Condition">
+      <description>STMicroelectronics LPS22HH Core Driver</description>
+      <require Cclass="Board Part" Cgroup="Sensor" Csub="LPS22HH Reg"/>
+      <require Cclass="Board Part" Cgroup="Sensor" Csub="LPS22HH IO"/>
+    </condition>
+    <condition id="LPS22HH IO I2C Polling Condition">
+      <description>STMicroelectronics LPS22HH IO I2C Polling Driver</description>
+      <require Cclass="Device" Cgroup="STM32 HAL" Csub="I2C"/>
+      <require Cclass="Device" Cgroup="STM32 HAL" Csub="GPIO"/>
+      <require Cclass="Device" Cgroup="STM32 HAL" Csub="EXTI"/>
+    </condition>
+    <condition id="LPS22HH IO SPI Polling Condition">
+      <description>STMicroelectronics LPS22HH IO SPI Polling Driver</description>
+      <require Cclass="Device" Cgroup="STM32 HAL" Csub="SPI"/>
+      <require Cclass="Device" Cgroup="STM32 HAL" Csub="GPIO"/>
+      <require Cclass="Device" Cgroup="STM32 HAL" Csub="EXTI"/>
+    </condition>
+    <condition id="LPS22HH CFG Condition">
+      <description>STMicroelectronics configuration for LPS22HH part driver</description>
+    </condition>
+    <condition id="LPS22HH Custom IO Condition">
+
+    </condition>
+  </conditions>
+  <generators>
+    <generator id="lps22hh_mx2codegen">
+      <description>STMicroelectronics: STM32 Cube Code Generator for LPS22HH Drivers Pack</description>
+      <exe>
+        <command host="win">.config/gen_code.bat</command>
+        <command host="linux">.config/gen_code.sh</command>
+        <command host="mac">.config/gen_code.sh</command>
+        <argument>lps22hh_mx2codegen</argument>
+        <argument>$G</argument>
+        <argument>STMicroelectronics.lps22hh_part_drivers.gpdsc.hbs</argument>
+        <argument mode="dry-run">--dry-run</argument>
+      </exe>
+      <gpdsc name="$P/STMicroelectronics.lps22hh_part_drivers.gpdsc"/>
+    </generator>
+  </generators>
+  <components>
+    <component Cvendor="STMicroelectronics" Cclass="Board Part" Cgroup="Sensor" Csub="LPS22HH Reg" Cversion="3.0.2">
+      <description>https://github.com/STMicroelectronics/lps22hh-pid/releases/tag/v3.0.2</description>
+      <files>
+        <file category="header" name="regs/lps22hh_reg.h"/>
+        <file category="source" name="regs/lps22hh_reg.c"/>
+      </files>
+    </component>
+    <component Cvendor="STMicroelectronics" Cclass="Board Part" Cgroup="Sensor" Csub="LPS22HH Core" Cversion="0.8.0" condition="LPS22HH Core Condition">
+      <description>Driver for LPS22HH MEMS sensor</description>
+      <files>
+        <file category="doc" name="README.md"/>
+        <file category="doc" name="SW_Security_Level.md"/>
+        <file category="doc" name="CONTRIBUTING.md"/>
+        <file category="doc" name="doc/st_logo.png"/>
+        <file category="header" name="lps22hh.h"/>
+        <file category="source" name="lps22hh.c"/>
+      </files>
+    </component>
+    <component Cvendor="STMicroelectronics" Cclass="Board Part" Cgroup="Sensor" Csub="LPS22HH IO" Cvariant="I2C Polling" Cversion="0.2.0" condition="LPS22HH IO I2C Polling Condition">
+      <description>I2C IO in polling mode for LPS22HH MEMS sensor</description>
+      <files>
+        <file category="header" name="interfaces/i2c/lps22hh_io.h"/>
+        <file category="source" name="interfaces/i2c/lps22hh_io.c"/>
+      </files>
+    </component>
+    <component Cvendor="STMicroelectronics" Cclass="Board Part" Cgroup="Sensor" Csub="LPS22HH IO" Cvariant="SPI Polling" Cversion="0.2.0" condition="LPS22HH IO SPI Polling Condition">
+      <description>SPI IO in polling mode for LPS22HH MEMS sensor</description>
+      <files>
+        <file category="header" name="interfaces/spi/lps22hh_io.h"/>
+        <file category="source" name="interfaces/spi/lps22hh_io.c"/>
+      </files>
+    </component>
+    <component Cvendor="STMicroelectronics" Cclass="Board Part" Cgroup="Sensor" Csub="LPS22HH IO" Cvariant="Custom" Cversion="0.2.0" condition="LPS22HH Custom IO Condition">
+      <description>Custom I/O layer for LPS22HH IO</description>
+      <files>
+        <file category="header" name="interfaces/custom/lps22hh_io.h" attr="config"/>
+        <file category="source" name="interfaces/custom/lps22hh_io.c" attr="config"/>
+      </files>
+    </component>
+    <component generator="lps22hh_mx2codegen" Cclass="Board Part" Cgroup="STM32CubeMX2 Config" Csub="LPS22HH" Cversion="0.11.0" condition="LPS22HH CFG Condition" maxInstances="1">
+      <description>LPS22HH STM32CubeMX2 Config</description>
+      <environments>
+        <environment name="STM32Cube">
+          <stm32:component>
+            <supported-part-types>
+              <supported-part-type Hvendor="STMicroelectronics" Hname="LPS22HH" Hvariant="LPS22HHTR"/>
+            </supported-part-types>
+          </stm32:component>
+        </environment>
+      </environments>
+      <files>
+        <file category="genAsset" name=".config/gen_code.bat"/>
+        <file category="genAsset" name=".config/gen_code.sh"/>
+        <file category="genAsset" name=".config/STMicroelectronics.lps22hh_part_drivers.gpdsc.hbs"/>
+        <file category="genAsset" name=".config/mx_lps22hh_parameters.json"/>
+        <file category="genAsset" name=".config/template/mx_lps22hh_template.h.hbs"/>
+        <file category="genAsset" name=".config/template/mx_lps22hh_template.c.hbs"/>
+        <file category="genAsset" name=".config/template/mx_lps22hh_license_template.md.hbs"/>
+        <file category="genAsset" name=".config/template/hooks/mapping_hook.js"/>
+      </files>
+    </component>
+  </components>
+</package>

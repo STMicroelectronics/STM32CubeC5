@@ -2,7 +2,7 @@
 
 # __Example: *hal_tim_one_pulse*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -106,7 +106,7 @@ This example can run without external setup: in this case, the timer (TIM) can c
   To obtain the timer's counter clock frequency (tim_cnt_ck), the timer prescaler register (TIM_PSC) is computed as follows:
 
       TIM_PSC = (HCLK / tim_cnt_ck ) - 1
-    <!--
+<!--
 @startuml
 @startditaa{doc/stm32c5_peripherals_clocks.png}
  +---------+

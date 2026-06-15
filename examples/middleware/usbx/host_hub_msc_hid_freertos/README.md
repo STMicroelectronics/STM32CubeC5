@@ -2,7 +2,7 @@
 
 # __Example: *usbx_host_hub_msc_hid_freertos*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.2
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube Firmware package.")
 
@@ -31,7 +31,6 @@ In case of successful operations:
 You can verify the USBX stack operates as expected:
 
 - Plug The USB HUB device into the STM32 board through 'Type C  to A-Female' cable to the connector:
-    - Use USB in full speed (FS)
     - Connect ST-Link cable to the PC USB port to display data on the HyperTerminal.
 
     A virtual COM port will then appear in the HyperTerminal:
@@ -111,7 +110,7 @@ This section describes the exact hardware configurations of your project.
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
-  | Board connector   | MCU pin | Signal name     | ARDUINO Uno V3 <br> connector pin |
+  | Board connector   | MCU pin | Signal name     | ARDUINO Uno V3 <br/> connector pin |
   | :---:             | :---:   | :---:           | :---:                             |
   | CN5-6             | PA5     | MX_STATUS_LED   | Not exposed                       |
 
@@ -119,27 +118,37 @@ This section describes the exact hardware configurations of your project.
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
-  |  Board connector  |  MCU pin  |  Signal name  |  ARDUINO <br/> connector pin |
+  |  Board connector  |  MCU pin  |  Signal name  |  ARDUINO <br> connector pin |
   |:-----------------:|:---------:|:-------------:|:----------------------------:|
   |         -         |    PA5    |     GPIO      |              -               |
 
+  </br></details>
   </details>
-</details>
-
 
 ## __4. Troubleshooting__
 
 [![Troubleshooting](doc/debug_with-Troubleshooting.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/debug/debug_toc.html "An offline version is also available in the Cube Firmware package.")
+
+Here are the points of attention for this specific example:
+
+  1. If there is an issue, remember to check that:
+     - External 5v injection for Vbus
+     - COM port number is correct
+     - Baudrate is set to 115200
+
+  2. Depending on STM32 series, and USB instance used (FS/HS) specific USB configurations must be respected (HCD Max Channel Number, Endpoint Max Packet Size, Clock)
+     For details, refer to the reference manual of your MCU.
 
 
 ## __5. See Also__
 
 [![SeeAlso](doc/go_further_with-STM32.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/more/more_toc.html "An offline version is also available in the Cube Firmware package.")
 
+This [wiki](https://wiki.st.com/stm32mcu/wiki/Introduction_to_USBX) introduction to USBX.
 
 More information about the STM32 Cube Drivers can be found in the drivers' user manual of the STM32 series you are using.
 
-For instance for the STM32C5 series: [HAL documentation](https://dev.st.com/stm32cube-docs/stm32c5xx-hal-drivers/latest/en/index.html).
+For instance, for the STM32C5 series: [User Manual](https://www.st.com).
 
 More information about the STM32 ecosystem can be found in the [STM32 MCU Developer Zone](https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/embedded-software.html).
 

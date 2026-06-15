@@ -1,23 +1,23 @@
 /**
   ******************************************************************************
-  * @file           : stm32_spi1.h
-  * @brief          : Header for stm32_spi1.c file.
+  * @file           : mx_spi1.h
+  * @brief          : Header for mx_spi1.c file.
   ******************************************************************************
   * @attention
   *
   * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32_SPI1_H
-#define STM32_SPI1_H
+#ifndef MX_SPI1_H
+#define MX_SPI1_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,13 +65,8 @@ void mx_spi1_deinit(void);
   */
 hal_spi_handle_t *mx_spi1_gethandle(void);
 
-/******************************************************************************/
-/*                     SPI1 global interrupt                    */
-/******************************************************************************/
-void SPI1_IRQHandler(void);
-
-
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-#endif /* STM32_SPI1_H */
+
+#endif /* MX_SPI1_H */

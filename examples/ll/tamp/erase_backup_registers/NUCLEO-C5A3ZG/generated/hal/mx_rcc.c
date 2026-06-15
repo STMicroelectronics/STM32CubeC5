@@ -48,7 +48,7 @@ system_status_t mx_rcc_init(void)
   {
   }
 
-  LL_RCC_ConfigPSI(LL_RCC_PSIFREQ_144MHZ, LL_RCC_PSIREF_48MHZ, LL_RCC_PSISOURCE_HSE);
+    LL_RCC_ConfigPSI(LL_RCC_PSIFREQ_144MHZ, LL_RCC_PSIREF_48MHZ, LL_RCC_PSISOURCE_HSE);
 
   LL_RCC_PSIS_Enable();
   while(LL_RCC_PSIS_IsReady() != 1U)
@@ -72,6 +72,8 @@ system_status_t mx_rcc_init(void)
 
   LL_SetSystemCoreClock(144000000U);
   LL_Init1msTick(SystemCoreClock);
+
+  /* No GPIO configuration required for RCC */
 
   return SYSTEM_OK;
 }
@@ -132,7 +134,6 @@ system_status_t mx_rcc_peripherals_clock_config(void)
   */
   /* Disable RTC Domain Write Protection */
   LL_PWR_DisableRTCDomainWriteProtection();
-
   LL_RCC_LSE_SetDriveCapability(LL_RCC_LSEDRIVE_HIGH);
   LL_RCC_LSE_Enable();
   while(LL_RCC_LSE_IsReady() != 1U)
@@ -141,7 +142,7 @@ system_status_t mx_rcc_peripherals_clock_config(void)
   /* In order to simplify the code generation and management for the user, the write protection is not enabled by
      default. In real case application, we advise to enable it once all the necessary configurations are done. */
   /* Enable RTC Domain Write Protection */
-  //LL_PWR_EnableRTCDomainWriteProtection();
+  /* LL_PWR_EnableRTCDomainWriteProtection(); */
 
   return SYSTEM_OK;
 }

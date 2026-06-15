@@ -63,9 +63,8 @@ system_status_t mx_system_init(void)
   /*
     Peripheral init section
   */
-  /*
-    mx_gpio_status_led_init
-  */
+
+  /** gpio_default */
   if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;

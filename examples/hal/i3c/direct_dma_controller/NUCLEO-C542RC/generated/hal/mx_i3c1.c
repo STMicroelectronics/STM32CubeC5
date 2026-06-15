@@ -30,7 +30,7 @@ static hal_dma_handle_t hLPDMA1_CH1;
 static hal_dma_handle_t hLPDMA1_CH2;
 
 /******************************************************************************/
-/* Exported functions for I3C in HAL layer (SW instance MyI3C_1) */
+/* Exported functions for I3C in HAL layer */
 /******************************************************************************/
 hal_i3c_handle_t *mx_i3c1_init(void)
 {
@@ -64,34 +64,35 @@ hal_i3c_handle_t *mx_i3c1_init(void)
     return NULL;
   }
 
+  /* ### I3C1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOB_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    I3C1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB6     ------>   I3C1_SCL
-       PB7     ------>   I3C1_SDA
+       PB6     ------>   I3C1_SCL   ------>  PB6
+       PB7     ------>   I3C1_SDA   ------>  PB7
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
   gpio_config.alternate   = HAL_GPIO_AF_3;
-  HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOB, PB6_PIN | PB7_PIN, &gpio_config);
 
   /* Configure the Tx DMA for 1-byte transfers (FIFO threshold = 1_8) */
-      if (HAL_DMA_Init(&hLPDMA1_CH0, HAL_LPDMA1_CH0) != HAL_OK)
+
+  if (HAL_DMA_Init(&hLPDMA1_CH0, HAL_LPDMA1_CH0) != HAL_OK)
   {
     return NULL;
   }
 
   HAL_RCC_LPDMA1_EnableClock();
 
-hal_dma_direct_xfer_config_t xfer_cfg_i3c1_tx_dma;
+  hal_dma_direct_xfer_config_t xfer_cfg_i3c1_tx_dma;
   xfer_cfg_i3c1_tx_dma.request         = HAL_LPDMA1_REQUEST_I3C1_TX;
   xfer_cfg_i3c1_tx_dma.direction       = HAL_DMA_DIRECTION_MEMORY_TO_PERIPH;
   xfer_cfg_i3c1_tx_dma.src_inc         = HAL_DMA_SRC_ADDR_INCREMENTED;
@@ -116,14 +117,15 @@ hal_dma_direct_xfer_config_t xfer_cfg_i3c1_tx_dma;
   }
 
   /* Configure the RX DMA for 1-byte transfers (FIFO threshold = 1_8) */
-      if (HAL_DMA_Init(&hLPDMA1_CH1, HAL_LPDMA1_CH1) != HAL_OK)
+
+  if (HAL_DMA_Init(&hLPDMA1_CH1, HAL_LPDMA1_CH1) != HAL_OK)
   {
     return NULL;
   }
 
   HAL_RCC_LPDMA1_EnableClock();
 
-hal_dma_direct_xfer_config_t xfer_cfg_i3c1_rx_dma;
+  hal_dma_direct_xfer_config_t xfer_cfg_i3c1_rx_dma;
   xfer_cfg_i3c1_rx_dma.request         = HAL_LPDMA1_REQUEST_I3C1_RX;
   xfer_cfg_i3c1_rx_dma.direction       = HAL_DMA_DIRECTION_PERIPH_TO_MEMORY;
   xfer_cfg_i3c1_rx_dma.src_inc         = HAL_DMA_SRC_ADDR_FIXED;
@@ -148,14 +150,15 @@ hal_dma_direct_xfer_config_t xfer_cfg_i3c1_rx_dma;
   }
 
   /* Configure the Transmit Control DMA for 1 word (4 bytes) transfers */
-      if (HAL_DMA_Init(&hLPDMA1_CH2, HAL_LPDMA1_CH2) != HAL_OK)
+
+  if (HAL_DMA_Init(&hLPDMA1_CH2, HAL_LPDMA1_CH2) != HAL_OK)
   {
     return NULL;
   }
 
   HAL_RCC_LPDMA1_EnableClock();
 
-hal_dma_direct_xfer_config_t xfer_cfg_i3c1_tc_dma;
+  hal_dma_direct_xfer_config_t xfer_cfg_i3c1_tc_dma;
   xfer_cfg_i3c1_tc_dma.request         = HAL_LPDMA1_REQUEST_I3C1_TC;
   xfer_cfg_i3c1_tc_dma.direction       = HAL_DMA_DIRECTION_MEMORY_TO_PERIPH;
   xfer_cfg_i3c1_tc_dma.src_inc         = HAL_DMA_SRC_ADDR_INCREMENTED;
@@ -204,8 +207,8 @@ void mx_i3c1_deinit(void)
 
   HAL_RCC_I3C1_DisableClock();
 
-  /* De-initialize all GPIO pins associated with I3C1 */
-  HAL_GPIO_DeInit(HAL_GPIOB, HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7);
+  /* De-initialize all GPIOB pins associated with I3C1 */
+  HAL_GPIO_DeInit(HAL_GPIOB, PB6_PIN | PB7_PIN);
 
   /* De-initialize the DMA channel */
   HAL_DMA_DeInit(&hLPDMA1_CH0);

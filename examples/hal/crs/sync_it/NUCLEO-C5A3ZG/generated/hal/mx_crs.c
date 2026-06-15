@@ -25,9 +25,8 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_crs_handle_t hCRS;
-
 /******************************************************************************/
-/* Exported functions for CRS in HAL layer (SW instance MyCRS_1) */
+/* Exported functions for CRS in HAL layer */
 /******************************************************************************/
 hal_crs_handle_t *mx_crs_init(void)
 {

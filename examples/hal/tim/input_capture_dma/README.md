@@ -2,7 +2,7 @@
 
 # __Example: *hal_tim_input_capture_dma*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -200,7 +200,7 @@ So, the system clock configuration is a critical setup step.
   To obtain the timer's counter clock frequency (tim_cnt_ck), the timer prescaler register (TIM_PSC) is computed as follows:
 
       TIM_PSC = (HCLK / tim_cnt_ck ) - 1
-    <!--
+<!--
 @startuml
 @startditaa{doc/stm32c5_peripherals_clocks.png}
 
@@ -225,7 +225,6 @@ To obtain a timer counter clock at 1MHz with the APB prescaler set to 1 and the 
       timer_prescaler = (144 MHz / 1 MHz) - 1 = 143
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C542RC.</summary>
 
@@ -238,7 +237,6 @@ To obtain a timer counter clock at 1MHz with the APB prescaler set to 1 and the 
   |    PA8    |   TIM1_CH1    |      PA8      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -251,7 +249,6 @@ To obtain a timer counter clock at 1MHz with the APB prescaler set to 1 and the 
   |    PA8    |   TIM1_CH1    |      PA8      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -265,7 +262,6 @@ To obtain a timer counter clock at 1MHz with the APB prescaler set to 1 and the 
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

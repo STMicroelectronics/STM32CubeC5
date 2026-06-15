@@ -84,13 +84,11 @@ void I3C_Transfer_IT(const uint32_t *p_tc_data,
                      uint8_t *p_rx_data,
                      uint32_t rx_size_byte);
 
-#if defined(USE_LL_APP_ERROR) && (USE_LL_APP_ERROR == 1)
 /**
   * brief: This function provides delay (in milliseconds) based on SysTick counter flag.
   * param delay_ms: Number of milliseconds to delay.
   */
 void DelayMs(uint32_t delay_ms);
-#endif /* USE_LL_APP_ERROR */
 
 /** brief: MX_I3Cx target request dynamic address callbacks.
   */

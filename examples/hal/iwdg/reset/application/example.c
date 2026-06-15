@@ -44,7 +44,7 @@ app_status_t app_init(void)
 {
   app_status_t return_status = EXEC_STATUS_ERROR;
 
-  if ((HAL_RCC_GetResetSource() & HAL_RCC_RESET_FLAG_IWDG) == HAL_RCC_RESET_FLAG_IWDG)
+  if ((HAL_RCC_GetResetSource() & MX_RCC_RESET_FLAG_IWDG) == MX_RCC_RESET_FLAG_IWDG)
   {
     HAL_RCC_ClearResetFlags();
     IWDG_RestartFromIWDGReset = 1;

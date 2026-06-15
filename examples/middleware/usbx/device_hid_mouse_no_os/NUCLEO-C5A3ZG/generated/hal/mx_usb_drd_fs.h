@@ -29,6 +29,14 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+
+/** Primary aliases for USB_DM pin */
+#define USB_FS_N_PORT                         HAL_GPIOA
+#define USB_FS_N_PIN                          HAL_GPIO_PIN_11
+
+/** Primary aliases for USB_DP pin */
+#define USB_FS_P_PORT                         HAL_GPIOA
+#define USB_FS_P_PIN                          HAL_GPIO_PIN_12
 /* Exported macro ------------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

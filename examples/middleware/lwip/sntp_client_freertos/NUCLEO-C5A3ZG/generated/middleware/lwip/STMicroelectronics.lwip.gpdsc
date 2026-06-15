@@ -23,17 +23,22 @@
     </release>
   </releases>
   <conditions>
-    <condition id="RTOS condition">
+  <condition id="RTOS condition">
     <description>RTOS condition</description>
     <require Cclass="RTOS" Cgroup="FreeRTOS" Csub="Core"/>
   </condition>
-  <condition id="lwip condition">
-    <description>lwip condition</description>
-    <require Cclass="Network" Cgroup="LwIP" Csub="Core"/>
-  </condition>
+    <condition id="lwip condition">
+      <description>lwip condition</description>
+      <require Cclass="Network" Cgroup="LwIP" Csub="Core"/>
+      <require Cclass="Network" Cgroup="LwIP" Csub="RTOS port" Cvariant="FreeRTOS"/>
+      <require Cclass="Network" Cgroup="LwIP" Csub="Common port" Cvariant="STM32"/>
+      <require Cclass="Network" Cgroup="LwIP" Csub="STM32 ETH Interface FreeRTOS"/>
+      <require Cclass="Network" Cgroup="LwIP" Csub="SNTP"/>
+      <require Cclass="Network" Cgroup="LwIP" Csub="MDNS"/>
+    </condition>
   </conditions>
   <components>
-    <component generator="lwip_mx2codegen" Cclass="Network" Cgroup="STM32CubeMX2 Config" Csub="LwIP"   Cversion="2.0.0" condition="lwip condition">
+    <component generator="lwip_mx2codegen" Cclass="Network" Cgroup="STM32CubeMX2 Config" Csub="LwIP"   Cversion="2.1.0" condition="lwip condition">
       <description>TO BE DEFINED</description>
       <files>
         <file category="other" name="mx_lwip_license.md" />

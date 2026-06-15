@@ -31,11 +31,11 @@ hal_ramcfg_t mx_ramcfg_sram2_init(void)
 {
   HAL_RCC_RAMCFG_EnableClock();
 
+  HAL_RAMCFG_ECC_Enable_IT(HAL_RAMCFG_SRAM2, HAL_RAMCFG_IT_ECC_SINGLE);
+
   /* Enable the interruption for RAMCFG */
   HAL_CORTEX_NVIC_SetPriority(RAMCFG_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
   HAL_CORTEX_NVIC_EnableIRQ(RAMCFG_IRQn);
-
-  HAL_RAMCFG_ECC_Enable_IT(HAL_RAMCFG_SRAM2, HAL_RAMCFG_IT_ECC_SINGLE);
 
   return HAL_RAMCFG_SRAM2;
 }
@@ -51,16 +51,4 @@ void mx_ramcfg_sram2_deinit(void)
 void RAMCFG_IRQHandler(void)
 {
   HAL_RAMCFG_IRQHandler(HAL_RAMCFG_SRAM2);
-}
-
-/******************************************************************************/
-/* RAMCFG NMI interrupt */
-/******************************************************************************/
-__WEAK system_status_t RAMCFG_SRAM2_NMI_IRQHandler(void)
-{
-  /* NOTE : This function is a weak implementation for the RAMCFG NMI handler.
-            User can override it to handle ECC NMI errors for RAMCFG.
-  */
-  /* Status to be updated to SYSTEM_OK when the user IRQhandler manages the NMI error */
-  return SYSTEM_PERIPHERAL_ERROR;
 }

@@ -47,7 +47,6 @@ UINT app_usbx_init(VOID)
   {
     return status;
   }
-
   status = app_usbx_device_init();
 
   if (status != UX_SUCCESS)

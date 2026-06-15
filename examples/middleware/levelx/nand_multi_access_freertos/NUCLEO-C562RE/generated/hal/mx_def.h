@@ -5,7 +5,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
@@ -14,6 +14,7 @@
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef MX_DEF_H
 #define MX_DEF_H
@@ -23,6 +24,8 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
+#include <stddef.h>
+
 /* Exported types ------------------------------------------------------------*/
 typedef enum
 {

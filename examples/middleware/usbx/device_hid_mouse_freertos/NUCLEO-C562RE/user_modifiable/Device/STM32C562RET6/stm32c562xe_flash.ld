@@ -19,7 +19,7 @@
 ENTRY(Reset_Handler)
 
 HEAP_SIZE = 0x200;
-STACK_SIZE = 0x400;
+STACK_SIZE = 0x500;
 
 
 MEMORY

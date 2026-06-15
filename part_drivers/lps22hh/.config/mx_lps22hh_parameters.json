@@ -1,0 +1,256 @@
+{
+  "componentid": "::Board Part:STM32CubeMX2 Config:LPS22HH",
+  "type": "object",
+  "grammarVersion": "3.7.0",
+  "properties": {
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "title": "LPS22HH configuration",
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string",
+              "title": "User Label",
+              "description": "Adds extra #define in generated code",
+              "default": "MX_LPS22HH",
+              "unique": "project",
+              "unicityTag": "parts_lps22hh_sw_label",
+              "minLength": 3,
+              "maxLength": 15,
+              "actions": [
+                {
+                  "type": "error",
+                  "condition": "!/^[A-Za-z_][A-Za-z0-9_]*$/.test($value)",
+                  "message": "Name must be a valid C identifier: start with a letter or underscore, and contain only letters, digits, or underscores."
+                }
+              ]
+            },
+            "interface": {
+              "title": "Interface selection",
+              "description": "Select the Interface to be configured",
+              "type": "string",
+              "oneOf": [
+                {
+                  "const": "I2C",
+                  "title": "I2C"
+                },
+                {
+                  "const": "SPI",
+                  "title": "SPI"
+                },
+                {
+                  "const": "Custom",
+                  "title": "Custom"
+                }
+              ],
+              "default": "I2C"
+            }
+          }
+        },
+        "resourcesAllocation": {
+          "type": "object",
+          "properties": {
+            "i2cCfg": {
+              "type": "object",
+              "title": "I2C Interface Configuration",
+              "description": "I2C Interface configuration",
+              "actions": [
+                {
+                  "type": "include",
+                  "condition": "$info.interface === 'I2C'"
+                }
+              ],
+              "properties": {
+                "i2cInstance": {
+                  "type": "object",
+                  "title": "I2C Instance",
+                  "description": "The I2C peripheral must be configured in HAL I2C configuration panel",
+                  "objectType": "bind.peripheral.config",
+                  "criteria": {
+                    "peripheralType": [
+                      "i2c"
+                    ]
+                  },
+                  "actions": [
+                    {
+                      "type": "error",
+                      "condition": "!$resourcesAllocation.i2cCfg.i2cInstance?.selection",
+                      "message": "Please select an I2C instance in HAL I2C configuration panel."
+                    }
+                  ]
+                },
+                "i2cAddress": {
+                  "type": "object",
+                  "title": "I2C Address",
+                  "properties": {
+                    "sa0Pad": {
+                      "type": "string",
+                      "title": "SA0 pad selection",
+                      "description": "Select the state of the SA0 pad",
+                      "oneOf": [
+                        {
+                          "title": "GND",
+                          "const": "LPS22HH_I2C_ADD_L"
+                        },
+                        {
+                          "title": "VDD",
+                          "const": "LPS22HH_I2C_ADD_H"
+                        }
+                      ],
+                      "default": "LPS22HH_I2C_ADD_L"
+                    },
+                    "address": {
+                      "type": "string",
+                      "title": "Calculated Address: ",
+                      "description": "This 7-bit address is calculated based on the I2C hardware pin selection.",
+                      "actions": [
+                        {
+                          "type": "disable",
+                          "condition": "true"
+                        },
+                        {
+                          "type": "set",
+                          "condition": "$resourcesAllocation.i2cCfg.i2cAddress.sa0Pad === 'LPS22HH_I2C_ADD_L'",
+                          "attributes": {
+                            "const": "0x5C"
+                          }
+                        },
+                        {
+                          "type": "set",
+                          "condition": "$resourcesAllocation.i2cCfg.i2cAddress.sa0Pad === 'LPS22HH_I2C_ADD_H'",
+                          "attributes": {
+                            "const": "0x5D"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "interruptIsEnabled": {
+                  "title": "Enable EXTI Interrupt",
+                  "type": "boolean",
+                  "description": "If enabled, please select the GPIO pin mapped to the LPS22HH interrupt pin."
+                },
+                "extiCfg": {
+                  "title": "Exti Configuration",
+                  "type": "object",
+                  "objectType": "bind.gpio.config",
+                  "description": "The GPIO pin must be configured as an external trigger (exti) in HAL GPIO configuration panel",
+                  "actions": [
+                    {
+                      "type": "include",
+                      "condition": "$resourcesAllocation.i2cCfg.interruptIsEnabled"
+                    },
+                    {
+                      "type": "error",
+                      "condition": "!$resourcesAllocation.i2cCfg.extiCfg?.selection",
+                      "message": "Please select a GPIO pin configured as input in HAL GPIO configuration panel."
+                    }
+                  ],
+                  "pins": {
+                    "extipin": {
+                      "title": "Exti PIN",
+                      "constraints": {
+                        "mode": {
+                          "const": "input"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "spiCfg": {
+              "type": "object",
+              "title": "SPI Interface Configuration",
+              "description": "LPS22HH SPI Interface configuration",
+              "actions": [
+                {
+                  "type": "include",
+                  "condition": "$info.interface === 'SPI'"
+                }
+              ],
+              "properties": {
+                "spiInstance": {
+                  "type": "object",
+                  "title": "SPI Instance",
+                  "description": "The SPI peripheral must be configured in HAL SPI configuration panel",
+                  "objectType": "bind.peripheral.config",
+                  "criteria": {
+                    "peripheralType": [
+                      "spi"
+                    ]
+                  },
+                  "actions": [
+                    {
+                      "type": "error",
+                      "condition": "!$resourcesAllocation.spiCfg.spiInstance?.selection",
+                      "message": "Please select an SPI instance in HAL SPI configuration panel."
+                    }
+                  ]
+                },
+                "pinCfg": {
+                  "title": "Chip Select Selection",
+                  "type": "object",
+                  "objectType": "bind.gpio.config",
+                  "description": "The GPIO pin must be configured as an output in HAL GPIO configuration panel",
+                  "pins": {
+                    "cspin": {
+                      "title": "CS PIN",
+                      "constraints": {
+                        "mode": {
+                          "const": "output"
+                        }
+                      }
+                    }
+                  },
+                  "actions": [
+                    {
+                      "type": "error",
+                      "condition": "!$resourcesAllocation.spiCfg.pinCfg?.selection",
+                      "message": "Please select a GPIO pin configured as output in HAL GPIO configuration panel."
+                    }
+                  ]
+                },
+                "interruptIsEnabled": {
+                  "title": "Enable EXTI Interrupt",
+                  "type": "boolean",
+                  "description": "If enabled, please select the GPIO pin mapped to the LPS22HH interrupt pin."
+                },
+                "extiCfg": {
+                  "title": "Exti Configuration",
+                  "type": "object",
+                  "objectType": "bind.gpio.config",
+                  "description": "The GPIO pin must be configured as an external trigger (exti) in HAL GPIO configuration panel",
+                  "actions": [
+                    {
+                      "type": "include",
+                      "condition": "$resourcesAllocation.spiCfg.interruptIsEnabled"
+                    },
+                    {
+                      "type": "error",
+                      "condition": "!$resourcesAllocation.spiCfg.extiCfg?.selection",
+                      "message": "Please select a GPIO pin configured as input in HAL GPIO configuration panel."
+                    }
+                  ],
+                  "pins": {
+                    "extipin": {
+                      "title": "Exti PIN",
+                      "constraints": {
+                        "mode": {
+                          "const": "input"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -26,23 +26,12 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for NVIC in LL layer (SW instance MyCORTEX_NVIC_1) */
+/* Exported functions for CORTEX_NVIC in LL layer */
 /******************************************************************************/
 system_status_t mx_cortex_nvic_init(void)
 {
   /* Configure the Priority grouping */
   NVIC_SetPriorityGrouping(3);
 
-  /* Pendable request for system service */
-  NVIC_SetPriority(PendSV_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
-
   return SYSTEM_OK;
 }
-
-/******************************************************************************/
-/*   Pendable request for system service is managed directly in user code.    */
-/******************************************************************************/
-/* void PendSV_Handler(void)
-{
-}
-  */

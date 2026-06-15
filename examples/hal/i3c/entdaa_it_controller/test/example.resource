@@ -1,0 +1,7 @@
+*** Comments ***
+[Documentation]    This file contains the applicative constants used by example_hal_i3c_entdaa_it_controller
+
+
+*** Variables ***
+${TARGET_ADDRESS}=          32
+${MAX_ATTEMPTSINI}=         2

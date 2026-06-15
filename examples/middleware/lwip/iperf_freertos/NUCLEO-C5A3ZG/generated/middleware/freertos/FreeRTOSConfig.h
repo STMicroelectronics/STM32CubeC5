@@ -49,7 +49,7 @@
 #define configUSE_TIMERS                              1U
 #define configTIMER_TASK_PRIORITY                     2U
 #define configTIMER_QUEUE_LENGTH                      10U
-#define configTIMER_TASK_STACK_DEPTH                  128U
+#define configTIMER_TASK_STACK_DEPTH                  512U
 #define configIDLE_SHOULD_YIELD                       1U
 #define configUSE_APPLICATION_TASK_TAG                0U
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION       0U
@@ -109,7 +109,7 @@ PRIORITY THAN THIS! (higher priorities are lower numeric values). */
 #define INCLUDE_xQueueGetMutexHolder                  1U
 #define INCLUDE_xSemaphoreGetMutexHolder              1U
 #define INCLUDE_xEventGroupSetBitFromISR              0U
-#define INCLUDE_xTimerPendFunctionCall                0U
+#define INCLUDE_xTimerPendFunctionCall                1U
 
 /* Hook and callback function related definitions. */
 #define configUSE_IDLE_HOOK                           0U

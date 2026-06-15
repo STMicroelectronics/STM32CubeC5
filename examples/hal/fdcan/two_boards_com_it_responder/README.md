@@ -2,7 +2,7 @@
 
 # __Example: *hal_fdcan_two_boards_com_it_responder*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -58,7 +58,7 @@ This example demonstrates the **FDCAN peripheral** configured as indicated below
 - The FDCAN filter is configured to:
   - store FDCAN_CONTROLLER_FRAME_ID frame in RX_FIFO_0 and reject all other standard frames.
   - store extended frames to RX_FIFO_1.
-- The FDCAN Tx mode is configured FIFO mode.
+- The FDCAN Tx mode is configured in FIFO mode.
   It can optionally be configured in Queue mode: Messages stored in the Tx queue will be transmitted starting with the message with the lowest message ID (highest priority) instead of First In First Out.
 
 
@@ -68,7 +68,7 @@ This example demonstrates the **FDCAN peripheral** configured as indicated below
 
 This section describes the hardware setup principles that apply to any board.
 
-The FDCAN/CAN bus works with two dedicated lines (CAN_H and CAN_L) at specific voltage level. So, a CAN/FDCAN transceiver is needed to interface FDCAN_TX and FDCAN_RX pins to a real FDCAN bus.
+The FDCAN bus works with two dedicated lines (CAN_H and CAN_L) at specific voltage level. So, a CAN/FDCAN transceiver is needed to interface FDCAN_TX and FDCAN_RX pins to a real FDCAN bus.
 
 <!--
 @startditaa{doc/example_hal_fdcan_2b_com_interrupt_responder-setup.png} -E -S
@@ -99,6 +99,14 @@ The FDCAN lines can be observed by connecting an oscilloscope or a logic analyze
 
 On several ST boards, an FDCAN transceiver is already present.
 
+If not, you can use an external FDCAN transceiver like [MIKROE - MCP2542 CLICK](https://www.mikroe.com/mcp2542-click).
+
+To connect the module, please follow these wiring indications:
+
+- Connect GND, 5V and 3V3 on the MCP2545 CLICK board.
+- Connect MCP2545 CLICK TX pin to FDCAN RX pin.
+- Connect MCP2545 CLICK RX pin to FDCAN TX pin.
+
 <!-- YOUR BOARDS ADDED HERE BY README GENERATION -->
 <details>
   <summary>On STM32C5 series.</summary>
@@ -114,6 +122,7 @@ On several ST boards, an FDCAN transceiver is already present.
   |    PB9    |   FDCAN1_TX   |      PB9      |
   |    PB8    |   FDCAN1_RX   |      PB8      |
 
+  An FDCAN transceiver is present on this board, FDCAN signals are available on a dedicated connector.
   </details>
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
@@ -127,6 +136,7 @@ On several ST boards, an FDCAN transceiver is already present.
   |    PB9    |   FDCAN1_TX   |      PB9      |
   |    PB8    |   FDCAN1_RX   |      PB8      |
 
+  An FDCAN transceiver is present on this board, FDCAN signals are available on a dedicated connector.
   </details>
 </details>
 

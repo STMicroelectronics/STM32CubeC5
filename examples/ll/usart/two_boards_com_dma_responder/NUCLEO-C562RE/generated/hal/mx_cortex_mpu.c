@@ -25,7 +25,7 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 /******************************************************************************/
-/* Exported functions for MPU in LL layer (SW instance MyCORTEX_MPU_1) */
+/* Exported functions for CORTEX_MPU in LL layer */
 /******************************************************************************/
 
 system_status_t mx_cortex_mpu_init(void)
@@ -133,4 +133,5 @@ void mx_cortex_mpu_deinit(void)
                     | ((ARM_MPU_AP_RW | ARM_MPU_AP_PO) << MPU_RBAR_AP_Pos)
                     | (0x00 << MPU_RBAR_XN_Pos)),
                     ((0x00000000 & 0xFFFFFFE0U)
-                    | (0 << MPU_RLAR_AttrIndx_Pos)));}
+                    | (0 << MPU_RLAR_AttrIndx_Pos)));
+}

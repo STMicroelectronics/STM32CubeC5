@@ -41,7 +41,7 @@ volatile uint8_t TransferError = 0U;
 /** IBI payload sent by the target (default length: 3 bytes).
   * @user: it possible to modify the payload content and length as needed.
   */
-uint8_t IBIPayloadData[3] = {0xAB, 0xCD, 0xEF};
+const uint8_t IBIPayloadData[3] = {0xAB, 0xCD, 0xEF};
 
 /* Private functions prototype -----------------------------------------------*/
 static app_status_t PerformDAAProcess(void);

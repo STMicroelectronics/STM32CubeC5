@@ -27,9 +27,8 @@
 static hal_tim_handle_t hTIM1;
 
 /* Exported function definition ----------------------------------------------*/
-
 /******************************************************************************/
-/* Exported functions for TIM1 in HAL layer (SW instance MyTIM_1) */
+/* Exported functions for TIM1 in HAL layer */
 /******************************************************************************/
 hal_tim_handle_t *mx_tim1_init(void)
 {
@@ -40,7 +39,7 @@ hal_tim_handle_t *mx_tim1_init(void)
 
   HAL_RCC_TIM1_EnableClock();
 
-  /* Timer configuration to reach the output frequency at 478405 Hz */
+  /* Timer configuration to reach the output frequency at 478.405 kHz */
   hal_tim_config_t config;
   config.prescaler              = 0;
   config.counter_mode           = HAL_TIM_COUNTER_UP;

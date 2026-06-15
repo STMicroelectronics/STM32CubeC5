@@ -17,7 +17,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "example.h"
 #include "mx_levelx_app.h"
-#include "basic_stdio_core.h" /* logs */
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -27,12 +26,6 @@ app_status_t app_init(void)
 {
   app_status_t return_status = EXEC_STATUS_INIT_OK;
 
-  BASIC_STDIO_Init(mx_basic_stdio_gethandle());
-
-  if (mx_status_led_init() == SYSTEM_OK)
-  {
-    return_status = EXEC_STATUS_INIT_OK;
-  }
 
   /** ########## Step 1 ##########
     * Initializes and opens the NOR flash driver.

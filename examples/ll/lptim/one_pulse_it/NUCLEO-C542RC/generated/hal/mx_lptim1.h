@@ -37,10 +37,10 @@ extern "C" {
 #define PB13_PORT                             GPIOB
 #define PB13_PIN                              LL_GPIO_PIN_13
 
-    #define MX_LPTIMX_IRQN       LPTIM1_IRQn
-    #define MX_LPTIMX_IRQHANDLER LPTIM1_IRQHandler
-    #define MYLPTIM_1_IRQN       MX_LPTIMX_IRQN
-    #define MYLPTIM_1_IRQHANDLER MX_LPTIMX_IRQHANDLER
+#define MX_LPTIMX_IRQN       LPTIM1_IRQn
+#define MX_LPTIMX_IRQHANDLER LPTIM1_IRQHandler
+#define MYLPTIM_1_IRQN       MX_LPTIMX_IRQN
+#define MYLPTIM_1_IRQHANDLER MX_LPTIMX_IRQHANDLER
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -64,7 +64,6 @@ void mx_lptim1_deinit(void);
 /*         LPTIM1 global interrupt OR LPTimer1 AIT through EXTI line          */
 /*                     is managed directly in user code.                      */
 /******************************************************************************/
-
 /* void LPTIM1_IRQHandler(void); */
 #ifdef __cplusplus
 }

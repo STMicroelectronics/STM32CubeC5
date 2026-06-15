@@ -62,7 +62,6 @@ void mx_lpuart1_uart_deinit(void);
 /*                 LPUART1 R interrupt OR LPUART1 T interrupt                 */
 /*                     is managed directly in user code.                      */
 /******************************************************************************/
-
 /* void LPUART1_IRQHandler(void); */
 #ifdef __cplusplus
 }

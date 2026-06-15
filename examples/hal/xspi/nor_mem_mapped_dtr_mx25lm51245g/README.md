@@ -2,7 +2,7 @@
 
 # __Example: *hal_xspi_nor_mem_mapped_dtr_mx25lm51245g*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/read/read_toc.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -149,26 +149,27 @@ The MX25LM51245G external NOR flash supports a maximum clock frequency of 133 MH
 This section describes the exact hardware configurations of your project.
 
 <details>
-<summary>On STM32C5 series.</summary>
-<details>
-  <summary>On board NUCLEO-C5A3ZG.</summary>
+  <summary>On STM32C5 series.</summary>
+  <details>
+    <summary>On board NUCLEO-C5A3ZG.</summary>
 
-  | Board connector   | MCU pin | Signal name       | ARDUINO <br> connector pin |
-  | :---:             | :---:   | :---:             | :---:                      |
-  | ---NA---          | PF9     | XSPI_IO0          | ------------NA--------     |
-  | ---NA---          | PF8     | XSPI_IO1          | ------------NA--------     |
-  | ---NA---          | PF7     | XSPI_IO2          | ------------NA--------     |
-  | ---NA---          | PF6     | XSPI_IO3          | ------------NA--------     |
-  | ---NA---          | PE7     | XSPI_IO4          | ------------NA--------     |
-  | ---NA---          | PE8     | XSPI_IO5          | ------------NA--------     |
-  | ---NA---          | PE9     | XSPI_IO6          | ------------NA--------     |
-  | ---NA---          | PE10    | XSPI_IO7          | ------------NA--------     |
-  | ---NA---          | PB2     | XSPI_DQS          | ------------NA--------     |
-  | ---NA---          | PF10    | XSPI_CLK          | ------------NA--------     |
-  | ---NA---          | PE11    | XSPI_NCS          | ------------NA--------     |
-  | ---NA---          | NRST    | NRST              | ------------NA--------     |
-  | ---NA---          | PG9     | LDO_EN            | ------------NA--------     |
-  | ---NA---          | PA5     | ARDUINO LED LD1   | ARDUINO CONNECTOR - D13    |
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN   |
+  |    PH1    |  RCC_OSC_OUT  |  PH1_OSC_OUT  |
+  |    PA2    |   USART2_TX   | DBGIN_VCP_TX  |
+  |   PF10    |   XSPI1_CLK   |     PF10      |
+  |    PB2    |   XSPI1_DQS   |      PB2      |
+  |    PF9    |   XSPI1_IO0   |      PF9      |
+  |    PF8    |   XSPI1_IO1   |      PF8      |
+  |    PF7    |   XSPI1_IO2   |      PF7      |
+  |    PF6    |   XSPI1_IO3   |      PF6      |
+  |    PE7    |   XSPI1_IO4   |      PE7      |
+  |    PE8    |   XSPI1_IO5   |      PE8      |
+  |    PE9    |   XSPI1_IO6   |      PE9      |
+  |   PE10    |   XSPI1_IO7   |     PE10      |
+  |   PE11    |  XSPI1_NCS1   |     PE11      |
 
 **XSPI clock frequency**: in this board configuration, the XSPI clock is set to 144 MHz. The DLYB is configured to synchronize with the memory and to clock the receive data without exceeding the maximum frequency supported by the MX25LM51245G.
 
@@ -179,8 +180,8 @@ This section describes the exact hardware configurations of your project.
 - To enable LDO_EN, pin PG9 (CN11-25) is driven high to 3.3V by the example to power on the memory module, no external wiring of this pin is needed.
 
 </details>
+  <summary>On STM32V8 series.</summary>
 </details>
-
 
 ## __4. Troubleshooting__
 

@@ -26,34 +26,12 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for NVIC in HAL layer (SW instance MyCORTEX_NVIC_1) */
+/* Exported functions for CORTEX_NVIC in HAL layer */
 /******************************************************************************/
 system_status_t mx_cortex_nvic_init(void)
 {
   /* Configure the Priority grouping */
   HAL_CORTEX_NVIC_SetPriorityGrouping(HAL_CORTEX_NVIC_PRIORITY_GROUP_4);
 
-  /* System service call via SWI instruction */
-  HAL_CORTEX_NVIC_SetPriority(SVCall_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
-
-  /* Pendable request for system service */
-  HAL_CORTEX_NVIC_SetPriority(PendSV_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
-
   return SYSTEM_OK;
 }
-
-/******************************************************************************/
-/* System service call via SWI instruction is managed directly in user code.  */
-/******************************************************************************/
-/* void SVC_Handler(void)
-{
-}
-  */
-
-/******************************************************************************/
-/*   Pendable request for system service is managed directly in user code.    */
-/******************************************************************************/
-/* void PendSV_Handler(void)
-{
-}
-  */

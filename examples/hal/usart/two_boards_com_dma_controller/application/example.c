@@ -34,6 +34,10 @@
 
 #define DMA_ALIGNMENT 64U /* user define to adjust the data alignment to the DMA IP of the SoC */
 
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+          Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ACCESS_ALIGNMENT        (8U)
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_usart_handle_t *pUSART; /* Pointer referencing the USART handle from the generated code */
@@ -55,7 +59,7 @@ const uint8_t *pTxData = NULL;
   * - Aligned for DMA constraints.
   * - Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
   */
-__attribute__((section(".non_cacheable_variables"), aligned(DMA_ALIGNMENT)))
+__attribute__((section("non_cacheable_area"), aligned(DMA_ACCESS_ALIGNMENT)))
 uint8_t RxBuffer[BUFFER_SIZE] = {0U};
 
 /* Private functions prototype -----------------------------------------------*/

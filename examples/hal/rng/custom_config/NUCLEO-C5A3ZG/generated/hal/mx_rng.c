@@ -26,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 static hal_rng_handle_t hRNG;
 /******************************************************************************/
-/* Exported functions for RNG in HAL layer (SW instance MyRNG_1) */
+/* Exported functions for RNG in HAL layer */
 /******************************************************************************/
 hal_rng_handle_t *mx_rng_init(void)
 {
@@ -43,22 +43,6 @@ hal_rng_handle_t *mx_rng_init(void)
   }
 
   /* Code HAL_RNG_Config....*/
-  hal_rng_config_t rng_config;
-
-  rng_config.config_1              = 31;
-  rng_config.config_2              = 0;
-  rng_config.config_3              = 13;
-  rng_config.clock_divider         = HAL_RNG_CLOCK_DIVIDER_BY_1;
-  rng_config.standard              = HAL_RNG_CUSTOM;
-  rng_config.clock_error_detection = HAL_RNG_CLOCK_ERROR_DETECTION_DISABLED;
-  rng_config.health_test           = 43719;
-  rng_config.noise_src.osc_1_src   = HAL_RNG_OSCILLATOR_SOURCE_1 | HAL_RNG_OSCILLATOR_SOURCE_2 | HAL_RNG_OSCILLATOR_SOURCE_3;
-  rng_config.noise_src.osc_2_src   = HAL_RNG_OSCILLATOR_SOURCE_1 | HAL_RNG_OSCILLATOR_SOURCE_2 | HAL_RNG_OSCILLATOR_SOURCE_3;
-  rng_config.noise_src.osc_3_src   = HAL_RNG_OSCILLATOR_SOURCE_1 | HAL_RNG_OSCILLATOR_SOURCE_2 | HAL_RNG_OSCILLATOR_SOURCE_3;
-  if (HAL_RNG_SetConfig(&hRNG, &rng_config) != HAL_OK)
-  {
-    return NULL;
-  }
 
   return &hRNG;
 }

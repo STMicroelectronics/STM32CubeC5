@@ -27,7 +27,7 @@ endif()
 
 # Enable all components in this package
 if(CMSIS_ENTIRE_generated_STMicroelectronics_lwip_2_0_0)
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Network#Cgroup:STM32CubeMX2 Config#Csub:LwIP#Cversion:2.0.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Network#Cgroup:STM32CubeMX2 Config#Csub:LwIP#Cversion:2.1.0#generated:true")
 endif()
 
 # All conditions used by this package
@@ -50,13 +50,13 @@ message(DEBUG "CMSIS condition generated_STMicroelectronics.lwip.2.0.0_RTOS_cond
 
 # condition: generated_STMicroelectronics.lwip.2.0.0:lwip condition
 # description: lwip condition
-set(generated_STMicroelectronics.lwip.2.0.0_lwip_condition "$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Network#.*Cgroup:LwIP#.*Csub:Core(#.*|$)>,>>")
+set(generated_STMicroelectronics.lwip.2.0.0_lwip_condition "$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Network#.*Cgroup:LwIP#.*Csub:Core(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Network#.*Cgroup:LwIP#.*Csub:RTOS port#.*Cvariant:FreeRTOS(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Network#.*Cgroup:LwIP#.*Csub:Common port#.*Cvariant:STM32(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Network#.*Cgroup:LwIP#.*Csub:STM32 ETH Interface FreeRTOS(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Network#.*Cgroup:LwIP#.*Csub:LWIPERF(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Network#.*Cgroup:LwIP#.*Csub:MDNS(#.*|$)>,>>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.lwip.2.0.0_lwip_condition enabled")
 
 # Files and components in this package
-if("Cvendor:STMicroelectronics#Cclass:Network#Cgroup:STM32CubeMX2 Config#Csub:LwIP#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Network_STM32CubeMX2_Config_LwIP_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_lwip_2_0_0 INTERFACE "$<${generated_STMicroelectronics.lwip.2.0.0_lwip_condition}:-DCMSIS_USE_generated_Network_STM32CubeMX2_Config_LwIP_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Network#Cgroup:STM32CubeMX2 Config#Csub:LwIP#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Network_STM32CubeMX2_Config_LwIP_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_lwip_2_0_0 INTERFACE "$<${generated_STMicroelectronics.lwip.2.0.0_lwip_condition}:-DCMSIS_USE_generated_Network_STM32CubeMX2_Config_LwIP_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_lwip_2_0_0 INTERFACE "$<${generated_STMicroelectronics.lwip.2.0.0_lwip_condition}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_lwip_2_0_0 INTERFACE "$<${generated_STMicroelectronics.lwip.2.0.0_lwip_condition}:${CMAKE_CURRENT_LIST_DIR}/mx_lwip.c>")
 endif()

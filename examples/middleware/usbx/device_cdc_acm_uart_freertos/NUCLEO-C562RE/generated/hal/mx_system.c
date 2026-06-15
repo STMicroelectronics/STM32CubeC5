@@ -9,20 +9,18 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+
 /* Includes ------------------------------------------------------------------*/
 #include "mx_system.h"
-#include "mx_cortex_nvic.h"
-
-
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -30,6 +28,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
+
 system_status_t mx_system_init(void)
 {
   if (pre_system_init_hook() != SYSTEM_OK)
@@ -37,12 +36,10 @@ system_status_t mx_system_init(void)
     return SYSTEM_PRESYSTEM_ERROR;
   }
 
-  crs_init();
-
   /*
     CORTEX MPU initialization in case of isolation is not activated
   */
-  if (mx_cortex_mpu_hal_init() != SYSTEM_OK)
+  if (mx_cortex_mpu_init() != SYSTEM_OK)
   {
     return SYSTEM_RESOURCES_ISOLATION_ERROR;
   }
@@ -55,12 +52,6 @@ system_status_t mx_system_init(void)
     return SYSTEM_STARTUP_ERROR;
   }
 
-  if (crs_init() != HAL_OK)
-  {
-    return SYSTEM_STARTUP_ERROR;
-  }
-
-
   /*
     Interruptions section
   */
@@ -70,15 +61,15 @@ system_status_t mx_system_init(void)
   }
 
   /*
-    myicache_1_init
+    ICACHE section
   */
-  if (mx_icache_hal_init() == NULL)
+  if (mx_icache_init() == NULL)
   {
     return SYSTEM_STARTUP_ERROR;
   }
 
   /* ICACHE automatically started at startup */
-  if (HAL_ICACHE_Start(mx_icache_hal_gethandle(), HAL_ICACHE_IT_NONE) != HAL_OK)
+  if (HAL_ICACHE_Start(mx_icache_gethandle(), HAL_ICACHE_IT_NONE) != HAL_OK)
   {
     return SYSTEM_STARTUP_ERROR;
   }
@@ -86,7 +77,9 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
-  if (mx_rcc_hal_init() != SYSTEM_OK)
+
+  /* Initialize RCC peripheral */
+  if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
   }
@@ -102,23 +95,36 @@ system_status_t mx_system_init(void)
   /*
     Peripheral init section
   */
-  /*
-    mygpio_1_init
-    mx_gpio_status_led_init
-  */
-  if (mx_gpio_default_hal_init() != SYSTEM_OK)
+
+  /** gpio_default */
+  if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
-  /** mx_usart2_hal_uart_init()has been generated,
-    * (myuart_1_init)
-    * (mx_example_uart_init)
+  /** USB_DRD_FS_DEVICE: mx_usb_drd_fs_device_init() has been generated,
     * but it is expected that application will call it when best needed
     * according to application needs.
     * See Cube code generator options: Generate and call Initialization function
     */
 
+  /** TIM6 */
+  if (mx_tim6_init() == NULL)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
+
+  /** USART2: mx_usart2_uart_init() has been generated,
+    * but it is expected that application will call it when best needed
+    * according to application needs.
+    * See Cube code generator options: Generate and call Initialization function
+    */
+
+  /** CRS */
+  if (mx_crs_init() == NULL)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
 
   if (post_system_init_hook() != SYSTEM_OK)
   {
@@ -134,7 +140,7 @@ system_status_t mx_system_init(void)
   */
 __WEAK system_status_t pre_system_init_hook(void)
 {
-  /* NOTE : This function must not be modified, when the callback is needed,
+  /* NOTE : This function must not be modified. When the callback is needed,
             the pre_system_init_hook can be implemented in the user file
    */
   return SYSTEM_OK;
@@ -146,7 +152,7 @@ __WEAK system_status_t pre_system_init_hook(void)
   */
 __WEAK system_status_t post_system_init_hook(void)
 {
-  /* NOTE : This function must not be modified, when the callback is needed,
+  /* NOTE : This function must not be modified. When the callback is needed,
             the post_system_init_hook can be implemented in the user file
    */
   return SYSTEM_OK;

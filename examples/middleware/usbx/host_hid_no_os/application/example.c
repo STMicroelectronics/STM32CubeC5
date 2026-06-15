@@ -48,36 +48,21 @@ hal_uart_handle_t *pUART; /* pointer referencing the UART handle from the genera
 app_status_t app_init(void)
 {
   app_status_t return_status;
-  pUART = mx_example_uart_init();
 
   if (mx_adv_trace_init() == SYSTEM_OK)
   {
     return_status = EXEC_STATUS_INIT_OK;
   }
-
-  if (pUART != NULL)
+  if (app_usbx_init() == 0)
   {
     return_status = EXEC_STATUS_INIT_OK;
-    if (mx_example_hcd_init() != NULL)
-    {
-      if (app_usbx_init() == 0)
-      {
-        return_status = EXEC_STATUS_INIT_OK;
-      }
-      else
-      {
-        return_status = EXEC_STATUS_ERROR;
-      }
-    }
-    else
-    {
-      return_status = EXEC_STATUS_ERROR;
-    }
   }
   else
   {
     return_status = EXEC_STATUS_ERROR;
   }
+
+
   return return_status;
 } /* end app_init */
 
@@ -85,7 +70,6 @@ app_status_t app_init(void)
 app_status_t app_process(void)
 {
   app_status_t return_status = EXEC_STATUS_ERROR;
-
   app_usbx_process();
 
   return return_status;
@@ -94,7 +78,6 @@ app_status_t app_process(void)
 
 app_status_t app_deinit(void)
 {
-  mx_example_uart_deinit();
   mx_example_hcd_deinit();
   return EXEC_STATUS_OK;
 } /* end app_deinit */

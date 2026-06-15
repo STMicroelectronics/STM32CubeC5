@@ -21,7 +21,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 /* Includes ----------------------------------------------------------*/
 #include "ux_api.h"
 #include "ux_stm32_device_descriptors_config.h"

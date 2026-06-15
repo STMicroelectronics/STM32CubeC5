@@ -2,7 +2,7 @@
 
 # __Example: *hal_tim_pwm_input*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -70,6 +70,20 @@ This is achieved by setting:
 - The timer's input clock to its respective APB clock (PCLK)
 - The AHB prescaler to 1
 - The APB prescaler (depending on series) to 1
+
+To measure a low-frequency PWM signal without timer overflow, the timer counter clock must be low enough so that one full signal period fits within the timer counter range.
+
+For a signal frequency f_pwm and a timer with a maximum counter value TIM_CNT_max, the following condition must be satisfied:
+
+      tim_cnt_ck <= f_pwm x (TIM_CNT_max + 1)
+
+For a 16-bit timer measuring a 50 Hz PWM signal:
+
+      tim_cnt_ck <= 50 x (0xFFFF + 1)
+      tim_cnt_ck <= 50 x 65536
+      tim_cnt_ck <= 3.2768 MHz
+
+The timer prescaler must therefore be selected so that the timer counter clock does not exceed 3.2768 MHz.
 
 __GPIO__:
 
@@ -139,9 +153,9 @@ The timer clock is limiting the measurable input frequency and measurement accur
 
   To achieve a precision p, the value of CCRx must be greater than 100 / p.
 
-  For instance, to reach a high precision of 5%, CCRx must be greater than 100 / 5 = 20.
+  For instance, to reach a duty cycle precision of 5%, the measured PWM period should contain at least 20 timer counts.
 
-  To obtain this precision, the timer's counter clock frequency must be at least 20 times higher than the frequency of the external signal being measured.
+  This means that the timer counter clock frequency should be at least 20 times higher than the frequency of the external signal being measured. However, for low-frequency signals, the counter clock must also be low enough to prevent timer overflow when using a 16-bit timer. 
 
   > **_CONCLUSION_**: By ensuring that the timer's clock frequency is much higher than the frequency of the PWM signal, you can minimize the impact of the +/- 1 count uncertainty.
 
@@ -201,7 +215,7 @@ So, the system clock configuration is a critical setup step.
   To obtain the timer's counter clock frequency (tim_cnt_ck), the timer prescaler register (TIM_PSC) is computed as follows:
 
       TIM_PSC = (HCLK / tim_cnt_ck ) - 1
-    <!--
+<!--
 @startuml
 @startditaa{doc/stm32c5_peripherals_clocks.png}
   
@@ -265,6 +279,18 @@ To obtain a timer counter clock at 1MHz with the HCLK set to 144MHz, the timer p
   |    PA9    |   TIM1_CH2    |      PA9      |
 
   </details>
+  <details>
+    <summary>On board NUCLEO-C5Q1ZG.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN   |
+  |    PH1    |  RCC_OSC_OUT  |  PH1_OSC_OUT  |
+  |    PA2    |   USART2_TX   |      PA2      |
+  |    PC6    |   TIM8_CH1    |      PC6      |
+
+  </details>
 </details>
 
 ## __4. Troubleshooting__
@@ -274,6 +300,8 @@ To obtain a timer counter clock at 1MHz with the HCLK set to 144MHz, the timer p
 Here are the points of attention for this specific example:
 
 __System clock__: The timer clock depends on the system clock configuration. Changing the CPU clock or the peripheral bus' clock affects the PWM frequency and duty cycle.
+
+__Timer counter clock__:Make sure the timer prescaler is properly selected for the expected PWM frequency range. A lower prescaler increases the timer counter clock and improves measurement precision by providing more counter increments per PWM period, but it can also cause timer overflow for low-frequency signals.
 
 
 ## __5. See Also__

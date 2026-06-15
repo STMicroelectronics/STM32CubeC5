@@ -2,7 +2,7 @@
 
 # __Example: *hal_pwr_pvd*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the Cube firmware package.")
 
@@ -98,14 +98,15 @@ This section describes the exact hardware configurations of your project.
 <details>
   <summary>On STM32C5 series.</summary>
 
- - VCC initial value: 3.3V
-- PVD threshold value: 2.7V
+   - VCC initial value: 3.3V
+   - PVD threshold value: 2.7V
 
   | Board name     | IDD jumper name |
   | :---:          | :---:           |
   | NUCLEO-C542RC  | JP5             |
   | NUCLEO-C562RE  | JP5             |
   | NUCLEO-C5A3ZG  | JP5             |
+
   <details>
     <summary>On board NUCLEO-C542RC.</summary>
 
@@ -117,7 +118,6 @@ This section describes the exact hardware configurations of your project.
   |    PA2    |   USART2_TX   |      PA2      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -129,7 +129,6 @@ This section describes the exact hardware configurations of your project.
   |    PA2    |   USART2_TX   |      PA2      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -142,20 +141,6 @@ This section describes the exact hardware configurations of your project.
 
   </details>
 </details>
-<details>
-  <summary>On STM32U5 series</summary>
-
- The power voltage values for HAL_PWR_PVD_LEVEL_3 are :
-
-- VCC initial value: 3.3V
-- PVD threshold value: 2.5V
-
-  | Board name    | IDD jumper name |
-  | :---:         | :---:    |
-  | DISCO-BU585I  | JP3      |
-  | NUCLEO-U575I  | JP5      |
-</details>
-
 
 ## __4. Troubleshooting__
 

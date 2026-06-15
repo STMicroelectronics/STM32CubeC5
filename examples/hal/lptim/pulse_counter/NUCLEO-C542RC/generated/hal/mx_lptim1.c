@@ -33,6 +33,25 @@ static hal_lptim_handle_t hLPTIM1;
 
 hal_lptim_handle_t *mx_lptim1_init(void)
 {
+  /* Init GPIO */
+  /* ### LPTIM1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
+  HAL_RCC_GPIOA_EnableClock();
+
+  hal_gpio_config_t  gpio_config;
+
+  /**
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
+
+       PA1     ------>   LPTIM1_IN1   ------>  PA1
+    **/
+  gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
+  gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
+  gpio_config.pull        = HAL_GPIO_PULL_NO;
+  gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
+  gpio_config.alternate   = HAL_GPIO_AF_5;
+  HAL_GPIO_Init(PA1_PORT, PA1_PIN, &gpio_config);
+
   hal_lptim_config_t  config;
 
   if (HAL_LPTIM_Init(&hLPTIM1, HAL_LPTIM1) != HAL_OK)
@@ -68,25 +87,6 @@ hal_lptim_handle_t *mx_lptim1_init(void)
     return NULL;
   }
 
-  /* Init GPIO */
-  HAL_RCC_GPIOA_EnableClock();
-
-  hal_gpio_config_t  gpio_config;
-
-  /**
-    LPTIM1 GPIO Configuration
-
-    [GPIO Pin] ------> [Signal Name]
-
-       PA1     ------>   LPTIM1_IN1
-    **/
-  gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
-  gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
-  gpio_config.pull        = HAL_GPIO_PULL_NO;
-  gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
-  gpio_config.alternate   = HAL_GPIO_AF_5;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_1, &gpio_config);
-
   /* Enable the LPTIM global interruption */
   HAL_CORTEX_NVIC_SetPriority(LPTIM1_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
   HAL_CORTEX_NVIC_EnableIRQ(LPTIM1_IRQn);
@@ -102,8 +102,8 @@ void mx_lptim1_deinit(void)
 
   HAL_RCC_LPTIM1_DisableClock();
 
-  /* De-initialize all GPIO pins associated with LPTIM1 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_1);
+  /* De-initialize all GPIOA pins associated with LPTIM1 */
+  HAL_GPIO_DeInit(PA1_PORT, PA1_PIN);
 
   /* Disable Timer global interrupt */
   HAL_CORTEX_NVIC_DisableIRQ(LPTIM1_IRQn);

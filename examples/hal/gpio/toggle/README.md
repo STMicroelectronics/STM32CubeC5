@@ -2,7 +2,7 @@
 
 # __Example: *hal_gpio_toggle*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -101,6 +101,16 @@ This section describes the exact hardware configurations of your project.
   </details>
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label  |
+  |:---------:|:-------------:|:------------:|
+  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN  |
+  |    PH1    |  RCC_OSC_OUT  | PH1_OSC_OUT  |
+  |    PA5    |     GPIO      |      -       |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C5Q1ZG.</summary>
 
   |  MCU pin  |  Signal name  |  User Label  |
   |:---------:|:-------------:|:------------:|

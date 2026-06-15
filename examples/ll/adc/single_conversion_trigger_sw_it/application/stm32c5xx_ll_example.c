@@ -22,7 +22,7 @@
 /* MX_ADCx delay between end of calibration and enable operations (unit: CPU clock cycles). */
 #define ADC_DELAY_CALIB_ENABLE_CPU_CYCLES (LL_ADC_DELAY_CALIB_ENABLE_ADC_CYCLES * 4U)
 #define ADC_ENABLE_TIMEOUT_MS             (2UL)       /* MX_ADCx enable time-out value (unit: milli seconds)          */
-#define ADC_DISABLE_TIMEOUT_MS             (2UL)       /* MX_ADCx enable time-out value (unit: milli seconds)          */
+#define ADC_DISABLE_TIMEOUT_MS            (2UL)       /* MX_ADCx enable time-out value (unit: milli seconds)          */
 #define ADC_CALIBRATION_TIMEOUT_MS        (500UL)     /* MX_ADCx calibration time-out value (unit: milli seconds)     */
 #define ADC_VREFPLUS_VALUE                (VDD_VALUE) /* Assumption: pin Vref+ connected to Vdd at board level        */
 
@@ -64,7 +64,7 @@ inline system_status_t ADC_Activate(void)
     }
 
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout_ms-- == 0U)
       {
@@ -102,7 +102,7 @@ inline system_status_t ADC_Calibrate(void)
   while (LL_ADC_IsEnabled(MX_ADCx) != 0U)
   {
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout_ms-- == 0U)
       {
@@ -133,7 +133,7 @@ inline system_status_t ADC_Calibrate(void)
   while (LL_ADC_IsCalibrationOnGoing(MX_ADCx) != 0U)
   {
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout_ms-- == 0U)
       {

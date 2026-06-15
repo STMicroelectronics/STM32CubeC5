@@ -25,7 +25,7 @@
 static hal_exti_handle_t hEXTI16;
 
 /******************************************************************************/
-/* Exported functions for PWR in HAL layer (SW instance PWR) */
+/* Exported functions for PWR in HAL layer */
 /******************************************************************************/
 
 system_status_t mx_pwr_init(void)

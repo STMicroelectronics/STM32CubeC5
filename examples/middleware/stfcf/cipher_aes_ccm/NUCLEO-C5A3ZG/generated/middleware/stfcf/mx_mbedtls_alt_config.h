@@ -28,10 +28,10 @@ extern "C" {
 #include "mx_hal_def.h"
 
 /* Exported macros -----------------------------------------------------------*/
+#define mx_stfcf_mbedtls_alt_hal_rng_gethandle mx_example_rng_gethandle
 #define mx_stfcf_mbedtls_alt_hal_aes_gethandle mx_example_aes_gethandle
 #define mx_stfcf_mbedtls_alt_hal_aes_ccm_gethandle mx_example_aes_gethandle
 #define mx_stfcf_mbedtls_alt_hal_hash_gethandle mx_example_hash_gethandle
-#define mx_stfcf_mbedtls_alt_hal_rng_gethandle mx_example_rng_gethandle
 
 /* Exported constants ------------------------------------------------------- */
 
@@ -277,6 +277,7 @@ extern "C" {
   *        Requires: MBEDTLS_PSA_CRYPTO_C, MBEDTLS_PSA_CRYPTO_EXTERNAL_RNG.
   */
 /* #define MBEDTLS_STCRYPTOLIB_DRBG_ALT */
+
 /**
   * @}
   */

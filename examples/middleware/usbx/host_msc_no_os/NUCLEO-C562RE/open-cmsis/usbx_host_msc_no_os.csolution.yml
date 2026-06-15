@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.11.0/tools/projmgr/schemas/csolution.schema.json
+solution:
+  target-types:
+    - type: NUCLEO-C562RE
+      device: STM32C562RET6
+      define:
+        - UX_HOST_CLASS_STORAGE_EXT_FILEX
+        - HSE_VALUE: 16000000
+  output-dirs:
+    tmpdir: project/tmp
+    outdir: $SolutionDir()$/build/$Project$.$BuildType$
+  generators:
+    base-dir: $ProjectDir()$/generated
+    options:
+      - generator: led_mx2codegen
+        path: $SolutionDir()$/../generated/parts/led
+      - generator: stm32c5xx_hal_mx2codegen
+        path: $SolutionDir()$/../generated/hal/
+      - generator: filex_mx2codegen
+        path: $SolutionDir()$/../generated/middleware/filex
+      - generator: usbx_mx2codegen
+        path: $SolutionDir()$/../generated/middleware/usbx
+      - generator: advanced_trace_mx2codegen
+        path: $SolutionDir()$/../generated/utilities/advanced_trace
+      - generator: syscalls_mx2codegen
+        path: $SolutionDir()$/../generated/utilities/syscalls
+  build-types:
+    - type: release_AC6
+      compiler: AC6
+  packs:
+    - pack: STMicroelectronics::CMSIS
+      path: ../../../../../../arch/cmsis
+    - pack: STMicroelectronics::advanced_trace
+      path: ../../../../../../utilities/advanced_trace
+    - pack: STMicroelectronics::filex
+      path: ../../../../../../middleware/filex
+    - pack: STMicroelectronics::led_part_drivers
+      path: ../../../../../../part_drivers/led
+    - pack: STMicroelectronics::stm32c5xx_dfp
+      path: ../../../../../../stm32c5xx_dfp
+    - pack: STMicroelectronics::stm32c5xx_hal_drivers
+      path: ../../../../../../stm32c5xx_drivers
+    - pack: STMicroelectronics::syscalls
+      path: ../../../../../../utilities/syscalls
+    - pack: STMicroelectronics::usbx
+      path: ../../../../../../middleware/usbx
+  projects:
+    - project: project/usbx_host_msc_no_os.cproject.yml

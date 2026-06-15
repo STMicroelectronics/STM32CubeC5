@@ -62,25 +62,25 @@ hal_usart_handle_t *mx_usart2_usart_init(void)
     return NULL;
   }
 
+  /* ### USART2 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOC_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    USART2 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PC12    ------>   USART2_CK
-       PC11    ------>   USART2_RX
-       PC10    ------>   USART2_TX
+       PC12    ------>   USART2_CK   ------>  PC12
+       PC11    ------>   USART2_RX   ------>  PC11
+       PC10    ------>   USART2_TX   ------>  PC10
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_7;
-  HAL_GPIO_Init(HAL_GPIOC, HAL_GPIO_PIN_12 | HAL_GPIO_PIN_11 | HAL_GPIO_PIN_10, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOC, PC12_PIN | PC11_PIN | PC10_PIN, &gpio_config);
 
   return &hUSART2;
 }
@@ -93,8 +93,8 @@ void mx_usart2_usart_deinit(void)
 
   HAL_RCC_USART2_DisableClock();
 
-  /* De-initialize all GPIO pins associated with USART2 */
-  HAL_GPIO_DeInit(HAL_GPIOC, HAL_GPIO_PIN_10 | HAL_GPIO_PIN_11 | HAL_GPIO_PIN_12);
+  /* De-initialize all GPIOC pins associated with USART2 */
+  HAL_GPIO_DeInit(HAL_GPIOC, PC10_PIN | PC11_PIN | PC12_PIN);
 }
 
 hal_usart_handle_t *mx_usart2_usart_gethandle(void)

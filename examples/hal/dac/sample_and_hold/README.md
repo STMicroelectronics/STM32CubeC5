@@ -2,7 +2,7 @@
 
 # __Example: *hal_dac_sample_and_hold*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the Cube firmware package.")
 
@@ -110,6 +110,55 @@ The hardware setup of clocks and timings applies to any board with the same cloc
   > Hold_reg      = Holding_time * dac_hold_ck_freq         = 22.1 ms * 32 kz       = 707
   > (rounded to the nearest integer)
 
+
+</details>
+
+<details>
+
+  <summary>On board with STM32G5xx MCUs</summary>
+
+  <summary>Common configuration</summary>
+
+  The autonomous mode feature of the DAC needs to be enabled.
+
+  Configuration of the timer counter clock:
+  - The DAC clock when the sample and hold feature is used (dac_hold_ck) is set to the LSI clock.
+  - The LSI clock is set to 32 kHz since the LSI prescaler is set to 1.
+
+  DAC supply voltage:
+  - The DAC uses VDDA as the reference voltage (Vref)
+  - The analogic supply voltage is VDDA = 3.3 V
+
+  - For a hypothetical external load wired at the output of the DAC, composed of a capacitor (no resistor load):
+    > C_sh = 100 nF
+
+    According to the datasheet, the worst case of:
+    - The internal impedance of the DAC is:
+      > R_buff_off = 16.5 kOhms
+
+    - The worst case for IO leakage is:
+      > i_leak = 200 nA
+
+    To get a dropout voltage corresponding to 10 LSB and that the DAC is supplied by VDDA = 3.3 V:
+    > N_LSB = 5
+    > D_v = 3.3 V / (2^8 - 1) * 5 = 0.065 V
+
+    Delays calculations are:
+    > Sampling_time   = 3 us + (10 * 16.5 kOhms * 100 nF)
+    > Refresh_time    = 3 us + (16.5 kOhms * 100 nF) * ln(2 * 5)
+    > Holding_time    = 0.065 * 100 nF / 200 nA
+
+    > Sampling_time   = 16.5 ms
+    > Refresh_time    = 3.8 ms
+    > Holding_time    = 32.5 ms
+
+
+  - Register values correspond to:
+  > Sample_reg    = (Sampling_time * dac_hold_ck_freq) - 1  = (16.5 ms * 32 kHz) - 1 = 527
+  > Refresh_reg   = Refresh_time * dac_hold_ck_freq         = 3.8 ms * 32 kHz     = 121
+  > Hold_reg      = Holding_time * dac_hold_ck_freq         = 32.5 ms * 32 kz       = 1040
+  > (rounded to the nearest integer)
+since the hold register maximum value is 1023, hold_reg will be 1023.
 
 </details>
 

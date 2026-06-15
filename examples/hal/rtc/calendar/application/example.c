@@ -111,3 +111,15 @@ app_status_t app_deinit(void)
     */
   return EXEC_STATUS_OK;
 } /* end app_deinit */
+
+
+/**  User hook function called before the HAL_Init() function
+  */
+system_status_t pre_system_init_hook(void)
+{
+  /* Do not reset the RTC domain (RTC, TAMP, backup registers, LSE configuration, etc) */
+  /* HAL_PWR_DisableRTCDomainWriteProtection(); */
+  /* HAL_RCC_ResetRTCDomain(); */
+
+  return SYSTEM_OK;
+}

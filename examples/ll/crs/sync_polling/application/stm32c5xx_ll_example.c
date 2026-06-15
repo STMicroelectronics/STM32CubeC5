@@ -77,7 +77,7 @@ inline system_status_t CRS_PollForSynchronization(void)
     }
 #endif /* USE_LL_APP_ERROR */
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout_ms-- == 0)
       {

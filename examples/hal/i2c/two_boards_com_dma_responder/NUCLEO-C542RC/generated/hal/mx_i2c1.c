@@ -29,7 +29,7 @@ static hal_dma_handle_t hLPDMA1_CH0;
 static hal_dma_handle_t hLPDMA1_CH1;
 
 /******************************************************************************/
-/* Exported functions for I2C1 in HAL layer (SW instance MyI2C_1) */
+/* Exported functions for I2C1 in HAL layer */
 /******************************************************************************/
 hal_i2c_handle_t *mx_i2c1_i2c_init(void)
 {
@@ -57,24 +57,24 @@ hal_i2c_handle_t *mx_i2c1_i2c_init(void)
 
   HAL_I2C_EnableAnalogFilter(&hI2C1);
 
+  /* ### I2C1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOB_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    I2C1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB6     ------>   I2C1_SCL
-       PB7     ------>   I2C1_SDA
+       PB6     ------>   I2C1_SCL   ------>  PB6
+       PB7     ------>   I2C1_SDA   ------>  PB7
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_OPENDRAIN;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_4;
-  HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOB, PB6_PIN | PB7_PIN, &gpio_config);
 
   /* Configure the DMA TX */
       if (HAL_DMA_Init(&hLPDMA1_CH0, HAL_LPDMA1_CH0) != HAL_OK)
@@ -170,8 +170,8 @@ void mx_i2c1_i2c_deinit(void)
 
   HAL_RCC_I2C1_DisableClock();
 
-  /* De-initialize all GPIO pins associated with I2C1 */
-  HAL_GPIO_DeInit(HAL_GPIOB, HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7);
+  /* De-initialize all GPIOB pins associated with I2C1 */
+  HAL_GPIO_DeInit(HAL_GPIOB, PB6_PIN | PB7_PIN);
 
   /* De-initialize the DMA channel */
   HAL_DMA_DeInit(&hLPDMA1_CH0);

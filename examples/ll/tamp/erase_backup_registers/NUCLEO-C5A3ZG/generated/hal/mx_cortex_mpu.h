@@ -29,23 +29,23 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-#define USE_MPU
+#define USE_CORTEX_MPU
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /******************************************************************************/
-/* Exported functions for MPU in LL layer */
+/* Exported functions for CORTEX_MPU in LL layer */
 /******************************************************************************/
 /**
-  * @brief mx_mpu init function
+  * @brief mx_cortex_mpu init function
   * This function configures the hardware resources used in this example
   * @retval pointer to handle or NULL in case of failure
   */
 system_status_t mx_cortex_mpu_init(void);
 
 /**
-  * @brief  De-initialize mpu instance and return it.
+  * @brief  De-initialize cortex_mpu instance and return it.
   */
 void mx_cortex_mpu_deinit(void);
 

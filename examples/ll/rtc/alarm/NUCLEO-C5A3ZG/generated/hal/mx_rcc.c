@@ -20,9 +20,26 @@
 #include "mx_rcc.h"
 
 /* Private typedef -----------------------------------------------------------*/
+
+typedef struct
+{
+  uint32_t hse: 4U;
+  uint32_t psis: 4U;
+  uint32_t lse: 4U;
+  uint32_t psi_config: 1U;
+} mx_rcc_status_t;
+
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
+#define RCC_CONSUME_RESOURCE(block, nb_resources)     (RCC_Status.block += (nb_resources))
+#define RCC_RELEASE_RESOURCE(block)                   ((RCC_Status.block > 0U) ? (RCC_Status.block--) : \
+                                                       (RCC_Status.block = 0U))
+#define RCC_IS_RESOURCE_FREE(block)                   (RCC_Status.block == 0U)
+#define RCC_IS_RESOURCE_TAKEN(block)                  (RCC_Status.block > 0U)
+
 /* Private variables ---------------------------------------------------------*/
+static mx_rcc_status_t RCC_Status;
+
 /* Private functions prototype------------------------------------------------*/
 
 /******************************************************************************/
@@ -48,12 +65,17 @@ system_status_t mx_rcc_init(void)
   {
   }
 
+    RCC_CONSUME_RESOURCE(hse, 1);
   LL_RCC_ConfigPSI(LL_RCC_PSIFREQ_144MHZ, LL_RCC_PSIREF_48MHZ, LL_RCC_PSISOURCE_HSE);
+
+  RCC_CONSUME_RESOURCE(psi_config, 1);
 
   LL_RCC_PSIS_Enable();
   while(LL_RCC_PSIS_IsReady() != 1U)
   {
   }
+
+  RCC_CONSUME_RESOURCE(psis, 1);
 
   /** Initializes the CPU, AHB and APB busses clocks */
   LL_RCC_ConfigBusClock(LL_RCC_HCLK_PRESCALER_1 | LL_RCC_APB1_PRESCALER_1 |
@@ -73,11 +95,15 @@ system_status_t mx_rcc_init(void)
   LL_SetSystemCoreClock(144000000U);
   LL_Init1msTick(SystemCoreClock);
 
+  /* No GPIO configuration required for RCC */
+
   return SYSTEM_OK;
 }
 
 void mx_rcc_deinit(void)
 {
+  RCC_Status = (mx_rcc_status_t){0};
+
 LL_RCC_WRITE_REG(CIER, RCC_CIER_Rst); /* Disable all interrupts */
 
   /* Reset System clock */
@@ -123,25 +149,200 @@ LL_RCC_WRITE_REG(CIER, RCC_CIER_Rst); /* Disable all interrupts */
   LL_RCC_ReleaseClearResetFlags();}
 
 /**
-  * configures and activate the clocks used by all the peripherals selected within the project
+  * configure and enable clock for RTC
   */
-system_status_t mx_rcc_peripherals_clock_config(void)
+system_status_t mx_rcc_rtc_clock_config(void)
 {
   /* Peripherals using LSE (32.768 kHz):
     RTC
   */
-  /* Disable RTC Domain Write Protection */
-  LL_PWR_DisableRTCDomainWriteProtection();
-
-  LL_RCC_LSE_SetDriveCapability(LL_RCC_LSEDRIVE_HIGH);
-  LL_RCC_LSE_Enable();
-  while(LL_RCC_LSE_IsReady() != 1U)
+  if (mx_rcc_lse_clock_config(1) != SYSTEM_OK)
   {
+    return SYSTEM_CLOCK_ERROR;
   }
-  /* In order to simplify the code generation and management for the user, the write protection is not enabled by
-     default. In real case application, we advise to enable it once all the necessary configurations are done. */
-  /* Enable RTC Domain Write Protection */
-  //LL_PWR_EnableRTCDomainWriteProtection();
+
+  LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSE);
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Deactivate clock for RTC
+  */
+system_status_t mx_rcc_rtc_clock_deactivate(void)
+{
+  if (mx_rcc_lse_clock_deactivate() != SYSTEM_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
+  return SYSTEM_OK;
+}
+
+/**
+  * configure and enable HSE oscillator
+  * @param nb_resources Number of resources which requests to configure the clock
+  */
+system_status_t mx_rcc_hse_clock_config(uint32_t nb_resources)
+{
+  if (RCC_IS_RESOURCE_FREE(hse))
+  {
+    LL_RCC_HSE_Enable();
+    while(LL_RCC_HSE_IsReady() != 1U)
+    {
+    }
+  }
+  RCC_CONSUME_RESOURCE(hse, nb_resources);
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Disable HSE oscillator
+  */
+system_status_t mx_rcc_hse_clock_deactivate(void)
+{
+  RCC_RELEASE_RESOURCE(hse);
+
+  if (RCC_IS_RESOURCE_FREE(hse))
+  {
+    LL_RCC_HSE_Disable();
+    while(LL_RCC_HSE_IsReady() != 0U)
+    {
+    }
+  }
+  return SYSTEM_OK;
+}
+
+/**
+  * configure and enable PSIS oscillator
+  * @param nb_resources Number of resources which requests to configure the clock
+  */
+system_status_t mx_rcc_psis_clock_config(uint32_t nb_resources)
+{
+  if (RCC_IS_RESOURCE_FREE(psis))
+  {
+    if (mx_rcc_psi_config() != SYSTEM_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+
+    LL_RCC_PSIS_Enable();
+    while(LL_RCC_PSIS_IsReady() != 1U)
+    {
+    }
+  }
+  RCC_CONSUME_RESOURCE(psis, nb_resources);
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Disable PSIS oscillator
+  */
+system_status_t mx_rcc_psis_clock_deactivate(void)
+{
+  RCC_RELEASE_RESOURCE(psis);
+
+  if (RCC_IS_RESOURCE_FREE(psis))
+  {
+    LL_RCC_PSIS_Disable();
+    while(LL_RCC_PSIS_IsReady() != 0U)
+    {
+    }
+
+    if (mx_rcc_psi_deactivate() != SYSTEM_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+  }
+  return SYSTEM_OK;
+}
+
+/**
+  * configure and enable LSE oscillator
+  * @param nb_resources Number of resources which requests to configure the clock
+  */
+system_status_t mx_rcc_lse_clock_config(uint32_t nb_resources)
+{
+  if (RCC_IS_RESOURCE_FREE(lse))
+  {
+    /* Disable RTC Domain Write Protection */
+    LL_PWR_DisableRTCDomainWriteProtection();
+    LL_RCC_LSE_SetDriveCapability(LL_RCC_LSEDRIVE_HIGH);
+    LL_RCC_LSE_Enable();
+    while(LL_RCC_LSE_IsReady() != 1U)
+    {
+    }
+    /* In order to simplify the code generation and management for the user, the write protection is not enabled by
+       default. In real case application, we advise to enable it once all the necessary configurations are done. */
+    /* Enable RTC Domain Write Protection */
+    /* LL_PWR_EnableRTCDomainWriteProtection(); */
+  }
+  RCC_CONSUME_RESOURCE(lse, nb_resources);
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Disable LSE oscillator
+  */
+system_status_t mx_rcc_lse_clock_deactivate(void)
+{
+  RCC_RELEASE_RESOURCE(lse);
+
+  if (RCC_IS_RESOURCE_FREE(lse))
+  {
+    /* Disable RTC Domain Write Protection */
+    LL_PWR_DisableRTCDomainWriteProtection();
+    LL_RCC_LSE_Disable();
+    while(LL_RCC_LSE_IsReady() != 0U)
+    {
+    }
+    /* In order to simplify the code generation and management for the user, the write protection is not enabled by
+       default. In real case application, we advise to enable it once all the necessary configurations are done. */
+    /* Enable RTC Domain Write Protection */
+    /* LL_PWR_EnableRTCDomainWriteProtection(); */
+  }
+  return SYSTEM_OK;
+}
+
+/**
+  * Enable the PSI source reference and configure the PSI oscillator.
+  */
+system_status_t mx_rcc_psi_config(void)
+{
+  if (RCC_IS_RESOURCE_FREE(psi_config))
+  {
+    /* Enable the oscillator used as PSI reference */
+    if (mx_rcc_hse_clock_config(1) != SYSTEM_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+    /* Configure the PSI oscillator */
+    LL_RCC_ConfigPSI(LL_RCC_PSIFREQ_144MHZ, LL_RCC_PSIREF_48MHZ, LL_RCC_PSISOURCE_HSE);
+
+        RCC_CONSUME_RESOURCE(psi_config, 1);
+  }
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Disable the PSI source reference and the PSI oscillator.
+  */
+system_status_t mx_rcc_psi_deactivate(void)
+{
+  /* Deactivation is possible only if all PSI outputs are free */
+  if (RCC_IS_RESOURCE_FREE(psis))
+  {
+    RCC_RELEASE_RESOURCE(psi_config);
+
+    /* Deactivate the oscillator used as PSI reference */
+    if (mx_rcc_hse_clock_deactivate() != SYSTEM_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+  }
 
   return SYSTEM_OK;
 }

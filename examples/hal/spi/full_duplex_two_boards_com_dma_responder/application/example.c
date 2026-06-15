@@ -26,6 +26,10 @@
 /* @user: must be equal to the size (in bytes) of the buffer received from the controller */
 #define BUFFER_SIZE 53U
 
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+   Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ALIGNMENT      (8U)
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_spi_handle_t *pSPI; /* Pointer referencing the SPI handle from the generated code */
@@ -36,11 +40,18 @@ volatile uint8_t TransferError;        /* Set to 1 if a transmission or a recept
 /** BufferA, BufferB: fixed-size buffers to transfer alternately.
   * @user: it is possible to modify the messages content and length, update BUFFER_SIZE if necessary.
   */
+__attribute__((aligned(DMA_ALIGNMENT)))
 static const uint8_t BufferA[BUFFER_SIZE] = "SPI Full Duplex Two Boards Communication - Message A";
+__attribute__((aligned(DMA_ALIGNMENT)))
 static const uint8_t BufferB[BUFFER_SIZE] = "SPI Full Duplex Two Boards Communication - Message B";
 /* Pointer to the buffer used for transmission */
 const uint8_t *pTxData;
-/* Buffer used for reception */
+/** Reception buffer for CPU and DMA.
+  * - Non-cacheable memory for data cache consistency.
+  * - Aligned for DMA constraints.
+  * - Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
+  */
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
 uint8_t RxBuffer[BUFFER_SIZE] = {0U};
 
 /* Private functions prototype -----------------------------------------------*/
@@ -110,9 +121,9 @@ app_status_t app_process(void)
     hal_status = HAL_SPI_TransmitReceive_DMA(pSPI, pTxData, RxBuffer, BUFFER_SIZE);
     if (hal_status != HAL_OK)
     {
-      spi_error_code = HAL_SPI_GetLastErrorCodes(pSPI);
-      return_status  = HandleTransferError(hal_status, spi_error_code);
-      continue;
+      /* Failure of HAL API here must be due to a wrong configuration and cannot be recovered */
+      PRINTF("[ERROR] Responder -  Unrecoverable configuration error");
+      goto _app_process_exit;
     }
 
     /** ########## Step 3 ##########
@@ -141,6 +152,7 @@ app_status_t app_process(void)
 
   } /* end while */
 
+_app_process_exit:
   return return_status;
 } /* end app_process */
 
@@ -215,7 +227,6 @@ static app_status_t HandleTransferCplt(void)
   else
   {
     PRINTF("[ERROR] Responder - Tx/Rx Buffers DIFFERENT. TRYING AGAIN.\n");
-    HAL_Delay(1000U);
   }
 
   return return_status;
@@ -223,6 +234,8 @@ static app_status_t HandleTransferCplt(void)
 
 
 /** brief: This function is executed in case of a data transfer error.
+  * @user: - This function implementation only illustrates error processing.
+  *        - It can be customized to match the application recovery strategy.
   * param hal_status:  HAL status of the SPI TX/RX operations.
   * param spi_error_code:  SPI Error Code.
   * retval: example status

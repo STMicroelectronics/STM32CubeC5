@@ -2,7 +2,7 @@
 
 # __Example: *ll_tim_timebase*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -125,7 +125,7 @@ This section focuses on the clock settings as this is critical to obtain the des
     timer_prescaler = (HCLK / tim_cnt_ck ) - 1
 
   Typical clock diagram for STM32C5xx MCU peripherals:
-    <!--
+<!--
 @startuml
 @startditaa{doc/stm32c5xx_peripherals_clocks.png}
  +---------+
@@ -160,7 +160,6 @@ Numerical values:
         timer_prescaler = (144 MHz / 10 kHz) - 1 = 14399
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C542RC.</summary>
 
@@ -171,7 +170,6 @@ Numerical values:
   |    PA5    |     GPIO      | MX_STATUS_LED |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -186,7 +184,6 @@ Numerical values:
    - TIM2
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -198,7 +195,6 @@ Numerical values:
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

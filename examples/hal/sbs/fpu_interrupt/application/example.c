@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * file           : example.c
-  * brief          : example program body (SBS FPU interrupt configuration with HAL API)
+  * brief          : SBS FPU interrupt configuration with HAL API
   ******************************************************************************
   *
   * Copyright (c) 2026 STMicroelectronics.
@@ -14,34 +14,19 @@
   ******************************************************************************
   */
 
-/**  This example makes divisions by zero on purpose.
-  *  So, we disable the compilers warnings for the toolchains the Cube ecosystem supports.
-  */
-#if defined(__GNUC__) && !defined(__clang__) /* GNU Compiler and not __clang__ */
-#pragma GCC diagnostic ignored "-Wdiv-by-zero"
-#elif defined(__ICCARM__) /* IAR Compiler */
-#pragma diag_suppress=Pe039
-#elif defined(__clang__) /* Clang compiler */
-#pragma clang diagnostic ignored "-Wdivision-by-zero"
-#else
-#warning The selected compiler might issue division by zero warnings
-#endif /* Compiler */
-
-
 /* Includes ------------------------------------------------------------------*/
 #include "example.h"
 
 /* Private typedef -----------------------------------------------------------*/
-
 /* Private define ------------------------------------------------------------*/
 
 /* Arbitrary value (millisecond) to wait for the FPU ISR to be processed */
-#define FPU_ISR_TIMEOUT_MS 5U
+#define FPU_ISR_TIMEOUT_MS (5U)
 
 /** The FPSCR stores the status (condition bit and exception flags) and the configuration
   * (rounding modes and alternative modes) of the FPU.
   */
-#define ARM_FPU_EXCEPTION_DIVIDE_BY_ZERO 0x00000002 /* bit 1 of the FPSCR: Division by zero (DZC) */
+#define ARM_FPU_EXCEPTION_DIVIDE_BY_ZERO (0x00000002) /* bit 1 of the FPSCR: Division by zero (DZC) */
 
 /** Mask to clear the FPU exception flags in the FPU_IRQHandler.
   * We clear the DZC.
@@ -54,17 +39,18 @@
   * LSPEN=1: space is reserved on the stack for the floating point registers (s0-s15 & FPSCR)
   *          but the data is pushed by default only if the FPU_IRQHandler executes a FPU instruction.
   */
-#define FPSCR_OFFSET_BYTES 0x40U /* s0-s15 are stacked */
+#define FPSCR_OFFSET_BYTES (0x40U) /* s0-s15 are stacked */
 
 
 /* Private macro -------------------------------------------------------------*/
+/* Arbitrary value: pi */
+#define DIVIDEND (3.14f)
 
 /* Private variables ---------------------------------------------------------*/
-
-/* Arbitrary value: pi */
-float Dividend = 3.14f;
 /* The volatile keyword is used to prevent the computation from being optimized out */
-volatile float Quotient = 0.0f;
+volatile float Quotient;
+volatile float Divisor;
+
 /* Flag to indicate if the division by zero has been caught by the FPU interrupt */
 volatile uint8_t DivByZeroCaught = 0U;
 
@@ -79,21 +65,14 @@ app_status_t app_init(void)
 {
   app_status_t return_status = EXEC_STATUS_ERROR;
 
-  /* Check the current status of the FPU configuration in SBS for the divide by zero interrupt */
-  if (HAL_SBS_IsEnabledFPUIT(HAL_SBS_IT_FPU_DZC) == HAL_SBS_IT_FPU_DISABLED)
-  {
-    /** In IEEE 754 arithmetic:
-      *   dividend divided by +0 is positive infinity when the dividend is positive,
-      *   negative infinity when the dividend  is negative,
-      *   and NaN when dividend = (+/-)0.
-      *
-      * We enable the divide by zero interrupt to intercept the division by zero.
-      */
-    HAL_SBS_EnableFPUIT(HAL_SBS_IT_FPU_DZC);
-  }
-  /* else: nothing to do, the divide by zero interrupt is already enabled for the FPU */
-
-  /* cross-check */
+  /** In IEEE 754 arithmetic:
+    *   DIVIDEND divided by +0 is positive infinity when the DIVIDEND is positive,
+    *   negative infinity when the DIVIDEND  is negative,
+    *   and NaN when DIVIDEND = (+/-)0.
+    *
+    * We enable the divide by zero interrupt to intercept the division by zero.
+    */
+  HAL_SBS_EnableFPUIT(HAL_SBS_IT_FPU_DZC);
   if (HAL_SBS_IsEnabledFPUIT(HAL_SBS_IT_FPU_DZC) == HAL_SBS_IT_FPU_ENABLED)
   {
     return_status = EXEC_STATUS_INIT_OK;
@@ -108,16 +87,22 @@ app_status_t app_init(void)
 
 app_status_t app_process(void)
 {
+  app_status_t return_status = EXEC_STATUS_ERROR;
+
   /** After the division by 0 we wait for a few milliseconds
     * for the interrupt to be caught and processed in FPU_IRQHandler.
     */
   uint32_t tick_count = 0U;
 
+  /* The runtime check below must not reuse a stale flag value. */
+  DivByZeroCaught = 0U;
+
   /** ########## Step 2 ##########
     * Runs a valid operation to make sure the FPU works fine.
     */
-  Quotient = Dividend / 1.0f;
-  if (Quotient != Dividend)
+  Divisor = 1.0f;
+  Quotient = DIVIDEND / Divisor;
+  if (Quotient != DIVIDEND)
   {
     goto _exit_app_process;
   }
@@ -126,27 +111,27 @@ app_status_t app_process(void)
     * Triggers the floating point division by zero:
     * the interrupt is caught by the FPU_IRQHandler ISR defined in this file.
     */
-  Quotient = Dividend / 0.0f; /* a FPU interrupt must occur here */
+  Divisor = 0.0f;
+  Quotient = DIVIDEND / Divisor; /* a FPU interrupt must occur here */
 
   /* Wait for an arbitrary duration for the FPU IRQ to be processed */
   while ((DivByZeroCaught == 0U) && (tick_count < FPU_ISR_TIMEOUT_MS))
   {
     /* The HAL tick is running (systick fired every 1 ms) */
     __WFI();
+
     /* we increment the counter when the systick fires */
     tick_count ++;
   }
 
-_exit_app_process:
   /* Check if the flag has been toggled in FPU_IRQHandler() */
   if (DivByZeroCaught == 1U)
   {
-    return EXEC_STATUS_OK;
+    return_status = EXEC_STATUS_OK;
   }
-  else
-  {
-    return EXEC_STATUS_ERROR;
-  }
+
+_exit_app_process:
+  return return_status;
 } /* end app_process */
 
 
@@ -156,7 +141,9 @@ _exit_app_process:
 app_status_t app_deinit(void)
 {
   HAL_SBS_DisableFPUIT(HAL_SBS_IT_FPU_DZC);
+
   HAL_CORTEX_NVIC_DisableIRQ(FPU_IRQn);
+
   return EXEC_STATUS_OK;
 } /* end app_deinit */
 
@@ -203,7 +190,8 @@ void FPU_IRQHandler(void)
       */
     DivByZeroCaught = 1U;
 
-    /* Clear the DZC flag in the stacked FPSCR register. */
+    /* Clear the DZC flag in the stacked and cortex FPSCR register. */
     *p_fpscr = *p_fpscr & ARM_FPU_FPSCR_CLEAR_FLAGS;
+    __set_FPSCR(*p_fpscr);
   }
 }

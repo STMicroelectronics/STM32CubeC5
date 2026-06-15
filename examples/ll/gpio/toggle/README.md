@@ -2,7 +2,7 @@
 
 # __Example: *ll_gpio_toggle*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.4
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -95,11 +95,6 @@ Here are the points of attention for this specific example:
 You can find pinout, pin description, and alternate functions in the datasheet of your chosen MCU. \
 You can find the hardware layout and configuration of a board in its user manual. \
 The connectors are described in this document, as well as the status LEDs and the buttons.
-
-Example of documents available for STM32U585xx MCUs mounted on the discovery kit for IoT node board:
-
-- See section 4 of [STM32U585xx](https://www.st.com/resource/en/datasheet/stm32u585ai.pdf).
-- See section 7 of [Discovery kit for IoT node with STM32U5 Series](https://www.st.com/resource/en/user_manual/um2839-discovery-kit-for-iot-node-with-stm32u5-series-stmicroelectronics.pdf).
 
 You can also refer to these other examples to go further with GPIOs:
 

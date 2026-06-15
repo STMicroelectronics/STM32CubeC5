@@ -25,7 +25,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype -----------------------------------------------*/
-
+system_status_t pre_system_init_hook(void);
 
 /** ########## Step 1 ##########
   * The application calls the init functions (GPIO, RTC and LED).
@@ -33,6 +33,11 @@
 app_status_t app_init(void)
 {
   app_status_t return_status = EXEC_STATUS_ERROR;
+
+  if (mx_rtc_init() != SYSTEM_OK)
+  {
+    goto _app_process_exit;
+  }
 
   PRINTF("[INFO] Step 1: Device initialization COMPLETED.\n");
 
@@ -52,6 +57,7 @@ app_status_t app_init(void)
   /* Start RTC wakeup timer with interrupt enabled */
   HAL_RTC_WAKEUP_Start(HAL_RTC_WAKEUP_IT_ENABLE);
 
+_app_process_exit:
   return return_status;
 } /* end app_init */
 
@@ -94,3 +100,18 @@ app_status_t app_deinit(void)
 {
   return EXEC_STATUS_OK;
 } /* end app_deinit */
+
+
+/**  User hook function called before the HAL_Init() function
+  */
+system_status_t pre_system_init_hook(void)
+{
+  /** Reset the backup domain to prevent reusing any previous RTC calendar and alarm. So RTC peripheral registers and
+    * RTC clock source (LSE or LSI) will be in their reset state whatever was programmed before.
+    * This is implemented before the LSE or the LSI is properly configured in `system_clock_config()`.
+    */
+  HAL_PWR_DisableRTCDomainWriteProtection();
+  HAL_RCC_ResetRTCDomain();
+
+  return SYSTEM_OK;
+}

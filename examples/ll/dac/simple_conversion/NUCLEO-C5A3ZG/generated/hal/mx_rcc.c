@@ -48,7 +48,7 @@ system_status_t mx_rcc_init(void)
   {
   }
 
-  LL_RCC_ConfigPSI(LL_RCC_PSIFREQ_144MHZ, LL_RCC_PSIREF_48MHZ, LL_RCC_PSISOURCE_HSE);
+    LL_RCC_ConfigPSI(LL_RCC_PSIFREQ_144MHZ, LL_RCC_PSIREF_48MHZ, LL_RCC_PSISOURCE_HSE);
 
   LL_RCC_PSIS_Enable();
   while(LL_RCC_PSIS_IsReady() != 1U)
@@ -72,6 +72,8 @@ system_status_t mx_rcc_init(void)
 
   LL_SetSystemCoreClock(144000000U);
   LL_Init1msTick(SystemCoreClock);
+
+  /* No GPIO configuration required for RCC */
 
   return SYSTEM_OK;
 }

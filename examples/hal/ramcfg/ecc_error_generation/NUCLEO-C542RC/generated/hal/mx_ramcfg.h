@@ -36,11 +36,13 @@ extern "C" {
 
 /******************************************************************************/
 /* Exported functions for RAMCFG_SRAM2 in HAL layer */
-/******************************************************************************//**
-* @brief mx_ramcfg_sram2 init function
-* This function configures the hardware resources used in this example
-* @retval pointer to handle or NULL in case of failure
-*/
+/******************************************************************************/
+
+/**
+  * @brief mx_ramcfg_sram2 init function
+  * This function configures the hardware resources used in this example
+  * @retval pointer to handle or NULL in case of failure
+  */
 hal_ramcfg_t mx_ramcfg_sram2_init(void);
 void mx_ramcfg_sram2_deinit(void);
 
@@ -50,9 +52,8 @@ void mx_ramcfg_sram2_deinit(void);
 void RAMCFG_IRQHandler(void);
 
 /******************************************************************************/
-/* RAMCFG NMI interrupt */
+/*  */
 /******************************************************************************/
-__WEAK system_status_t RAMCFG_SRAM2_NMI_IRQHandler(void);
 
 #ifdef __cplusplus
 }

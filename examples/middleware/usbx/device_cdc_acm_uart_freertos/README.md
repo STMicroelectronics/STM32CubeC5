@@ -2,7 +2,7 @@
 
 # __Example: *usbx_device_cdc_acm_uart_freertos*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 How to configure a USB communication device class "CDC_ACM" in RTOS mode based on the USBX stack.
 
@@ -47,16 +47,6 @@ This example uses the following peripherals:
 
 __USB PCD__:
 
-   __USB PCD OTG__:
-
-   __OTG__:
-
-
-   The USB is configured with the following settings:
-
-   - Full-speed for B-U585I-IOT02A and High-speed for NUCLEO-V873XJ
-   - Embedded PHY Interface
-   - SOF Disabled
 
    __DRD__:
 
@@ -82,11 +72,6 @@ The UART DMA mode is configured with the following settings:
 - The DMA is configured in memory to peripheral mode.
 - The DMA is configured with source increment and destination fixed.
 - The DMA transfer width is set to byte.
-
-__MPU__: is used to ensure that the buffer used for DMA transfer is not cached.
-The linker script defines a specific memory section `.non_cacheable_variables` for this buffer.
-This memory section is 2 KB in size and is aligned as per the MPU requirements.
-The MPU configuration ensures that this 2 KB region is not cached.
 
 
 ## __3. Hardware environment and setup__
@@ -131,9 +116,6 @@ __USB configuration__:  Depending on the STM32 series, and USB instance used (FS
 
 __Data misalignment__: Depending on the DMA data width used, source and destination addresses must respect data alignment. Refer to the Reference Manual of your MCU.
 
-__Cache coherency__: When cache memory is enabled, it is generally not in the path of DMA transfer, thus cache coherency issues might appear.
-See H7 FAQ to tackle cache coherency issues: [DMA-is-not-working-on-STM32H7-devices](https://community.st.com/s/article/FAQ-DMA-is-not-working-on-STM32H7-devices)
-
 __DMA ports selection__: Depending on the STM32 series, and DMA instance used (GPDMA/HPDMA/LPDMA) specific DMA ports constraints must be respected.  For details, refer to the reference manual of your MCU. You can also see the application note in the `__5. See Also` section.
 
 
@@ -145,7 +127,7 @@ This [wiki](https://wiki.st.com/stm32mcu/wiki/Introduction_to_USBX) introduction
 
 More information about the STM32Cube Drivers can be found in the drivers' user manual of the STM32 series you are using.
 
-For instance, for the STM32U5 series: [User Manual](https://www.st.com/resource/en/user_manual/dm00813340-.pdf).
+For instance, for the STM32C5 series: [User Manual](https://www.st.com).
 
 More information about the STM32 ecosystem can be found in the [STM32 MCU Developer Zone](https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/embedded-software.html).
 

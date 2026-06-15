@@ -26,26 +26,12 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for NVIC in HAL layer (SW instance MyCORTEX_NVIC_1) */
+/* Exported functions for CORTEX_NVIC in HAL layer */
 /******************************************************************************/
 system_status_t mx_cortex_nvic_init(void)
 {
-  /* Enable DebugMonitor exception */
-  STM32_SET_BIT(DCB->DEMCR, DCB_DEMCR_MON_EN_Msk);
-
   /* Configure the Priority grouping */
   HAL_CORTEX_NVIC_SetPriorityGrouping(HAL_CORTEX_NVIC_PRIORITY_GROUP_4);
 
-  /* Debug Monitor */
-  HAL_CORTEX_NVIC_SetPriority(DebugMonitor_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
-
   return SYSTEM_OK;
 }
-
-/******************************************************************************/
-/*              Debug Monitor is managed directly in user code.               */
-/******************************************************************************/
-/* void DebugMonitor_Handler(void)
-{
-}
-  */

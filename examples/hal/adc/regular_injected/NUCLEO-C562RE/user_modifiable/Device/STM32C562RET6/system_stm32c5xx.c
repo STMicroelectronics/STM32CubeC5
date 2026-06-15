@@ -185,7 +185,7 @@ void SystemInit(void)
   *              in voltage and temperature.
   *
   *         (***) HSE_VALUE is a constant defined in stm32_external_env.h file (default value
-  *               24 MHz), user has to ensure that HSE_VALUE is same as the real
+  *               24 MHz or 48MHz), user has to ensure that HSE_VALUE is same as the real
   *               frequency of the crystal used. Otherwise, this function can
   *               have wrong result.
   *

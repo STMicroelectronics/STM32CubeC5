@@ -2,7 +2,7 @@
 if(CMAKE_BUILD_TYPE STREQUAL "release_GCC_NUCLEO-C5A3ZG")
   set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SUFFIX ".elf")
   target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC ${CPU_FLAGS})
-  target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC "SHELL:-Os -fdata-sections -ffunction-sections -std=gnu11 -Wall -fstack-usage --specs=nano.specs --specs=nosys.specs -Werror=implicit-function-declaration ${CC_SECURE}")
+  target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC "SHELL:-Os -fdata-sections -ffunction-sections -std=gnu11 -Wall -fstack-usage --specs=nano.specs --specs=nosys.specs -g -Werror=implicit-function-declaration ${CC_SECURE}")
   target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ../user_modifiable/_release_GCC_NUCLEO-C5A3ZG ../../../../../../arch/cmsis/CMSIS/Core/Include ../generated/hal ../generated/parts/w25q128j ../generated/utilities/basic_stdio ../../../../../../part_drivers/led/gpio ../../../../../../part_drivers/w25q128j ../../../../../../stm32c5xx_dfp/Include ../../../../../../stm32c5xx_drivers/hal ../../../../../../stm32c5xx_drivers/ll ../../../../../../stm32c5xx_drivers/timebases ../../../../../../utilities/basic_stdio ../../../../../../utilities/basic_stdio/interface_io ../../application)
   target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC USE_TRACE=0 STM32C5A3xx _RTE_)
   target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -Wl,-Map=${CMAKE_PROJECT_NAME}.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -static --specs=nano.specs --specs=nosys.specs ${CC_SECURE})

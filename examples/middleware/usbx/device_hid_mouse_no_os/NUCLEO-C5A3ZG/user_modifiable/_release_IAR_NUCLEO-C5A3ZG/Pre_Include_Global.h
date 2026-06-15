@@ -9,9 +9,9 @@
 #ifndef PRE_INCLUDE_GLOBAL_H
 #define PRE_INCLUDE_GLOBAL_H
 
-/* STMicroelectronics::Device:STM32CubeMX2 Config:RCC@2.0.0 */
+/* STMicroelectronics::Device:STM32CubeMX2 Config:RCC@2.1.0 */
 #define USE_EXTERNAL_ENV
-/* STMicroelectronics::USB:STM32CubeMX2 Config:USBX@2.0.0 */
+/* STMicroelectronics::USB:STM32CubeMX2 Config:USBX@2.1.0 */
 #define UX_INCLUDE_USER_DEFINE_FILE
 
 

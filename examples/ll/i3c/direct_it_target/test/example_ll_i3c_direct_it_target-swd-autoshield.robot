@@ -1,0 +1,60 @@
+*** Comments ***
+Copyright (c) 2026 STMicroelectronics.
+All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file
+in the root directory of this software component.
+If no LICENSE file comes with this software, it is provided AS-IS.
+
+Documentation on how to run    test suites: https://codex.cro.st.com/plugins/mediawiki/wiki/stm32cube/index.php?title=Developer_Journey:_Running_Robot_tests
+Documentation on how to write test suites: https://codex.cro.st.com/plugins/mediawiki/wiki/stm32cube/index.php?title=Developer_Journey:_Writing_a_Robot_test
+
+
+*** Settings ***
+Documentation       Automatic test for example_ll_i3c_direct_it_target.
+...                 This test suite is verifying that the application binary runs without error,
+...                 according to the README documentation.
+
+Library             robot_for_stm32
+Library             robot_for_stm32.STM32CubeProgrammer
+Library             robot_for_stm32.Autoshield
+Variables           robot_for_stm32.cube_examples_constants
+Resource            example.resource
+
+Test Setup          Default Setup    ${TEST_CONFIG_FILE}
+Test Teardown       Default Cleanup
+
+Test Tags           ip:hal_i3c
+
+
+*** Test Cases ***
+${TEST_ID} Scenario adherence
+    [Documentation]    This test checks that the application binary runs according to
+    ...    the scenario described in the README.
+
+    Init I3C Controller    I3C_SCL    I3C_SDA
+
+    Reset Target
+
+    Example Step 1
+    Example Step 2
+    Example Step 3
+
+*** Keywords ***
+Example Step 1
+    [Documentation]    Configures and initializes the I3C instance and NVIC.
+    Comment    Nothing to check here, LED is active to quickly
+
+
+Example Step 2
+    [Documentation]    Activates the notification, waits for DAA completion, and checks the assigned address.
+    Send I3C Dynamic Address    ${TARGET_ADDRESS}    option=1    timeout=2s
+    Sleep    1s
+
+Example Step 3
+    [Documentation]    The target receives the CCC command in interrupt mode and reaches the final success state.
+    Write I3C Controller CCC    ${TARGET_ADDRESS}
+    Comment    Verify ExecStatus value is still EXEC_STATUS_OK
+    ${active_level}=    Read Test Variable    MX_STATUS_LED_ACTIVE_STATE
+    Check Pin    MX_STATUS_LED    ${active_level}    duration=1s
+    Check Integer Variable    ExecStatus    ${EXEC_STATUS_OK}    timeout=1

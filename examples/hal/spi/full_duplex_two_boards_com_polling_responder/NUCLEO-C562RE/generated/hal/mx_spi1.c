@@ -27,7 +27,7 @@
 static hal_spi_handle_t hSPI1;
 
 /******************************************************************************/
-/* Exported functions for SPI in HAL layer (SW instance MySPI_1) */
+/* Exported functions for SPI in HAL layer */
 /******************************************************************************/
 hal_spi_handle_t *mx_spi1_init(void)
 {
@@ -59,25 +59,25 @@ hal_spi_handle_t *mx_spi1_init(void)
     return NULL;
   }
 
+  /* ### SPI1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    SPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA5     ------>   SPI1_SCK
-       PA6     ------>   SPI1_MISO
-       PA7     ------>   SPI1_MOSI
+       PA5     ------>   SPI1_SCK   ------>  PA5
+       PA6     ------>   SPI1_MISO   ------>  PA6
+       PA7     ------>   SPI1_MOSI   ------>  PA7
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_MEDIUM;
   gpio_config.alternate   = HAL_GPIO_AF_5;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_5 | HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOA, PA5_PIN | PA6_PIN | PA7_PIN, &gpio_config);
 
   return &hSPI1;
 }
@@ -90,8 +90,8 @@ void mx_spi1_deinit(void)
 
   HAL_RCC_SPI1_DisableClock();
 
-  /* De-initialize all GPIO pins associated with SPI1 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_5 | HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7);
+  /* De-initialize all GPIOA pins associated with SPI1 */
+  HAL_GPIO_DeInit(HAL_GPIOA, PA5_PIN | PA6_PIN | PA7_PIN);
 }
 
 hal_spi_handle_t *mx_spi1_gethandle(void)

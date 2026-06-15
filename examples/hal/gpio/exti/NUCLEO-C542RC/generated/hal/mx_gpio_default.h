@@ -30,7 +30,7 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /******************************************************************************/
-/* Exported defines for gpio_default in HAL layer (SW instance MyGPIO_1) */
+/* Exported defines for gpio_default in HAL layer                             */
 /******************************************************************************/
 
 /* Primary aliases for GPIO PA5 pin */
@@ -56,7 +56,7 @@ extern "C" {
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /******************************************************************************/
-/* Exported functions for gpio_default in HAL layer (SW instance MyGPIO_1) */
+/* Exported functions for gpio_default in HAL layer                           */
 /******************************************************************************/
 /**
   * @brief mx_gpio_default init function
@@ -71,12 +71,15 @@ system_status_t mx_gpio_default_init(void);
   */
 system_status_t mx_gpio_default_deinit(void);
 
+/**
+  * @brief  Get the EXTI13 object.
+  * @retval Pointer on the EXTI13 Handle
+  */
 hal_exti_handle_t *mx_gpio_default_exti13_gethandle(void);
 
 /******************************************************************************/
 /*                           EXTI Line13 interrupt                            */
 /******************************************************************************/
-
 void EXTI13_IRQHandler(void);
 
 #ifdef __cplusplus

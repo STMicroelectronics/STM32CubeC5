@@ -109,7 +109,7 @@ PRIORITY THAN THIS! (higher priorities are lower numeric values). */
 #define INCLUDE_xQueueGetMutexHolder                  1U
 #define INCLUDE_xSemaphoreGetMutexHolder              1U
 #define INCLUDE_xEventGroupSetBitFromISR              0U
-#define INCLUDE_xTimerPendFunctionCall                0U
+#define INCLUDE_xTimerPendFunctionCall                1U
 
 /* Hook and callback function related definitions. */
 #define configUSE_IDLE_HOOK                           0U

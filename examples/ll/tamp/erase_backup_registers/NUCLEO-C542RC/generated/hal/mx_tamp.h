@@ -35,7 +35,7 @@ extern "C" {
 #define PC13_PORT                             GPIOC
 #define PC13_PIN                              LL_GPIO_PIN_13
 /******************************************************************************/
-/* Exported defines for TAMP in LL layer (SW instance MyTAMP_1) */
+/* Exported defines for TAMP in LL layer */
 /******************************************************************************/
 #define MX_TAMP_X LL_TAMP_1
 /* Exported macros -----------------------------------------------------------*/
@@ -57,7 +57,7 @@ system_status_t mx_tamp_init(void);
 void mx_tamp_deinit(void);
 
 /******************************************************************************/
-/*    Tamper global interrupts is managed directly in user code.   */
+/*         Tamper global interrupts is managed directly in user code.         */
 /******************************************************************************/
 /* void TAMP_IRQHandler(void); */
 

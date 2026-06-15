@@ -27,7 +27,7 @@
 static hal_cordic_handle_t hCORDIC;
 
 /******************************************************************************/
-/* Exported functions for CORDIC in HAL layer (SW instance MyCORDIC_1) */
+/* Exported functions for CORDIC in HAL layer                                 */
 /******************************************************************************/
 hal_cordic_handle_t *mx_cordic_init(void)
 {

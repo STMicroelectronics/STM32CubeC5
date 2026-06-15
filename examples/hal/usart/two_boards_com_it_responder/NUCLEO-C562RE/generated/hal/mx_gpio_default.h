@@ -30,7 +30,7 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /******************************************************************************/
-/* Exported defines for gpio_default in HAL layer (SW instance MyGPIO_1) */
+/* Exported defines for gpio_default in HAL layer                             */
 /******************************************************************************/
 
 /* Primary aliases for GPIO PA5 pin */
@@ -44,7 +44,7 @@ extern "C" {
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /******************************************************************************/
-/* Exported functions for gpio_default in HAL layer (SW instance MyGPIO_1) */
+/* Exported functions for gpio_default in HAL layer                           */
 /******************************************************************************/
 /**
   * @brief mx_gpio_default init function

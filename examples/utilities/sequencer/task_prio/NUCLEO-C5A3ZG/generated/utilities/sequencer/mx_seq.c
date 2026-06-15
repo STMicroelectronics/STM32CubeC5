@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
-  * @file : mx_seq.c
-  * @brief : sequencer mx file
+  * @file           : mx_seq.c
+  * @brief          : Sequencer initialization source file
   ******************************************************************************
   * @attention
   *
@@ -22,46 +22,49 @@
 /* Private defines -----------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-/* Private functions prototype------------------------------------------------*/
-
+/* Private function prototypes -----------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for mx_seq in sequencer utility  */
+/* Exported functions for the Sequencer utility                               */
 /******************************************************************************/
 
+/**
+  * @brief  Initialize the Sequencer and register user tasks.
+  */
 void mx_seq_init(void)
 {
   /* Sequencer initialization */
   SEQ_Init();
 
-  /* Tasks initialization */
+  /* Task registration */
 
-  /* Register manage_prio task in the sequencer */
+  /* Register manage_prio as a Sequencer task */
   SEQ_RegTask(MX_TASK_MANAGE_PRIO, 0, manage_prio);
 
-  /* Register gpio_toggle_low_frequency task in the sequencer */
+  /* Register gpio_toggle_low_frequency as a Sequencer task */
   SEQ_RegTask(MX_TASK_GPIO_TOGGLE_LOW_FREQUENCY, 0, gpio_toggle_low_frequency);
 
-  /* Register gpio_toggle_high_frequency task in the sequencer */
+  /* Register gpio_toggle_high_frequency as a Sequencer task */
   SEQ_RegTask(MX_TASK_GPIO_TOGGLE_HIGH_FREQUENCY, 0, gpio_toggle_high_frequency);
 
 }
 
-/* Weak declaration of tasks function */
+/* Weak task function definitions --------------------------------------------*/
+
 __WEAK void manage_prio(void)
 {
-  /* Task function must have a return to allow task scheduling */
+  /* Task functions must return to allow the Sequencer to continue scheduling. */
   return;
 }
 __WEAK void gpio_toggle_low_frequency(void)
 {
-  /* Task function must have a return to allow task scheduling */
+  /* Task functions must return to allow the Sequencer to continue scheduling. */
   return;
 }
 __WEAK void gpio_toggle_high_frequency(void)
 {
-  /* Task function must have a return to allow task scheduling */
+  /* Task functions must return to allow the Sequencer to continue scheduling. */
   return;
 }
 

@@ -64,4 +64,5 @@ hal_spi_handle_t *mx_spi1_gethandle(void);
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
 #endif /* MX_SPI1_H */

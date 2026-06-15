@@ -2,7 +2,7 @@
 
 # __Example: *hal_i2c_eeprom_dma*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/read/read_toc.html "An offline version is also available in the Cube firmware package.")
 
@@ -104,7 +104,6 @@ This section describes the hardware setup principles that apply to any board.
   |    PB7    |   I2C1_SDA    |      PB7      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -118,7 +117,6 @@ This section describes the hardware setup principles that apply to any board.
   |    PB7    |   I2C1_SDA    |      PB7      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -133,7 +131,6 @@ This section describes the hardware setup principles that apply to any board.
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

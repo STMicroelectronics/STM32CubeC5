@@ -50,7 +50,7 @@ inline system_status_t LPTIM_StartCompareMatchChannel_IT(void)
   while (LL_LPTIM_IsActiveFlag_DIEROK(MX_LPTIMx) == 0U)
   {
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout-- == 0)
       {

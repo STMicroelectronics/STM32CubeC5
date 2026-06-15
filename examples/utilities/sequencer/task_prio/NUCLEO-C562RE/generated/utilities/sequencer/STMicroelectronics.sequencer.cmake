@@ -23,16 +23,16 @@ endif()
 
 # Include Pre_Include_Global.h globally if needed
 if(CMSIS_Tcompiler STREQUAL "IAR")
-    target_compile_options(generated_STMicroelectronics_sequencer_2_0_0 INTERFACE "SHELL:--preinclude ${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h")
+    target_compile_options(generated_STMicroelectronics_sequencer_2_0_0 INTERFACE "SHELL:--preinclude $<QUOTE>${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h$<QUOTE>")
 else()
-    target_compile_options(generated_STMicroelectronics_sequencer_2_0_0 INTERFACE "SHELL:-include ${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h")
+    target_compile_options(generated_STMicroelectronics_sequencer_2_0_0 INTERFACE "SHELL:-include $<QUOTE>${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h$<QUOTE>")
 endif()
 
 
 
 # Enable all components in this package
 if(CMSIS_ENTIRE_generated_STMicroelectronics_sequencer_2_0_0)
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Utility#Cgroup:STM32CubeMX2 Config#Csub:SEQUENCER#Cversion:1.0.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Utility#Cgroup:STM32CubeMX2 Config#Csub:SEQUENCER#Cversion:1.1.0#generated:true")
 endif()
 
 # All conditions used by this package
@@ -53,9 +53,9 @@ set(generated_STMicroelectronics.sequencer.2.0.0_Seq_Config "$<NOT:$<STREQUAL:$<
 message(DEBUG "CMSIS condition generated_STMicroelectronics.sequencer.2.0.0_Seq_Config enabled")
 
 # Files and components in this package
-if("Cvendor:STMicroelectronics#Cclass:Utility#Cgroup:STM32CubeMX2 Config#Csub:SEQUENCER#Cversion:1.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Utility_STM32CubeMX2_Config_SEQUENCER_1_0_0")
-  target_compile_definitions(generated_STMicroelectronics_sequencer_2_0_0 INTERFACE "$<${generated_STMicroelectronics.sequencer.2.0.0_Seq_Config}:-DCMSIS_USE_generated_Utility_STM32CubeMX2_Config_SEQUENCER_1_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Utility#Cgroup:STM32CubeMX2 Config#Csub:SEQUENCER#Cversion:1.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Utility_STM32CubeMX2_Config_SEQUENCER_1_1_0")
+  target_compile_definitions(generated_STMicroelectronics_sequencer_2_0_0 INTERFACE "$<${generated_STMicroelectronics.sequencer.2.0.0_Seq_Config}:-DCMSIS_USE_generated_Utility_STM32CubeMX2_Config_SEQUENCER_1_1_0=1>")
   target_include_directories(generated_STMicroelectronics_sequencer_2_0_0 INTERFACE "$<${generated_STMicroelectronics.sequencer.2.0.0_Seq_Config}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_sequencer_2_0_0 INTERFACE "$<${generated_STMicroelectronics.sequencer.2.0.0_Seq_Config}:${CMAKE_CURRENT_LIST_DIR}/mx_seq.c>")
 endif()

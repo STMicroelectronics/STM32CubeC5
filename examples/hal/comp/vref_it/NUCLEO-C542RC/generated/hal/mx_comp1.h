@@ -60,7 +60,6 @@ hal_comp_handle_t *mx_comp1_gethandle(void);
 /******************************************************************************/
 /*                           COMP1 global interrupt                           */
 /******************************************************************************/
-
 void COMP1_IRQHandler(void);
 
 #ifdef __cplusplus

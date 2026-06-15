@@ -25,7 +25,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for ADC1 in LL layer (SW instance MyADC_1) */
+/* Exported functions for ADC1 in LL layer */
 /******************************************************************************/
 ADC_TypeDef *mx_adc1_init(void)
 {
@@ -58,6 +58,8 @@ ADC_TypeDef *mx_adc1_init(void)
   LL_ADC_SetChannelSingleDiff(ADC1, LL_ADC_CHANNEL_TEMPSENSOR, LL_ADC_IN_SINGLE_ENDED);
   LL_ADC_SetCommonPathInternalChAdd(ADC_COMMON_INSTANCE(ADC1), LL_ADC_CHANNEL_TEMPSENSOR);
 
+  /* No GPIO configuration required for ADC1 */
+
 return ADC1;
 }
 
@@ -69,4 +71,6 @@ void mx_adc1_deinit(void)
 
   LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_ADC12);
   LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_ADC12);
+
+  /* No GPIO de-initialization required for ADC1 */
 }

@@ -125,6 +125,7 @@ extern "C" {
 #define USE_HAL_AES_GCM_GMAC_ALGO               0U
 #define USE_HAL_AES_CCM_ALGO                    0U
 #define USE_HAL_AES_SUSPEND_RESUME              0U
+#define USE_HAL_AES_RNG_RECOVERY                1U
 /**
   * @}
   */
@@ -137,6 +138,7 @@ extern "C" {
 #define USE_HAL_CCB_CLK_ENABLE_MODEL            HAL_CLK_ENABLE_NO
 #define USE_HAL_CCB_USER_DATA                   0U
 #define USE_HAL_CCB_GET_LAST_ERRORS             0U
+#define USE_HAL_CCB_RNG_RECOVERY                1U
 /**
   * @}
   */
@@ -152,7 +154,7 @@ extern "C" {
 /* Use comparator with EXTI (needed to generate system wake-up event and CPU event) */
 #define USE_HAL_COMP_EXTI                       1U
 /* Use comparators window mode feature */
-#define USE_HAL_COMP_WINDOW_MODE                0U
+#define USE_HAL_COMP_WINDOW_MODE                1U
 /**
   * @}
   */
@@ -475,6 +477,7 @@ extern "C" {
 #define USE_HAL_PKA_REGISTER_CALLBACKS          0U
 #define USE_HAL_PKA_USER_DATA                   0U
 #define USE_HAL_PKA_GET_LAST_ERRORS             0U
+#define USE_HAL_PKA_RNG_RECOVERY                1U
 /**
   * @}
   */

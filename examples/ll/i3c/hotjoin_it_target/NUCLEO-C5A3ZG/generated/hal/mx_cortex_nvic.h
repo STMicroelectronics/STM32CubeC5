@@ -29,15 +29,14 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-#define USE_NVIC
+#define USE_CORTEX_NVIC
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /******************************************************************************/
-/* Exported functions for NVIC in LL layer */
+/* Exported functions for CORTEX_NVIC in LL layer */
 /******************************************************************************/
-
 /**
   * @brief mx_cortex_nvic init function
   * This function configures the hardware resources used in this example
@@ -45,23 +44,6 @@ extern "C" {
   */
 system_status_t mx_cortex_nvic_init(void);
 
-/******************************************************************************/
-/* System service call via SWI instruction is managed directly in user code.  */
-/******************************************************************************/
-
-/* void SVC_Handler(void); */
-
-/******************************************************************************/
-/*   Pendable request for system service is managed directly in user code.    */
-/******************************************************************************/
-
-/* void PendSV_Handler(void); */
-
-/******************************************************************************/
-/*              Debug Monitor is managed directly in user code.               */
-/******************************************************************************/
-
-/* void DebugMonitor_Handler(void); */
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

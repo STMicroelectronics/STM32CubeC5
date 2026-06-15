@@ -30,11 +30,9 @@ extern "C" {
 /* Part Config ID */
 #define LAN8742_0                              0 /* Main label */
 
-/* No label has been defined for this part driver instance,
- * so no alias is generated for LAN8742_0. */
-
-/* alias for the getter function based on the extra label */
-#define mx_lan8742_1_getobject() mx_lan8742_0_getobject()
+/* User-defined aliases for the part drivers instances IDs and getter functions */
+#define MX_LAN8742_1                          LAN8742_0
+#define mx_lan8742_1_getobject()    mx_lan8742_0_getobject()
 
 /* Resource bindings */
 #define LAN8742_0_ETH_GETHANDLE               mx_eth1_gethandle

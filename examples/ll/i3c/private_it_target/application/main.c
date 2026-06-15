@@ -50,13 +50,12 @@ int main(void)
       */
     ExecStatus = app_init();
 
-    /* Report success: status LED remains turned on */
-    LED_ON();
-
     /* Run endlessly if no error occurs */
     while (ExecStatus != EXEC_STATUS_ERROR)
     {
       ExecStatus = app_process();
+
+      LED_ON();
     } /* end while */
   } /* end applicative part */
 

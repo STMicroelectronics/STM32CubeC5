@@ -2,7 +2,7 @@
 
 # __Example: *usbx_device_hid_mouse_freertos*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 How to configure a USB Human Interface Device "HID" mouse in RTOS mode based on USBX stack.
 
@@ -45,9 +45,9 @@ In case of failure:
 
 This example uses the following peripheral:
 
-__USB PCD FS__: is configured as indicated below:
+__USB PCD __: is configured as indicated below:
 
-  - Full-speed operation
+  - Full-speed
   - Embedded PHY Interface
   - SOF Disabled
 
@@ -91,7 +91,6 @@ This section describes the exact hardware configurations of your project.
   </details>
 </details>
 
-
 ## __4. Troubleshooting__
 
 [![Troubleshooting](doc/debug_with-Troubleshooting.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/debug/debug_toc.html "An offline version is also available in the Cube Firmware package.")
@@ -99,7 +98,6 @@ This section describes the exact hardware configurations of your project.
 Here are the points of attention for this specific example:
 
   1. If there is an issue, remember to check that:
-
     - The STM32 is powered.
     - The STM32 USB connector is connected to a USB port in the host.
   2. Depending on STM32 series, and USB instance used (FS/HS) specific USB configurations must be respected (Endpoint Max Packet Size, Clock)
@@ -114,6 +112,8 @@ For details, refer to the reference manual of your MCU.
 More information on USB and STM32: [Introduction to USB with STM32](https://wiki.st.com/stm32mcu/wiki/Introduction_to_USB_with_STM32).
 
 More information about the STM32 Cube Drivers can be found in the drivers' user manual of the STM32 series you are using.
+
+For instance, for the STM32C5 series: [User Manual](https://www.st.com).
 
 More information about the STM32 ecosystem can be found in the [STM32 MCU Developer Zone](https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/embedded-software.html).
 

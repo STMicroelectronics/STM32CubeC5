@@ -24,12 +24,10 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
-
 /* Handle for UART */
 static hal_uart_handle_t hUSART1;
 
 /* Exported function definition ----------------------------------------------*/
-
 /******************************************************************************/
 /* Exported functions for UART in HAL layer */
 /******************************************************************************/
@@ -66,24 +64,24 @@ hal_uart_handle_t *mx_usart1_uart_init(void)
     return NULL;
   }
 
+  /* ### USART1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOB_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    USART1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB15    ------>   USART1_RX
-       PB14    ------>   USART1_TX
+       PB15    ------>   USART1_RX   ------>  PB15
+       PB14    ------>   USART1_TX   ------>  PB14
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_4;
-  HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_15 | HAL_GPIO_PIN_14, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOB, PB15_PIN | PB14_PIN, &gpio_config);
 
   return &hUSART1;
 }
@@ -96,8 +94,8 @@ void mx_usart1_uart_deinit(void)
 
   HAL_RCC_USART1_DisableClock();
 
-  /* De-initialize all GPIO pins associated with USART1 */
-  HAL_GPIO_DeInit(HAL_GPIOB, HAL_GPIO_PIN_14 | HAL_GPIO_PIN_15);
+  /* De-initialize all GPIOB pins associated with USART1 */
+  HAL_GPIO_DeInit(HAL_GPIOB, PB14_PIN | PB15_PIN);
 }
 hal_uart_handle_t *mx_usart1_uart_gethandle(void)
 {

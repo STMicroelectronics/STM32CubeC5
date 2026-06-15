@@ -2,7 +2,7 @@
 
 # __Example: *stcryptolib_cipher_aes_cbc*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.4
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -77,29 +77,51 @@ No generic hardware dependencies for this example.
 
 ### __3.2. Specific board setups__
 
-No specific hardware dependencies for this example.
+<details>
+  <summary>On STM32C5 series.</summary>
+  <details>
+    <summary>On board NUCLEO-C542RC.</summary>
 
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |    OSC_IN     |
+  |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
+  |    PA2    |   USART2_TX   |      PA2      |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C562RE.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |    OSC_IN     |
+  |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
+  |    PA2    |   USART2_TX   |      PA2      |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C5A3ZG.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN   |
+  |    PH1    |  RCC_OSC_OUT  |  PH1_OSC_OUT  |
+  |    PA2    |   USART2_TX   | DBGIN_VCP_TX  |
+
+  </details>
+</details>
 
 ## __4. Troubleshooting__
 
 [![Troubleshooting](doc/debug_with-Troubleshooting.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/debug/debug_toc.html "An offline version is also available in the STM32Cube Firmware package.")
 
-Here are the points of attention for this specific example:
-
-- Verify the HAL timings according to [8.1](#81 - general - debug - tips) to have proper delays, especially [this point](https://codex.cro.st.com/plugins/mediawiki/wiki/stm32cube/index.php?title=Cube_2.0_EmbSW_WiKi#HAL_timing_issues).
-
 
 ## __5. See Also__
 
 [![SeeAlso](doc/go_further_with-STM32.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/more/more_toc.html "An offline version is also available in the STM32Cube Firmware package.")
-
-You can find the hardware layout and configuration of a board in its user manual.
-The connectors are described in this document, as well as the status LEDs and the buttons.
-Example of documents available for STM32U585xx MCUs mounted on the Discovery kit for IoT node board:
-
-- see section 4 of [STM32U585xx](https://www.st.com/resource/en/datasheet/stm32u585ai.pdf).
-- see section 7 of [Discovery kit for IoT node with STM32U5 Series](https://www.st.com/resource/en/user_manual/um2839-discovery-kit-for-iot-node-with-stm32u5-series-stmicroelectronics.pdf).\
-      More information about the STM32 ecosystem can be found in the [STM32 MCU Developer Zone](https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/embedded-software.html).
 
 > **_NOTE:_** NIST vectors examples for AES CBC are taken from:[Recommendation for Block Cipher Modes of Operation, 2001 Edition](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf)
 

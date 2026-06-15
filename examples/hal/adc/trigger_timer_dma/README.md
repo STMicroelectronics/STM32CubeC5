@@ -2,7 +2,7 @@
 
 # __Example: *hal_adc_trigger_timer_dma*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -67,17 +67,18 @@ __TIM__: Configured to trigger the ADC conversion with the following parameters:
 
 <details>
 <summary>The aim is to provide a time base of 1kHz</summary>
+  The time counter clock is set to 64KHz.
+
   The buffer that contains the adc  converted values is BUFFER_LENGTH  (3 values).
   Therefore, each sample of the buffer signal should be converted with a frequency of 1kHz
 
   *Note:* This frequency corresponds to the timer frequency.
 
-  To get this 1kHz, the period is configured according to the formula below:
-    TRGO_freq = Timer_clock_freq / ((PRESCALER_VALUE + 1) * (PERIOD_VALUE + 1))
+  To get this 1kHz, with a 64KHz timer counter clock:
+
+    ARR = (64 MHz / 1 kHz) - 1 = 63
 
   *Note:* The "+1" used in the formulas is needed because the registers' values start from 0.
-
-  > PERIOD_VALUE = (Timer_clock_freq / (TRGO_freq * (PRESCALER_VALUE + 1))) - 1
 </details>
 
 

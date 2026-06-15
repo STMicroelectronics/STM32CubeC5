@@ -8,7 +8,7 @@
 
 
 // RTE Content
-#if (CMSIS_USE_generated_Utility_STM32CubeMX2_Config_ADVANCED_TRACE_1_0_0)
+#if (CMSIS_USE_generated_Utility_STM32CubeMX2_Config_ADVANCED_TRACE_1_1_0)
     #define ADV_TRACE_USER_CONF
 #endif
 

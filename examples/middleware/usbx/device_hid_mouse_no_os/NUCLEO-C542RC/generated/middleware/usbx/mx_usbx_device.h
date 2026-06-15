@@ -21,13 +21,14 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 /* Includes ----------------------------------------------------------*/
 #include "ux_api.h"
 #include "ux_stm32_device_descriptors_config.h"
 #include "ux_stm32_device_descriptors.h"
 #include "mx_hal_def.h"
 #include "mx_usbx_app.h"
+#include "mx_usbx_device_hid_mouse.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/

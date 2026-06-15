@@ -2,7 +2,7 @@
 
 # __Example: *hal_sbs_fpu_interrupt*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -48,10 +48,39 @@ No specific hardware setup is needed for this example.
 
 ### __3.2. Specific board setups__
 
-No specific board setup is needed for this example.
+<details>
+  <summary>On STM32C5 series.</summary>
+  <details>
+    <summary>On board NUCLEO-C542RC.</summary>
 
-You may check the status LED of your board (already connected to the MCU) and, optionally, a debugger connected via STLINK.
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |    OSC_IN     |
+  |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
 
+  </details>
+  <details>
+    <summary>On board NUCLEO-C562RE.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |    OSC_IN     |
+  |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C5A3ZG.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN   |
+  |    PH1    |  RCC_OSC_OUT  |  PH1_OSC_OUT  |
+
+  </details>
+</details>
 
 ## __4. Troubleshooting__
 

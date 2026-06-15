@@ -2,7 +2,7 @@
 
 # __Example: *hal_dac_simple_conversion*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the Cube firmware package.")
 
@@ -85,6 +85,18 @@ This section describes the exact hardware configurations of your project.
   </details>
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
+
+  |  MCU pin  |  Signal name  |  User Label   |
+  |:---------:|:-------------:|:-------------:|
+  |    PA5    |     GPIO      | MX_STATUS_LED |
+  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN   |
+  |    PH1    |  RCC_OSC_OUT  |  PH1_OSC_OUT  |
+  |    PA2    |   USART2_TX   | DBGIN_VCP_TX  |
+  |    PA4    |   DAC1_OUT1   |      PA4      |
+
+  </details>
+  <details>
+    <summary>On board NUCLEO-C5Q1ZG.</summary>
 
   |  MCU pin  |  Signal name  |  User Label   |
   |:---------:|:-------------:|:-------------:|

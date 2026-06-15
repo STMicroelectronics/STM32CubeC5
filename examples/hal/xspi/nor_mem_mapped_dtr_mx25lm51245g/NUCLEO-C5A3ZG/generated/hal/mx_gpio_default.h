@@ -30,7 +30,7 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /******************************************************************************/
-/* Exported defines for gpio_default in HAL layer (SW instance MyGPIO_1) */
+/* Exported defines for gpio_default in HAL layer                             */
 /******************************************************************************/
 
 /* Primary aliases for GPIO PA5 pin */
@@ -43,14 +43,14 @@ extern "C" {
 /* Primary aliases for GPIO PG9 pin */
 #define PG9_PORT                                        HAL_GPIOG
 #define PG9_PIN                                         HAL_GPIO_PIN_9
-#define PG9_INIT_STATE                                  HAL_GPIO_PIN_RESET
+#define PG9_INIT_STATE                                  HAL_GPIO_PIN_SET
 #define PG9_ACTIVE_STATE                                HAL_GPIO_PIN_SET
 #define PG9_INACTIVE_STATE                              HAL_GPIO_PIN_RESET
 
 /* Secondary aliases for GPIO PG9 pin */
 #define MX_LDO_EN_PORT                                  HAL_GPIOG
 #define MX_LDO_EN_PIN                                   HAL_GPIO_PIN_9
-#define MX_LDO_EN_INIT_STATE                            HAL_GPIO_PIN_RESET
+#define MX_LDO_EN_INIT_STATE                            HAL_GPIO_PIN_SET
 #define MX_LDO_EN_ACTIVE_STATE                          HAL_GPIO_PIN_SET
 #define MX_LDO_EN_INACTIVE_STATE                        HAL_GPIO_PIN_RESET
 
@@ -58,7 +58,7 @@ extern "C" {
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /******************************************************************************/
-/* Exported functions for gpio_default in HAL layer (SW instance MyGPIO_1) */
+/* Exported functions for gpio_default in HAL layer                           */
 /******************************************************************************/
 /**
   * @brief mx_gpio_default init function

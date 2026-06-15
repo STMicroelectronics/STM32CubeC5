@@ -17,6 +17,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "mx_rtc.h"
+#include "mx_rcc.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
@@ -25,19 +26,19 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/** Exported functions for RTC in HAL layer (SW instance MyRTC_1)            **/
+/** Exported functions for RTC in HAL layer            **/
 /******************************************************************************/
+
 system_status_t mx_rtc_init(void)
 {
   /* Disable RTC Domain Write Protection */
   HAL_PWR_DisableRTCDomainWriteProtection();
 
   /* Clock configuration */
-  if (HAL_RCC_RTC_SetKernelClkSource(HAL_RCC_RTC_CLK_SRC_LSE) != HAL_OK)
+  if (mx_rcc_rtc_clock_config() != SYSTEM_OK)
   {
-    return SYSTEM_CLOCK_ERROR;
+    return SYSTEM_PERIPHERAL_ERROR;
   }
-
   HAL_RCC_RTCAPB_EnableClock();
 
   HAL_RCC_RTC_EnableKernelClock();
@@ -114,20 +115,20 @@ system_status_t mx_rtc_init(void)
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
+  /* ### RTC GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOC_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    RTC GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PC13    ------>   RTC_TS
+       PC13    ------>   RTC_TS   ------>  PC13
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ANALOG;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
-  HAL_GPIO_Init(HAL_GPIOC, HAL_GPIO_PIN_13, &gpio_config);
+  HAL_GPIO_Init(PC13_PORT, PC13_PIN, &gpio_config);
 
   HAL_CORTEX_NVIC_SetPriority(RTC_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
   HAL_CORTEX_NVIC_EnableIRQ(RTC_IRQn);
@@ -137,14 +138,14 @@ system_status_t mx_rtc_init(void)
 
 void mx_rtc_deinit(void)
 {
-  /* De-initialize all GPIO pins associated with RTC */
-  HAL_GPIO_DeInit(HAL_GPIOC, HAL_GPIO_PIN_13);
+  /* De-initialize all GPIOC pins associated with RTC */
+  HAL_GPIO_DeInit(PC13_PORT, PC13_PIN);
 
   HAL_CORTEX_NVIC_DisableIRQ(RTC_IRQn);
 }
 
- /******************************************************************************/
-/**                     RTC global non-secure interrupts                     **/
+/******************************************************************************/
+/*                      RTC global non-secure interrupts                      */
 /******************************************************************************/
 void RTC_IRQHandler(void)
 {

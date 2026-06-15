@@ -24,7 +24,7 @@
 /* Private functions prototype------------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for PWR in LL layer (SW instance PWR) */
+/* Exported functions for PWR in LL layer */
 /******************************************************************************/
 
 system_status_t mx_pwr_init(void)

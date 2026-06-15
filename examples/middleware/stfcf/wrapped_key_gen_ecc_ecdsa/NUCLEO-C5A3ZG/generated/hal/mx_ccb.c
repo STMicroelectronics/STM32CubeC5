@@ -26,13 +26,17 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_ccb_handle_t hCCB;
-
 /******************************************************************************/
-/* Exported functions for CCB in HAL layer (SW instance MyCCB_1) */
+/* Exported functions for CCB in HAL layer */
 /******************************************************************************/
 hal_ccb_handle_t *mx_ccb_init(void)
 {
   if (HAL_CCB_Init(&hCCB, HAL_CCB) != HAL_OK)
+  {
+    return NULL;
+  }
+
+  if (HAL_RCC_CK48_SetKernelClkSource(HAL_RCC_CK48_CLK_SRC_HSIDIV3) != HAL_OK)
   {
     return NULL;
   }
@@ -42,12 +46,8 @@ hal_ccb_handle_t *mx_ccb_init(void)
   HAL_RCC_PKA_EnableClock();
 
   HAL_RCC_SAES_EnableClock();
-  HAL_RCC_CCB_EnableClock();
 
-  if (HAL_RCC_CK48_SetKernelClkSource(HAL_RCC_CK48_CLK_SRC_HSIDIV3) != HAL_OK)
-  {
-    return NULL;
-  }
+  HAL_RCC_CCB_EnableClock();
 
   return &hCCB;
 }

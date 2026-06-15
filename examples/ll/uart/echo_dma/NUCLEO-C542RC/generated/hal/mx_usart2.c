@@ -26,7 +26,6 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /* Exported function definition ----------------------------------------------*/
-
 /******************************************************************************/
 /* Exported functions for UART in LL layer */
 /******************************************************************************/
@@ -53,36 +52,36 @@ USART_TypeDef *mx_usart2_uart_init(void)
   LL_USART_SetBaudRate(USART2, 144000000, LL_USART_PRESCALER_DIV1, LL_USART_OVERSAMPLING_16,
                        115200);
 
+  /* ### USART2 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
 
   /**
-    USART2 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA3     ------>   USART2_RX
-       PA2     ------>   USART2_TX
+       PA3     ------>   USART2_RX   ------>  PA3
+       PA2     ------>   USART2_TX   ------>  PA2
     **/
 
   /* Configure IO output speed (Low, Medium, High or Very-High) */
-  /* LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_3, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_2, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PA3_PORT, PA3_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PA2_PORT, PA2_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_3 | LL_GPIO_PIN_2, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinOutputType(GPIOA, PA3_PIN | PA2_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_3, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_2, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA3_PORT, PA3_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA2_PORT, PA2_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_3, LL_GPIO_AF_7);
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_2, LL_GPIO_AF_7);
+  LL_GPIO_SetAFPin_0_7(PA3_PORT, PA3_PIN, LL_GPIO_AF_7);
+  LL_GPIO_SetAFPin_0_7(PA2_PORT, PA2_PIN, LL_GPIO_AF_7);
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_3, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_2, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PA3_PORT, PA3_PIN, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PA2_PORT, PA2_PIN, LL_GPIO_MODE_ALTERNATE);
 
   /* Enable interrupt */
   NVIC_SetPriority(USART2_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
@@ -92,9 +91,6 @@ USART_TypeDef *mx_usart2_uart_init(void)
 
   /* Enable LPDMA1 clock */
   LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_LPDMA1);
-/**********************************************************************************************************************/
-  /* LL Optimization Context (DMA) */
-  /**********************************************************************************************************************/
 
   /* Configure DMA channel transfer request */
   LL_DMA_SetPeriphRequest(LPDMA1_CH0, LL_LPDMA1_REQUEST_USART2_TX);
@@ -118,9 +114,6 @@ USART_TypeDef *mx_usart2_uart_init(void)
 
   /* Enable LPDMA1 clock */
   LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_LPDMA1);
-/**********************************************************************************************************************/
-  /* LL Optimization Context (DMA) */
-  /**********************************************************************************************************************/
 
   /* Configure DMA channel transfer request */
   LL_DMA_SetPeriphRequest(LPDMA1_CH1, LL_LPDMA1_REQUEST_USART2_RX);
@@ -158,26 +151,26 @@ void mx_usart2_uart_deinit(void)
   /* ### GPIO deinitialization of USART2: USART2_RX,USART2_TX ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_3, LL_GPIO_MODE_ANALOG);
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_2, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA3_PORT, PA3_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA2_PORT, PA2_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_3, LL_GPIO_AF_0);
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_2, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA3_PORT, PA3_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA2_PORT, PA2_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_3, LL_GPIO_SPEED_FREQ_LOW);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_2, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA3_PORT, PA3_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA2_PORT, PA2_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_3 | LL_GPIO_PIN_2, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(GPIOA, PA3_PIN | PA2_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_3, LL_GPIO_PULL_NO);
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_2, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA3_PORT, PA3_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA2_PORT, PA2_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOA, LL_GPIO_PIN_3 | LL_GPIO_PIN_2, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PA3_PORT, PA3_PIN | PA2_PIN, LL_GPIO_PIN_RESET);
 
   /* De-initialize the DMA channel */
   LL_DMA_DisableChannel(LPDMA1_CH0);

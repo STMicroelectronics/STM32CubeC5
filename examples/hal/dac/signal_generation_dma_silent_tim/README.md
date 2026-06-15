@@ -2,7 +2,7 @@
 
 # __Example: *hal_dac_signal_generation_dma_silent_tim*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the Cube firmware package.")
 
@@ -104,28 +104,29 @@ The hardware setup of the timer counter applies to any board with the same clock
   To obtain the timer's counter clock frequency (tim_cnt_ck), the timer prescaler register (TIM_PSC) is computed as follows:
 
       TIM_PSC = (HCLK / tim_cnt_ck ) - 1
+
 <!---
 @startuml
 @startditaa{doc/stm32c5_peripherals_clocks.png}
- +---------+
+  +---------+
   | clock   |
   | source  |
   | control |
- +---+-----+
+  +---+-----+
   |
-    ++-\
-  --+  |
+  ++-\
+--+  |
   |  |
   |  |
-  --+  |           +---------------+        +--------------+
+--+  |           +---------------+        +--------------+
   |  |  SYSCLCK  |  AHB          |  HCLK  |  APBx        |  PCLKx
   |  +-----------+  PRESC        +----+---+  PRESC       +--------------------------------
-  --+  |           |  / 1,2,...512 |    |   | / 1,2,4,8,16 |          To APBx peripherals
+--+  |           |  / 1,2,...512 |    |   | / 1,2,4,8,16 |          To APBx peripherals
   |  |           +---------------+    |   +--------------+
   |  |                                |
-  --+  |                                +---------------------------------------------------
+--+  |                                +---------------------------------------------------
   |  |                                                                          To TIMx
-    +--/
+  +--/
 @endditaa
 @enduml
 -->
@@ -146,6 +147,112 @@ In this configuration:
 
   </details>
 
+<details>
+  <summary>On board with STM32G5xx MCUs</summary>
+
+  <summary>Common configuration</summary>
+
+  Timer's counter clock configuration with prescalers and APB prescalers set to 1:
+
+  - The AHB clock (HCLK) and system core clock are set to system clock (SYSCLK).
+  - The timer's internal input clock (tim_ker_ck) is set to its respective APB clock (PCLK).
+
+      tim_ker_ck = PCLK = HCLK = SYSCLK (system clock)
+
+      So, tim_ker_ck = HCLK in Hz
+
+  To obtain the timer's counter clock frequency (tim_cnt_ck), the timer prescaler register (TIM_PSC) is computed as follows:
+
+      TIM_PSC = (HCLK / tim_cnt_ck ) - 1
+<!--
+@startuml
+@startditaa{doc/stm32g5_peripherals_clocks.png}
+ +---------+
+ | clock   |
+ | source  |
+ | control |
+ +---+-----+
+ |
+ ++-\
+--+  |
+  |  |
+  |  |
+--+  |           +---------------+        +--------------+
+  |  |  SYSCLCK  |  AHB          |  HCLK  |  APBx        |  PCLKx
+  |  +-----------+  PRESC        +----+---+  PRESC       +--------------------------------
+--+  |           |  / 1,2,...512 |    |   | / 1,2,4,8,16 |          To APBx peripherals
+  |  |           +---------------+    |   +--------------+
+  |  |                                |
+--+  |                                +---------------------------------------------------
+  |  |                                                                          To TIMx
+  +--/
+@endditaa
+@enduml
+-->
+  ![clocks](doc/stm32g5_peripherals_clocks.png)
+
+In this configuration:
+
+- The HCLK is set to 280MHz.
+
+  PERIOD_VALUE calculation with APB prescaler set to 1 and HCLK set to 280 MHz:
+  > PERIOD_VALUE = (Timer_clock_freq/(TRGO_freq * (PRESCALER_VALUE + 1))) - 1
+
+  This equation can be resolved with:
+  > PRESCALER_VALUE = 0
+  >
+  > PERIOD_VALUE = (280 MHz / 60 kHz) - 1
+  > PERIOD_VALUE = 4666
+
+  </details>
+
+<details>
+  <summary>On board with STM32v8xx MCUs</summary>
+
+  <summary>Common configuration</summary>
+
+  Timer's counter clock configuration:
+
+  - The timer's internal input clock (tim_ker_ck) also named bus clock (bus_ck) depends on the system clock (sys_clk) according to this formula:
+      bus_clk = sys_clk / BMPRE
+      With BMPRE the Bus Matrix clock prescaler
+
+      So, tim_ker_ck = sys_clk / BMPRE in Hz
+
+  To obtain the timer's counter clock frequency (tim_cnt_ck), the timer prescaler register (TIM_PSC) is computed as follows:
+
+      TIM_PSC = ( (sys_clk / BMPRE) / tim_cnt_ck ) - 1
+<!---
+@startuml
+@startditaa{doc/stm32v8_peripherals_clocks.png}
+
+               +----------+
+  sys_clk      |  BMPRE   |      tim_ker_ck
+------------+->+ / 1,2,4  +-----------------+->
+               +----------+       To TIMx
+
+
+@endditaa
+@enduml
+-->
+  ![clocks](doc/stm32v8_peripherals_clocks.png)
+
+In this configuration:
+
+- The sys_clk is set to 800 MHz.
+- The BMPRE prescaler is set to 2 so the tim_ker_ck = 400 MHz.
+
+  PERIOD_VALUE calculation with APB prescaler set to 1 and HCLK set to 144 MHz:
+  > PERIOD_VALUE = (Timer_clock_freq/(TRGO_freq * (PRESCALER_VALUE + 1))) - 1
+
+  This equation can be resolved with:
+  > PRESCALER_VALUE = 0
+  >
+  > PERIOD_VALUE = (400 MHz / 60 kHz) - 1
+  > PERIOD_VALUE = 6667
+
+  </details>
+
 ### __3.2. Specific board setups__
 
 This section describes the exact hardware configurations of your project.
@@ -163,7 +270,6 @@ This section describes the exact hardware configurations of your project.
   |    PA4    |   DAC1_OUT1   |      PA4      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -175,7 +281,6 @@ This section describes the exact hardware configurations of your project.
   |    PA4    |   DAC1_OUT1   |      PA4      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -188,7 +293,6 @@ This section describes the exact hardware configurations of your project.
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

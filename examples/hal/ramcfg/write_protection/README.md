@@ -2,7 +2,7 @@
 
 # __Example: *hal_ramcfg_write_protection*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the Cube Firmware package.")
 
@@ -78,7 +78,6 @@ __DMA__:
   |    PA2    |   USART2_TX   |      PA2      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -90,7 +89,6 @@ __DMA__:
   |    PA2    |   USART2_TX   |      PA2      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -103,7 +101,6 @@ __DMA__:
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

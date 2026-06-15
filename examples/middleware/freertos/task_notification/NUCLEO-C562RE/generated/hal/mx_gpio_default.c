@@ -26,7 +26,7 @@
 static hal_exti_handle_t hEXTI13;
 
 /******************************************************************************/
-/* Exported functions for GPIO in HAL layer (SW instance MyGPIO_1) */
+/* Exported functions for GPIO in HAL layer                                   */
 /******************************************************************************/
 system_status_t mx_gpio_default_init(void)
 {
@@ -89,10 +89,10 @@ system_status_t mx_gpio_default_deinit(void)
   HAL_CORTEX_NVIC_DisableIRQ(EXTI13_IRQn);
 
   /* De-initialize pins of GPIOA port */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_5);
+  HAL_GPIO_DeInit(PA5_PORT, PA5_PIN);
 
   /* De-initialize pins of GPIOC port */
-  HAL_GPIO_DeInit(HAL_GPIOC, HAL_GPIO_PIN_13);
+  HAL_GPIO_DeInit(PC13_PORT, PC13_PIN);
 
   return SYSTEM_OK;
 }

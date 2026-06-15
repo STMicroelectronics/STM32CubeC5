@@ -68,10 +68,10 @@ hal_spi_handle_t *mx_spi1_gethandle(void);
 /******************************************************************************/
 /*                           SPI1 global interrupt                            */
 /******************************************************************************/
-
 void SPI1_IRQHandler(void);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
 #endif /* MX_SPI1_H */

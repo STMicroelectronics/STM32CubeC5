@@ -1,7 +1,6 @@
 /**
   ******************************************************************************
   * @file    stm32_external_env.h
-  * @author  GPAM Application Team
   * @brief   External environments values (external oscillators values).
   ******************************************************************************
   * @attention
@@ -27,14 +26,6 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-/* ########################## VDD Value #######################################*/
-/**
-  * @brief VDD Value.
-  */
-#if !defined  (VDD_VALUE)
-#define  VDD_VALUE             0UL /*!< Value of VDD in mv */
-#endif /* VDD_VALUE */
-
 /* ########################## Oscillator Values adaptation ####################*/
 /**
   * @brief Adjust the value of External High Speed oscillator (HSE) used in your application.
@@ -48,7 +39,6 @@ extern "C" {
 #if !defined  (HSE_STARTUP_TIMEOUT)
 #define HSE_STARTUP_TIMEOUT    100UL   /*!< Time out for HSE start up, in ms */
 #endif /* HSE_STARTUP_TIMEOUT */
-
 
 /* Tip: To avoid modifying this file each time you need to use different HSE,
    ===  you can define the HSE value in your toolchain compiler preprocessor. */

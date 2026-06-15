@@ -14,6 +14,7 @@
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef MX_SYSTEM_H
 #define MX_SYSTEM_H
@@ -23,7 +24,6 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
-#include "mx_def.h"
 #include "mx_hal_def.h"
 
 /* Exported types ------------------------------------------------------------*/
@@ -36,6 +36,8 @@ extern "C" {
   * @retval Status
   */
 system_status_t mx_system_init(void);
+
+void SysTick_Handler(void);
 
 system_status_t pre_system_init_hook(void);
 

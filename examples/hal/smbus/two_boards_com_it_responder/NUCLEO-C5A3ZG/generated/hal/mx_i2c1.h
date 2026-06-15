@@ -36,10 +36,6 @@ extern "C" {
 /** Primary aliases for I2C1_SDA pin */
 #define PB7_PORT                              HAL_GPIOB
 #define PB7_PIN                               HAL_GPIO_PIN_7
-
-/** Primary aliases for I2C1_SMBA pin */
-#define PA9_PORT                              HAL_GPIOA
-#define PA9_PIN                               HAL_GPIO_PIN_9
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -67,13 +63,11 @@ hal_smbus_handle_t *mx_i2c1_smbus_gethandle(void);
 /******************************************************************************/
 /*                            I2C1 event interrupt                            */
 /******************************************************************************/
-
 void I2C1_EV_IRQHandler(void);
 
 /******************************************************************************/
 /*                            I2C1 error interrupt                            */
 /******************************************************************************/
-
 void I2C1_ERR_IRQHandler(void);
 #ifdef __cplusplus
 }

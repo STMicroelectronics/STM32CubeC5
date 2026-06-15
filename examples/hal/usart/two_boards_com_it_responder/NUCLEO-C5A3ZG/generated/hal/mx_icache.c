@@ -28,7 +28,7 @@
 static hal_icache_handle_t hICACHE;
 
 /******************************************************************************/
-/* Exported functions for ICACHE in HAL layer (SW instance MyICACHE_1) */
+/* Exported functions for ICACHE in HAL layer */
 /******************************************************************************/
 
 hal_icache_handle_t *mx_icache_init(void)

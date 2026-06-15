@@ -2,7 +2,7 @@
 
 # __Example: *hal_tim_encoder*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -167,28 +167,28 @@ The GPIO pins are configured in:
   To obtain the timer's counter clock frequency (tim_cnt_ck), the timer prescaler register (TIM_PSC) is computed as follows:
 
       TIM_PSC = (HCLK / tim_cnt_ck ) - 1
-    <!--
+<!--
 @startuml
 @startditaa{doc/stm32c5_peripherals_clocks.png}
  +---------+
-  | clock   |
-  | source  |
-  | control |
+ | clock   |
+ | source  |
+ | control |
  +---+-----+
-  |
-    ++-\
-  --+  |
+ |
+ ++-\
+--+  |
   |  |
   |  |
-  --+  |           +---------------+        +--------------+
+--+  |           +---------------+        +--------------+
   |  |  SYSCLCK  |  AHB          |  HCLK  |  APBx        |  PCLKx
   |  +-----------+  PRESC        +----+---+  PRESC       +--------------------------------
-  --+  |           |  / 1,2,...512 |    |   | / 1,2,4,8,16 |          To APBx peripherals
+--+  |           |  / 1,2,...512 |    |   | / 1,2,4,8,16 |          To APBx peripherals
   |  |           +---------------+    |   +--------------+
   |  |                                |
-  --+  |                                +---------------------------------------------------
+--+  |                                +---------------------------------------------------
   |  |                                                                          To TIMx
-    +--/
+  +--/
 @endditaa
 @enduml
 -->
@@ -242,21 +242,6 @@ To obtain a timer counter clock at 1MHz with the APB prescaler set to 1 and the 
 
   - TIM2_CH1 for channely
   - TIM2_CH2 for channelz
-
-  </details>
-  <details>
-    <summary>On board NUCLEO-C5A3ZG.</summary>
-
-  |  MCU pin  |  Signal name  |  User Label   |
-  |:---------:|:-------------:|:-------------:|
-  |    PA5    |     GPIO      | MX_STATUS_LED |
-  |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN   |
-  |    PH1    |  RCC_OSC_OUT  |  PH1_OSC_OUT  |
-  |    PA2    |   USART2_TX   | DBGIN_VCP_TX  |
-  |    PA8    |   TIM1_CH1    |      PA8      |
-  |    PA9    |   TIM1_CH2    |      PA9      |
-  |    PA0    |   TIM2_CH1    |      PA0      |
-  |    PA1    |   TIM2_CH2    |      PA1      |
 
   </details>
 </details>

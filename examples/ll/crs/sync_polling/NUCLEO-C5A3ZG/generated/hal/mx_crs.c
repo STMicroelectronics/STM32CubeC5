@@ -24,9 +24,8 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
-
 /******************************************************************************/
-/* Exported functions for CRS in LL layer (SW instance MyCRS_1) */
+/* Exported functions for CRS in LL layer */
 /******************************************************************************/
 CRS_TypeDef *mx_crs_init(void)
 {
@@ -50,6 +49,8 @@ CRS_TypeDef *mx_crs_init(void)
   /* CRS trimming: Disable CRS hardware auto-trimming and set HSI144 trimming value */
   /* LL_CRS_ConfigTrimming(CRS, 0x30, LL_CRS_AUTO_TRIMMING_DISABLE); */ /* Configuration matches register reset state at startup. */
 
+  /* No GPIO configuration required for CRS */
+
   return CRS;
 }
 
@@ -59,4 +60,5 @@ void mx_crs_deinit(void)
   LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_CRS);
 
   LL_APB1_GRP1_DisableClock(LL_APB1_GRP1_PERIPH_CRS);
+  /* No GPIO de-initialization required for CRS */
 }

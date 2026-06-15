@@ -65,6 +65,8 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
+
+  /* Initialize RCC peripheral */
   if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
@@ -89,16 +91,14 @@ system_status_t mx_system_init(void)
   /*
     Peripheral init section
   */
-  /*
-  */
+
+  /** gpio_default */
   if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
-  /*
-    mx_lptimx_init
-  */
+  /** LPTIM1 */
   if (mx_lptim1_init() == NULL)
   {
     return SYSTEM_PERIPHERAL_ERROR;

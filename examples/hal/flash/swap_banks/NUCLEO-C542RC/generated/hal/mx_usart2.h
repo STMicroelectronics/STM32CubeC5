@@ -5,13 +5,16 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  *
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef MX_USART2_H
 #define MX_USART2_H
@@ -25,6 +28,11 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+
+/** Primary aliases for USART2_TX pin */
+#define PA2_PORT                              HAL_GPIOA
+#define PA2_PIN                               HAL_GPIO_PIN_2
+
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -32,7 +40,6 @@ extern "C" {
 /******************************************************************************/
 /* Exported functions for UART in HAL layer */
 /******************************************************************************/
-
 /**
   * @brief mx_usart2_uart init function
   * This function configures the hardware resources used in this example

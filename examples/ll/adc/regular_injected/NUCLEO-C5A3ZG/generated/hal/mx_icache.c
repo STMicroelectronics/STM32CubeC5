@@ -27,7 +27,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for ICACHE in LL layer (SW instance MyICACHE_1) */
+/* Exported functions for ICACHE in LL layer */
 /******************************************************************************/
 ICACHE_TypeDef *mx_icache_init(void)
 {
@@ -37,7 +37,7 @@ ICACHE_TypeDef *mx_icache_init(void)
 }
 
 void mx_icache_deinit(void)
-  {
+{
   /* interrupts disabled */
   LL_ICACHE_DisableIT(ICACHE, LL_ICACHE_IER_ALL);
 
@@ -55,6 +55,4 @@ void mx_icache_deinit(void)
   LL_ICACHE_WRITE_REG(ICACHE, CRR1, 0x00000200U);
   LL_ICACHE_WRITE_REG(ICACHE, CRR2, 0x00000200U);
   LL_ICACHE_WRITE_REG(ICACHE, CRR3, 0x00000200U);
-
-  NVIC_DisableIRQ(ADC1_IRQn);
 }

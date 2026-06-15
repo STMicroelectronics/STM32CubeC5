@@ -21,7 +21,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define MESSAGE_BUFFER_SIZE 32
+#define MESSAGE_BUFFER_SIZE (32U)
+#define HASH_ALIGNMENT      (4U) /* HASH data alignment */
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_hash_handle_t *pHASH; /* HASH handle */
@@ -226,7 +228,8 @@ hal_hash_handle_t *pHASH; /* HASH handle */
   * MD = 3c593aa539fdcdae516cdf2f15000f6634185c88f505b39775fb9ab137a10aa2
   */
 /* Message to be computed in polling mode */
-uint8_t Message[163] =
+__attribute__((aligned(HASH_ALIGNMENT)))
+const uint8_t Message[163] =
 {
   0x45, 0x11, 0x01, 0x25, 0x0e, 0xc6, 0xf2, 0x66, 0x52, 0x24, 0x9d, 0x59, 0xdc, 0x97, 0x4b, 0x73,
   0x61, 0xd5, 0x71, 0xa8, 0x10, 0x1c, 0xdf, 0xd3, 0x6a, 0xba, 0x3b, 0x58, 0x54, 0xd3, 0xae, 0x08,
@@ -241,13 +244,14 @@ uint8_t Message[163] =
   0x85, 0x8b, 0xec
 };
 /* The expected message of the compute process in polling mode */
-uint8_t ExpectedHash[MESSAGE_BUFFER_SIZE] =
+const uint8_t ExpectedHash[MESSAGE_BUFFER_SIZE] =
 {
   0x3c, 0x59, 0x3a, 0xa5, 0x39, 0xfd, 0xcd, 0xae, 0x51, 0x6c, 0xdf, 0x2f, 0x15, 0x00, 0x0f, 0x66,
   0x34, 0x18, 0x5c, 0x88, 0xf5, 0x05, 0xb3, 0x97, 0x75, 0xfb, 0x9a, 0xb1, 0x37, 0xa1, 0x0a, 0xa2
 };
 /* Message to be computed in DMA mode */
-uint8_t MsgSHA256LongMsg[6400]__attribute__((aligned(128))) =
+__attribute__((aligned(HASH_ALIGNMENT)))
+const uint8_t MsgSHA256LongMsg[6400] =
 {
   0x37, 0xeb, 0xe9, 0x8e, 0xf5, 0x2b, 0xfb, 0x24, 0x0b, 0x9a, 0xd3, 0x69, 0x15, 0x3a, 0xfe, 0x08,
   0x1b, 0xbc, 0xf9, 0xd7, 0xae, 0x43, 0xe8, 0xba, 0x33, 0x6b, 0x8a, 0xc5, 0x7e, 0x8a, 0x6d, 0xa0,
@@ -651,23 +655,26 @@ uint8_t MsgSHA256LongMsg[6400]__attribute__((aligned(128))) =
   0xce, 0x89, 0xe2, 0x2b, 0x7d, 0x72, 0x83, 0x73, 0x6b, 0x97, 0x86, 0x54, 0x4a, 0xb4, 0x46, 0x0f
 };
 /* The expected message of the compute process in DMA mode */
-uint8_t ExpectedSHA256LongMsg[MESSAGE_BUFFER_SIZE] __attribute__((aligned(128))) =
+__attribute__((aligned(HASH_ALIGNMENT)))
+const uint8_t ExpectedSHA256LongMsg[MESSAGE_BUFFER_SIZE] =
 {
   0x33, 0xb6, 0x22, 0x95, 0x92, 0xca, 0x71, 0x9e, 0x4e, 0x46, 0xf3, 0x5b, 0x28, 0x76, 0x17, 0xfe,
   0xda, 0xdd, 0x3b, 0x7c, 0x38, 0xbe, 0x3c, 0x8c, 0x1c, 0x9f, 0x44, 0x6d, 0x2d, 0x90, 0x85, 0xb3
 };
 
 /* The HASH message output of computation process in DMA mode */
-uint8_t SHA256_Output [MESSAGE_BUFFER_SIZE] __attribute__((aligned(128))) = {0};
+__attribute__((section("non_cacheable_area"), aligned(HASH_ALIGNMENT)))
+uint8_t SHA256_Output [MESSAGE_BUFFER_SIZE] = {0};
 uint32_t SHA256_OutputSize;
 /* The HASH message output of compute process in polling mode*/
-uint8_t computed_hash_message [MESSAGE_BUFFER_SIZE] __attribute__((aligned(128))) = {0};
+__attribute__((aligned(HASH_ALIGNMENT)))
+uint8_t computed_hash_message [MESSAGE_BUFFER_SIZE] = {0};
 uint32_t ComputedSize;
 /* Set to 1 if the computation is correctly completed */
-uint32_t ComputeCpltCb;
+volatile uint32_t ComputeCpltCb;
 /* Set to 1 if the computation error is detected */
-uint32_t ComputeErrorCb;
-uint32_t SuspendCb;
+volatile uint32_t ComputeErrorCb;
+volatile uint32_t SuspendCb;
 /* HASH context */
 hal_hash_suspended_context_t p_hash_context;
 /* Private functions prototype -----------------------------------------------*/

@@ -46,6 +46,13 @@
 /* Size of the RX Buffer in bytes. */
 #define BUFFER_SIZE             31U
 
+/* Size of the Transmit Control buffer in bytes. */
+#define CONTROL_BUFFER_SIZE   20U
+
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+   Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ALIGNMENT      (8U)
+
 /**
   * Returns the number of elements in an array.
   */
@@ -66,19 +73,23 @@ volatile uint8_t TransferError = 0U;
 volatile uint8_t DAAProcessComplete = 0U;
 
 /** Reception buffer for CPU and DMA.
-  * - Buffer placed in non-cacheable memory for data cache consistency.
-  * Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
-  * - Buffer aligned for DMA constraints. As DMA is configured for bytes transfer, byte-alignment is required.
-  * This is always ensured but the aligned(1) directive is harmless.
+  * - Non-cacheable memory for data cache consistency.
+  * - Aligned for DMA constraints.
+  * - Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
   */
-__attribute__((section(".non_cacheable_variables"), aligned(1)))
-uint8_t RxBuffer[BUFFER_SIZE] = {0U};
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
+uint8_t RxBuffer[BUFFER_SIZE];
 
 /* Buffer for transfer context */
-uint32_t aControlBuffer[20] __attribute__((section("noncacheable_buffer")));
+__attribute__((section("non_cacheable_area"), aligned(DMA_ALIGNMENT)))
+uint32_t aControlBuffer[CONTROL_BUFFER_SIZE] ;
+
+#if defined(USE_TRACE) && USE_TRACE != 0
+/* Number of GET* CCC responses expected in the trace output. */
+#define COMMAND_RESPONSE_COUNT   6U
 
 /* CCC names used by PrintCommandResults() (trace only). */
-char *CommandCode[] =
+char *CommandCode[COMMAND_RESPONSE_COUNT] =
 {
   "GETMWL",
   "GETMRL",
@@ -89,7 +100,8 @@ char *CommandCode[] =
 };
 
 /* Bytes received for each GET* CCC above (trace only). Sum must match DATA_SIZE. */
-uint8_t CommandCodeSize[] = {2U, 2U, 6U, 1U, 1U, 1U};
+static const uint8_t CommandCodeSize[COMMAND_RESPONSE_COUNT] = {2U, 2U, 6U, 1U, 1U, 1U};
+#endif /* defined(USE_TRACE) && USE_TRACE != 0 */
 
 /* Structure holding associated data for SETMRL and SETMWL CCC write command */
 struct
@@ -128,8 +140,13 @@ static void CtrlDAACpltCallback(hal_i3c_handle_t *pI3C);
 static void CtrlTgtReqDynAddrCallback(hal_i3c_handle_t *hi3c, uint64_t targetPayload);
 static void CtrlXferCpltCallback(hal_i3c_handle_t *pI3C);
 static void TransferErrorCallback(hal_i3c_handle_t *pI3C);
-static void PrintCommandResults(uint8_t *RxBuffer, char *CommandCode[], uint8_t CommandCodeSize[], uint8_t numCommands);
 
+#if defined(USE_TRACE) && USE_TRACE != 0
+static void PrintCommandResults(uint8_t *p_rx_buffer,
+                                char **p_command_codes,
+                                const uint8_t *p_command_code_sizes,
+                                uint8_t num_commands);
+#endif /* defined(USE_TRACE) && USE_TRACE != 0 */
 
 /** ########## Step 1 ##########
   * Initialization of the I3C peripheral is triggered by the application code.
@@ -293,8 +310,10 @@ app_status_t app_process(void)
     */
   return_status = HandleTransferCplt();
 
+#if defined(USE_TRACE) && USE_TRACE != 0
   /* Print received CCC responses (trace only). */
-  PrintCommandResults(RxBuffer, CommandCode, CommandCodeSize, (uint8_t)COUNTOF(CommandCodeSize));
+  PrintCommandResults(RxBuffer, CommandCode, CommandCodeSize, COMMAND_RESPONSE_COUNT);
+#endif /* defined(USE_TRACE) && USE_TRACE != 0 */
 
 _app_process_exit:
   return return_status;
@@ -402,36 +421,41 @@ static void TransferErrorCallback(hal_i3c_handle_t *hi3c)
   TransferError = 1U;
 }
 
+#if defined(USE_TRACE) && USE_TRACE != 0
 /**
   * brief                 Prints the results of received CCC command responses.
-  * param RxBuffer        Pointer to the buffer containing received data.
-  * param CommandCode     Array of command code names as strings.
-  * param CommandCodeSize Array of data sizes for each command.
-  * retval                None
+  * param p_rx_buffer       Pointer to the buffer containing received data.
+  * param p_command_codes   Array of command code names as strings.
+  * param p_command_code_sizes Array of data sizes for each command.
+  * param num_commands    Number of command responses to print.
   */
-static void PrintCommandResults(uint8_t *RxBuffer, char *CommandCode[], uint8_t CommandCodeSize[], uint8_t numCommands)
+static void PrintCommandResults(uint8_t *p_rx_buffer,
+                                char **p_command_codes,
+                                const uint8_t *p_command_code_sizes,
+                                uint8_t num_commands)
 {
   uint8_t offset = 0;
 
   PRINTF("[INFO] Controller - ");
-  for (uint8_t i = 0; i < numCommands; i++)
+  for (uint8_t i = 0; i < num_commands; i++)
   {
-    PRINTF("%s = 0x", CommandCode[i]);
+    PRINTF("%s = 0x", p_command_codes[i]);
 
-    for (uint8_t j = 0; j < CommandCodeSize[i]; j++)
+    for (uint8_t j = 0; j < p_command_code_sizes[i]; j++)
     {
-      PRINTF("%01X", RxBuffer[offset + j]);
+      PRINTF("%01X", p_rx_buffer[offset + j]);
     }
 
-    offset += CommandCodeSize[i];
+    offset += p_command_code_sizes[i];
 
-    if (i < (uint8_t)(numCommands - 1U))
+    if (i < (uint8_t)(num_commands - 1U))
     {
       PRINTF(" , ");
     }
   }
   PRINTF(".\n");
 }
+#endif /* defined(USE_TRACE) && USE_TRACE != 0 */
 
 /** De-initializes the I3C and DMA instances before leaving the scenario.
   * In this example, app_deinit is never called and it is provided as a reference only.

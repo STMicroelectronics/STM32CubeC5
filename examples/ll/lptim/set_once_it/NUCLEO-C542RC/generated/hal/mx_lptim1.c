@@ -31,9 +31,58 @@
 /******************************************************************************/
 LPTIM_TypeDef *mx_lptim1_init(void)
 {
+  /* Init GPIO */
+  /* ### LPTIM1 GPIO Configuration ########################### */
+
+  /* GPIO Clocks activation */
+  LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA | LL_AHB2_GRP1_PERIPH_GPIOB);
+
+  /**
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
+
+       PA15    ------>   LPTIM1_ETR   ------>  NETR16_2
+    **/
+
+  /* Configure IO output speed (Low, Medium, High or Very-High) */
+  /* LL_GPIO_SetPinSpeed(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+
+  /* Configure IO output type (Push-Pull or Open-Drain) */
+  /* LL_GPIO_SetPinOutputType(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+
+  /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
+  LL_GPIO_SetPinPull(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_PULL_NO);
+
+  /* Configure the Alternate Function in current IO */
+  LL_GPIO_SetAFPin_8_15(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_AF_3);
+
+  /* Configure IO direction mode (Input, Output, Alternate or Analog) */
+  /* LL_GPIO_SetPinMode(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_MODE_ALTERNATE); */ /* Configuration matches register reset state at startup. */
+
+  /**
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
+
+       PB13    ------>   LPTIM1_CH1   ------>  PB13
+    **/
+
+  /* Configure IO output speed (Low, Medium, High or Very-High) */
+  /* LL_GPIO_SetPinSpeed(PB13_PORT, PB13_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+
+  /* Configure IO output type (Push-Pull or Open-Drain) */
+  /* LL_GPIO_SetPinOutputType(PB13_PORT, PB13_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+
+  /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
+  /* LL_GPIO_SetPinPull(PB13_PORT, PB13_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+
+  /* Configure the Alternate Function in current IO */
+  LL_GPIO_SetAFPin_8_15(PB13_PORT, PB13_PIN, LL_GPIO_AF_3);
+
+  /* Configure IO direction mode (Input, Output, Alternate or Analog) */
+  LL_GPIO_SetPinMode(PB13_PORT, PB13_PIN, LL_GPIO_MODE_ALTERNATE);
+
   LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE_LSI);
 
   LL_APB3_GRP1_EnableClock(LL_APB3_GRP1_PERIPH_LPTIM1);
+
   /*Configure the low power timer's time-base unit.*/
   LL_LPTIM_Enable(LPTIM1);
   LL_LPTIM_WRITE_REG(LPTIM1, ICR, LL_LPTIM_FLAG_ALL);
@@ -61,56 +110,6 @@ LPTIM_TypeDef *mx_lptim1_init(void)
   /*Configure External Trigger (ETR) input*/
   LL_LPTIM_ConfigTrigger(LPTIM1, LL_LPTIM_TRIG_SOURCE_GPIO, LL_LPTIM_TRIG_FILTER_NONE, LL_LPTIM_TRIG_POLARITY_RISING);
 
-  /* Init GPIO */
-  /* GPIO Clocks activation */
-  LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA | LL_AHB2_GRP1_PERIPH_GPIOB);
-
-  /**
-    LPTIM1 GPIO Configuration
-
-    [GPIO Pin] ------> [Signal Name]
-
-       PA15    ------>   LPTIM1_ETR
-    **/
-
-  /* Configure IO output speed (Low, Medium, High or Very-High) */
-  /* LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_15, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
-
-  /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_15, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
-
-  /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_15, LL_GPIO_PULL_NO);
-
-  /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_15, LL_GPIO_AF_3);
-
-  /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_15, LL_GPIO_MODE_ALTERNATE);
-
-  /**
-    LPTIM1 GPIO Configuration
-
-    [GPIO Pin] ------> [Signal Name]
-
-       PB13    ------>   LPTIM1_CH1
-    **/
-
-  /* Configure IO output speed (Low, Medium, High or Very-High) */
-  /* LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_13, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
-
-  /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_13, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
-
-  /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_13, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-
-  /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOB, LL_GPIO_PIN_13, LL_GPIO_AF_3);
-
-  /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_13, LL_GPIO_MODE_ALTERNATE);
-
   /* Enable the LPTIM global interruption */
   NVIC_SetPriority(LPTIM1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
   NVIC_EnableIRQ(LPTIM1_IRQn);
@@ -128,42 +127,42 @@ void mx_lptim1_deinit(void)
   /* ### GPIO deinitialization of LPTIM1: LPTIM1_ETR ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_15, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_15, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_8_15(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_15, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_15, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_15, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOA, LL_GPIO_PIN_15, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(NETR16_2_PORT, NETR16_2_PIN, LL_GPIO_PIN_RESET);
 
   /* ### GPIO deinitialization of LPTIM1: LPTIM1_CH1 ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_13, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PB13_PORT, PB13_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOB, LL_GPIO_PIN_13, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_8_15(PB13_PORT, PB13_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_13, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PB13_PORT, PB13_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_13, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(PB13_PORT, PB13_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_13, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PB13_PORT, PB13_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOB, LL_GPIO_PIN_13, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PB13_PORT, PB13_PIN, LL_GPIO_PIN_RESET);
 
   /* Disable the LPTIM global interruption */
   NVIC_DisableIRQ(LPTIM1_IRQn);

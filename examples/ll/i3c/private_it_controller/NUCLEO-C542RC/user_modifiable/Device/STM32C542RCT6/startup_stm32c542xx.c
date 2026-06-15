@@ -29,16 +29,13 @@ extern uint32_t __STACK_LIMIT;
 
 extern __NO_RETURN void __PROGRAM_START(void);
 
-/* Private typedef -----------------------------------------------------------*/
-typedef void(*VECTOR_TABLE_Type)(void);
-
 /* Private function prototypes -----------------------------------------------*/
 /* ISR headers */
 __NO_RETURN void Reset_Handler(void) __attribute__((weak));
             void Default_IRQHandler(void);
 __NO_RETURN void Default_IRQHandler_Hook(void) __attribute__((weak));
 
-/* Cortex-M interrupts alias on the default handler */
+/* Cortex-M interrupts */
 void NMI_Handler                      (void) __attribute__((weak, alias("Default_IRQHandler")));
 void HardFault_Handler                (void) __attribute__((weak));
 void MemManage_Handler                (void) __attribute__((weak, alias("Default_IRQHandler")));
@@ -49,7 +46,7 @@ void DebugMon_Handler                 (void) __attribute__((weak, alias("Default
 void PendSV_Handler                   (void) __attribute__((weak, alias("Default_IRQHandler")));
 void SysTick_Handler                  (void) __attribute__((weak, alias("Default_IRQHandler")));
 
-/* Externals/Peripherals interrupts : alias on the default handler */
+/* Device interrupts */
 void WWDG_IRQHandler                  (void) __attribute__((weak, alias("Default_IRQHandler")));
 void PWR_PVD_IRQHandler               (void) __attribute__((weak, alias("Default_IRQHandler")));
 void RTC_IRQHandler                   (void) __attribute__((weak, alias("Default_IRQHandler")));
@@ -137,7 +134,7 @@ void COMP2_IRQHandler                 (void) __attribute__((weak, alias("Default
 extern const VECTOR_TABLE_Type __VECTOR_TABLE[];
 const VECTOR_TABLE_Type __VECTOR_TABLE[] __VECTOR_TABLE_ATTRIBUTE =
 {
-  (VECTOR_TABLE_Type)(&__INITIAL_SP),/* The initial stack pointer */
+  (VECTOR_TABLE_Type)(&__INITIAL_SP), /* The initial stack pointer */
   Reset_Handler,
   NMI_Handler,
   HardFault_Handler,

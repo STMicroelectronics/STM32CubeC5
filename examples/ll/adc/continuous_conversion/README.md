@@ -2,7 +2,7 @@
 
 # __Example: *ll_adc_continuous_conversion*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -67,7 +67,6 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
   |    PA5    |     GPIO      | MX_STATUS_LED |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -78,7 +77,6 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
   |    PA5    |     GPIO      | MX_STATUS_LED |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -90,7 +88,6 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

@@ -77,6 +77,8 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
+
+  /* Initialize RCC peripheral */
   if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
@@ -93,32 +95,39 @@ system_status_t mx_system_init(void)
   /*
     Peripheral init section
   */
-  /*
-    mx_example_crc_init
-  */
-  if (mx_crc_init() == NULL)
-  {
-    return SYSTEM_PERIPHERAL_ERROR;
-  }
 
-  /*
-    mx_gpio_status_led_init
-  */
+  /** gpio_default */
   if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
-  /** mx_rng_init()has been generated,
-    * (mx_example_rng_init)
+  /** USART2 */
+  if (mx_usart2_uart_init() == NULL)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
+
+  /** CRC */
+  if (mx_crc_init() == NULL)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
+
+  /** RNG: mx_rng_init() has been generated,
     * but it is expected that application will call it when best needed
     * according to application needs.
     * See Cube code generator options: Generate and call Initialization function
     */
 
-  /*
-  */
-  if (mx_usart2_uart_init() == NULL)
+  /** AES */
+  if (mx_aes_init() == NULL)
+  {
+    return SYSTEM_PERIPHERAL_ERROR;
+  }
+
+  /** HASH */
+  if (mx_hash_init() == NULL)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }

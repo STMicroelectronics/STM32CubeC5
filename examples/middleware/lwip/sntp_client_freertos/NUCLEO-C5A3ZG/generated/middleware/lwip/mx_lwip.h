@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file           : mx_lwip.h
-  * @brief          : LwIP STM32 ethernet interface
+  * @brief          : LwIP STM32 interface initialization.
   ******************************************************************************
   * @attention
   *
@@ -25,10 +25,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "lwip/err.h"
 #include "lwip/netif.h"
-#include "stm32_hal.h"
 #include "eth_interface_freertos.h"
-#include "FreeRTOS.h"
-#include "queue.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -39,14 +36,16 @@ extern "C" {
 #define MX_LWIP_MAX_INTERFACE_NB                10   /**< Maximum number of network interfaces. */
 #define MX_LWIP_DATA_WORKER_QUEUE_SIZE          20   /**< Size of the message queue. */
 #define MX_LWIP_DATA_WORKER_QUEUE_TX_TIMEOUT_MS 1000 /**< Timeout for low-level output in the message queue. */
-#define MX_LWIP_DATA_WORKER_STACK_SIZE          2048 /**< Stack size (in bytes) for the data worker thread. */
-#define MX_LWIP_DATA_WORKER_PRIORITY            25   /**< Data Worker Thread priority. */
+#define MX_LWIP_DATA_WORKER_STACK_SIZE          8192 /**< Stack size in bytes for the data worker thread. */
+#define MX_LWIP_DATA_WORKER_PRIORITY            25   /**< Data worker thread priority. */
 #define MX_LWIP_LINK_MONITOR_PERIOD_MS          100  /**< Link monitoring period in milliseconds. */
-#define MX_LWIP_LINK_MONITOR_STACK_SIZE         512  /**< Stack size (in bytes) for the link monitor thread. */
-#define MX_LWIP_LINK_MONITOR_PRIORITY           25   /**< Link monitoring Thread priority. */
+#define MX_LWIP_LINK_MONITOR_STACK_SIZE         1024 /**< Stack size in bytes for the link monitor thread. */
+#define MX_LWIP_LINK_MONITOR_PRIORITY           25   /**< Link monitor thread priority. */
 #define MX_LWIP_MAX_ETH_TX_BUFFERS              5    /**< Maximum number of Ethernet TX buffers. */
+#define MX_LWIP_ETH_GIGABIT_SUPPORT             0    /**< Disable gigabit support in ethernet interface. */
+
 /* Exported variables --------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */
+/* Exported functions --------------------------------------------------------*/
 
 /**
  * @brief  Initialize the LwIP stack and Ethernet interface.
@@ -54,20 +53,17 @@ extern "C" {
  */
 err_t mx_lwip_init(void);
 
-
 /**
  * @brief  De-initialize the LwIP stack and Ethernet interface.
  * @return ERR_OK on success, error code otherwise.
  */
 err_t mx_lwip_deinit(void);
 
-
 /**
  * @brief  Get the context structure for Ethernet interface 1.
- * @return Pointer to lwip_eth_interface_netif_context_t for interface 1.
+ * @return Pointer to the Ethernet interface context.
  */
 lwip_eth_interface_netif_context_t *mx_lwip_get_interface_context_1(void);
-
 
 /**
  * @brief  Initialize Ethernet interface 1 and configure the provided netif.
@@ -76,7 +72,6 @@ lwip_eth_interface_netif_context_t *mx_lwip_get_interface_context_1(void);
  */
 err_t mx_lwip_init_interface_1(struct netif *p_netif);
 
-
 /**
  * @brief  De-initialize Ethernet interface 1 and clear its context.
  * @param  p_netif Pointer to the LwIP network interface structure to de-initialize.
@@ -84,9 +79,8 @@ err_t mx_lwip_init_interface_1(struct netif *p_netif);
 void mx_lwip_deinit_interface_1(struct netif *p_netif);
 
 /**
- * @brief Register a SNTP time update callback function to set the system time for example.
- * 
- * @param fn Pointer to a function that sets the system time, taking seconds and microseconds as parameters.
+ * @brief Register a SNTP time update callback function.
+ * @param fn Pointer to a function taking seconds and microseconds.
  */
 void mx_lwip_sntp_register_set_system_time_fn(void(*fn)(u32_t sec, u32_t usec));
 

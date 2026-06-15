@@ -6,12 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -19,7 +19,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "mx_rcc.h"
 
-/* Private typedef -----------------------------------------------------------*//* Private define ------------------------------------------------------------*/
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype------------------------------------------------*/
@@ -42,27 +43,24 @@
   */
 system_status_t mx_rcc_init(void)
 {
-
   if (HAL_RCC_HSE_Enable(HAL_RCC_HSE_ON) != HAL_OK)
   {
     return SYSTEM_CLOCK_ERROR;
   }
-  hal_rcc_psi_config_t config_psi;
+
+    hal_rcc_psi_config_t config_psi;
   config_psi.psi_source = HAL_RCC_PSI_SRC_HSE;
   config_psi.psi_ref = HAL_RCC_PSI_REF_24MHZ;
   config_psi.psi_out = HAL_RCC_PSI_OUT_144MHZ;
-  HAL_RCC_PSI_SetConfig(&config_psi);
-
+  if (HAL_RCC_PSI_SetConfig(&config_psi) != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
 
   if (HAL_RCC_PSIS_Enable() != HAL_OK)
   {
     return SYSTEM_CLOCK_ERROR;
   }
-
-  /** Frequency will be increased */
-  HAL_FLASH_ITF_SetLatency(HAL_FLASH, HAL_FLASH_ITF_LATENCY_4);
-  HAL_RCC_SetSYSCLKSource(HAL_RCC_SYSCLK_SRC_PSIS);
-  HAL_FLASH_ITF_SetProgrammingDelay(HAL_FLASH, HAL_FLASH_ITF_PROGRAM_DELAY_2);
 
   /** Initializes the CPU, AHB and APB busses clocks */
   hal_rcc_bus_clk_config_t config_bus;
@@ -70,21 +68,34 @@ system_status_t mx_rcc_init(void)
   config_bus.pclk1_prescaler = HAL_RCC_PCLK_PRESCALER1;
   config_bus.pclk2_prescaler = HAL_RCC_PCLK_PRESCALER1;
   config_bus.pclk3_prescaler = HAL_RCC_PCLK_PRESCALER1;
-  HAL_RCC_SetBusClockConfig(&config_bus);
+  if (HAL_RCC_SetBusClockConfig(&config_bus) != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
 
-  /** Systick Initialization */
-  HAL_RCC_SetSysTickExternalClkSource(HAL_RCC_SYSTICK_CLK_SRC_HCLKDIV8);
+  /** Frequency will be increased */
+  HAL_FLASH_ITF_SetLatency(HAL_FLASH, HAL_FLASH_ITF_LATENCY_4);
 
+  if (HAL_RCC_SetSYSCLKSource(HAL_RCC_SYSCLK_SRC_PSIS) != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
+
+  HAL_FLASH_ITF_SetProgrammingDelay(HAL_FLASH, HAL_FLASH_ITF_PROGRAM_DELAY_2);
+
+  if (HAL_UpdateCoreClock() != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
+
+  /* No GPIO configuration required for RCC */
 
   return SYSTEM_OK;
 }
 
 void mx_rcc_deinit(void)
 {
-
-  HAL_PWR_DisableRTCDomainWriteProtection();
   HAL_RCC_Reset();
-  HAL_PWR_EnableRTCDomainWriteProtection();
 }
 
 /**
@@ -92,7 +103,7 @@ void mx_rcc_deinit(void)
   */
 system_status_t mx_rcc_peripherals_clock_config(void)
 {
-  /* Peripherals clocked with PCLK1 (144 MHz):
+  /* Peripherals using PCLK1 (144 MHz):
     USART2
   */
 

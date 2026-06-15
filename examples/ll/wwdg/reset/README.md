@@ -2,7 +2,7 @@
 
 # __Example: *ll_wwdg_reset*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.4
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -40,23 +40,24 @@ LED and the `ExecStatus` variable.
 
 ### __3.1. Generic Setup__
 
+The frequency used for the WWDG_TIMEOUT parameter calculation depends on the board and setup you are using. So, you have to be sure the WWDG can perform a timeout for your case. You can refer to the datasheet to retrieve typical timeout values configuration.
+The following section provide some explanation on the maximal timeout reachable according to the series.
+
+### __3.2. Specific board setups__
+
 The frequency used for the WWDG_TIMEOUT parameter calculation depends on the board and setup you are using:
 <details>
-  <summary>On STM32U5 series.</summary>
+  <summary>On STM32C5 series.</summary>
 
 The APB frequency is equal to 160 MHz. The value for the frequency can change if you change the clock divider, which is by default equal to 1.
 During the WWDG initialization, the WWDG_INTERNAL_DIVIDER is set to 4096, `WDGTB[2:0]` is set to 7 and `T[5:0]` is set to 63.
 Below is the calculation of the WWDG_TIMEOUT based on this configuration:
 
-> WWDG_TIMEOUT = (1 / 160000000) * 4096 * 2^7 * (63 + 1) = 209.72 ms.
-> After the WWDG is refreshed, it will expire after approximately 209.71 milliseconds and generate a reset if the counter is not reloaded within this time frame.
+> WWDG_TIMEOUT = (1 / 144MHz) * 4096 * 2^7 * (63 + 1) = 233,017 ms.
+> After the WWDG is refreshed, it will expire after approximately 233,017 milliseconds and generate a reset if the counter is not reloaded within this time frame.
 
 
 </details>
-
-### __3.2. Specific board setups__
-
-No specific board setup needed for this example.
 
 
 ## __4. Troubleshooting__

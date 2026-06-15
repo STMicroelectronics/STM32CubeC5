@@ -26,15 +26,15 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /* Exported function definition ----------------------------------------------*/
+/******************************************************************************/
+/* Exported functions for TIM2 in LL layer */
+/******************************************************************************/
 
-/******************************************************************************/
-/* Exported functions for TIM2 in LL layer (SW instance MyTIM_1) */
-/******************************************************************************/
 TIM_TypeDef *mx_tim2_init(void)
 {
   LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM2);
 
-  /* Timer configuration to reach the output frequency at 1000 Hz */
+  /* Timer configuration to reach the output frequency at 1 kHz */
   LL_TIM_SetPrescaler(TIM2, 143);
   /* LL_TIM_SetCounterMode(TIM2, LL_TIM_COUNTERMODE_UP); */ /* Configuration matches register reset state at startup. */
   LL_TIM_SetAutoReload(TIM2, 999);
@@ -43,7 +43,7 @@ TIM_TypeDef *mx_tim2_init(void)
   /* LL_TIM_SetClockSource(TIM2, LL_TIM_CLK_INTERNAL); */ /* Configuration matches register reset state at startup. */
 
   /* Channel 2 Configuration */
-  LL_TIM_OC_ConfigOutput(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_OCPOLARITY_HIGH);
+  /* LL_TIM_OC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_OCPOLARITY_HIGH); */ /* Configuration matches register reset state at startup. */
 
   /* Compare Unit 2 Configuration */
   LL_TIM_OC_SetMode(TIM2, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_TOGGLE);
@@ -51,7 +51,7 @@ TIM_TypeDef *mx_tim2_init(void)
   LL_TIM_OC_EnablePreload(TIM2, LL_TIM_CHANNEL_CH2);
 
   /* Channel 3 Configuration */
-  LL_TIM_OC_ConfigOutput(TIM2, LL_TIM_CHANNEL_CH3, LL_TIM_OCPOLARITY_HIGH);
+  /* LL_TIM_OC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH3, LL_TIM_OCPOLARITY_HIGH); */ /* Configuration matches register reset state at startup. */
 
   /* Compare Unit 3 Configuration */
   LL_TIM_OC_SetMode(TIM2, LL_TIM_CHANNEL_CH3, LL_TIM_OCMODE_TOGGLE);
@@ -64,54 +64,52 @@ TIM_TypeDef *mx_tim2_init(void)
 
   /* Master Mode Configuration */
 
+  /* ### TIM2 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
 
   /**
-    TIM2 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB3     ------>   TIM2_CH2
+       PB3     ------>   TIM2_CH2   ------>  DBG_SWO
     **/
 
   /* Configure IO output speed (Low, Medium, High or Very-High) */
-  /* LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_3, LL_GPIO_SPEED_FREQ_VERY_HIGH); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_SPEED_FREQ_VERY_HIGH); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_3, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinOutputType(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_3, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_3, LL_GPIO_AF_1);
+  LL_GPIO_SetAFPin_0_7(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_AF_1);
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_3, LL_GPIO_MODE_ALTERNATE);
+  /* LL_GPIO_SetPinMode(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_MODE_ALTERNATE); */ /* Configuration matches register reset state at startup. */
 
   /**
-    TIM2 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB10    ------>   TIM2_CH3
+       PB10    ------>   TIM2_CH3   ------>  PB10
     **/
 
   /* Configure IO output speed (Low, Medium, High or Very-High) */
-  /* LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_10, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PB10_PORT, PB10_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_10, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinOutputType(PB10_PORT, PB10_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_10, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PB10_PORT, PB10_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOB, LL_GPIO_PIN_10, LL_GPIO_AF_1);
+  LL_GPIO_SetAFPin_8_15(PB10_PORT, PB10_PIN, LL_GPIO_AF_1);
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_10, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PB10_PORT, PB10_PIN, LL_GPIO_MODE_ALTERNATE);
 
   return TIM2;
 }
@@ -126,40 +124,40 @@ void mx_tim2_deinit(void)
   /* ### GPIO deinitialization of TIM2: TIM2_CH2 ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_3, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_3, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_3, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_3, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_3, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOB, LL_GPIO_PIN_3, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(DBG_SWO_PORT, DBG_SWO_PIN, LL_GPIO_PIN_RESET);
 
   /* ### GPIO deinitialization of TIM2: TIM2_CH3 ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_10, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PB10_PORT, PB10_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOB, LL_GPIO_PIN_10, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_8_15(PB10_PORT, PB10_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_10, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PB10_PORT, PB10_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_10, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(PB10_PORT, PB10_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_10, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PB10_PORT, PB10_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOB, LL_GPIO_PIN_10, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PB10_PORT, PB10_PIN, LL_GPIO_PIN_RESET);
 }

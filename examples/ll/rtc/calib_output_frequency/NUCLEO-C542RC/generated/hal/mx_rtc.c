@@ -25,7 +25,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/** Exported functions for RTC in LL layer (SW instance MyRTC_1)            **/
+/** Exported functions for RTC in LL layer            **/
 /******************************************************************************/
 
 system_status_t mx_rtc_init(void)
@@ -93,9 +93,11 @@ system_status_t mx_rtc_init(void)
   /* Enable write protection */
   LL_RTC_EnableWriteProtection();
 
+  /* No GPIO configuration required for RTC */
   return SYSTEM_OK;
 }
 
 void mx_rtc_deinit(void)
 {
+  /* No GPIO de-initialization required for RTC */
 }

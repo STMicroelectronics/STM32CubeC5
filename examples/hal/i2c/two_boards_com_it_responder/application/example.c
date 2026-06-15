@@ -122,8 +122,7 @@ app_status_t app_process(void)
       /** Put the CPU in Wait For Interrupt state. An I2C interrupt or a SystTick interrupt can wake up the CPU.
         * @user: This process is used to illustrate the interest of the interrupts. It can be replaced by your own code.
         */
-      /* WFI temporarily disabled as a workaround */
-      /* __WFI(); */
+      __WFI();
     }
 
     if (TransferError == 1)
@@ -154,8 +153,7 @@ app_status_t app_process(void)
       /** Put the CPU in Wait For Interrupt state. An I2C interrupt or a SystTick interrupt can wake up the CPU.
         * @user: This process is used to illustrate the interest of the interrupts. It can be replaced by your own code.
         */
-      /* WFI temporarily disabled as a workaround */
-      /* __WFI(); */
+      __WFI();
     }
 
     if (TransferError == 1)

@@ -24,6 +24,7 @@
 /* Private define ------------------------------------------------------------*/
 #define AES_TIMEOUT_MS  100
 
+#define AES_ALIGNMENT         (4U) /* AES data alignment */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_aes_handle_t *pAES; /* pointer referencing the AES handle from the generated code */
@@ -39,20 +40,30 @@ hal_aes_ccm_config_t p_ccm_config;
   * plainText 20212223 24252627 28292A2B 2C2D2E2F
   *
   */
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t AES128Key[4] = {0x40414243, 0x44454647, 0x48494a4b, 0x4c4d4e4f};
+
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t Block_B0[4] = {0x56101112, 0x13141516, 0x17000000, 0x00000010};
+
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t BlockB1[8] =
 {
   0x00100001, 0x02030405, 0x06070809, 0x0a0b0c0d,
   0x0e0f0000, 0x00000000, 0x00000000, 0x00000000
 };
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t plainText[4] = {0x20212223, 0x24252627, 0x28292a2b, 0x2c2d2e2f};
+
+
 uint32_t expectedCipherText[4] = {0xd2a1f0e0, 0x51ea5f62, 0x081a7792, 0x073d593d};
 
 /* Used for storing the encrypted text */
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t computedCiphertext[4] = {0};
 
 /* Used for storing the decrypted text */
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t computedPlaintext[4] = {0};
 
 

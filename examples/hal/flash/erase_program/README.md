@@ -2,7 +2,7 @@
 
 # __Example: *hal_flash_erase_program*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the Cube firmware package.")
 
@@ -71,13 +71,15 @@ This section describes the exact hardware configurations of your project.
 <details>
   <summary>On STM32C5 series.</summary>
   <details>
-  <summary>ICACHE</summary>
-    When initializing or modifying the contents of memory regions that are accessed through ICACHE (for example, programming code or data in flash), ICACHE must be disabled first and only re-enabled once these updates are complete. An enabled ICACHE detects write transactions to cacheable regions as errors.
+    <summary>ICACHE</summary>
+
+  When initializing or modifying the contents of memory regions that are accessed through ICACHE (for example, programming code or data in flash), ICACHE must be disabled first and only re-enabled once these updates are complete. An enabled ICACHE detects write transactions to cacheable regions as errors.
 
     By default, the entire AHB address space is considered cacheable. For regions where caching is not permitted (such as OTP, read-only areas, or specific data regions), the MPU must be configured to mark them as non-cacheable. If ICACHE attempts to cache these regions, a HardFault is generated.
+
   </details>
   <details>
-  <summary>On board NUCLEO-C562RE.</summary>
+    <summary>On board NUCLEO-C562RE.</summary>
 
   | Board connector   | MCU pin | Signal name      | ARDUINO pin |
   | :---:             | :---:   | :---:            | :---:       |

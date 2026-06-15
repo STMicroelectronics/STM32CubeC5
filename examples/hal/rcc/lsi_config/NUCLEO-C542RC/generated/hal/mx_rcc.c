@@ -48,7 +48,7 @@ system_status_t mx_rcc_init(void)
     return SYSTEM_CLOCK_ERROR;
   }
 
-  hal_rcc_psi_config_t config_psi;
+    hal_rcc_psi_config_t config_psi;
   config_psi.psi_source = HAL_RCC_PSI_SRC_HSE;
   config_psi.psi_ref = HAL_RCC_PSI_REF_24MHZ;
   config_psi.psi_out = HAL_RCC_PSI_OUT_144MHZ;
@@ -95,23 +95,23 @@ system_status_t mx_rcc_init(void)
     return SYSTEM_CLOCK_ERROR;
   }
 
+  /* ### RCC GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    RCC GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA8     ------>   RCC_MCO1
+       PA8     ------>   RCC_MCO1   ------>  PA8
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_0;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_8, &gpio_config);
+  HAL_GPIO_Init(PA8_PORT, PA8_PIN, &gpio_config);
 
   HAL_RCC_SetConfigMCO(HAL_RCC_MCO1_SRC_LSI, HAL_RCC_MCO1_PRESCALER1);
 

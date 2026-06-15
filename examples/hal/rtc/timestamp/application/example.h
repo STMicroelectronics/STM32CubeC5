@@ -23,6 +23,7 @@
 #include <stdio.h> /* printf */
 
 #include "mx_hal_def.h"       /* aliases to the target-specific generated code */
+#include "mx_system.h"
 #include "mx_led.h"           /* led_part_drivers */
 
 #ifdef __cplusplus

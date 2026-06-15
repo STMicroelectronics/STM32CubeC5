@@ -54,7 +54,19 @@ extern "C" {
 system_status_t mx_rcc_init(void);
 void mx_rcc_deinit(void);
 
-system_status_t mx_rcc_peripherals_clock_config(void);
+system_status_t mx_rcc_rtc_clock_config(void);
+system_status_t mx_rcc_rtc_clock_deactivate(void);
+
+system_status_t mx_rcc_hse_clock_config(uint32_t nb_resources);
+system_status_t mx_rcc_hse_clock_deactivate(void);
+
+system_status_t mx_rcc_psis_clock_config(uint32_t nb_resources);
+system_status_t mx_rcc_psis_clock_deactivate(void);
+
+system_status_t mx_rcc_lse_clock_config(uint32_t nb_resources);
+system_status_t mx_rcc_lse_clock_deactivate(void);
+system_status_t mx_rcc_psi_config(void);
+system_status_t mx_rcc_psi_deactivate(void);
 
 #ifdef __cplusplus
 }

@@ -2,7 +2,7 @@
 
 # __Example: *w25n01gvxx_read_write*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -114,10 +114,9 @@ This section describes the exact hardware configurations of your project.
   |    PA7    |   SPI1_MOSI   |     PA7      |
   |    PC9    |     GPIO      |      -       |
 
-  The W25N01GVXX NAND Flash supports up to 104Mhz. For this example, the SPI1 clock is set to 72Mhz.
+  The W25N01GVXX NAND Flash supports up to 104Mhz. For this example, the SPI1 clock is set to 2Mhz.
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -131,10 +130,9 @@ This section describes the exact hardware configurations of your project.
   |    PA7    |   SPI1_MOSI   |     PA7      |
   |    PC9    |     GPIO      |      -       |
 
-  The W25N01GVXX NAND Flash supports up to 104Mhz. For this example, the SPI1 clock is set to 72Mhz.
+  The W25N01GVXX NAND Flash supports up to 104Mhz. For this example, the SPI1 clock is set to 2Mhz.
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -148,11 +146,10 @@ This section describes the exact hardware configurations of your project.
   |    PA7    |   SPI1_MOSI   |     PA7      |
   |    PB5    |     GPIO      |      -       |
 
-  The W25N01GVXX NAND Flash supports up to 104Mhz. For this example, the SPI1 clock is set to 72Mhz.
+  The W25N01GVXX NAND Flash supports up to 104Mhz. For this example, the SPI1 clock is set to 2Mhz.
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

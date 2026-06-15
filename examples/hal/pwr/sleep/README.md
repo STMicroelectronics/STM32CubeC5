@@ -2,11 +2,11 @@
 
 # __Example: *hal_pwr_sleep*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
-How to enter and exit the Sleep mode through an EXTI interrupt using the LL API.
+How to enter and exit the Sleep mode through an EXTI interrupt using the HAL API.
 
 
 ## __1. Detailed scenario__

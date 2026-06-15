@@ -48,7 +48,7 @@ system_status_t mx_rcc_init(void)
     return SYSTEM_CLOCK_ERROR;
   }
 
-  hal_rcc_psi_config_t config_psi;
+    hal_rcc_psi_config_t config_psi;
   config_psi.psi_source = HAL_RCC_PSI_SRC_HSE;
   config_psi.psi_ref = HAL_RCC_PSI_REF_48MHZ;
   config_psi.psi_out = HAL_RCC_PSI_OUT_144MHZ;

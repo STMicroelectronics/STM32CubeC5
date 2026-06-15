@@ -26,18 +26,18 @@
 static hal_adc_handle_t hADC1;
 
 /******************************************************************************/
-/* Exported functions for ADC1 in HAL layer (SW instance MyADC_1) */
+/* Exported functions for ADC1 in HAL layer */
 /******************************************************************************/
 hal_adc_handle_t *mx_adc1_init(void)
 {
-  HAL_RCC_ADC12_EnableClock();
-
-  if (HAL_RCC_ADCDAC_SetKernelClkSource(HAL_RCC_ADCDAC_CLK_SRC_PSIS) != HAL_OK)
+  if (HAL_ADC_Init(&hADC1, HAL_ADC1) != HAL_OK)
   {
     return NULL;
   }
 
-  if (HAL_ADC_Init(&hADC1, HAL_ADC1) != HAL_OK)
+  HAL_RCC_ADC12_EnableClock();
+
+  if (HAL_RCC_ADCDAC_SetKernelClkSource(HAL_RCC_ADCDAC_CLK_SRC_PSIS) != HAL_OK)
   {
     return NULL;
   }

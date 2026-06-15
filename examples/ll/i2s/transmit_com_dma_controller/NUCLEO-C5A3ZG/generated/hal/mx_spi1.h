@@ -38,10 +38,6 @@ extern "C" {
 #define NETR53_2_PORT                         GPIOA
 #define NETR53_2_PIN                          LL_GPIO_PIN_15
 
-/** Primary aliases for I2S1_SDI pin */
-#define PA6_PORT                              GPIOA
-#define PA6_PIN                               LL_GPIO_PIN_6
-
 /** Primary aliases for I2S1_SDO pin */
 #define PA7_PORT                              GPIOA
 #define PA7_PIN                               LL_GPIO_PIN_7
@@ -64,15 +60,8 @@ SPI_TypeDef *mx_spi1_i2s_init(void);
 void mx_spi1_i2s_deinit(void);
 
 /******************************************************************************/
-/*          SPI1 global interrupt is managed directly in user code.           */
-/******************************************************************************/
-
-/* void SPI1_IRQHandler(void); */
-
-/******************************************************************************/
 /*     LPDMA1 channel0 global interrupt is managed directly in user code.     */
 /******************************************************************************/
-
 /* void LPDMA1_CH0_IRQHandler(void); */
 
 #ifdef __cplusplus

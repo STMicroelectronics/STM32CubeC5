@@ -20,9 +20,26 @@
 #include "mx_rcc.h"
 
 /* Private typedef -----------------------------------------------------------*/
+
+typedef struct
+{
+  uint32_t hse: 4U;
+  uint32_t psis: 4U;
+  uint32_t lse: 4U;
+  uint32_t psi_config: 1U;
+} mx_rcc_status_t;
+
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
+#define RCC_CONSUME_RESOURCE(block, nb_resources)     (RCC_Status.block += (nb_resources))
+#define RCC_RELEASE_RESOURCE(block)                   ((RCC_Status.block > 0U) ? (RCC_Status.block--) : \
+                                                       (RCC_Status.block = 0U))
+#define RCC_IS_RESOURCE_FREE(block)                   (RCC_Status.block == 0U)
+#define RCC_IS_RESOURCE_TAKEN(block)                  (RCC_Status.block > 0U)
+
 /* Private variables ---------------------------------------------------------*/
+static mx_rcc_status_t RCC_Status;
+
 /* Private functions prototype------------------------------------------------*/
 
 /******************************************************************************/
@@ -48,6 +65,7 @@ system_status_t mx_rcc_init(void)
     return SYSTEM_CLOCK_ERROR;
   }
 
+    RCC_CONSUME_RESOURCE(hse, 1);
   hal_rcc_psi_config_t config_psi;
   config_psi.psi_source = HAL_RCC_PSI_SRC_HSE;
   config_psi.psi_ref = HAL_RCC_PSI_REF_24MHZ;
@@ -57,10 +75,14 @@ system_status_t mx_rcc_init(void)
     return SYSTEM_CLOCK_ERROR;
   }
 
+  RCC_CONSUME_RESOURCE(psi_config, 1);
+
   if (HAL_RCC_PSIS_Enable() != HAL_OK)
   {
     return SYSTEM_CLOCK_ERROR;
   }
+
+    RCC_CONSUME_RESOURCE(psis, 1);
 
   /** Initializes the CPU, AHB and APB busses clocks */
   hal_rcc_bus_clk_config_t config_bus;
@@ -95,39 +117,255 @@ system_status_t mx_rcc_init(void)
 
 void mx_rcc_deinit(void)
 {
+  RCC_Status = (mx_rcc_status_t){0};
+
   HAL_RCC_Reset();
 }
 
 /**
-  * configures and activate the clocks used by all the peripherals selected within the project
+  * configure and enable clock for USART2
   */
-system_status_t mx_rcc_peripherals_clock_config(void)
+system_status_t mx_rcc_usart2_clock_config(void)
 {
   /* Peripherals using PCLK1 (144 MHz):
     USART2
   */
 
-  /* Peripherals using LSE (32.768 kHz):
-    RTC
-  */
-
-  /* Disable RTC Domain Write Protection */
-  HAL_PWR_DisableRTCDomainWriteProtection();
-
-  if (HAL_RCC_LSE_Enable(HAL_RCC_LSE_ON, HAL_RCC_LSE_DRIVE_HIGH) != HAL_OK)
+  if (HAL_RCC_USART2_SetKernelClkSource(HAL_RCC_USART2_CLK_SRC_PCLK1) != HAL_OK)
   {
-    /* In order to simplify the code generation and management for the user, the write protection is not enabled by
-       default. In real case application, we advise to enable it once all the necessary configurations are done. */
-    /* Enable RTC Domain Write Protection */
-    //HAL_PWR_EnableRTCDomainWriteProtection();
-
     return SYSTEM_CLOCK_ERROR;
   }
 
-  /* In order to simplify the code generation and management for the user, the write protection is not enabled by
-     default. In real case application, we advise to enable it once all the necessary configurations are done. */
-  /* Enable RTC Domain Write Protection */
-  //HAL_PWR_EnableRTCDomainWriteProtection();
+  return SYSTEM_OK;
+}
+
+/**
+  * Deactivate clock for USART2
+  */
+system_status_t mx_rcc_usart2_clock_deactivate(void)
+{
+  /* Nothing to do */
+
+  return SYSTEM_OK;
+}
+
+/**
+  * configure and enable clock for RTC
+  */
+system_status_t mx_rcc_rtc_clock_config(void)
+{
+  /* Peripherals using LSE (32.768 kHz):
+    RTC
+  */
+  if (mx_rcc_lse_clock_config(1) != SYSTEM_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
+
+  if (HAL_RCC_RTC_SetKernelClkSource(HAL_RCC_RTC_CLK_SRC_LSE) != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Deactivate clock for RTC
+  */
+system_status_t mx_rcc_rtc_clock_deactivate(void)
+{
+  if (mx_rcc_lse_clock_deactivate() != SYSTEM_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
+  return SYSTEM_OK;
+}
+
+/**
+  * configure and enable HSE oscillator
+  * @param nb_resources Number of resources which requests to configure the clock
+  */
+system_status_t mx_rcc_hse_clock_config(uint32_t nb_resources)
+{
+  if (RCC_IS_RESOURCE_FREE(hse))
+  {
+    if (HAL_RCC_HSE_Enable(HAL_RCC_HSE_ON) != HAL_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+  }
+  RCC_CONSUME_RESOURCE(hse, nb_resources);
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Disable HSE oscillator
+  */
+system_status_t mx_rcc_hse_clock_deactivate(void)
+{
+  RCC_RELEASE_RESOURCE(hse);
+
+  if (RCC_IS_RESOURCE_FREE(hse))
+  {
+    if (HAL_RCC_HSE_Disable() != HAL_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+  }
+  return SYSTEM_OK;
+}
+
+/**
+  * configure and enable PSIS oscillator
+  * @param nb_resources Number of resources which requests to configure the clock
+  */
+system_status_t mx_rcc_psis_clock_config(uint32_t nb_resources)
+{
+  if (RCC_IS_RESOURCE_FREE(psis))
+  {
+    if (mx_rcc_psi_config() != SYSTEM_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+    if (HAL_RCC_PSIS_Enable() != HAL_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+  }
+  RCC_CONSUME_RESOURCE(psis, nb_resources);
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Disable PSIS oscillator
+  */
+system_status_t mx_rcc_psis_clock_deactivate(void)
+{
+  RCC_RELEASE_RESOURCE(psis);
+
+  if (RCC_IS_RESOURCE_FREE(psis))
+  {
+    if (HAL_RCC_PSIS_Disable() != HAL_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+
+    if (mx_rcc_psi_deactivate() != SYSTEM_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+  }
+  return SYSTEM_OK;
+}
+
+/**
+  * configure and enable LSE oscillator
+  * @param nb_resources Number of resources which requests to configure the clock
+  */
+system_status_t mx_rcc_lse_clock_config(uint32_t nb_resources)
+{
+  if (RCC_IS_RESOURCE_FREE(lse))
+  {
+    /* Disable RTC Domain Write Protection */
+    HAL_PWR_DisableRTCDomainWriteProtection();
+
+    if (HAL_RCC_LSE_Enable(HAL_RCC_LSE_ON, HAL_RCC_LSE_DRIVE_HIGH) != HAL_OK)
+    {
+      /* In order to simplify the code generation and management for the user, the write protection is not enabled by
+         default. In real case application, we advise to enable it once all the necessary configurations are done. */
+      /* Enable RTC Domain Write Protection */
+      /* HAL_PWR_EnableRTCDomainWriteProtection(); */
+
+      return SYSTEM_CLOCK_ERROR;
+    }
+
+    /* In order to simplify the code generation and management for the user, the write protection is not enabled by
+       default. In real case application, we advise to enable it once all the necessary configurations are done. */
+    /* Enable RTC Domain Write Protection */
+    /* HAL_PWR_EnableRTCDomainWriteProtection(); */
+  }
+  RCC_CONSUME_RESOURCE(lse, nb_resources);
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Disable LSE oscillator
+  */
+system_status_t mx_rcc_lse_clock_deactivate(void)
+{
+  RCC_RELEASE_RESOURCE(lse);
+
+  if (RCC_IS_RESOURCE_FREE(lse))
+  {
+    /* Disable RTC Domain Write Protection */
+    HAL_PWR_DisableRTCDomainWriteProtection();
+
+    if (HAL_RCC_LSE_Disable() != HAL_OK)
+    {
+        /* In order to simplify the code generation and management for the user, the write protection is not enabled by
+           default. In real case application, we advise to enable it once all the necessary configurations are done. */
+        /* Enable RTC Domain Write Protection */
+        /* HAL_PWR_EnableRTCDomainWriteProtection(); */
+
+      return SYSTEM_CLOCK_ERROR;
+    }
+
+    /* In order to simplify the code generation and management for the user, the write protection is not enabled by
+       default. In real case application, we advise to enable it once all the necessary configurations are done. */
+    /* Enable RTC Domain Write Protection */
+    /* HAL_PWR_EnableRTCDomainWriteProtection(); */
+  }
+  return SYSTEM_OK;
+}
+
+/**
+  * Enable the PSI source reference and configure the PSI oscillator.
+  */
+system_status_t mx_rcc_psi_config(void)
+{
+  if (RCC_IS_RESOURCE_FREE(psi_config))
+  {
+    /* Enable the oscillator used as PSI reference */
+    if (mx_rcc_hse_clock_config(1) != SYSTEM_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+    /* Configure the PSI oscillator */
+    hal_rcc_psi_config_t config_psi;
+    config_psi.psi_source = HAL_RCC_PSI_SRC_HSE;
+    config_psi.psi_ref = HAL_RCC_PSI_REF_24MHZ;
+    config_psi.psi_out = HAL_RCC_PSI_OUT_144MHZ;
+    if (HAL_RCC_PSI_SetConfig(&config_psi) != HAL_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+
+    RCC_CONSUME_RESOURCE(psi_config, 1);
+  }
+
+  return SYSTEM_OK;
+}
+
+/**
+  * Disable the PSI source reference and the PSI oscillator.
+  */
+system_status_t mx_rcc_psi_deactivate(void)
+{
+  /* Deactivation is possible only if all PSI outputs are free */
+  if (RCC_IS_RESOURCE_FREE(psis))
+  {
+    RCC_RELEASE_RESOURCE(psi_config);
+
+    /* Deactivate the oscillator used as PSI reference */
+    if (mx_rcc_hse_clock_deactivate() != SYSTEM_OK)
+    {
+      return SYSTEM_CLOCK_ERROR;
+    }
+  }
 
   return SYSTEM_OK;
 }

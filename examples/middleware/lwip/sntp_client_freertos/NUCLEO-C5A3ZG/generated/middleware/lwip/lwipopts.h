@@ -160,8 +160,9 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
   * per active UDP "connection".
   * (requires the LWIP_UDP option)
   */
-#define MEMP_NUM_UDP_PCB                4
+#define MEMP_NUM_UDP_PCB              4
 
+ 
 /**
   * MEMP_NUM_TCP_PCB: the number of simultaneously active TCP connections.
   * (requires the LWIP_TCP option)
@@ -180,6 +181,7 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
   */
 #define MEMP_NUM_TCP_SEG                16
 
+ 
 /**
   * MEMP_NUM_NETCONN: the number of struct netconns.
   * (only needed if you use the sequential API, like api_lib.c)
@@ -187,7 +189,7 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
 #define MEMP_NUM_NETCONN                8
 
 /**
-  * PBUF_POOL_SIZE: the number of buffers in the general pbuf pool.
+  * PBUF_POOL_SIZE: the number of buffers in the general pbuf pool. Used for reception buffers.
   */
 #define PBUF_POOL_SIZE                  30
 
@@ -207,6 +209,9 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
 */
 /* Internet Protocol version 4 */
 #define LWIP_IPV4                       1
+
+/* Internet Protocol version 6 */
+#define LWIP_IPV6                       0
 
 /*
    ----------------------------------
@@ -256,22 +261,12 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
 
 #define LWIP_UDP                        1
 
-/**
-  * UDP_TTL: Default Time-To-Live value.
-  */
-#define UDP_TTL                         255
-
 /*
    ---------------------------------
    ---------- TCP options ----------
    ---------------------------------
 */
 #define LWIP_TCP                        1
-
-/**
-  * TCP_TTL: Default Time-To-Live value.
-  */
-#define TCP_TTL                         255
 
 /**
   * TCP_WND: The size of a TCP window.  This must be at least
@@ -326,6 +321,7 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
   */
 #define TCP_OVERSIZE                    1
 
+ 
 /*
    ------------------------------------------------
    ---------- Network Interfaces options ----------
@@ -367,26 +363,6 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
   * when a netif has been removed
   */
 #define LWIP_NETIF_REMOVE_CALLBACK      1
-
-/**
-  * LWIP_NETIF_TX_SINGLE_PBUF: if this is set to 1, lwIP *tries* to put all data
-  * to be sent into one single pbuf. This is for compatibility with DMA-enabled
-  * MACs that do not support scatter-gather.
-  * Beware that this might involve CPU-memcpy before transmitting that would not
-  * be needed without this flag! Use this only if you need to!
-  *
-  * ATTENTION: a driver must *NOT* rely on getting single pbufs but check TX
-  * pbufs for being in one piece. If not, @ref pbuf_clone can be used to get
-  * a single pbuf:
-  *   if (p->next != NULL) {
-  *     struct pbuf *q = pbuf_clone(PBUF_RAW, PBUF_RAM, p);
-  *     if (q == NULL) {
-  *       return ERR_MEM;
-  *     }
-  *     p = q; ATTENTION: do NOT free the old 'p' as the ref belongs to the caller!
-  *   }
-  */
-#define LWIP_NETIF_TX_SINGLE_PBUF       1
 
 /*
    ------------------------------------
@@ -441,13 +417,6 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
   * sys_thread_new() when the thread is created.
   */
 #define DEFAULT_THREAD_PRIO             16
-
-/**
-  * DEFAULT_RAW_RECVMBOX_SIZE: The mailbox size for the incoming packets on a
-  * NETCONN_RAW. The queue size value itself is platform-dependent, but is passed
-  * to sys_mbox_new() when the recvmbox is created.
-  */
-#define DEFAULT_RAW_RECVMBOX_SIZE       3 /* for ICMP PING */
 
 /*
    ----------------------------------------------
@@ -504,48 +473,6 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
 #define LWIP_SO_SNDRCVTIMEO_NONSTANDARD 1
 
 /*
-   ----------------------------------------
-   ---------- Statistics options ----------
-   ----------------------------------------
-*/
-/**
-  * LWIP_STATS==1: Enable statistics collection in lwip_stats.
-  */
-#define LWIP_STATS                      0
-
-/*
-   --------------------------------------
-   ---------- Checksum options ----------
-   --------------------------------------
-*/
-
-/* Use CPU to compute the checksums. */
-
-#ifdef CHECKSUM_BY_HARDWARE
-#define CHECKSUM_GEN_IP                 0
-#define CHECKSUM_GEN_UDP                0
-#define CHECKSUM_GEN_TCP                0
-#define CHECKSUM_GEN_ICMP               0
-#define CHECKSUM_GEN_ICMP6              0
-#define CHECKSUM_CHECK_IP               0
-#define CHECKSUM_CHECK_UDP              0
-#define CHECKSUM_CHECK_TCP              0
-#define CHECKSUM_CHECK_ICMP             0
-#define CHECKSUM_CHECK_ICMP6            0
-#else
-#define CHECKSUM_GEN_IP                 1
-#define CHECKSUM_GEN_UDP                1
-#define CHECKSUM_GEN_TCP                1
-#define CHECKSUM_GEN_ICMP               1
-#define CHECKSUM_GEN_ICMP6              1
-#define CHECKSUM_CHECK_IP               1
-#define CHECKSUM_CHECK_UDP              1
-#define CHECKSUM_CHECK_TCP              1
-#define CHECKSUM_CHECK_ICMP             1
-#define CHECKSUM_CHECK_ICMP6            1
-#endif /* CHECKSUM_BY_HARDWARE */
-
-/*
    ---------------------------------------
    ---------- Debugging options ----------
    ---------------------------------------
@@ -596,7 +523,10 @@ void mx_lwip_sntp_set_system_time(u32_t sec, u32_t usec);
 
 #define LWIP_FREERTOS_THREAD_STACKSIZE_IS_STACKWORDS 1
 
+
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
 #endif /* LWIPOPTS_H */

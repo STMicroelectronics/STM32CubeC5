@@ -25,14 +25,11 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_crs_handle_t hCRS;
-
 /******************************************************************************/
-/* Exported functions for CRS in HAL layer (SW instance MyCRS_1) */
+/* Exported functions for CRS in HAL layer */
 /******************************************************************************/
 hal_crs_handle_t *mx_crs_init(void)
 {
-  hal_crs_config_t crs_config;
-
   if (HAL_CRS_Init(&hCRS, HAL_CRS1) != HAL_OK)
   {
     return NULL;
@@ -40,25 +37,12 @@ hal_crs_handle_t *mx_crs_init(void)
 
   HAL_RCC_CRS_EnableClock();
 
-  crs_config.divider                = HAL_CRS_SYNC_DIV1;
-  crs_config.source                 = HAL_CRS_SYNC_SOURCE_USB;
-  crs_config.polarity               = HAL_CRS_SYNC_POLARITY_RISING;
-  crs_config.reload                 = 0xBB7F;
-  crs_config.frequency_error_limit  = 0x22;
-  crs_config.auto_trimming          = HAL_CRS_AUTO_TRIMMING_DISABLE;
-  crs_config.trimming               = 0x30;
-
-  HAL_CRS_SetConfig(&hCRS, &crs_config);
-
-  /* No GPIO configuration required for CRS */
   return &hCRS;
 }
 
 void mx_crs_deinit(void)
 {
   (void)HAL_CRS_DeInit(&hCRS);
-
-  /* No GPIO de-initialization required for CRS */
 
   HAL_RCC_CRS_Reset();
 

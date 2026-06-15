@@ -23,6 +23,7 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+hal_pcd_handle_t *p_usb_device = UX_NULL;
 USB_DEVICE_ENDPOINT_HANDLE hid_mouse_endpoint_app[] =
 {
   {
@@ -54,8 +55,9 @@ USB_DEVICE_INTERFACE_HANDLE hid_mouse_interface_app[] =
     0x00U,                /* No next alternate setting interface */
   }
 };
-hal_pcd_handle_t *p_usb_device;
+
 /* Private function prototypes -----------------------------------------------*/
+
 /**
   * @brief  Application USBX Device Initialization.
   */
@@ -97,7 +99,7 @@ UINT app_usbx_device_init(VOID)
   hid_mouse_parameter.ux_device_class_hid_parameter_callback         = usbd_hid_mouse_set_report;
   hid_mouse_parameter.ux_device_class_hid_parameter_get_callback     = usbd_hid_mouse_get_report;
 
-  /* Initialize the device hid Mouse class */
+  /* Initialize the device HID mouse class */
   status = ux_device_stack_class_register(_ux_system_slave_class_hid_name,
                                           ux_device_class_hid_entry,
                                           0x01,
@@ -108,18 +110,6 @@ UINT app_usbx_device_init(VOID)
   {
     return status;
   }
-
-  p_usb_device = mx_example_pcd_gethandle();
-
-  /* initialize the device controller driver */
-  status = ux_dcd_stm32_initialize(0, (ULONG)p_usb_device);
-
-  if (status != UX_SUCCESS)
-  {
-    return status;
-  }
-
-
   return UX_SUCCESS;
 }
 
@@ -131,6 +121,17 @@ UINT app_usbx_device_deinit(VOID)
 {
   UINT status = UX_SUCCESS;
 
+  if (p_usb_device != UX_NULL)
+  {
+  /* Unregister USB device controller. */
+  status = _ux_dcd_stm32_uninitialize(0, (ULONG)p_usb_device);
+
+  if (status != UX_SUCCESS)
+  {
+    return status;
+  }
+    p_usb_device = UX_NULL;
+  }
 
   /* Unregister hid class. */
   status = ux_device_stack_class_unregister(_ux_system_slave_class_hid_name, ux_device_class_hid_entry);
@@ -155,10 +156,24 @@ UINT app_usbx_device_deinit(VOID)
 UINT app_usbx_device_process(VOID)
 {
   UINT return_status = UX_SUCCESS;
+  /* Initialization of USB device */
+  if (p_usb_device == UX_NULL)
+  {
+    mx_example_pcd_init();
+    /* Initialization of USB device */
+    p_usb_device = mx_usb_drd_fs_device_gethandle();
+
+    /* Initialize the device controller driver */
+    return_status = ux_dcd_stm32_initialize(0, (ULONG)p_usb_device);
+    if (return_status != UX_SUCCESS)
+    {
+      return return_status;
+    }
+  }
   return_status = ux_device_stack_tasks_run();
   if (return_status != UX_STATE_RESET)
   {
     usbd_hid_mouse_process();
-  }
+}
   return return_status;
 }

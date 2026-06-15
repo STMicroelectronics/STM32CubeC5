@@ -26,13 +26,13 @@
 /* Exported variables by reference--------------------------------------------*/
 static hal_aes_handle_t hSAES;
 
-uint32_t AESIV[4] =
+uint32_t SAESIV[4] =
   {
     0x00010203, 0x04050607, 0x08090A0B, 0x0C0D0E0F
   };
 
 /******************************************************************************/
-/* Exported functions for SAES in HAL layer (SW instance MyAES_1) */
+/* Exported functions for SAES in HAL layer */
 /******************************************************************************/
 hal_aes_handle_t *mx_saes_init(void)
 {
@@ -50,7 +50,7 @@ hal_aes_handle_t *mx_saes_init(void)
 
   HAL_RCC_SAES_EnableClock();
 
-  if (HAL_AES_CBC_SetConfig(&hSAES, AESIV) != HAL_OK)
+  if (HAL_AES_CBC_SetConfig(&hSAES, SAESIV) != HAL_OK)
   {
     return NULL;
   }

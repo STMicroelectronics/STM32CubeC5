@@ -51,7 +51,8 @@ WWDG_TypeDef *mx_wwdg_init(void);
   * @retval  SYSTEM_PERIPHERAL_ERROR Operation completed with error.
   */
 system_status_t mx_wwdg_start(void);
- #ifdef __cplusplus
+
+#ifdef __cplusplus
 }
 #endif /* __cplusplus */
 

@@ -79,7 +79,7 @@ int32_t app_synctasks_init (void)
 static void app_task_one_entry(void *pvParameters)
 {
 /** ########## Step 3 ##########
- * Take semaphore, toggle LED, notify, and sleep.
+ * Take semaphore, toggle LED, notify and sleep.
  */
   ( void ) pvParameters;
   TaskHandle_t background_task = xTaskGetHandle("Background Task");
@@ -160,7 +160,7 @@ static void toggle_user_led(uint32_t delay_ms)
 void HAL_LPTIM_AutoReloadMatchCallback(hal_lptim_handle_t *hlptim)
 {
 /** ########## Step 5 ##########
- * From ISR, release semaphore and stop LPTIM..
+ * From ISR, release semaphore and stop LPTIM.
  */
   ( void ) hlptim;
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
@@ -171,6 +171,6 @@ void HAL_LPTIM_AutoReloadMatchCallback(hal_lptim_handle_t *hlptim)
   /* Request context switch if the unblocked task has higher priority */
   portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 
-  /* Stop LPTIM for one-shot wakeup */
+  /* Stop LPTIM for one-shot wake-up */
   HAL_LPTIM_Stop_IT(mx_example_lptim_gethandle());
 }

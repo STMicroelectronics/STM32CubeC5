@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file           : mx_cortex_nvic.c
-  * @brief          : STM32 CORTEX NVIC body
+  * @brief          : CORTEX_NVIC Peripheral initialization
   ******************************************************************************
   * @attention
   *
@@ -14,6 +14,7 @@
   *
   ******************************************************************************
   */
+
 /* Includes ------------------------------------------------------------------*/
 #include "mx_cortex_nvic.h"
 
@@ -22,42 +23,15 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype------------------------------------------------*/
+/* Exported variables by reference--------------------------------------------*/
 
-/* Exported functions --------------------------------------------------------*/
-
-
-
+/******************************************************************************/
+/* Exported functions for CORTEX_NVIC in HAL layer */
+/******************************************************************************/
 system_status_t mx_cortex_nvic_init(void)
 {
-/* Configure the Priority grouping */
-HAL_CORTEX_NVIC_SetPriorityGrouping(HAL_CORTEX_NVIC_PRIORITY_GROUP_4);
+  /* Configure the Priority grouping */
+  HAL_CORTEX_NVIC_SetPriorityGrouping(HAL_CORTEX_NVIC_PRIORITY_GROUP_4);
 
   return SYSTEM_OK;
 }
-
-/******************************************************************************/
-/*                            Systick Handler                                 */
-/******************************************************************************/
-/**
-  * @brief  This function handles SysTick Handler.
-  */
-void SysTick_Handler(void)
-{
-  HAL_IncTick();
-  HAL_CORTEX_SYSTICK_IRQHandler();
-}
-
-/******************************************************************************/
-/*                              NMI Handler                                   */
-/******************************************************************************/
-/**
-  * @brief  This function handles NMI Handler.
-  */
-void NMI_IRQHandler(void)
-{
-
-  // user code if required
-  while(1);
-}
-
-/* IRQ handler for PPPi are generated inside mx_pppi.c */

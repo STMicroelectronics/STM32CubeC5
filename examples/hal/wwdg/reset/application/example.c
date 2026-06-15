@@ -50,7 +50,7 @@ app_status_t app_init(void)
 
   /** If the device is restarted due to a WWDG reset, the WWDG initialization is bypassed.
     */
-  if ((HAL_RCC_GetResetSource() & HAL_RCC_RESET_FLAG_WWDG) != 0U)
+  if ((HAL_RCC_GetResetSource() & RCC_RESET_FLAG_WWDG) == RCC_RESET_FLAG_WWDG)
   {
     HAL_RCC_ClearResetFlags();
     WWDG_RestartFromWWDGReset = 1;

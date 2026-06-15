@@ -47,7 +47,6 @@ hal_pka_handle_t *mx_pka_init(void);
   * @brief  De-initialize pka instance and return it.
   */
 void mx_pka_deinit(void);
-
 /**
   * @brief  Get the PKA object.
   * @retval Pointer on the PKA Handle
@@ -57,7 +56,6 @@ hal_pka_handle_t *mx_pka_gethandle(void);
 /******************************************************************************/
 /*                            PKA global interrupt                            */
 /******************************************************************************/
-
 void PKA_IRQHandler(void);
 
 #ifdef __cplusplus

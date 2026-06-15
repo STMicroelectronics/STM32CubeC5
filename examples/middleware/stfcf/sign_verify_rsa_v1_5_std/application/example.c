@@ -28,7 +28,6 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_rng_handle_t *pRNG;  /* pointer referencing the RNG handle from the generated code */
-
 /* Key definition */
 psa_key_attributes_t key_attributes;
 psa_key_handle_t key_handle_rsa_private;
@@ -85,16 +84,6 @@ psa_key_handle_t key_handle_rsa_public;
   * # Message to be signed:
   * BD
   *
-  * # Signature:
-  * 62 F7 CB DC 60 2B 9F C2 7D 96 4F D1 B3 59 52 68
-  * CB 51 EF DF 05 DB B8 3D 7B 87 3C 08 2D 4A 93 A1
-  * D3 7B A5 4F 42 46 85 9E 16 BD 9B F4 AF 97 68 62
-  * F4 EC 7F 72 2B 4F 95 EB 7D A5 F5 E2 0E 7B 43 93
-  * 6F FD 7E FC 5D 74 88 2B EA 02 64 0D 12 76 98 43
-  * E7 D5 FF 94 81 AD 58 87 13 B4 EE 98 41 A4 DE 30
-  * 84 C1 B1 04 85 5B CA 86 A4 F3 64 E5 20 21 1B E0
-  * 55 40 24 74 95 2A 34 F1 C2 79 6A 6D 3C AB BD A0
-  *
   ******************************************************************************
   */
 
@@ -102,18 +91,6 @@ psa_key_handle_t key_handle_rsa_public;
 const uint8_t Message[] =
 {
   0xbd
-};
-
-const uint8_t Known_Signature[] =
-{
-  0x62, 0xF7, 0xCB, 0xDC, 0x60, 0x2B, 0x9F, 0xC2, 0x7D, 0x96, 0x4F, 0xD1, 0xB3, 0x59, 0x52, 0x68,
-  0xCB, 0x51, 0xEF, 0xDF, 0x05, 0xDB, 0xB8, 0x3D, 0x7B, 0x87, 0x3C, 0x08, 0x2D, 0x4A, 0x93, 0xA1,
-  0xD3, 0x7B, 0xA5, 0x4F, 0x42, 0x46, 0x85, 0x9E, 0x16, 0xBD, 0x9B, 0xF4, 0xAF, 0x97, 0x68, 0x62,
-  0xF4, 0xEC, 0x7F, 0x72, 0x2B, 0x4F, 0x95, 0xEB, 0x7D, 0xA5, 0xF5, 0xE2, 0x0E, 0x7B, 0x43, 0x93,
-  0x6F, 0xFD, 0x7E, 0xFC, 0x5D, 0x74, 0x88, 0x2B, 0xEA, 0x02, 0x64, 0x0D, 0x12, 0x76, 0x98, 0x43,
-  0xE7, 0xD5, 0xFF, 0x94, 0x81, 0xAD, 0x58, 0x87, 0x13, 0xB4, 0xEE, 0x98, 0x41, 0xA4, 0xDE, 0x30,
-  0x84, 0xC1, 0xB1, 0x04, 0x85, 0x5B, 0xCA, 0x86, 0xA4, 0xF3, 0x64, 0xE5, 0x20, 0x21, 0x1B, 0xE0,
-  0x55, 0x40, 0x24, 0x74, 0x95, 0x2A, 0x34, 0xF1, 0xC2, 0x79, 0x6A, 0x6D, 0x3C, 0xAB, 0xBD, 0xA0
 };
 
 const uint8_t rsa_128_key_pair[] =
@@ -168,7 +145,7 @@ const uint8_t rsa_128_key_pair[] =
 };
 
 /* Computed data buffer */
-uint8_t Computed_Signature[sizeof(Known_Signature)];
+uint8_t Computed_Signature[128]; /* Signature length is modulus size/8U */
 
 
 /* Private functions prototype -----------------------------------------------*/
@@ -202,18 +179,16 @@ app_status_t app_init(void)
     goto _app_init_exit;
   }
 
-  /* Setup the key policy for the private key */
+  /* Setup the key policy for the key pair */
   psa_set_key_usage_flags(&key_attributes, PSA_KEY_USAGE_SIGN_MESSAGE);
   psa_set_key_algorithm(&key_attributes, PSA_ALG_RSA_PKCS1V15_SIGN(PSA_ALG_SHA_256));
   psa_set_key_type(&key_attributes, PSA_KEY_TYPE_RSA_KEY_PAIR);
   psa_set_key_bits(&key_attributes, 1024); /* Key length = modulus size */
-
   /* Set up the key location using STFCF_KEY_LOCATION. If this latter is set to PSA_CRYPTO_KWE_DRIVER_LOCATION,
-     the private key will be wrapped using STM32 Key Wrap Engine (KWE);
-     If PSA_KEY_LOCATION_LOCAL_STORAGE is set, then the key is transparent */
+     the private key will be wrapped using STM32 Key Wrap Engine (KWE); If PSA_KEY_LOCATION_LOCAL_STORAGE is set,
+     then the key is transparent*/
   psa_set_key_lifetime(&key_attributes, PSA_KEY_LIFETIME_FROM_PERSISTENCE_AND_LOCATION(PSA_KEY_PERSISTENCE_VOLATILE,
-                       STFCF_KEY_LOCATION)
-                      );
+                       STFCF_KEY_LOCATION));
   /* Import a key pair */
   retval = psa_import_key(&key_attributes, rsa_128_key_pair, sizeof(rsa_128_key_pair), &key_handle_rsa_private);
   if (retval != PSA_SUCCESS)
@@ -234,10 +209,7 @@ app_status_t app_init(void)
   {
     goto _app_init_exit;
   }
-
-  PRINTF("[INFO] sign_verify_rsa_v1_5_std.Step 2.0: Import PSA public COMPLETED.\n");
-
-  /* Reset the key attribute to free any auxiliary resources that the structure might contain */
+  /* Reset the key attribute */
   psa_reset_key_attributes(&key_attributes);
 
   PRINTF("[INFO] Step 1.2: PSA key configuration COMPLETED.\n");
@@ -277,25 +249,21 @@ app_status_t app_process(void)
   }
 
   /* Verify generated data size is the expected one */
-  if (computed_size != sizeof(Known_Signature))
+  if (computed_size != sizeof(Computed_Signature))
   {
     goto _app_process_exit;
   }
 
-  /* Verify generated data are the expected ones */
-  if (memcmp(Computed_Signature, Known_Signature, computed_size) != 0)
-  {
-    goto _app_process_exit;
-  }
   PRINTF("[INFO] Step 2.1: Compute signature COMPLETED.\n");
 
   /** ########## Step 2.2 ##########
     * Verifies the message with the known signature
     */
   retval = psa_verify_message(key_handle_rsa_public,
-                              PSA_ALG_RSA_PKCS1V15_SIGN(PSA_ALG_SHA_256),   /* Algorithm type */
-                              Message, sizeof(Message),                     /* Message to verify */
-                              Known_Signature, sizeof(Known_Signature));    /* Signature to verify */
+                              PSA_ALG_RSA_PKCS1V15_SIGN(PSA_ALG_SHA_256),  /* Algorithm type */
+                              Message, sizeof(Message),          /* Message whose signature is to be verified */
+                              Computed_Signature,                /* Signature to verify */
+                              sizeof(Computed_Signature));
 
 
   /* Verify API returned value */

@@ -2,7 +2,7 @@
 
 # __Example: *hal_lptim_timeout*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -83,7 +83,6 @@ Please find below the hardware setup principle that applies to any board.
 
 This section describes the exact hardware configurations of your project.
 
-<!-- YOUR BOARDS ADDED HERE BY README GENERATION -->
 <details>
   <summary>On STM32C5 series.</summary>
 
@@ -105,7 +104,6 @@ This section describes the exact hardware configurations of your project.
   |   PA15    |  LPTIM1_ETR   |   NetR16_2    |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -114,10 +112,9 @@ This section describes the exact hardware configurations of your project.
   |    PA5    |     GPIO      | MX_STATUS_LED |
   |    PH0    |  RCC_OSC_IN   |    OSC_IN     |
   |    PH1    |  RCC_OSC_OUT  |    OSC_OUT    |
-  |   PA15    |  LPTIM1_ETR   |   NetR16_2    |
+  |    PE0    |  LPTIM1_ETR   |   NetR16_2    |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -126,11 +123,10 @@ This section describes the exact hardware configurations of your project.
   |    PA5    |     GPIO      | MX_STATUS_LED |
   |    PH0    |  RCC_OSC_IN   |  PH0_OSC_IN   |
   |    PH1    |  RCC_OSC_OUT  |  PH1_OSC_OUT  |
-  |   PA15    |  LPTIM1_ETR   |   NetR53_2    |
+  |    PE0    |  LPTIM1_ETR   |   NetR53_2    |
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

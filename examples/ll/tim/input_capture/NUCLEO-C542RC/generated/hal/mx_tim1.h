@@ -37,10 +37,10 @@ extern "C" {
 /** Primary aliases for TIM1_CH1 pin */
 #define PA8_PORT                              GPIOA
 #define PA8_PIN                               LL_GPIO_PIN_8
+
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-
 /******************************************************************************/
 /* Exported functions for TIM in LL layer */
 /******************************************************************************/
@@ -60,7 +60,6 @@ void mx_tim1_deinit(void);
 /******************************************************************************/
 /*      TIM1 capture compare interrupt is managed directly in user code.      */
 /******************************************************************************/
-
 /* void TIM1_CC_IRQHandler(void); */
 
 #ifdef __cplusplus

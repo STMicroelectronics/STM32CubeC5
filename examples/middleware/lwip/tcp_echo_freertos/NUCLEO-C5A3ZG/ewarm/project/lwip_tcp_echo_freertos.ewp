@@ -374,7 +374,7 @@
                 <option>
                     <name>CCOptStrategy</name>
                     <version>0</version>
-                    <state>2</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>CCOptLevelSlave</name>
@@ -1387,6 +1387,12 @@
             <group>
                 <name>portable</name>
                 <group>
+                    <name>Common</name>
+                    <file>
+                        <name>$PROJ_DIR$/../../../../../../../middleware/freertos/portable/Common/mpu_wrappers.c</name>
+                    </file>
+                </group>
+                <group>
                     <name>IAR</name>
                     <group>
                         <name>ARM_CM33_NTZ</name>
@@ -1441,11 +1447,35 @@
             <group>
                 <name>ports</name>
                 <group>
+                    <name>common</name>
+                    <group>
+                        <name>arch</name>
+                        <file>
+                            <name>$PROJ_DIR$/../../../../../../../middleware/lwip/ports/common/arch/bpstruct.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$/../../../../../../../middleware/lwip/ports/common/arch/cc.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$/../../../../../../../middleware/lwip/ports/common/arch/epstruct.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$/../../../../../../../middleware/lwip/ports/common/arch/init.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$/../../../../../../../middleware/lwip/ports/common/arch/perf.h</name>
+                        </file>
+                    </group>
+                </group>
+                <group>
                     <name>freertos</name>
                     <group>
                         <name>arch</name>
                         <file>
                             <name>$PROJ_DIR$/../../../../../../../middleware/lwip/ports/freertos/arch/sys_arch.c</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$/../../../../../../../middleware/lwip/ports/freertos/arch/sys_arch.h</name>
                         </file>
                     </group>
                 </group>
@@ -1779,12 +1809,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$/../../../../../../../stm32c5xx_drivers/hal/stm32c5xx_hal_flash_itf.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$/../../../../../../../stm32c5xx_drivers/hal/stm32c5xx_hal_flash.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$/../../../../../../../stm32c5xx_drivers/hal/stm32c5xx_hal_flash.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$/../../../../../../../stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c</name>

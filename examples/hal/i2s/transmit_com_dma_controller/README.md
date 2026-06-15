@@ -2,7 +2,7 @@
 
 # __Example: *hal_i2s_transmit_com_dma_controller*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -26,7 +26,7 @@ __Step 3__: Waits for one of these I2S interrupts: transfer complete or transfer
 On most boards, the LED shares its pin with the I2S CK. Therefore, this example does not have a status LED.
 
 __End of example__:
-Checks that there is activities on the I2S lines in the oscilloscope interface. If a logic analyzer is used and can decode I2S lines (I2S_CK, I2S_SDI, I2S_SDO and I2S_WS), the data decoded should be the same as in the buffer sent.
+Checks that there is activities on the I2S lines in the oscilloscope interface. If a logic analyzer is used and can decode I2S lines (I2S_CK, I2S_SDO and I2S_WS), the data decoded should be the same as in the buffer sent.
 
 You can verify that the example runs properly via the `ExecStatus` variable.
 
@@ -57,11 +57,11 @@ This section describes the hardware setup principles that apply to any board.
     |          |              |                     |              |          |
     |          |      I2Si_CK *------------------+->*              |          |
     |          |              |                     |              |          |
-    |          |     I2Si_SDI *------------------+->*              |          |
-    |          |              |                     |              |          |
     |          |     I2Si_SDO *------------------+->*              |          |
     |          |              |                     |              |          |
-    |          |      I2Si_WS *------------------+->*              |          |
+    |          |     I2Si_XS *------------------+->*               |          |
+    |          |              |                     |              |          |
+    |          |              |                     |              |          |
     |          |              |                     |              |          |
     |          +--------------+                     +--------------+          |
     |                         |                     |                         |
@@ -91,11 +91,9 @@ This section describes the exact hardware configurations of your project.
   |    PA2    |   USART2_TX   |     PA2      |
   |    PA5    |    I2S1_CK    |     PA5      |
   |   PA15    |    I2S1_WS    |   NetR16_2   |
-  |    PA6    |   I2S1_SDI    |     PA6      |
   |    PA7    |   I2S1_SDO    |     PA7      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -106,11 +104,9 @@ This section describes the exact hardware configurations of your project.
   |    PA2    |   USART2_TX   |     PA2      |
   |    PA5    |    I2S1_CK    |     PA5      |
   |   PA15    |    I2S1_WS    |   NetR16_2   |
-  |    PA6    |   I2S1_SDI    |     PA6      |
   |    PA7    |   I2S1_SDO    |     PA7      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -121,12 +117,10 @@ This section describes the exact hardware configurations of your project.
   |    PA2    |   USART2_TX   | DBGIN_VCP_TX |
   |    PA5    |    I2S1_CK    |     PA5      |
   |   PA15    |    I2S1_WS    |   NetR53_2   |
-  |    PA6    |   I2S1_SDI    |     PA6      |
   |    PA7    |   I2S1_SDO    |     PA7      |
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

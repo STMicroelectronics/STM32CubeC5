@@ -26,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for OPAMP1 in LL layer (SW instance MyOPAMP_1) */
+/* Exported functions for OPAMP1 in LL layer */
 /******************************************************************************/
 OPAMP_TypeDef *mx_opamp1_init(void){
   LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_OPAMP1);
@@ -43,25 +43,28 @@ OPAMP_TypeDef *mx_opamp1_init(void){
                               | LL_OPAMP_OUTPUT_CONNECT_EXTERNAL)
                     );
 
+  /* ### OPAMP1 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
 
   /**
-    OPAMP1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA1     ------>   OPAMP1_VINP0
-       PA6     ------>   OPAMP1_VOUT
+       PA1     ------>   OPAMP1_VINP0   ------>  PA1
+       PA6     ------>   OPAMP1_VOUT   ------>  PA6
+       PA2     ------>   OPAMP1_VINM0   ------>  PA2
     **/
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_1, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_6, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA1_PORT, PA1_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA6_PORT, PA6_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA2_PORT, PA2_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  /* LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_1, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_6, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinMode(PA1_PORT, PA1_PIN, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinMode(PA6_PORT, PA6_PIN, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinMode(PA2_PORT, PA2_PIN, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
 
 return OPAMP1;
 }
@@ -75,27 +78,31 @@ void mx_opamp1_deinit(void)
 
   LL_APB1_GRP1_DisableClock(LL_APB1_GRP1_PERIPH_OPAMP1);
 
-  /* ### GPIO deinitialization of OPAMP1: OPAMP1_VINP0,OPAMP1_VOUT ########################### */
+  /* ### GPIO deinitialization of OPAMP1: OPAMP1_VINP0,OPAMP1_VOUT,OPAMP1_VINM0 ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_1, LL_GPIO_MODE_ANALOG);
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_6, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA1_PORT, PA1_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA6_PORT, PA6_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA2_PORT, PA2_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_1, LL_GPIO_AF_0);
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_6, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA1_PORT, PA1_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA6_PORT, PA6_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA2_PORT, PA2_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_1, LL_GPIO_SPEED_FREQ_LOW);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_6, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA1_PORT, PA1_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA6_PORT, PA6_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA2_PORT, PA2_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_1 | LL_GPIO_PIN_6, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(GPIOA, PA1_PIN | PA6_PIN | PA2_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_1, LL_GPIO_PULL_NO);
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_6, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA1_PORT, PA1_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA6_PORT, PA6_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA2_PORT, PA2_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOA, LL_GPIO_PIN_1 | LL_GPIO_PIN_6, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PA1_PORT, PA1_PIN | PA6_PIN | PA2_PIN, LL_GPIO_PIN_RESET);
 }

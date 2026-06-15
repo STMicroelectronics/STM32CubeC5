@@ -28,7 +28,7 @@
 hal_pka_handle_t hPKA;
 
 /******************************************************************************/
-/* Exported functions for PKA in HAL layer (SW instance MyPKA_1) */
+/* Exported functions for PKA in HAL layer */
 /******************************************************************************/
 hal_pka_handle_t *mx_pka_init(void)
 {
@@ -37,18 +37,16 @@ hal_pka_handle_t *mx_pka_init(void)
     return NULL;
   }
 
-  HAL_RCC_RNG_EnableClock();
-
-  HAL_RCC_RNG_EnableClock();
-
-  HAL_RCC_PKA_EnableClock();
-
   if (HAL_RCC_CK48_SetKernelClkSource(HAL_RCC_CK48_CLK_SRC_HSIDIV3) != HAL_OK)
   {
     return NULL;
   }
 
-  /* Enable the interruption for RNG */
+  HAL_RCC_RNG_EnableClock();
+
+  HAL_RCC_PKA_EnableClock();
+
+  /* Enable the interruption for PKA */
   HAL_CORTEX_NVIC_SetPriority(PKA_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
   HAL_CORTEX_NVIC_EnableIRQ(PKA_IRQn);
   return &hPKA;
@@ -56,6 +54,9 @@ hal_pka_handle_t *mx_pka_init(void)
 
 void mx_pka_deinit(void)
 {
+  /* Disable the interruption for PKA */
+  HAL_CORTEX_NVIC_DisableIRQ(PKA_IRQn);
+
   (void)HAL_PKA_DeInit(&hPKA);
 }
 

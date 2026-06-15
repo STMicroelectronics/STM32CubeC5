@@ -27,7 +27,7 @@
 static uint32_t DAC1_CH1_DMA_LLi_reg[LL_DMA_NODE_REGISTER_NUM];
 
 /******************************************************************************/
-/* Exported functions for DAC1 in LL layer (SW instance MyDAC_1) */
+/* Exported functions for DAC1 in LL layer */
 /******************************************************************************/
 DAC_TypeDef *mx_dac1_init(void)
 {
@@ -57,22 +57,19 @@ DAC_TypeDef *mx_dac1_init(void)
   /* Configuration of GPIO                                                    */
   /****************************************************************************/
 
+  /* ### DAC1 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
 
   /**
-    DAC1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA4     ------>   DAC1_OUT1
+       PA4     ------>   DAC1_OUT1   ------>  PA4
     **/
 
-  /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_4, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  /* LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_4, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinMode(PA4_PORT, PA4_PIN, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
 
   /****************************************************************************/
   /* Configuration of DMA                                                     */
@@ -84,9 +81,6 @@ DAC_TypeDef *mx_dac1_init(void)
 
   /* Enable LPDMA1 clock */
   LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_LPDMA1);
-/**********************************************************************************************************************/
-  /* LL Optimization Context (DMA) */
-  /**********************************************************************************************************************/
 
   /* Configure DMA channel control parameters */
   LL_DMA_ConfigControl(LPDMA1_CH0, LL_DMA_PRIORITY_HIGH | LL_DMA_LINKEDLIST_EXECUTION_Q);
@@ -132,22 +126,22 @@ void mx_dac1_deinit(void)
   /* ### GPIO deinitialization of DAC1: DAC1_OUT1 ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_4, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA4_PORT, PA4_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_4, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA4_PORT, PA4_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_4, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA4_PORT, PA4_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_4, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(PA4_PORT, PA4_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_4, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA4_PORT, PA4_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOA, LL_GPIO_PIN_4, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PA4_PORT, PA4_PIN, LL_GPIO_PIN_RESET);
 
   /* De-initialize the DMA channel */
   LL_DMA_DisableChannel(LPDMA1_CH0);
@@ -167,3 +161,11 @@ void mx_dac1_deinit(void)
   {
     return DAC1_CH1_DMA_LLi_reg;
   }
+
+/******************************************************************************/
+/*     LPDMA1 channel0 global interrupt is managed directly in user code.     */
+/******************************************************************************/
+/* void LPDMA1_CH0_IRQHandler(void)
+{
+}
+  */

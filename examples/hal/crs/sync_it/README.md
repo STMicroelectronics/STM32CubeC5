@@ -2,7 +2,7 @@
 
 # __Example: *hal_crs_sync_it*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -27,6 +27,7 @@ __End of example__: After step 4, the example is completed. You can check its st
 
 
 If you enable `USE_TRACE`, you can follow these execution steps in the terminal logs:
+
 ```text
 [INFO] Step 1: Device initialization COMPLETED.
 [INFO] Step 2: CRS Synchronization started.
@@ -86,7 +87,6 @@ This section describes the exact hardware configurations of your project.
   |    PA2    |   USART2_TX   |      PA2      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -101,7 +101,6 @@ This section describes the exact hardware configurations of your project.
   |    PA2    |   USART2_TX   |      PA2      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -117,7 +116,6 @@ This section describes the exact hardware configurations of your project.
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

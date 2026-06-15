@@ -29,7 +29,7 @@ static hal_dma_handle_t hLPDMA1_CH0;
 static hal_dma_handle_t hLPDMA1_CH1;
 
 /******************************************************************************/
-/* Exported functions for SPI in HAL layer (SW instance MySPI_1) */
+/* Exported functions for SPI in HAL layer */
 /******************************************************************************/
 hal_spi_handle_t *mx_spi1_init(void)
 {
@@ -52,7 +52,7 @@ hal_spi_handle_t *mx_spi1_init(void)
   spi_config.data_width = HAL_SPI_DATA_WIDTH_8_BIT;
   spi_config.clock_polarity = HAL_SPI_CLOCK_POLARITY_LOW;
   spi_config.clock_phase = HAL_SPI_CLOCK_PHASE_1_EDGE;
-  spi_config.baud_rate_prescaler = HAL_SPI_BAUD_RATE_PRESCALER_256;
+  spi_config.baud_rate_prescaler = HAL_SPI_BAUD_RATE_PRESCALER_64;
   spi_config.first_bit = HAL_SPI_MSB_FIRST;
   spi_config.nss_pin_management = HAL_SPI_NSS_PIN_MGMT_INTERNAL;
 
@@ -61,25 +61,30 @@ hal_spi_handle_t *mx_spi1_init(void)
     return NULL;
   }
 
+  if (HAL_SPI_MASTER_EnableKeepIOState(&hSPI1) != HAL_OK)
+  {
+    return NULL;
+  }
+
+  /* ### SPI1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    SPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA5     ------>   SPI1_SCK
-       PA6     ------>   SPI1_MISO
-       PA7     ------>   SPI1_MOSI
+       PA5     ------>   SPI1_SCK   ------>  PA5
+       PA6     ------>   SPI1_MISO   ------>  PA6
+       PA7     ------>   SPI1_MOSI   ------>  PA7
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
-  gpio_config.pull        = HAL_GPIO_PULL_NO;
+  gpio_config.pull        = HAL_GPIO_PULL_DOWN;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
   gpio_config.alternate   = HAL_GPIO_AF_5;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_5 | HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOA, PA5_PIN | PA6_PIN | PA7_PIN, &gpio_config);
 
   /* Configure the DMA TX */
       if (HAL_DMA_Init(&hLPDMA1_CH0, HAL_LPDMA1_CH0) != HAL_OK)
@@ -145,7 +150,7 @@ hal_dma_direct_xfer_config_t xfer_cfg_spi1_rx_dma;
     return NULL;
   }
 
-  /* Enable the interruption for SPI */
+  /* Enable the interrupt for SPI */
   HAL_CORTEX_NVIC_SetPriority(SPI1_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
   HAL_CORTEX_NVIC_EnableIRQ(SPI1_IRQn);
 
@@ -154,7 +159,7 @@ hal_dma_direct_xfer_config_t xfer_cfg_spi1_rx_dma;
 
 void mx_spi1_deinit(void)
 {
-  /* Disable the interruption for SPI */
+  /* Disable the interrupt for SPI */
   HAL_CORTEX_NVIC_DisableIRQ(SPI1_IRQn);
 
   (void)HAL_SPI_DeInit(&hSPI1);
@@ -163,8 +168,8 @@ void mx_spi1_deinit(void)
 
   HAL_RCC_SPI1_DisableClock();
 
-  /* De-initialize all GPIO pins associated with SPI1 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_5 | HAL_GPIO_PIN_6 | HAL_GPIO_PIN_7);
+  /* De-initialize all GPIOA pins associated with SPI1 */
+  HAL_GPIO_DeInit(HAL_GPIOA, PA5_PIN | PA6_PIN | PA7_PIN);
 
   /* De-initialize the DMA channel */
   HAL_DMA_DeInit(&hLPDMA1_CH0);

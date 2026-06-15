@@ -24,12 +24,22 @@
 #define VREFPLUS_APPLI    (VDD_VALUE)
 #define BUFFER_LENGTH     3UL
 
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+          Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ACCESS_ALIGNMENT        (8U)
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_adc_handle_t *pADC;  /* pointer referencing the ADC handle from the generated code */
 hal_tim_handle_t *pTIM; /* pointer referencing the TIM handle from the generated code */
 
-/* Variable for the ADC conversion data (a count on the ADC scale) */
+/** Buffer to store converted raw data to be transferred through DMA.
+  * - Non-cacheable memory for data cache consistency.
+  * - Aligned for DMA constraints.
+  * - Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
+  * - Variable for the ADC conversion data (a count on the ADC scale).
+  */
+__attribute__((section("non_cacheable_area"), aligned(DMA_ACCESS_ALIGNMENT)))
 uint16_t AdcRawData[BUFFER_LENGTH];
 
 /* Variable for ADC conversion data computation to physical values */

@@ -25,7 +25,7 @@
 /* Exported variables by reference -------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for GPIO in HAL layer (SW instance MyGPIO_1) */
+/* Exported functions for GPIO in HAL layer                                   */
 /******************************************************************************/
 system_status_t mx_gpio_default_init(void)
 {
@@ -71,10 +71,10 @@ system_status_t mx_gpio_default_init(void)
 system_status_t mx_gpio_default_deinit(void)
 {
   /* De-initialize pins of GPIOA port */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_5);
+  HAL_GPIO_DeInit(PA5_PORT, PA5_PIN);
 
   /* De-initialize pins of GPIOG port */
-  HAL_GPIO_DeInit(HAL_GPIOG, HAL_GPIO_PIN_9);
+  HAL_GPIO_DeInit(PG9_PORT, PG9_PIN);
 
   return SYSTEM_OK;
 }

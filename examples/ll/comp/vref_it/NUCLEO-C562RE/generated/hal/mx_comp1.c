@@ -24,9 +24,8 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
-
 /******************************************************************************/
-/* Exported functions for COMP1 in LL layer (SW instance MyCOMP_1) */
+/* Exported functions for COMP1 in LL layer */
 /******************************************************************************/
 COMP_TypeDef *mx_comp1_init(void)
 {
@@ -37,22 +36,19 @@ COMP_TypeDef *mx_comp1_init(void)
   /* LL_COMP_SetInputHysteresis(COMP1, LL_COMP_HYSTERESIS_NONE); */ /* Configuration matches register reset state at startup. */
   /* LL_COMP_SetOutputPolarity(COMP1, LL_COMP_OUTPUTPOL_NONINVERTED); */ /* Configuration matches register reset state at startup. */
 
+  /* ### COMP1 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
 
   /**
-    COMP1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB0     ------>   COMP1_INP2
+       PB0     ------>   COMP1_INP2   ------>  PB0
     **/
 
-  /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_0, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  /* LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_0, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinMode(PB0_PORT, PB0_PIN, LL_GPIO_MODE_ANALOG); */ /* Configuration matches register reset state at startup. */
 
   /* Configuration of EXTI line used by comparator to generate an interrupt */
   LL_EXTI_EnableRisingTrig_32_63(LL_EXTI_LINE_34);
@@ -77,22 +73,30 @@ void mx_comp1_deinit(void)
   /* ### GPIO deinitialization of COMP1: COMP1_INP2 ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_0, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PB0_PORT, PB0_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_0, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PB0_PORT, PB0_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_0, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PB0_PORT, PB0_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_0, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(PB0_PORT, PB0_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_0, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PB0_PORT, PB0_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOB, LL_GPIO_PIN_0, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PB0_PORT, PB0_PIN, LL_GPIO_PIN_RESET);
 
   NVIC_DisableIRQ(COMP1_IRQn);
 }
+
+/******************************************************************************/
+/*          COMP global interrupt is managed directly in user code.           */
+/******************************************************************************/
+/* void COMP1_IRQHandler(void)
+{
+}
+  */

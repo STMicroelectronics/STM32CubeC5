@@ -1,0 +1,156 @@
+/**
+  ******************************************************************************
+  * @file           : mx_lptim1.c
+  * @brief          : LPTIM1 Peripheral initialization
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+
+/* Includes ------------------------------------------------------------------*/
+#include "mx_lptim1.h"
+
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+/* Private functions prototype------------------------------------------------*/
+
+/* Exported variables by reference--------------------------------------------*/
+/* Exported function definition ----------------------------------------------*/
+/******************************************************************************/
+/* Exported functions for SW instance in LL layer */
+/******************************************************************************/
+LPTIM_TypeDef *mx_lptim1_init(void)
+{
+  /* Init GPIO */
+  /* ### LPTIM1 GPIO Configuration ########################### */
+
+  /* GPIO Clocks activation */
+  LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA | LL_AHB2_GRP1_PERIPH_GPIOE);
+
+  /**
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
+
+       PA1     ------>   LPTIM1_IN1   ------>  PA1
+    **/
+
+  /* Configure IO output speed (Low, Medium, High or Very-High) */
+  LL_GPIO_SetPinSpeed(PA1_PORT, PA1_PIN, LL_GPIO_SPEED_FREQ_VERY_HIGH);
+
+  /* Configure IO output type (Push-Pull or Open-Drain) */
+  /* LL_GPIO_SetPinOutputType(PA1_PORT, PA1_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+
+  /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
+  /* LL_GPIO_SetPinPull(PA1_PORT, PA1_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+
+  /* Configure the Alternate Function in current IO */
+  LL_GPIO_SetAFPin_0_7(PA1_PORT, PA1_PIN, LL_GPIO_AF_5);
+
+  /* Configure IO direction mode (Input, Output, Alternate or Analog) */
+  LL_GPIO_SetPinMode(PA1_PORT, PA1_PIN, LL_GPIO_MODE_ALTERNATE);
+
+  /**
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
+
+       PE2     ------>   LPTIM1_IN2   ------>  PE2
+    **/
+
+  /* Configure IO output speed (Low, Medium, High or Very-High) */
+  LL_GPIO_SetPinSpeed(PE2_PORT, PE2_PIN, LL_GPIO_SPEED_FREQ_VERY_HIGH);
+
+  /* Configure IO output type (Push-Pull or Open-Drain) */
+  /* LL_GPIO_SetPinOutputType(PE2_PORT, PE2_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+
+  /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
+  /* LL_GPIO_SetPinPull(PE2_PORT, PE2_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+
+  /* Configure the Alternate Function in current IO */
+  LL_GPIO_SetAFPin_0_7(PE2_PORT, PE2_PIN, LL_GPIO_AF_1);
+
+  /* Configure IO direction mode (Input, Output, Alternate or Analog) */
+  LL_GPIO_SetPinMode(PE2_PORT, PE2_PIN, LL_GPIO_MODE_ALTERNATE);
+
+  /* LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE_PCLK3); */ /* Configuration matches register reset state at startup. */
+
+  LL_APB3_GRP1_EnableClock(LL_APB3_GRP1_PERIPH_LPTIM1);
+
+  /*Configure the low power timer's time-base unit.*/
+  LL_LPTIM_Enable(LPTIM1);
+  LL_LPTIM_WRITE_REG(LPTIM1, ICR, LL_LPTIM_FLAG_ALL);
+  LL_LPTIM_SetRepetition(LPTIM1, 0x0000);
+  while (LL_LPTIM_IsActiveFlag_REPOK(LPTIM1) == 0);
+  LL_LPTIM_ClearFlag_REPOK(LPTIM1);
+  LL_LPTIM_SetAutoReload(LPTIM1, 0xFFFF);
+  while (LL_LPTIM_IsActiveFlag_ARROK(LPTIM1) == 0);
+  LL_LPTIM_ClearFlag_ARROK(LPTIM1);
+  LL_LPTIM_Disable(LPTIM1);
+  /* LL_LPTIM_SetClockSource(LPTIM1, LL_LPTIM_CLK_SOURCE_INTERNAL); */ /* Configuration matches register reset state at startup. */
+  /* LL_LPTIM_SetEncoderMode(LPTIM1, LL_LPTIM_ENCODER_MODE_RISING); */ /* Configuration matches register reset state at startup. */
+  LL_LPTIM_EnableEncoderMode(LPTIM1);
+  /* LL_LPTIM_SetPrescaler(LPTIM1, LL_LPTIM_PRESCALER_DIV1); */ /* Configuration matches register reset state at startup. */
+
+  /*Configure the encoder interface.*/
+  /* LL_LPTIM_SetInput1Source(LPTIM1, LL_LPTIM_INPUT1_SRC_GPIO); */ /* Configuration matches register reset state at startup. */
+  /* LL_LPTIM_SetInput2Source(LPTIM1, LL_LPTIM_INPUT2_SRC_GPIO); */ /* Configuration matches register reset state at startup. */
+  /* LL_LPTIM_SetClockFilter(LPTIM1, LL_LPTIM_CLK_FILTER_NONE); */ /* Configuration matches register reset state at startup. */
+  LL_LPTIM_EnableEncoderMode(LPTIM1);
+
+return LPTIM1;
+}
+
+void mx_lptim1_deinit(void)
+{
+  LL_APB3_GRP1_ForceReset(LL_APB3_GRP1_PERIPH_LPTIM1);
+  LL_APB3_GRP1_ReleaseReset(LL_APB3_GRP1_PERIPH_LPTIM1);
+
+  LL_APB3_GRP1_DisableClock(LL_APB3_GRP1_PERIPH_LPTIM1);
+  /* deinit GPIO configuration */
+  /* ### GPIO deinitialization of LPTIM1: LPTIM1_IN1 ########################### */
+
+  /* Configure IO in Analog Mode */
+  LL_GPIO_SetPinMode(PA1_PORT, PA1_PIN, LL_GPIO_MODE_ANALOG);
+
+  /* Configure the default Alternate Function in current IO */
+  LL_GPIO_SetAFPin_0_7(PA1_PORT, PA1_PIN, LL_GPIO_AF_0);
+
+  /* Configure the default value for IO Speed */
+  LL_GPIO_SetPinSpeed(PA1_PORT, PA1_PIN, LL_GPIO_SPEED_FREQ_LOW);
+
+  /* Configure the default value IO Output Type */
+  LL_GPIO_SetPinOutputType(PA1_PORT, PA1_PIN, LL_GPIO_OUTPUT_PUSHPULL);
+
+  /* Deactivate the Pull-up and Pull-down resistor for the current IO */
+  LL_GPIO_SetPinPull(PA1_PORT, PA1_PIN, LL_GPIO_PULL_NO);
+
+  /* Reset the IO output state */
+  LL_GPIO_WriteOutputPin(PA1_PORT, PA1_PIN, LL_GPIO_PIN_RESET);
+
+  /* ### GPIO deinitialization of LPTIM1: LPTIM1_IN2 ########################### */
+
+  /* Configure IO in Analog Mode */
+  LL_GPIO_SetPinMode(PE2_PORT, PE2_PIN, LL_GPIO_MODE_ANALOG);
+
+  /* Configure the default Alternate Function in current IO */
+  LL_GPIO_SetAFPin_0_7(PE2_PORT, PE2_PIN, LL_GPIO_AF_0);
+
+  /* Configure the default value for IO Speed */
+  LL_GPIO_SetPinSpeed(PE2_PORT, PE2_PIN, LL_GPIO_SPEED_FREQ_LOW);
+
+  /* Configure the default value IO Output Type */
+  LL_GPIO_SetPinOutputType(PE2_PORT, PE2_PIN, LL_GPIO_OUTPUT_PUSHPULL);
+
+  /* Deactivate the Pull-up and Pull-down resistor for the current IO */
+  LL_GPIO_SetPinPull(PE2_PORT, PE2_PIN, LL_GPIO_PULL_NO);
+
+  /* Reset the IO output state */
+  LL_GPIO_WriteOutputPin(PE2_PORT, PE2_PIN, LL_GPIO_PIN_RESET);
+}

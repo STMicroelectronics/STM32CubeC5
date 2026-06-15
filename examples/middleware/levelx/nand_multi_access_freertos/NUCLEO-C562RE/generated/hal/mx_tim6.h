@@ -5,19 +5,19 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025-2026 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32_TIM6_H
-#define STM32_TIM6_H
+#ifndef MX_TIM6_H
+#define MX_TIM6_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,7 +32,6 @@ extern "C" {
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-
 /******************************************************************************/
 /* Exported functions for TIM in HAL layer */
 /******************************************************************************/
@@ -56,7 +55,7 @@ void mx_tim6_deinit(void);
 hal_tim_handle_t *mx_tim6_gethandle(void);
 
 /******************************************************************************/
-/*                     TIM6 global interrupt                    */
+/*                           TIM6 global interrupt                            */
 /******************************************************************************/
 void TIM6_IRQHandler(void);
 
@@ -64,4 +63,4 @@ void TIM6_IRQHandler(void);
 }
 #endif /* __cplusplus */
 
-#endif /* STM32_TIM6_H */
+#endif /* MX_TIM6_H */

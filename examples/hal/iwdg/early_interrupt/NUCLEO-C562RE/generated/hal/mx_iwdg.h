@@ -49,11 +49,12 @@ hal_iwdg_handle_t *mx_iwdg_init(void);
   * @retval  HAL_ERROR Operation completed with error.
   */
 hal_status_t mx_iwdg_start(void);
- /**
+
+/**
   * @brief  Get the IWDG object.
   * @retval Pointer on the IWDG Handle
   */
-hal_iwdg_handle_t *mx_iwdg_iwdg_gethandle(void);
+hal_iwdg_handle_t *mx_iwdg_gethandle(void);
 
 /******************************************************************************/
 /*                     Independent watchdog interrupt                    */

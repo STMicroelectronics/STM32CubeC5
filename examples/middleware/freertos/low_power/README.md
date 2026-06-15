@@ -2,7 +2,7 @@
 
 # __Example: *freertos_low_power*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -17,9 +17,9 @@ The application executes the following __example steps__:
 
 - __Step 1__: Initializes the system by creating a binary semaphore and a single task (Task_one).
 - __Step 2__: Starts the FreeRTOS scheduler.
-- __Step 3__: Wait for the binary semaphore in Task_one. When the semaphore is taken, toggle the status LED 10 times and optionally notify the background task, then loop back and block again on the semaphore.
-- __Step 4__: Enter tickless low-power (STOP) mode when all tasks are blocked. In the pre-sleep hook, start the LPTIM peripheral as the low-power wakeup source and enter low-power mode.
-- __Step 5__: Wake up the system on LPTIM interrupt. In the LPTIM callback, give the binary semaphore to resume Task_one, and stop the LPTIM to achieve one-shot wakeup behavior.
+- __Step 3__: Wait for the binary semaphore in Task_one. Upon receiving the semaphore, toggle the status LED 10 times, notify the background task, and delay for 2 seconds to maximize time spent in tickless low-power mode.
+- __Step 4__: Enter tickless low-power (STOP) mode when the system is idle, with the LPTIM peripheral configured as the wakeup source.
+- __Step 5__: Wake up the system upon LPTIM interrupt, restore clocks, and give the binary semaphore to resume Task_one
 
 __End of example__: This example is repeated endlessly, allowing the MCU to spend extended periods in low-power mode between task executions.
 
@@ -29,12 +29,13 @@ If you enable `USE_TRACE`, you can follow these execution steps in the terminal 
 [INFO] Starting FreeRTOS Scheduler
 [INFO] Task One - Binary Semaphore Taken!
 [INFO] Task One - Toggling the status LED 10 times with 500ms delay.
-[INFO] Task One - Blocking on semaphore; system entering low-power until LPTIM interrupt.
+[INFO] Entering STOP mode.
 
 
+[INFO] WakeUp detection and clocks restored.
 [INFO] Task One - Binary Semaphore Taken!
 [INFO] Task One - Toggling the status LED 10 times with 500ms delay.
-[INFO] Task One - Blocking on semaphore; system entering low-power until LPTIM interrupt.
+[INFO] Entering STOP mode.
 
 ```
 
@@ -42,6 +43,11 @@ If you enable `USE_TRACE`, you can follow these execution steps in the terminal 
 ## __2. Example configuration__
 
 [![Configuration Manual](doc/configure_with-ConfigurationMa.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/configure/config_toc.html "An offline version is also available in the STM32Cube firmware package.")
+
+__TIM__:
+
+FreeRTOS exclusively uses the SysTick as its timebase. Thus a timer should be configured to be used as a separate timebase for the HAL.
+To do so, the HALCore is configured to use the desired TIM peripheral. The initialization is handled through the HAL within HAL_InitTick() function.
 
 
 ## __3. Hardware environment and setup__
@@ -57,7 +63,7 @@ This section describes the exact hardware configurations of your project.
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
-FreeRTOS exclusively uses the SysTick as its timebase. Thus, `TIM6`, is used as a separate timebase for the HAL.
+  The `TIM6`, is used as a separate timebase for the HAL.
 
   | Board pin   | MCU pin | Signal name       | ARDUINO pin |
   | :---:       | :---:   | :---:             | :---:       |
@@ -65,7 +71,6 @@ FreeRTOS exclusively uses the SysTick as its timebase. Thus, `TIM6`, is used as 
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

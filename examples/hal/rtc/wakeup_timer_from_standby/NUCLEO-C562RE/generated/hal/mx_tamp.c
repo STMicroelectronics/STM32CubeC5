@@ -17,6 +17,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "mx_tamp.h"
+#include "mx_rcc.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -26,7 +27,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for TAMP in HAL layer (SW instance MyTAMP_1) */
+/* Exported functions for TAMP in HAL layer */
 /******************************************************************************/
 system_status_t mx_tamp_init(void)
 {

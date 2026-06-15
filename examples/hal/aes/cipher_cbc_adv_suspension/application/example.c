@@ -20,6 +20,7 @@
 #include <string.h>
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+#define AES_ALIGNMENT         (4U) /* AES data alignment */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_aes_handle_t *pAES; /* pointer referencing the AES handle from the generated code */
@@ -67,15 +68,18 @@ hal_aes_gcm_config_t p_gcm_config;
   * CT = 8886e196010cb3849d9c1a182abe1eeab0a5f3ca423c3669a4a8703c0f146e8e956fb122e0d721b869d2b6fcd4216d7d4d3758
   * Tag = 2469cecd70fd98fec9264f71df1aee9
   */
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t Key[4] =
 {
   0x2b7e1516, 0x28aed2a6, 0xabf71588, 0x09cf4f3c
 };
 /* Initialization vector */
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t IV[4] =
 {
   0x00010203, 0x04050607, 0x08090a0b, 0x0c0d0e0f
 };
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t plainText[16] =
 {
   0x6bc1bee2, 0x2e409f96, 0xe93d7e11, 0x7393172a,
@@ -83,6 +87,7 @@ const uint32_t plainText[16] =
   0x30c81c46, 0xa35ce411, 0xe5fbc119, 0x1a0a52ef,
   0xf69f2445, 0xdf4f9b17, 0xad2b417b, 0xe66c3710
 };
+
 const uint32_t expectedCiphertext[16] =
 {
   0x7649abac, 0x8119b246, 0xcee98e9b, 0x12e9197d,
@@ -90,16 +95,20 @@ const uint32_t expectedCiphertext[16] =
   0x73bed6b8, 0xe3c1743b, 0x7116e69e, 0x22229516,
   0x3ff1caa1, 0x681fac09, 0x120eca30, 0x7586e1a7
 };
+
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t Key1[8] =
 {
   0x463b4129, 0x11767d57, 0xa0b33969, 0xe674ffe7,
   0x845d313b, 0x88c6fe31, 0x2f3d724b, 0xe68e1fca
 };
+__attribute__((aligned(AES_ALIGNMENT)))
 /* Initialization vector */
 const uint32_t IV1[4] =
 {
   0x611ce6f9, 0xa6880750, 0xde7da6cb, 0x00000002
 };
+
 uint32_t expectedPlaintext[13] =
 {
   0xe7d1dcf6, 0x68e28768, 0x61940e01, 0x2fe52a98,
@@ -108,12 +117,14 @@ uint32_t expectedPlaintext[13] =
   0xd8504200 /* padding last word with zeros */
 };
 /* Additional authenticated data */
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t addData[12] =
 {
   0x0a682fbc, 0x6192e1b4, 0x7a5e0868, 0x787ffdaf,
   0xe5a50cea, 0xd3575849, 0x990cdd2e, 0xa9b35977,
   0x49403efb, 0x4a56684f, 0x0c6bde35, 0x2d4aeec5
 };
+__attribute__((aligned(AES_ALIGNMENT)))
 const uint32_t decryptedText[13] =
 {
   0x8886e196, 0x010cb384, 0x9d9c1a18, 0x2abe1eea,
@@ -121,21 +132,25 @@ const uint32_t decryptedText[13] =
   0x956fb122, 0xe0d721b8, 0x69d2b6fc, 0xd4216d7d,
   0x4d375800 /* padding last word with zeros */
 };
+
 const uint32_t expectedTag[4] =
 {
   0x2469cecd, 0x70fd98fe, 0xc9264f71, 0xdf1aee9a
 };
 /* Computed data buffers */
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t computedCiphertext[16] = {0};
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t computedPlaintext[16] = {0};
+__attribute__((aligned(AES_ALIGNMENT)))
 uint32_t Tag[4] = {0};
 /* Set to 1 if the output transfer is correctly completed */
 uint32_t OutTransferCpltCb;
 /* Set to 1 if a transfer error is detected */
 uint32_t ErrorCb;
 /* Set to 1 if a suspension is detected */
-uint32_t SuspendCb;
-uint32_t Suspendflag = 0;
+volatile uint32_t SuspendCb;
+volatile uint32_t Suspendflag = 0;
 /* Private functions prototype -----------------------------------------------*/
 /* Functions allowing the user to configure dynamically the AES callbacks instead of weak functions */
 static void OutTransfertCpltCallback(hal_aes_handle_t *pAES);
@@ -285,6 +300,7 @@ app_status_t app_process(void)
   {
     goto _app_process_exit;
   }
+  HAL_Delay(1);
   /* Verify generated data size is the expected one */
   if (memcmp(computedCiphertext, expectedCiphertext, 64) != 0)
   {

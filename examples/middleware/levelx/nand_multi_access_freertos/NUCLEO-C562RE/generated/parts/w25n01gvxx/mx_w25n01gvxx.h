@@ -1,16 +1,16 @@
 /**
   ******************************************************************************
   * file           : mx_w25n01gvxx.h
-  * brief          : Code generation for the W25N01GVXX part driver.
+  * brief          : Code generation for the W25N01GVxx part driver.
   ******************************************************************************
   * attention
   *
   * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_w25n01gvxx_license.md file
+  * in the same directory as the generated code.
+  * If no mx_w25n01gvxx_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -40,13 +40,13 @@ extern "C" {
 #define W25N01GVXX_0_CS_PIN           HAL_GPIO_PIN_9
 
 #define W25N01GVXX_0_CS_PORT          HAL_GPIOC
-
-
+ 
+ 
 
 /* Functions to retrieve the part object */
 w25n01gvxx_obj_t *mx_w25n01gvxx_0_getobject(void);
-
-
+ 
+ 
 
 #ifdef __cplusplus
 }

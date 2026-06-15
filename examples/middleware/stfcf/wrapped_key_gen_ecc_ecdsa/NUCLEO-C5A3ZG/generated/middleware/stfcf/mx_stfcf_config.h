@@ -28,12 +28,14 @@ extern "C" {
 #include "mx_mbedtls_config.h"
 #include "mx_mbedtls_alt_config.h"
 #include "mx_kwe_config.h"
+
 #if defined(STFCF_USER_CONFIG_FILE)
 #include STFCF_USER_CONFIG_FILE
-#endif /* STFCF_DEFAULT_CONFIG_FILE */
+#endif /* STFCF_USER_CONFIG_FILE */
 
 #define MBEDTLS_ALLOW_PRIVATE_ACCESS
 #include "kwe_psa_driver_key_management.h"
+
 /* Exported constants --------------------------------------------------------*/
 #define STFCF_KEY_LOCATION PSA_CRYPTO_KWE_DRIVER_LOCATION
 

@@ -2,7 +2,7 @@
 
 # __Example: *hal_uart_echo_dma*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -17,7 +17,7 @@ The HAL UART transmission and reception APIs are used in interrupt mode to imple
 
 In this example, the CPU and a DMA share a buffer to manage the data: `DataBuffer`.
 On an STM32 device with data cache enabled, it is mandatory to ensure that the buffer is never cached, as this scenario does not include data cache maintenance operations.
-To do so, we place the buffer in the `.non_cacheable_variables` memory section and apply the appropriate MPU settings during system initialization in `mx_system_init()`.
+To do so, we place the buffer in the `.bss.non_cacheable_area` memory section and apply the appropriate MPU settings during system initialization in `mx_system_init()`.
 
 
 __Initialization phase__: At main program start, the `mx_system_init()` function is called. It initializes the peripherals, nonvolatile memory (such as flash memory, NVM, or external memories), MPU regions (if applicable), the system clock, and the SysTick.

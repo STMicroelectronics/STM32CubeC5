@@ -26,15 +26,15 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /* Exported function definition ----------------------------------------------*/
+/******************************************************************************/
+/* Exported functions for TIM6 in LL layer */
+/******************************************************************************/
 
-/******************************************************************************/
-/* Exported functions for TIM6 in LL layer (SW instance MyTIM_1) */
-/******************************************************************************/
 TIM_TypeDef *mx_tim6_init(void)
 {
   LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM6);
 
-  /* Timer configuration to reach the output frequency at 60000 Hz */
+  /* Timer configuration to reach the output frequency at 60 kHz */
   /* LL_TIM_SetPrescaler(TIM6, 0); */ /* Configuration matches register reset state at startup. */
   /* LL_TIM_SetCounterMode(TIM6, LL_TIM_COUNTERMODE_UP); */ /* Configuration matches register reset state at startup. */
   LL_TIM_SetAutoReload(TIM6, 2399);
@@ -47,6 +47,8 @@ TIM_TypeDef *mx_tim6_init(void)
   /* Master Mode Configuration */
   LL_TIM_SetTriggerOutput(TIM6, LL_TIM_TRGO_UPDATE);
 
+  /* No GPIO configuration required for TIM6 */
+
   return TIM6;
 }
 
@@ -56,4 +58,6 @@ void mx_tim6_deinit(void)
 
   LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM6);
   LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM6);
+
+  /* No GPIO de-initialization required for TIM6 */
 }

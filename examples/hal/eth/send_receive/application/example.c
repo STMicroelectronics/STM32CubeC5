@@ -20,28 +20,29 @@
 /* Includes ------------------------------------------------------------------*/
 #include "example.h"
 #include "mx_system.h"
-#include "mx_lan8742.h"
+#include "mx_phy1.h"
 #include "string.h" /* For memset() */
 #include <stm32_hal.h>
 
 /* Private defines -----------------------------------------------------------*/
-#define ETH_TRANSMIT_INTERVAL_MS      100 /* Period (ms) between broadcast SYNC frame transmissions. */
+#define ETH_TRANSMIT_INTERVAL_MS      100   /* Period (ms) between broadcast SYNC frame transmissions. */
 #define ETH_LINK_CHECK_INTERVAL_MS    10000 /* Period (ms) between link status checks.*/
-#define POOL_BUFF_SIZE_BYTE           1518 /* Size in bytes of each buffer in the application memory pool.*/
-#define POOL_SIZE                     50U /* Number of buffers available in the application memory pool. */
-#define ETH_HEADER_LEN_BYTE           14U /* Ethernet header length in bytes */
+#define ETH_LINK_CHECK_TIMEOUT_MS     5000 /* timeout (ms) for link status checks.*/
+#define POOL_SIZE                     50U  /* Number of buffers available in the application memory pool. */
+#define ETH_HEADER_LEN_BYTE           14U  /* Ethernet header length in bytes */
 #define ETH_PKT_ETHER_TYPE            (0x88B5)
 #define TX_SYNC_SEQ_OFFSET            19U
 #define MAX_RECEIVED_TAGS_CNT         10U
-#define ETH_MEM_SIZE_SIZE_BYTE        240U /* Region size for HAL ETH */
+#define ETH_TX_MEM_SIZE_SIZE_BYTE  (MY_TX_CH_MAX_APP_BUFF_NUM * MY_TX_CH_DESC_ALIGN_SZ_BYTE)
+#define ETH_RX_MEM_SIZE_SIZE_BYTE  (MY_RX_CH_MAX_APP_BUFF_NUM * MY_RX_CH_DESC_ALIGN_SZ_BYTE)
 
 /* Private typedefs ----------------------------------------------------------*/
 /* Application memory pool element.  */
 typedef struct mem_pool_s
 {
-  uint32_t       packet_size;                /* Size of the received frame */
-  uint8_t        data[POOL_BUFF_SIZE_BYTE];  /* Buffer to store Ethernet frame */
-  struct mem_pool_s *p_next_free;            /* Pointer for free list */
+  uint32_t       packet_size;                        /* Size of the received frame */
+  uint8_t        data[MY_RX_CH_RX_BUFFER_LEN_BYTE];  /* Buffer to store Ethernet frame */
+  struct mem_pool_s *p_next_free;                    /* Pointer for free list */
 } mem_pool_t;
 
 /* FIFO structure for received buffer tags. */
@@ -59,18 +60,18 @@ mem_pool_t *p_free_list = NULL;
 /* Driver memory areas aligned to ETH bus width for DMA descriptors */
 #if defined(__ICCARM__)
 #pragma data_alignment=ETH_BUS_DATA_WIDTH_BYTE
-uint32_t tx_drv_mem[ETH_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
+uint32_t tx_drv_mem[ETH_TX_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
 #pragma data_alignment=ETH_BUS_DATA_WIDTH_BYTE
-uint32_t rx_drv_mem[ETH_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
+uint32_t rx_drv_mem[ETH_RX_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
 #pragma data_alignment=ETH_BUS_DATA_WIDTH_BYTE
 mem_pool_t mem_pool[POOL_SIZE];
 #elif defined(__GNUC__) || defined(__ARMCC_VERSION)
-__attribute__((aligned(ETH_BUS_DATA_WIDTH_BYTE))) uint32_t tx_drv_mem[ETH_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
-__attribute__((aligned(ETH_BUS_DATA_WIDTH_BYTE))) uint32_t rx_drv_mem[ETH_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
+__attribute__((aligned(ETH_BUS_DATA_WIDTH_BYTE))) uint32_t tx_drv_mem[ETH_TX_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
+__attribute__((aligned(ETH_BUS_DATA_WIDTH_BYTE))) uint32_t rx_drv_mem[ETH_RX_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
 __attribute__((aligned(ETH_BUS_DATA_WIDTH_BYTE))) mem_pool_t mem_pool[POOL_SIZE];
 #else /*!__ICCARM__ and !__GNUC__ and !__ARMCC_VERSION */
-uint32_t tx_drv_mem[ETH_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
-uint32_t rx_drv_mem[ETH_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
+uint32_t tx_drv_mem[ETH_TX_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
+uint32_t rx_drv_mem[ETH_RX_MEM_SIZE_SIZE_BYTE / sizeof(uint32_t)];
 mem_pool_t mem_pool[POOL_SIZE];
 #endif  /* __ICCARM__ */
 
@@ -106,7 +107,7 @@ uint8_t tx_frame_packet[] =
 app_config_t   channel_0_config = {0}; /* Runtime configuration instance for channel 0. */
 
 /** Snapshot of previously observed PHY link mode. */
-lan8742_link_t prev_link_mode = { LAN8742_LINK_DOWN, LAN8742_LINK_SPEED_NONE, LAN8742_LINK_DUPLEX_NONE };
+mx_phy_link_mode_t prev_link_mode = { MX_PHY_LINK_DOWN, MX_PHY_LINK_SPEED_NONE, MX_PHY_LINK_DUPLEX_NONE };
 
 /* Private function prototypes -----------------------------------------------*/
 static void EthLinkCheck(void);
@@ -142,7 +143,9 @@ app_status_t app_init(void)
   channel_0_config.tx_tickRef = 0;
 
   /* Get ETH handler */
-  channel_0_config.p_eth_handler = (hal_eth_handle_t *)mx_eth1_hal_gethandle();
+  channel_0_config.p_eth_handler = mx_example_eth_gethandle();
+  channel_0_config.tx_channel_id = MY_TX_CH_ID;
+  channel_0_config.rx_channel_id = MY_RX_CH_ID;
 
   /* Init ETH Tx channel config */
   channel_0_config.tx_pkt_conf.attributes = HAL_ETH_TX_PKT_CTRL_CSUM | HAL_ETH_TX_PKT_CTRL_CRCPAD
@@ -151,37 +154,16 @@ app_status_t app_init(void)
   channel_0_config.tx_pkt_conf.csum_ctrl = HAL_ETH_TX_PKT_CSUM_PAYLOAD_HEADER_INSERT;
   channel_0_config.tx_pkt_conf.src_addr_ctrl = HAL_ETH_TX_PKT_SRC_ADDR_REPLACE;
 
-  /* Initialize LAN8742 PHY driver */
-  lan8742_init(mx_lan8742_getObj(), MX_LAN8742_0);
+  /* Initialize PHY driver */
+  mx_phy1_init();
 
 
   /* register data callbacks */
   HAL_ETH_RegisterDataCallback(channel_0_config.p_eth_handler, data_callback);
 
-  /* ============================ Tx Channel 0 Configuration =======================*/
-  channel_0_config.tx_channel_id = HAL_ETH_TX_CHANNEL_0;
-  HAL_ETH_GetConfigTxChannel(channel_0_config.p_eth_handler, channel_0_config.tx_channel_id,
-                             &channel_0_config.tx_channel_config);
-  channel_0_config.tx_channel_config.max_app_buffers_num = 10;
-  channel_0_config.tx_channel_config.fifo_event_config.event_mode = HAL_ETH_FIFO_EVENT_ALWAYS;
-
-  /* set Tx config */
-  HAL_ETH_SetConfigTxChannel(channel_0_config.p_eth_handler, channel_0_config.tx_channel_id,
-                             &channel_0_config.tx_channel_config);
-
   /* register Tx complete callback */
   HAL_ETH_RegisterChannelTxCptCallback(channel_0_config.p_eth_handler, channel_0_config.tx_channel_id,
                                        tx_channel_callback);
-  /* ============================ Rx Channel 0 Configuration =======================*/
-  channel_0_config.rx_channel_id = HAL_ETH_RX_CHANNEL_0;
-  HAL_ETH_GetConfigRxChannel(channel_0_config.p_eth_handler, channel_0_config.rx_channel_id,
-                             &channel_0_config.rx_channel_config);
-  channel_0_config.rx_channel_config.max_app_buffers_num = 10;
-  channel_0_config.rx_channel_config.fifo_event_config.event_mode = HAL_ETH_FIFO_EVENT_ALWAYS;
-
-  /* start Tx config */
-  HAL_ETH_SetConfigRxChannel(channel_0_config.p_eth_handler, channel_0_config.rx_channel_id,
-                             &channel_0_config.rx_channel_config);
 
   /* register Rx complete callback */
   HAL_ETH_RegisterChannelRxCptCallback(channel_0_config.p_eth_handler, channel_0_config.rx_channel_id,
@@ -193,10 +175,10 @@ app_status_t app_init(void)
   /* ============================ Start channels =======================*/
   /* start Tx channel */
   HAL_ETH_StartChannel(channel_0_config.p_eth_handler, channel_0_config.tx_channel_id, tx_drv_mem,
-                       ETH_MEM_SIZE_SIZE_BYTE);
+                       ETH_TX_MEM_SIZE_SIZE_BYTE);
   /* start Rx channel */
   HAL_ETH_StartChannel(channel_0_config.p_eth_handler, channel_0_config.rx_channel_id, rx_drv_mem,
-                       ETH_MEM_SIZE_SIZE_BYTE);
+                       ETH_RX_MEM_SIZE_SIZE_BYTE);
 
   PRINTF("[INFO] Step 1: Device initialization COMPLETED.\n");
 
@@ -300,56 +282,80 @@ hal_status_t rx_channel_callback(hal_eth_handle_t *heth, uint32_t channel, void 
 /* Check link status and apply MAC speed/duplex changes when detected. */
 static void EthLinkCheck(void)
 {
-  lan8742_obj_t *pLan8742Obj = NULL;
+  mx_phy_link_mode_t link_mode;
+  uint32_t tick_start = 0UL;
+  mx_phy_interface_t *p_phy_interface = NULL;
+  link_mode.speed = MX_PHY_LINK_SPEED_NONE;
 
-  /* Retrieve and store the lan8742 object pointer */
-  pLan8742Obj = mx_lan8742_getObj();
-  lan8742_link_t link_mode;
+  /* Retrieve PHY1 interface */
+  p_phy_interface = mx_phy1_get_interface();
+  if (p_phy_interface == NULL)
+  {
+    PRINTF("[ERROR] Enable to get PHY1 Interface\n");
+    return;
+  }
+
+  tick_start = HAL_GetTick();
 
   /* Get current PHY link state */
-  lan8742_get_link_mode(pLan8742Obj, &link_mode);
 
-  if ((link_mode.status == LAN8742_LINK_UP) && ((prev_link_mode.speed != link_mode.speed)
-                                                || (prev_link_mode.duplex != link_mode.duplex)))
+  while (link_mode.speed == MX_PHY_LINK_SPEED_NONE)
   {
-    hal_eth_handle_t *p_eth_handle = (hal_eth_handle_t *)mx_eth1_hal_gethandle();
-    hal_eth_link_config_t eth_link_config;
+    p_phy_interface->get_link_mode(&link_mode);
 
-    /* Record new link updates */
-    prev_link_mode.status = link_mode.status;
-    prev_link_mode.speed = link_mode.speed;
-    prev_link_mode.duplex = link_mode.duplex;
+    if (link_mode.speed != MX_PHY_LINK_SPEED_NONE)
+    {
+      if ((prev_link_mode.speed != link_mode.speed) || (prev_link_mode.duplex != link_mode.duplex))
+      {
+        hal_eth_handle_t *p_eth_handle = mx_example_eth_gethandle();
+        hal_eth_link_config_t eth_link_config;
 
-    /* Handle link event */
-    if ((link_mode.speed == LAN8742_LINK_SPEED_100) && (link_mode.duplex == LAN8742_LINK_FULL_DUPLEX))
-    {
-      eth_link_config.duplex_mode = HAL_ETH_MAC_FULL_DUPLEX_MODE;
-      eth_link_config.speed = HAL_ETH_MAC_SPEED_100M;
+        /* Record new link updates */
+        prev_link_mode.status = link_mode.status;
+        prev_link_mode.speed = link_mode.speed;
+        prev_link_mode.duplex = link_mode.duplex;
+
+        /* Handle link event */
+        if ((link_mode.speed == MX_PHY_LINK_SPEED_100) && (link_mode.duplex == MX_PHY_LINK_FULL_DUPLEX))
+        {
+          eth_link_config.duplex_mode = HAL_ETH_MAC_FULL_DUPLEX_MODE;
+          eth_link_config.speed = HAL_ETH_MAC_SPEED_100M;
+        }
+        else if ((link_mode.speed == MX_PHY_LINK_SPEED_100) && (link_mode.duplex == MX_PHY_LINK_HALF_DUPLEX))
+        {
+          eth_link_config.duplex_mode = HAL_ETH_MAC_HALF_DUPLEX_MODE;
+          eth_link_config.speed = HAL_ETH_MAC_SPEED_100M;
+        }
+        else if ((link_mode.speed == MX_PHY_LINK_SPEED_10) && (link_mode.duplex == MX_PHY_LINK_FULL_DUPLEX))
+        {
+          eth_link_config.duplex_mode = HAL_ETH_MAC_FULL_DUPLEX_MODE;
+          eth_link_config.speed = HAL_ETH_MAC_SPEED_10M;
+        }
+        else if ((link_mode.speed == MX_PHY_LINK_SPEED_10) && (link_mode.duplex == MX_PHY_LINK_HALF_DUPLEX))
+        {
+          eth_link_config.duplex_mode = HAL_ETH_MAC_HALF_DUPLEX_MODE;
+          eth_link_config.speed = HAL_ETH_MAC_SPEED_10M;
+        }
+        else
+        {
+          eth_link_config.duplex_mode = HAL_ETH_MAC_FULL_DUPLEX_MODE;
+          eth_link_config.speed = HAL_ETH_MAC_SPEED_100M;
+        }
+
+        /* Update current ETH Link configuration */
+        HAL_ETH_UpdateConfigLink(p_eth_handle, &eth_link_config);
+      }
+      break;
     }
-    else if ((link_mode.speed == LAN8742_LINK_SPEED_100) && (link_mode.duplex == LAN8742_LINK_HALF_DUPLEX))
+
+    if ((HAL_GetTick() - tick_start) > ETH_LINK_CHECK_TIMEOUT_MS)
     {
-      eth_link_config.duplex_mode = HAL_ETH_MAC_HALF_DUPLEX_MODE;
-      eth_link_config.speed = HAL_ETH_MAC_SPEED_100M;
+      return ;
     }
-    else if ((link_mode.speed == LAN8742_LINK_SPEED_10) && (link_mode.duplex == LAN8742_LINK_FULL_DUPLEX))
-    {
-      eth_link_config.duplex_mode = HAL_ETH_MAC_FULL_DUPLEX_MODE;
-      eth_link_config.speed = HAL_ETH_MAC_SPEED_10M;
-    }
-    else if ((link_mode.speed == LAN8742_LINK_SPEED_10) && (link_mode.duplex == LAN8742_LINK_HALF_DUPLEX))
-    {
-      eth_link_config.duplex_mode = HAL_ETH_MAC_HALF_DUPLEX_MODE;
-      eth_link_config.speed = HAL_ETH_MAC_SPEED_10M;
-    }
-  else
-  {
-      eth_link_config.duplex_mode = HAL_ETH_MAC_FULL_DUPLEX_MODE;
-      eth_link_config.speed = HAL_ETH_MAC_SPEED_100M;
+
+    HAL_Delay(500UL);
   }
 
-    /* Update current ETH Link configuration */
-    HAL_ETH_UpdateConfigLink(p_eth_handle, &eth_link_config);
-  }
 }
 /* Initialize the free list (call once at startup) */
 static void MemPoolInit(void)
@@ -418,9 +424,10 @@ static app_status_t TransmitSyncMsg(app_config_t *tx_config)
   tx_config->tx_pkt_conf.p_data = (void *) tx_buff; /* freed in tx_channel_callback */
 
   /* Asynchronous transmit request; HAL handles CRC/pad/checksum per configured attributes */
-  if (HAL_ETH_RequestTx(tx_config->p_eth_handler, tx_config->tx_channel_id, hal_eth_buffer, 1, &tx_config->tx_pkt_conf)
-      != HAL_OK)
+  if (HAL_ETH_RequestTx(tx_config->p_eth_handler, tx_config->tx_channel_id, hal_eth_buffer, 1,
+                        &tx_config->tx_pkt_conf) != HAL_OK)
   {
+    MemPoolFree(tx_buff);
     /* Immediate rejection (e.g., descriptor busy); buffer retained for future retry scenario */
     return EXEC_STATUS_ERROR;
   }
@@ -461,7 +468,8 @@ static void ReceiveEthPkt(void)
   mem_pool_t *p_rec_pkt = AppBufferFifoGet(&app_buff_fifo);
   if (p_rec_pkt != NULL)
   {
-    if ((p_rec_pkt->packet_size > ETH_HEADER_LEN_BYTE) && (p_rec_pkt->packet_size < POOL_BUFF_SIZE_BYTE - 1U))
+    if ((p_rec_pkt->packet_size > ETH_HEADER_LEN_BYTE)
+        && (p_rec_pkt->packet_size < MY_RX_CH_RX_BUFFER_LEN_BYTE - 1U))
     {
       uint8_t *p_data = p_rec_pkt->data;
       /* Ensure the message is null-terminated for printing */
@@ -471,8 +479,9 @@ static void ReceiveEthPkt(void)
       if (eth_type == ETH_PKT_ETHER_TYPE)
       {
         /* Print source MAC and payload message */
-        PRINTF("[INFO] Received Frame MAC Addr: %02X:%02X:%02X:%02X:%02X:%02X, message: %s\n", p_data[6], p_data[7],
-               p_data[8], p_data[9], p_data[10], p_data[11], &p_data[ETH_HEADER_LEN_BYTE]);
+        PRINTF("[INFO] Received Frame MAC Addr: %02X:%02X:%02X:%02X:%02X:%02X, message: %s\n",
+               p_data[6], p_data[7], p_data[8], p_data[9], p_data[10], p_data[11],
+               &p_data[ETH_HEADER_LEN_BYTE]);
       }
     }
     MemPoolFree(p_rec_pkt);

@@ -29,10 +29,10 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-    #define MX_EXAMPLE_LPTIM_IRQN       LPTIM1_IRQn
-    #define MX_EXAMPLE_LPTIM_IRQHANDLER LPTIM1_IRQHandler
-    #define MYLPTIM_1_IRQN       MX_EXAMPLE_LPTIM_IRQN
-    #define MYLPTIM_1_IRQHANDLER MX_EXAMPLE_LPTIM_IRQHANDLER
+#define MX_EXAMPLE_LPTIM_IRQN       LPTIM1_IRQn
+#define MX_EXAMPLE_LPTIM_IRQHANDLER LPTIM1_IRQHandler
+#define MYLPTIM_1_IRQN       MX_EXAMPLE_LPTIM_IRQN
+#define MYLPTIM_1_IRQHANDLER MX_EXAMPLE_LPTIM_IRQHANDLER
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -61,7 +61,6 @@ hal_lptim_handle_t *mx_lptim1_gethandle(void);
 /******************************************************************************/
 /*                          LPTIM1 global interrupt                           */
 /******************************************************************************/
-
 void LPTIM1_IRQHandler(void);
 #ifdef __cplusplus
 }

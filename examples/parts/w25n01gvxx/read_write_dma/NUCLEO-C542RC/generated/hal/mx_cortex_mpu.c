@@ -25,7 +25,7 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 /******************************************************************************/
-/* Exported functions for MPU in HAL layer (SW instance MyCORTEX_MPU_1) */
+/* Exported functions for CORTEX_MPU in HAL layer */
 /******************************************************************************/
 
 system_status_t mx_cortex_mpu_init(void)
@@ -121,4 +121,5 @@ void mx_cortex_mpu_deinit(void)
   HAL_CORTEX_MPU_SetConfigRegion(HAL_CORTEX_MPU_REGION_4, &p_region_config);
   HAL_CORTEX_MPU_SetConfigRegion(HAL_CORTEX_MPU_REGION_5, &p_region_config);
   HAL_CORTEX_MPU_SetConfigRegion(HAL_CORTEX_MPU_REGION_6, &p_region_config);
-  HAL_CORTEX_MPU_SetConfigRegion(HAL_CORTEX_MPU_REGION_7, &p_region_config);}
+  HAL_CORTEX_MPU_SetConfigRegion(HAL_CORTEX_MPU_REGION_7, &p_region_config);
+}

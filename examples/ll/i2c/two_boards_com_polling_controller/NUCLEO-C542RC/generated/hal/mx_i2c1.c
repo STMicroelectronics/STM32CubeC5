@@ -26,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for I2C1 in LL layer (SW instance MyI2C_1) */
+/* Exported functions for I2C1 in LL layer */
 /******************************************************************************/
 I2C_TypeDef *mx_i2c1_i2c_init(void)
 {
@@ -44,36 +44,36 @@ I2C_TypeDef *mx_i2c1_i2c_init(void)
   LL_I2C_WRITE_REG(I2C1, CR2, (LL_I2C_READ_REG(I2C1, CR2) | I2C_CR2_AUTOEND | I2C_CR2_NACK));
 
   LL_I2C_Enable(I2C1);
+  /* ### I2C1 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
 
   /**
-    I2C1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB6     ------>   I2C1_SCL
-       PB7     ------>   I2C1_SDA
+       PB6     ------>   I2C1_SCL   ------>  PB6
+       PB7     ------>   I2C1_SDA   ------>  PB7
     **/
 
   /* Configure IO output speed (Low, Medium, High or Very-High) */
-  /* LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_6, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_7, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PB6_PORT, PB6_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PB7_PORT, PB7_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO output type (Push-Pull or Open-Drain) */
-  LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_6 | LL_GPIO_PIN_7, LL_GPIO_OUTPUT_OPENDRAIN);
+  LL_GPIO_SetPinOutputType(GPIOB, PB6_PIN | PB7_PIN, LL_GPIO_OUTPUT_OPENDRAIN);
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_6, LL_GPIO_PULL_UP);
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_7, LL_GPIO_PULL_UP);
+  LL_GPIO_SetPinPull(PB6_PORT, PB6_PIN, LL_GPIO_PULL_UP);
+  LL_GPIO_SetPinPull(PB7_PORT, PB7_PIN, LL_GPIO_PULL_UP);
 
   /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_6, LL_GPIO_AF_4);
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_7, LL_GPIO_AF_4);
+  LL_GPIO_SetAFPin_0_7(PB6_PORT, PB6_PIN, LL_GPIO_AF_4);
+  LL_GPIO_SetAFPin_0_7(PB7_PORT, PB7_PIN, LL_GPIO_AF_4);
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_6, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_7, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PB6_PORT, PB6_PIN, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PB7_PORT, PB7_PIN, LL_GPIO_MODE_ALTERNATE);
 
   /* LL_RCC_SetI2CClockSource(LL_RCC_I2C1_CLKSOURCE_PCLK1); */ /* Configuration matches register reset state at startup. */
 
@@ -91,24 +91,24 @@ void mx_i2c1_i2c_deinit(void)
   /* ### GPIO deinitialization of I2C1: I2C1_SCL,I2C1_SDA ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_6, LL_GPIO_MODE_ANALOG);
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_7, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PB6_PORT, PB6_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PB7_PORT, PB7_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_6, LL_GPIO_AF_0);
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_7, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PB6_PORT, PB6_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PB7_PORT, PB7_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_6, LL_GPIO_SPEED_FREQ_LOW);
-  LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_7, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PB6_PORT, PB6_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PB7_PORT, PB7_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_6 | LL_GPIO_PIN_7, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(GPIOB, PB6_PIN | PB7_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_6, LL_GPIO_PULL_NO);
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_7, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PB6_PORT, PB6_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PB7_PORT, PB7_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOB, LL_GPIO_PIN_6 | LL_GPIO_PIN_7, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PB6_PORT, PB6_PIN | PB7_PIN, LL_GPIO_PIN_RESET);
 }

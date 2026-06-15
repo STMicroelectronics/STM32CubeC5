@@ -65,19 +65,16 @@ void mx_usart3_usart_deinit(void);
 /******************************************************************************/
 /*         USART3 global interrupt is managed directly in user code.          */
 /******************************************************************************/
-
 /* void USART3_IRQHandler(void); */
 
 /******************************************************************************/
 /*     LPDMA1 channel0 global interrupt is managed directly in user code.     */
 /******************************************************************************/
-
 /* void LPDMA1_CH0_IRQHandler(void); */
 
 /******************************************************************************/
 /*     LPDMA1 channel1 global interrupt is managed directly in user code.     */
 /******************************************************************************/
-
 /* void LPDMA1_CH1_IRQHandler(void); */
 #ifdef __cplusplus
 }

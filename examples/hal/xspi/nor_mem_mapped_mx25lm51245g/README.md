@@ -2,7 +2,7 @@
 
 # __Example: *hal_xspi_nor_mem_mapped_mx25lm51245g*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/read/read_toc.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -179,8 +179,8 @@ This section describes the exact hardware configurations of your project.
 - To enable LDO_EN, pin PG9 (CN11-25) is driven high to 3.3V by the example to power on the memory module, no external wiring of this pin is needed.
 
 </details>
+  <summary>On STM32V8 series.</summary>
 </details>
-
 
 ## __4. Troubleshooting__
 

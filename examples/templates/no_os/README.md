@@ -1,5 +1,5 @@
 <img src="doc/subbrand-stm32.svg" width="50" alt="STM32 Subbrand Logo"/>
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 
 # __Template: *example_template_no_os*__
@@ -71,8 +71,11 @@ The system configuration aims at offering the optimal MCU performances:
 __STM32 with isolation__
 
 The infrastructure for resource isolation is configured in the initialization phase.
-The resource isolation allows making the entire chip a secure privilege, including controller and target peripherals.
-All this is done in the `mx_tee_setup()' code.
+The resource isolation allows making the used resources as secured and privileged. All this is done in the `mx_tee_setup()' code.
+Users who do not use STM32CubeMX2 must manage security settings manually according to the resources used in their projects.
+To support this workflow, the STM32V8 HAL pack provides a mx_tee.c template file that can be integrated into a project or used
+as a replacement. This template configures all available resources (peripherals and I/Os) as secured and privileged. Users can then
+fine-tune the configuration to match the resources that are actually used.
 
 ### __3.3. Reconfiguring the template application__
 

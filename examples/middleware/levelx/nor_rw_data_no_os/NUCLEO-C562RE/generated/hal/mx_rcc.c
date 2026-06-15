@@ -19,7 +19,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "mx_rcc.h"
 
-/* Private typedef -----------------------------------------------------------*//* Private define ------------------------------------------------------------*/
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype------------------------------------------------*/
@@ -31,55 +32,70 @@
 /**
   * Configure the system core clock only and activate it using the HAL RCC unitary APIs (footprint optimization)
   *         The system Clock is configured as follow :
-  *            System Clock source            = HSIDIV3
-  *            SYSCLK(Hz)                     = 48000000
-  *            HCLK(Hz)                       = 48000000
+  *            System Clock source            = PSIS
+  *            SYSCLK(Hz)                     = 144000000
+  *            HCLK(Hz)                       = 144000000
   *            AHB Prescaler                  = 1
   *            APB1 Prescaler                 = 1
-  *            APB2 Prescaler                 = 1
+  *            APB2 Prescaler                 = 2
   *            APB3 Prescaler                 = 1
   *            Flash Latency(WS)              = 4
   */
 system_status_t mx_rcc_init(void)
 {
-
-  if (HAL_RCC_HSIDIV3_Enable() != HAL_OK)
+  if (HAL_RCC_HSE_Enable(HAL_RCC_HSE_ON) != HAL_OK)
   {
     return SYSTEM_CLOCK_ERROR;
   }
 
-  HAL_RCC_SetSYSCLKSource(HAL_RCC_SYSCLK_SRC_HSIDIV3);
-  /** Frequency will be decreased */
-  HAL_FLASH_ITF_SetLatency(HAL_FLASH, HAL_FLASH_ITF_LATENCY_4);
-  HAL_FLASH_ITF_SetProgrammingDelay(HAL_FLASH, HAL_FLASH_ITF_PROGRAM_DELAY_2);
+    hal_rcc_psi_config_t config_psi;
+  config_psi.psi_source = HAL_RCC_PSI_SRC_HSE;
+  config_psi.psi_ref = HAL_RCC_PSI_REF_24MHZ;
+  config_psi.psi_out = HAL_RCC_PSI_OUT_144MHZ;
+  if (HAL_RCC_PSI_SetConfig(&config_psi) != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
+
+  if (HAL_RCC_PSIS_Enable() != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
 
   /** Initializes the CPU, AHB and APB busses clocks */
   hal_rcc_bus_clk_config_t config_bus;
   config_bus.hclk_prescaler  = HAL_RCC_HCLK_PRESCALER1;
   config_bus.pclk1_prescaler = HAL_RCC_PCLK_PRESCALER1;
-  config_bus.pclk2_prescaler = HAL_RCC_PCLK_PRESCALER1;
+  config_bus.pclk2_prescaler = HAL_RCC_PCLK_PRESCALER2;
   config_bus.pclk3_prescaler = HAL_RCC_PCLK_PRESCALER1;
-  HAL_RCC_SetBusClockConfig(&config_bus);
+  if (HAL_RCC_SetBusClockConfig(&config_bus) != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
 
-  /** Systick Initialization */
-  HAL_RCC_SetSysTickExternalClkSource(HAL_RCC_SYSTICK_CLK_SRC_HCLKDIV8);
+  /** Frequency will be increased */
+  HAL_FLASH_ITF_SetLatency(HAL_FLASH, HAL_FLASH_ITF_LATENCY_4);
 
+  if (HAL_RCC_SetSYSCLKSource(HAL_RCC_SYSCLK_SRC_PSIS) != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
 
+  HAL_FLASH_ITF_SetProgrammingDelay(HAL_FLASH, HAL_FLASH_ITF_PROGRAM_DELAY_2);
 
+  if (HAL_UpdateCoreClock() != HAL_OK)
+  {
+    return SYSTEM_CLOCK_ERROR;
+  }
 
-
-
-
+  /* No GPIO configuration required for RCC */
 
   return SYSTEM_OK;
 }
 
 void mx_rcc_deinit(void)
 {
-
-  HAL_PWR_DisableRTCDomainWriteProtection();
   HAL_RCC_Reset();
-  HAL_PWR_EnableRTCDomainWriteProtection();
 }
 
 /**
@@ -87,9 +103,12 @@ void mx_rcc_deinit(void)
   */
 system_status_t mx_rcc_peripherals_clock_config(void)
 {
-  /* Peripherals clocked with PCLK1 (48 MHz):
-    SPI2
+  /* Peripherals using PCLK1 (144 MHz):
     USART2
+  */
+
+  /* Peripherals using PCLK2 (72 MHz):
+    SPI1
   */
 
   return SYSTEM_OK;

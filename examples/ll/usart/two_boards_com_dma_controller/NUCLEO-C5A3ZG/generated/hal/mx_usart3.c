@@ -48,41 +48,41 @@ USART_TypeDef *mx_usart3_usart_init(void)
   LL_USART_SetBaudRate(USART3, 144000000, LL_USART_PRESCALER_DIV1, LL_USART_OVERSAMPLING_8,
                        115200);
   LL_USART_Enable(USART3);
+  /* ### USART3 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOC);
 
   /**
-    USART3 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PC12    ------>   USART3_CK
-       PC11    ------>   USART3_RX
-       PC10    ------>   USART3_TX
+       PC12    ------>   USART3_CK   ------>  PC12
+       PC11    ------>   USART3_RX   ------>  PC11
+       PC10    ------>   USART3_TX   ------>  PC10
     **/
 
   /* Configure IO output speed (Low, Medium, High or Very-High) */
-  /* LL_GPIO_SetPinSpeed(GPIOC, LL_GPIO_PIN_12, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinSpeed(GPIOC, LL_GPIO_PIN_11, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinSpeed(GPIOC, LL_GPIO_PIN_10, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PC12_PORT, PC12_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PC11_PORT, PC11_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PC10_PORT, PC10_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOC, LL_GPIO_PIN_12 | LL_GPIO_PIN_11 | LL_GPIO_PIN_10, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinOutputType(GPIOC, PC12_PIN | PC11_PIN | PC10_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_12, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_11, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_10, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PC12_PORT, PC12_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PC11_PORT, PC11_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PC10_PORT, PC10_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOC, LL_GPIO_PIN_12, LL_GPIO_AF_7);
-  LL_GPIO_SetAFPin_8_15(GPIOC, LL_GPIO_PIN_11, LL_GPIO_AF_7);
-  LL_GPIO_SetAFPin_8_15(GPIOC, LL_GPIO_PIN_10, LL_GPIO_AF_7);
+  LL_GPIO_SetAFPin_8_15(PC12_PORT, PC12_PIN, LL_GPIO_AF_7);
+  LL_GPIO_SetAFPin_8_15(PC11_PORT, PC11_PIN, LL_GPIO_AF_7);
+  LL_GPIO_SetAFPin_8_15(PC10_PORT, PC10_PIN, LL_GPIO_AF_7);
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_12, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_11, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_10, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PC12_PORT, PC12_PIN, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PC11_PORT, PC11_PIN, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PC10_PORT, PC10_PIN, LL_GPIO_MODE_ALTERNATE);
 
   /* Enable interrupt */
   NVIC_SetPriority(USART3_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
@@ -92,9 +92,6 @@ USART_TypeDef *mx_usart3_usart_init(void)
 
   /* Enable LPDMA1 clock */
   LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_LPDMA1);
-/**********************************************************************************************************************/
-  /* LL Optimization Context (DMA) */
-  /**********************************************************************************************************************/
 
   /* Configure DMA channel transfer request */
   LL_DMA_SetPeriphRequest(LPDMA1_CH0, LL_LPDMA1_REQUEST_USART3_TX);
@@ -118,9 +115,6 @@ USART_TypeDef *mx_usart3_usart_init(void)
 
   /* Enable LPDMA1 clock */
   LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_LPDMA1);
-/**********************************************************************************************************************/
-  /* LL Optimization Context (DMA) */
-  /**********************************************************************************************************************/
 
   /* Configure DMA channel transfer request */
   LL_DMA_SetPeriphRequest(LPDMA1_CH1, LL_LPDMA1_REQUEST_USART3_RX);
@@ -151,30 +145,30 @@ void mx_usart3_usart_deinit(void)
   /* ### GPIO deinitialization of USART3: USART3_CK,USART3_RX,USART3_TX ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_12, LL_GPIO_MODE_ANALOG);
-  LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_11, LL_GPIO_MODE_ANALOG);
-  LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_10, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PC12_PORT, PC12_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PC11_PORT, PC11_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PC10_PORT, PC10_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_8_15(GPIOC, LL_GPIO_PIN_12, LL_GPIO_AF_0);
-  LL_GPIO_SetAFPin_8_15(GPIOC, LL_GPIO_PIN_11, LL_GPIO_AF_0);
-  LL_GPIO_SetAFPin_8_15(GPIOC, LL_GPIO_PIN_10, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_8_15(PC12_PORT, PC12_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_8_15(PC11_PORT, PC11_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_8_15(PC10_PORT, PC10_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOC, LL_GPIO_PIN_12, LL_GPIO_SPEED_FREQ_LOW);
-  LL_GPIO_SetPinSpeed(GPIOC, LL_GPIO_PIN_11, LL_GPIO_SPEED_FREQ_LOW);
-  LL_GPIO_SetPinSpeed(GPIOC, LL_GPIO_PIN_10, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PC12_PORT, PC12_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PC11_PORT, PC11_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PC10_PORT, PC10_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOC, LL_GPIO_PIN_12 | LL_GPIO_PIN_11 | LL_GPIO_PIN_10, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(GPIOC, PC12_PIN | PC11_PIN | PC10_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_12, LL_GPIO_PULL_NO);
-  LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_11, LL_GPIO_PULL_NO);
-  LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_10, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PC12_PORT, PC12_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PC11_PORT, PC11_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PC10_PORT, PC10_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOC, LL_GPIO_PIN_12 | LL_GPIO_PIN_11 | LL_GPIO_PIN_10, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PC12_PORT, PC12_PIN | PC11_PIN | PC10_PIN, LL_GPIO_PIN_RESET);
 
   /* Disable interrupt */
   NVIC_DisableIRQ(LPDMA1_CH1_IRQn);

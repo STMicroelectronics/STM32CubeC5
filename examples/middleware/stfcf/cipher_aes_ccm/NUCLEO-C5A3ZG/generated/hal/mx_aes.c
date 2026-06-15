@@ -25,17 +25,17 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_aes_handle_t hAES;
-uint32_t BlockB0[4] =
+uint32_t AESBlockB0[4] =
   {
     0x00000000, 0x00000000, 0x00000000, 0x00000000
   };
-uint32_t BlockHeader[1] =
+uint32_t AESBlockHeader[1] =
   {
     0x00
   };
 
 /******************************************************************************/
-/* Exported functions for AES in HAL layer (SW instance MyAES_1) */
+/* Exported functions for AES in HAL layer */
 /******************************************************************************/
 hal_aes_handle_t *mx_aes_init(void)
 {
@@ -47,8 +47,8 @@ hal_aes_handle_t *mx_aes_init(void)
   HAL_RCC_AES_EnableClock();
 
   hal_aes_ccm_config_t p_ccm_config;
-  p_ccm_config.p_b0                 = BlockB0;
-  p_ccm_config.p_header             = BlockHeader;
+  p_ccm_config.p_b0                 = AESBlockB0;
+  p_ccm_config.p_header             = AESBlockHeader;
   p_ccm_config.header_size_byte     = 1;
 
   if (HAL_AES_CCM_SetConfig(&hAES, &p_ccm_config) != HAL_OK)

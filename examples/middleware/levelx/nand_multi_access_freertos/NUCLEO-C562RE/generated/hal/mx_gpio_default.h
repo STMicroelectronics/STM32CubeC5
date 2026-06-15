@@ -5,7 +5,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
@@ -30,28 +30,21 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /******************************************************************************/
-/* Exported defines for gpio_default in HAL layer (SW instance MyGPIO_1) */
+/* Exported defines for gpio_default in HAL layer                             */
 /******************************************************************************/
-/* Primary aliases for GPIO PA5 pin */
-#define PA5_GPIO_PORT                                   HAL_GPIOA
-#define PA5_GPIO_PIN                                    HAL_GPIO_PIN_5
-#define PA5_INIT_STATE                                  HAL_GPIO_PIN_SET
-#define PA5_ACTIVE_STATE                                HAL_GPIO_PIN_SET
-#define PA5_INACTIVE_STATE                              HAL_GPIO_PIN_RESET
 
-/* Primary aliases for GPIO PA15 pin */
-#define NETR16_2_GPIO_PORT                              HAL_GPIOC
-#define NETR16_2_GPIO_PIN                               HAL_GPIO_PIN_9
-#define NETR16_2_INIT_STATE                             HAL_GPIO_PIN_RESET
-#define NETR16_2_ACTIVE_STATE                           HAL_GPIO_PIN_SET
-#define NETR16_2_INACTIVE_STATE                         HAL_GPIO_PIN_RESET
-
+/* Primary aliases for GPIO PC9 pin */
+#define PC9_PORT                                        HAL_GPIOC
+#define PC9_PIN                                         HAL_GPIO_PIN_9
+#define PC9_INIT_STATE                                  HAL_GPIO_PIN_SET
+#define PC9_ACTIVE_STATE                                HAL_GPIO_PIN_SET
+#define PC9_INACTIVE_STATE                              HAL_GPIO_PIN_RESET
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /******************************************************************************/
-/* Exported functions for gpio_default in HAL layer (SW instance MyGPIO_1) */
+/* Exported functions for gpio_default in HAL layer                           */
 /******************************************************************************/
 /**
   * @brief mx_gpio_default init function
@@ -65,7 +58,6 @@ system_status_t mx_gpio_default_init(void);
   * @brief  De-initialize gpio_default instance.
   */
 system_status_t mx_gpio_default_deinit(void);
-
 
 #ifdef __cplusplus
 }

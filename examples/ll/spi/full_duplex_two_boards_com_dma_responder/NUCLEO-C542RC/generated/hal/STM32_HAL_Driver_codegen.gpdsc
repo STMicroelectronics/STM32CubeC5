@@ -545,42 +545,41 @@
       <require condition="CMSIS Core"/>
       <require Cclass="Device" Cgroup="STM32 LL" Csub="UTILS"/>
       <require Cclass="Device" Cgroup="STM32CubeMX2 Codegen" Csub="Generated Code"/>
-      <require Cclass="Device" Cgroup="STM32 HAL" Csub="timebases" Cvariant="SYSTICK"/>
     </condition>
     <condition id="Use mutex">
       <description>STMicroelectronics HAL condition to check if USE_HAL_MUTEX is enabled</description>
     </condition>
   </conditions>
   <components>
-    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="CORE"   Cversion="2.0.0" condition="HAL Generated code">
+    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="CORE"   Cversion="2.1.0" condition="HAL Generated code">
       <description>TO BE DEFINED</description>
       <files>
         <file category="header" name="stm32_ll.h" />
         <file category="header" name="mx_hal_def.h" />
       </files>
     </component>
-    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="CORTEX MPU"   Cversion="2.0.0" condition="HAL CORE Init and CORTEX">
+    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="CORTEX MPU"   Cversion="2.1.0" condition="HAL CORE Init and CORTEX">
       <description>TO BE DEFINED</description>
       <files>
         <file category="source" name="mx_cortex_mpu.c" />
         <file category="header" name="mx_cortex_mpu.h" />
       </files>
     </component>
-    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="CORTEX NVIC"   Cversion="2.0.0" condition="HAL CORE Init and CORTEX">
+    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="CORTEX NVIC"   Cversion="2.1.0" condition="HAL CORE Init and CORTEX">
       <description>TO BE DEFINED</description>
       <files>
         <file category="source" name="mx_cortex_nvic.c" />
         <file category="header" name="mx_cortex_nvic.h" />
       </files>
     </component>
-    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="ICACHE"   Cversion="2.0.0" condition="HAL CORE Init and ICACHE">
+    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="ICACHE"   Cversion="2.1.0" condition="HAL CORE Init and ICACHE">
       <description>TO BE DEFINED</description>
       <files>
         <file category="source" name="mx_icache.c" />
         <file category="header" name="mx_icache.h" />
       </files>
     </component>
-    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="RCC"   Cversion="2.0.0" condition="HAL CORE Init GPIO and RCC">
+    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="RCC"   Cversion="2.1.0" condition="HAL CORE Init GPIO and RCC">
       <description>TO BE DEFINED</description>
         <Pre_Include_Global_h>
           #define USE_EXTERNAL_ENV
@@ -590,14 +589,14 @@
         <file category="header" name="mx_rcc.h" />
       </files>
     </component>
-    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="SPI"   Cversion="2.0.0" condition="HAL CORE GPIO DMA Init and SPI">
+    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="SPI"   Cversion="2.1.0" condition="HAL CORE GPIO DMA Init and SPI">
       <description>TO BE DEFINED</description>
       <files>
         <file category="source" name="mx_spi1.c" />
         <file category="header" name="mx_spi1.h" />
       </files>
     </component>
-    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="System"   Cversion="2.0.0" condition="HAL System Init">
+    <component generator="stm32c5xx_hal_mx2codegen" Cclass="Device" Cgroup="STM32CubeMX2 Config" Csub="System"   Cversion="2.1.0" condition="HAL System Init">
       <description>TO BE DEFINED</description>
       <files>
         <file category="source" name="mx_system.c" />

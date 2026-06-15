@@ -2,9 +2,9 @@
 
 # __Example: *ll_tim_output_compare*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
-[![User Manual](doc/read_the-UM.svg)](https://confluence.st.com/display/E01/Cube+Firmware+Examples+Documentation "An offline version is also available in the Cube Firmware package.")
+[![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
 How to configure a timer to generate two PWM signals of same frequency in output compare toggle mode with delays between them using LL API.
 
@@ -26,7 +26,7 @@ __End of example__: If no error occurs, the PWM signal is generated indefinitely
 
 ## __2. Example configuration__
 
-[![Configuration Manual](doc/configure_with-ConfigurationMa.svg)](https://confluence.st.com/display/E01/Cube+Firmware+Examples+Documentation#:~:text=config "An offline version is also available in the STM32Cube firmware package.")
+[![Configuration Manual](doc/configure_with-ConfigurationMa.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/configure/config_toc.html "An offline version is also available in the STM32Cube firmware package.")
 
 ### __2.1. Timer configuration:__
 
@@ -114,7 +114,7 @@ This section focuses on the clock settings as this is critical to obtain the des
   To obtain the timer's counter clock frequency (tim_cnt_ck), the timer prescaler register (TIM_PSC) is computed as follows:
 
       TIM_PSC = (HCLK / tim_cnt_ck ) - 1
-    <!--
+<!--
 @startuml
 @startditaa{doc/stm32c5_peripherals_clocks.png}
   +---------+
@@ -151,7 +151,6 @@ To obtain a timer counter clock at 1MHz with the APB prescaler set to 1 and the 
       timer_prescaler = (144 MHz / 1 MHz) - 1 = 143
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C542RC.</summary>
 
@@ -164,7 +163,6 @@ To obtain a timer counter clock at 1MHz with the APB prescaler set to 1 and the 
   |    PA5    |     GPIO      | MX_STATUS_LED |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -177,7 +175,6 @@ To obtain a timer counter clock at 1MHz with the APB prescaler set to 1 and the 
   |    PA5    |     GPIO      | MX_STATUS_LED |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -192,10 +189,9 @@ To obtain a timer counter clock at 1MHz with the APB prescaler set to 1 and the 
   </details>
 </details>
 
-
 ## __4. Troubleshooting__
 
-[![Troubleshooting](doc/debug_with-Troubleshooting.svg)](https://confluence.st.com/display/E01/Cube+Firmware+Examples+Documentation#:~:text=Troubleshooting "An offline version is also available in the Cube Firmware package.")
+[![Troubleshooting](doc/debug_with-Troubleshooting.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/debug/debug_toc.html "An offline version is also available in the STM32Cube firmware package.")
 
 Here are the points of attention for this specific example:
 
@@ -204,13 +200,13 @@ Here are the points of attention for this specific example:
 
 ## __5. See Also__
 
-[![SeeAlso](doc/go_further_with-STM32.svg)](https://confluence.st.com/display/E01/Cube+Firmware+Examples+Documentation#:~:text=See%20Also "An offline version is also available in the Cube Firmware package.")
+[![SeeAlso](doc/go_further_with-STM32.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/more/more_toc.html "An offline version is also available in the STM32Cube firmware package.")
 
 This [General-purpose timer cookbook for STM32 microcontrollers (ref. AN4776)](https://www.st.com/content/ccc/resource/technical/document/application_note/group0/91/01/84/3f/7c/67/41/3f/DM00236305/files/DM00236305.pdf/jcr:content/translations/en.DM00236305.pdf) provides a simple and clear description of the basic features and operating modes of the STM32 general-purpose timer peripherals.
 
-This [STM32 cross-series timer overview (ref. AN4013)](https://www.st.com/content/ccc/resource/technical/document/application_note/54/0f/67/eb/47/34/45/40/DM00042534.pdf/files/DM00042534.pdf/jcr:content/translations/en.DM00042534.pdf) present an overview of the timer peripherals for the STM32 product series.
+This [STM32 cross-series timer overview (ref. AN4013)](https://www.st.com/content/ccc/resource/technical/document/application_note/54/0f/67/eb/47/34/45/40/DM00042534.pdf/files/DM00042534.pdf/jcr:content/translations/en.DM00042534.pdf) presents an overview of the timer peripherals for the STM32 product series.
 
-More information about the STM32 Cube Drivers can be found in the drivers' user manual of the STM32 series you are using.
+More information about the STM32Cube Drivers can be found in the drivers' user manual of the STM32 series you are using.
 
 More information about the STM32 ecosystem can be found in the [STM32 MCU Developer Zone](https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/embedded-software.html).
 

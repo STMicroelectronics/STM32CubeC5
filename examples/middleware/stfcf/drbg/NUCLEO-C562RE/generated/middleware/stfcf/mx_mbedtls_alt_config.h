@@ -29,6 +29,8 @@ extern "C" {
 
 /* Exported macros -----------------------------------------------------------*/
 #define mx_stfcf_mbedtls_alt_hal_rng_gethandle mx_example_rng_gethandle
+#define mx_stfcf_mbedtls_alt_hal_aes_gethandle mx_aes_gethandle
+#define mx_stfcf_mbedtls_alt_hal_hash_gethandle mx_hash_gethandle
 
 /* Exported constants ------------------------------------------------------- */
 
@@ -46,7 +48,7 @@ extern "C" {
   *        Uncomment a macro to enable ST AES hardware alternative module.
   *        Requires: MBEDTLS_AES_C, MBEDTLS_AES_ALT.
   */
-/* #define MBEDTLS_HAL_AES_ALT */
+#define MBEDTLS_HAL_AES_ALT
 
 /**
   * @brief MBEDTLS_HAL_CCM_ALT Enables ST CCM alternative module to replace mbed
@@ -87,7 +89,7 @@ extern "C" {
   *        Uncomment a macro to enable ST SHA256 hardware alternative module.
   *        Requires: MBEDTLS_SHA256_C, MBEDTLS_SHA256_ALT.
   */
-/* #define MBEDTLS_HAL_SHA256_ALT */
+#define MBEDTLS_HAL_SHA256_ALT
 
 /**
   * @brief MBEDTLS_HAL_SHA512_ALT Enables ST SHA-384 and SHA-512 alternative
@@ -274,6 +276,7 @@ extern "C" {
   *        Requires: MBEDTLS_PSA_CRYPTO_C, MBEDTLS_PSA_CRYPTO_EXTERNAL_RNG.
   */
 #define MBEDTLS_STCRYPTOLIB_DRBG_ALT
+
 /**
   * @}
   */

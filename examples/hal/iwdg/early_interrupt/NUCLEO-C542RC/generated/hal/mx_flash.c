@@ -25,9 +25,8 @@
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
 static hal_flash_handle_t hFLASH;
-
 /******************************************************************************/
-/*     Exported functions for FLASH in HAL layer (SW instance MyFLASH_1)      */
+/*     Exported functions for FLASH in HAL layer */
 /******************************************************************************/
 hal_flash_handle_t *mx_flash_init(void)
 {
@@ -47,15 +46,4 @@ void mx_flash_deinit(void)
 hal_flash_handle_t *mx_flash_gethandle(void)
 {
   return &hFLASH;
-}
-
-/******************************************************************************/
-/*           FLASH NMI interrupt is managed directly in user code.            */
-/******************************************************************************/
-__WEAK system_status_t FLASH_NMI_IRQHandler(void)
-{
-  /* NOTE : This function must not be modified in this file, when the IRQHandler is needed,
-            the function must preferably be implemented in the user file
-   */
-  return SYSTEM_PERIPHERAL_ERROR;
 }

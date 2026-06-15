@@ -27,9 +27,11 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "mx_mbedtls_config.h"
 #include "mx_mbedtls_alt_config.h"
+
 #if defined(STFCF_USER_CONFIG_FILE)
 #include STFCF_USER_CONFIG_FILE
-#endif /* STFCF_DEFAULT_CONFIG_FILE */
+#endif /* STFCF_USER_CONFIG_FILE */
+
 
 /* Exported constants --------------------------------------------------------*/
 #define STFCF_KEY_LOCATION PSA_KEY_LOCATION_LOCAL_STORAGE

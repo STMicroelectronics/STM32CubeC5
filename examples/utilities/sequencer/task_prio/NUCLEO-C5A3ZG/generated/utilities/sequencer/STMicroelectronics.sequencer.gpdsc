@@ -13,7 +13,10 @@
   * If no mx_sequencer_license.md file comes with this software, it is provided AS-IS.
   *
  ****************************************************************************** -->
-<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.7.55" xsi:noNamespaceSchemaLocation="PACK.xsd" xmlns:stm32="https://developer.st.com/schemas/stm32cube/1.0.0" xsi:schemaLocation="https://developer.st.com/schemas/stm32cube/1.0.0 stm32cube.xsd" Dvendor="STMicroelectronics:13" Dname="STM32*">
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.7.55"
+  xsi:noNamespaceSchemaLocation="PACK.xsd" xmlns:stm32="https://developer.st.com/schemas/stm32cube/1.0.0"
+  xsi:schemaLocation="https://developer.st.com/schemas/stm32cube/1.0.0 stm32cube.xsd" Dvendor="STMicroelectronics:13"
+  Dname="STM32*">
   <vendor>STMicroelectronics</vendor>
   <name>sequencer</name>
   <url>https://developer.st.com/st-pack-server/api/v1/pack/</url>
@@ -23,14 +26,13 @@
     </release>
   </releases>
   <conditions>
-
     <condition id="Seq Config">
     <description>STMicroelectronics Utility Sequencer Config</description>
     <require Cclass="Utility" Cgroup="SEQUENCER" Csub="Core"/>
   </condition>
   </conditions>
   <components>
-    <component generator="sequencer_mx2codegen" Cclass="Utility" Cgroup="STM32CubeMX2 Config" Csub="SEQUENCER"  Cversion="1.0.0" condition="Seq Config">
+    <component generator="sequencer_mx2codegen" Cclass="Utility" Cgroup="STM32CubeMX2 Config" Csub="SEQUENCER"  Cversion="1.1.0" condition="Seq Config">
       <description>TO BE DEFINED</description>
       <Pre_Include_Global_h>
         #define SEQ_USER_CONFIG

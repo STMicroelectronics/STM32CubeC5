@@ -17,7 +17,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "mx_system.h"
-#include "basic_stdio_core.h" /* logs */
+#include "mx_basic_stdio_app.h"
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
@@ -47,7 +47,7 @@ int main(void)
   {
 #if defined(USE_TRACE) && USE_TRACE != 0
     /* Initialize basic_stdio separately, but after system init. */
-    BASIC_STDIO_Init(mx_basic_stdio_gethandle());
+    mx_basic_stdio_init();
 #endif /* defined(USE_TRACE) && USE_TRACE != 0 */
 
     ExecStatus = app_init();

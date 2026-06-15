@@ -128,3 +128,14 @@ void HAL_TAMP_TamperEventCallback(uint32_t tampers)
   /*Asynchronous processing related to step 4 */
   TamperDetected = 1U;
 }
+
+/**  User hook function called before the HAL_Init() function
+  */
+system_status_t pre_system_init_hook(void)
+{
+  /* Reset the RTC domain (RTC, TAMP, backup registers, LSE configuration, etc) */
+  HAL_PWR_DisableRTCDomainWriteProtection();
+  HAL_RCC_ResetRTCDomain();
+
+  return SYSTEM_OK;
+}

@@ -54,12 +54,6 @@ void mx_flash_deinit(void);
   */
 hal_flash_handle_t *mx_flash_gethandle(void);
 
-/******************************************************************************/
-/*           FLASH NMI interrupt is managed directly in user code.            */
-/******************************************************************************/
-
-system_status_t FLASH_NMI_IRQHandler(void);
-
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

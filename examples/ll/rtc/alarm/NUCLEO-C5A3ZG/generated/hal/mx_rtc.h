@@ -31,8 +31,7 @@ extern "C" {
 #define USE_RTC
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */
-/******************************************************************************/
+/* Exported functions ------------------------------------------------------- *//******************************************************************************/
 /* Exported functions for RTC in LL layer */
 /******************************************************************************//**
   * @brief mx_rtc init function
@@ -46,7 +45,7 @@ system_status_t mx_rtc_init(void);
 void mx_rtc_deinit(void);
 
 /******************************************************************************/
-/*    RTC global non-secure interrupts is managed directly in user code.   */
+/*     RTC global non-secure interrupts is managed directly in user code.     */
 /******************************************************************************/
 /* void RTC_IRQHandler(void); */
 

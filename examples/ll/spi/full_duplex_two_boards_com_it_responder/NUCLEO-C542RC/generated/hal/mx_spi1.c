@@ -26,7 +26,7 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for SPI in LL layer (SW instance MySPI_1) */
+/* Exported functions for SPI in LL layer */
 /******************************************************************************/
 SPI_TypeDef *mx_spi1_init(void)
 {
@@ -45,43 +45,43 @@ SPI_TypeDef *mx_spi1_init(void)
 
   /* LL_SPI_SetFIFOThreshold(SPI1, LL_SPI_FIFO_THRESHOLD_1_DATA); */ /* Configuration matches register reset state at startup. */
 
+  /* ### SPI1 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
 
   /**
-    SPI1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA5     ------>   SPI1_SCK
-       PA6     ------>   SPI1_MISO
-       PA7     ------>   SPI1_MOSI
+       PA5     ------>   SPI1_SCK   ------>  PA5
+       PA6     ------>   SPI1_MISO   ------>  PA6
+       PA7     ------>   SPI1_MOSI   ------>  PA7
     **/
 
   /* Configure IO output speed (Low, Medium, High or Very-High) */
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_5, LL_GPIO_SPEED_FREQ_MEDIUM);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_6, LL_GPIO_SPEED_FREQ_MEDIUM);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_7, LL_GPIO_SPEED_FREQ_MEDIUM);
+  LL_GPIO_SetPinSpeed(PA5_PORT, PA5_PIN, LL_GPIO_SPEED_FREQ_MEDIUM);
+  LL_GPIO_SetPinSpeed(PA6_PORT, PA6_PIN, LL_GPIO_SPEED_FREQ_MEDIUM);
+  LL_GPIO_SetPinSpeed(PA7_PORT, PA7_PIN, LL_GPIO_SPEED_FREQ_MEDIUM);
 
   /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_5 | LL_GPIO_PIN_6 | LL_GPIO_PIN_7, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinOutputType(GPIOA, PA5_PIN | PA6_PIN | PA7_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_5, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_6, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_7, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA5_PORT, PA5_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA6_PORT, PA6_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA7_PORT, PA7_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_5, LL_GPIO_AF_5);
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_6, LL_GPIO_AF_5);
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_7, LL_GPIO_AF_5);
+  LL_GPIO_SetAFPin_0_7(PA5_PORT, PA5_PIN, LL_GPIO_AF_5);
+  LL_GPIO_SetAFPin_0_7(PA6_PORT, PA6_PIN, LL_GPIO_AF_5);
+  LL_GPIO_SetAFPin_0_7(PA7_PORT, PA7_PIN, LL_GPIO_AF_5);
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_5, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_6, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_7, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PA5_PORT, PA5_PIN, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PA6_PORT, PA6_PIN, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PA7_PORT, PA7_PIN, LL_GPIO_MODE_ALTERNATE);
 
-  /* Enable the interruption for SPI */
+  /* Enable the interrupt for SPI */
   NVIC_SetPriority(SPI1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
   NVIC_EnableIRQ(SPI1_IRQn);
 return SPI1;
@@ -94,30 +94,30 @@ void mx_spi1_deinit(void)
   /* ### GPIO deinitialization of SPI1: SPI1_SCK,SPI1_MISO,SPI1_MOSI ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_5, LL_GPIO_MODE_ANALOG);
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_6, LL_GPIO_MODE_ANALOG);
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_7, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA5_PORT, PA5_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA6_PORT, PA6_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PA7_PORT, PA7_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_5, LL_GPIO_AF_0);
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_6, LL_GPIO_AF_0);
-  LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_7, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA5_PORT, PA5_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA6_PORT, PA6_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PA7_PORT, PA7_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_5, LL_GPIO_SPEED_FREQ_LOW);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_6, LL_GPIO_SPEED_FREQ_LOW);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_7, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA5_PORT, PA5_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA6_PORT, PA6_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PA7_PORT, PA7_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_5 | LL_GPIO_PIN_6 | LL_GPIO_PIN_7, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(GPIOA, PA5_PIN | PA6_PIN | PA7_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_5, LL_GPIO_PULL_NO);
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_6, LL_GPIO_PULL_NO);
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_7, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA5_PORT, PA5_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA6_PORT, PA6_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PA7_PORT, PA7_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOA, LL_GPIO_PIN_5 | LL_GPIO_PIN_6 | LL_GPIO_PIN_7, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PA5_PORT, PA5_PIN | PA6_PIN | PA7_PIN, LL_GPIO_PIN_RESET);
 }
 
 /******************************************************************************/

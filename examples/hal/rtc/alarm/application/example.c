@@ -23,7 +23,6 @@
 /* Private variables ---------------------------------------------------------*/
 volatile uint8_t AlarmExpired = 0U;
 /* Private functions prototype -----------------------------------------------*/
-system_status_t pre_system_init_hook(void);
 
 /** ########## Step 1 ##########
   * The applicative code initializes the RTC instance.

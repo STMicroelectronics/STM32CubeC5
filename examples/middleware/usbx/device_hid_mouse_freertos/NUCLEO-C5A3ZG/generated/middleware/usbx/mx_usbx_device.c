@@ -23,9 +23,10 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+hal_pcd_handle_t *p_usb_device = UX_NULL;
 TaskHandle_t ux_device_app_thread;
 TaskHandle_t usbd_hid_mouse_thread;
-hal_pcd_handle_t *p_usb_device;
+
 USB_DEVICE_ENDPOINT_HANDLE hid_mouse_endpoint_app[] =
 {
   {
@@ -111,8 +112,6 @@ UINT app_usbx_device_init(VOID)
   {
     return status;
   }
-
-
   /* Create the device application main thread */
   if (xTaskCreate(app_ux_device_thread_entry,UX_DEVICE_APP_THREAD_NAME,
                   UX_DEVICE_APP_THREAD_STACK_SIZE, NULL,
@@ -140,6 +139,17 @@ UINT app_usbx_device_deinit(VOID)
 {
   UINT status = UX_SUCCESS;
 
+  if (p_usb_device != UX_NULL)
+  {
+  /* Unregister USB device controller. */
+  status = _ux_dcd_stm32_uninitialize(0, (ULONG)p_usb_device);
+
+  if (status != UX_SUCCESS)
+  {
+    return status;
+  }
+    p_usb_device = UX_NULL;
+  }
 
   /* Unregister hid class. */
   status = ux_device_stack_class_unregister(_ux_system_slave_class_hid_name, ux_device_class_hid_entry);
@@ -164,20 +174,26 @@ UINT app_usbx_device_deinit(VOID)
   */
 VOID app_ux_device_thread_entry(void *argument)
 {
-  mx_example_pcd_init();
+  UINT status = UX_SUCCESS;
+
+  UX_PARAMETER_NOT_USED(argument);
 
   /* Initialization of USB device */
-  p_usb_device = mx_example_pcd_gethandle();
+  if (p_usb_device == UX_NULL)
+  {
+	mx_example_pcd_init();
+	
+    /* Initialization of USB device */
+    p_usb_device = mx_usb_drd_fs_device_gethandle();
 
-  /* initialize the device controller driver */
-  ux_dcd_stm32_initialize(0, (ULONG)p_usb_device);
-
-  /* sleep for 10ms */
-  ux_utility_thread_sleep(MS_TO_TICK(10));
-
-  /* Start device USB */
-  HAL_PCD_Start(p_usb_device);
-
+    /* Initialize the device controller driver */
+    status = ux_dcd_stm32_initialize(0, (ULONG)p_usb_device);
+    if (status != UX_SUCCESS)
+    {
+      return;
+    }
+  }
+  
   /* Suspend the USB device thread */
   vTaskSuspend(ux_device_app_thread);
 }

@@ -14,6 +14,7 @@
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef MX_RCC_H
 #define MX_RCC_H
@@ -29,13 +30,21 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
+/** Primary aliases for RCC_OSC_IN pin */
+#define OSC_IN_PORT                           HAL_GPIOH
+#define OSC_IN_PIN                            HAL_GPIO_PIN_0
+
+/** Primary aliases for RCC_OSC_OUT pin */
+#define OSC_OUT_PORT                          HAL_GPIOH
+#define OSC_OUT_PIN                           HAL_GPIO_PIN_1
 /* Exported macros -----------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-  /******************************************************************************/
+/******************************************************************************/
 /* Exported functions for RCC in HAL layer */
 /******************************************************************************/
 system_status_t mx_rcc_init(void);
 void mx_rcc_deinit(void);
+
 system_status_t mx_rcc_peripherals_clock_config(void);
 
 #ifdef __cplusplus

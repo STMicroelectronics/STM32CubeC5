@@ -27,9 +27,8 @@
 static hal_tim_handle_t hTIM1;
 
 /* Exported function definition ----------------------------------------------*/
-
 /******************************************************************************/
-/* Exported functions for TIM1 in HAL layer (SW instance MyTIM_1) */
+/* Exported functions for TIM1 in HAL layer */
 /******************************************************************************/
 hal_tim_handle_t *mx_tim1_init(void)
 {
@@ -40,7 +39,7 @@ hal_tim_handle_t *mx_tim1_init(void)
 
   HAL_RCC_TIM1_EnableClock();
 
-  /* Timer configuration to reach the output frequency at 300000 Hz */
+  /* Timer configuration to reach the output frequency at 300 kHz */
   hal_tim_config_t config;
   config.prescaler              = 95;
   config.counter_mode           = HAL_TIM_COUNTER_UP;
@@ -76,7 +75,7 @@ hal_tim_handle_t *mx_tim1_init(void)
 
   oc_compare_unit_config.mode  = HAL_TIM_OC_PWM1;
   oc_compare_unit_config.pulse = 0x1;
-  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, hal_tim_oc_channel_to_compare_unit(HAL_TIM_CHANNEL_2),
+  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, HAL_TIM_OC_COMPARE_UNIT_2,
                                       &oc_compare_unit_config) != HAL_OK)
   {
     return NULL;
@@ -97,7 +96,7 @@ hal_tim_handle_t *mx_tim1_init(void)
   }
   oc_compare_unit_config.mode  = HAL_TIM_OC_PWM1;
   oc_compare_unit_config.pulse = 0x10;
-  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, hal_tim_oc_channel_to_compare_unit(HAL_TIM_CHANNEL_3),
+  if (HAL_TIM_OC_SetConfigCompareUnit(&hTIM1, HAL_TIM_OC_COMPARE_UNIT_3,
                                       &oc_compare_unit_config) != HAL_OK)
   {
     return NULL;
@@ -117,37 +116,35 @@ hal_tim_handle_t *mx_tim1_init(void)
   {
     return NULL;
   }
+  /* ### TIM1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    TIM1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA9     ------>   TIM1_CH2
+       PA9     ------>   TIM1_CH2   ------>  PA9
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_1;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_9, &gpio_config);
+  HAL_GPIO_Init(PA9_PORT, PA9_PIN, &gpio_config);
 
   /**
-    TIM1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA5     ------>   TIM1_CH3
+       PA5     ------>   TIM1_CH3   ------>  PA5
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_2;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_5, &gpio_config);
+  HAL_GPIO_Init(PA5_PORT, PA5_PIN, &gpio_config);
 
   return &hTIM1;
 }
@@ -160,8 +157,8 @@ void mx_tim1_deinit(void)
 
   HAL_RCC_TIM1_Reset();
 
-  /* De-initialize all GPIO pins associated with TIM1 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_5 | HAL_GPIO_PIN_9);
+  /* De-initialize all GPIOA pins associated with TIM1 */
+  HAL_GPIO_DeInit(HAL_GPIOA, PA5_PIN | PA9_PIN);
 }
 
 hal_tim_handle_t *mx_tim1_gethandle(void)

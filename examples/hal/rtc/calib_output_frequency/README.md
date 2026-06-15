@@ -2,7 +2,7 @@
 
 # __Example: *hal_rtc_calib_output_frequency*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -69,7 +69,6 @@ This section describes the exact hardware configurations of your project.
   |   PC13    |   RTC_OUT1    |     PC13      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
@@ -84,7 +83,6 @@ This section describes the exact hardware configurations of your project.
   |   PC13    |   RTC_OUT1    |     PC13      |
 
   </details>
-
   <details>
     <summary>On board NUCLEO-C5A3ZG.</summary>
 
@@ -100,7 +98,6 @@ This section describes the exact hardware configurations of your project.
 
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

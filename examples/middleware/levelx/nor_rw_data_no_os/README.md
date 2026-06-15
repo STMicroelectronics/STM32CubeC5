@@ -2,7 +2,7 @@
 
 # __Example: *levelx_nor_rw_data_no_os*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -81,7 +81,30 @@ This section describes the hardware setup principles that apply to any board.
 @enduml
 -->
 
-No generic hardware dependencies for this example.
+<!--
+@startuml
+@startditaa{doc/w25q128j_generic_hardware_setup.png}
+  +-------------------------+                     +-------------------------+
+  |          +--------------+                     |                         |
+  |          |STM32 XSPIi   |                     |                         |
+  |          |              |                     |                         |
+  |          |          CLK *---------------------* SCLK                    |
+  |          |              |                     |                         |
+  |          |       DQS/WS *---------------------* DQS                     |
+  |          |              |                     |                         |
+  |          |      IO[7:0] *---------------------* SIO[7:0]                |
+  |          |              |                     |                         |
+  |          |          nCS *---------------------* CS#                     |
+  |          |              |                     |                         |
+  |          |              |                     |                         |
+  |          +--------------+                     |                         |
+  |                         |                     |                         |
+  |                         |                     |                         |
+  | STM32 MCU               |                     |       MX66UW1G45G flash |
+  +-------------------------+                     +-------------------------+
+@endditaa
+@enduml
+-->
 
 ### __3.2. Specific board setups__
 
@@ -103,7 +126,6 @@ This section describes the exact hardware configurations of your project.
 
 </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

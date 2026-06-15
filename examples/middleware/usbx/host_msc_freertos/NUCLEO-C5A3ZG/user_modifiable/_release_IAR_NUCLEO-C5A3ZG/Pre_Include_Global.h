@@ -9,7 +9,13 @@
 #ifndef PRE_INCLUDE_GLOBAL_H
 #define PRE_INCLUDE_GLOBAL_H
 
-/* STMicroelectronics::Utility:STM32CubeMX2 Config:ADVANCED_TRACE@1.0.0 */
+/* STMicroelectronics::Device:STM32CubeMX2 Config:RCC@2.1.0 */
+#define USE_EXTERNAL_ENV
+/* STMicroelectronics::File System:STM32CubeMX2 Config:FileX@2.1.0 */
+#define FX_INCLUDE_USER_DEFINE_FILE
+/* STMicroelectronics::USB:STM32CubeMX2 Config:USBX@2.1.0 */
+#define UX_INCLUDE_USER_DEFINE_FILE
+/* STMicroelectronics::Utility:STM32CubeMX2 Config:ADVANCED_TRACE@1.1.0 */
 #define ADV_TRACE_USER_CONF
 
 

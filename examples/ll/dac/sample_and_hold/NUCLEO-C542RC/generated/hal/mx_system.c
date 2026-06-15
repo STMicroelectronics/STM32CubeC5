@@ -65,6 +65,8 @@ system_status_t mx_system_init(void)
   /*
     Clock system section
   */
+
+  /* Initialize RCC peripheral */
   if (mx_rcc_init() != SYSTEM_OK)
   {
     return SYSTEM_CLOCK_ERROR;
@@ -90,19 +92,17 @@ system_status_t mx_system_init(void)
     Peripheral init section
   */
 
-  /** mx_dac1_init()has been generated,
-    * (mx_dacx_init)
-    * but it is expected that application will call it when best needed
-    * according to application needs.
-    * See Cube code generator options: Generate and call Initialization function
-    */
-
-  /*
-  */
+  /** gpio_default */
   if (mx_gpio_default_init() != SYSTEM_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
+
+  /** DAC1: mx_dac1_init() has been generated,
+    * but it is expected that application will call it when best needed
+    * according to application needs.
+    * See Cube code generator options: Generate and call Initialization function
+    */
 
   if (post_system_init_hook() != SYSTEM_OK)
   {

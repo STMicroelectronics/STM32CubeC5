@@ -2,7 +2,7 @@
 
 # __Example: *hal_rtc_alarm*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -56,35 +56,32 @@ No specific hardware setup needed for this example.
 ### __3.2. Specific board setups__
 
 <details>
-<summary>On STM32C5 series</summary>
+<summary>On STM32C5 series.</summary>
 <details>
-  <summary>On board NUCLEO-C542RC</summary>
+  <summary>On board NUCLEO-C542RC.</summary>
 
-  | Board connector   | MCU pin | Signal name     | ARDUINO <br> connector pin |
+  | Board connector   | MCU pin | Signal name     | ARDUINO <br/> connector pin |
   | :---:             | :---:   | :---:           | :---:                      |
   | CN5-6             | PA5     | ARDUINO LED LD1 | D13                        |
 
 </details>
-
 <details>
-  <summary>On board NUCLEO-C562RE</summary>
+  <summary>On board NUCLEO-C562RE.</summary>
 
-  | Board connector   | MCU pin | Signal name     | ARDUINO <br> connector pin |
+  | Board connector   | MCU pin | Signal name     | ARDUINO <br/> connector pin |
   | :---:             | :---:   | :---:           | :---:                      |
   | CN5-6             | PA5     | ARDUINO LED LD1 | D13                        |
 
 </details>
-
 <details>
-  <summary>On board NUCLEO-C5A3ZG</summary>
+  <summary>On board NUCLEO-C5A3ZG.</summary>
 
-  | Board connector   | MCU pin | Signal name     | ARDUINO <br> connector pin |
+  | Board connector   | MCU pin | Signal name     | ARDUINO <br/> connector pin |
   | :---:             | :---:   | :---:           | :---:                      |
   | CN5-6             | PA5     | ARDUINO LED LD1 | D13                        |
 
 </details>
 </details>
-
 
 ## __4. Troubleshooting__
 
@@ -97,9 +94,10 @@ __RTC kernel clock__: The RTC kernel clock is usually the LSE at 32.768 kHz alth
 __LSI clock__: In case LSI is used instead of LSE, prescaler should be recomputed to guaranty 1Hz calendar update.
 
 __HAL API Counting Base__: The HAL API uses a sexagesimal (base-60) system for minutes and seconds, a range of 0-12 or 0-24 for hours, and a range of 0-999 for milliseconds and microseconds.
+
 ```c
    rtc_time.min = 20U;  /* 20 minutes */
-```   
+```
 
 
 ## __5. See Also__

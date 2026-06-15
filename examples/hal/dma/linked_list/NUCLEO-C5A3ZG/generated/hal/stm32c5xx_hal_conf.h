@@ -125,6 +125,7 @@ extern "C" {
 #define USE_HAL_AES_GCM_GMAC_ALGO               0U
 #define USE_HAL_AES_CCM_ALGO                    0U
 #define USE_HAL_AES_SUSPEND_RESUME              0U
+#define USE_HAL_AES_RNG_RECOVERY                0U
 /**
   * @}
   */
@@ -137,6 +138,7 @@ extern "C" {
 #define USE_HAL_CCB_CLK_ENABLE_MODEL            HAL_CLK_ENABLE_NO
 #define USE_HAL_CCB_USER_DATA                   0U
 #define USE_HAL_CCB_GET_LAST_ERRORS             0U
+#define USE_HAL_CCB_RNG_RECOVERY                0U
 /**
   * @}
   */
@@ -461,7 +463,7 @@ extern "C" {
 #define USE_HAL_PCD_USB_LPM                     0U
 #define USE_HAL_PCD_USB_BCD                     0U
 #define USE_HAL_PCD_USB_EP_TYPE_ISOC            0U
-#define USE_HAL_PCD_MAX_ENDPOINT_NB             16U
+#define USE_HAL_PCD_MAX_ENDPOINT_NB             8U
 /**
   * @}
   */
@@ -475,6 +477,7 @@ extern "C" {
 #define USE_HAL_PKA_REGISTER_CALLBACKS          0U
 #define USE_HAL_PKA_USER_DATA                   0U
 #define USE_HAL_PKA_GET_LAST_ERRORS             0U
+#define USE_HAL_PKA_RNG_RECOVERY                0U
 /**
   * @}
   */

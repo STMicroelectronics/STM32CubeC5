@@ -14,6 +14,7 @@
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef MX_USART2_H
 #define MX_USART2_H
@@ -27,6 +28,11 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+
+/** Primary aliases for USART2_TX pin */
+#define PA2_PORT                              HAL_GPIOA
+#define PA2_PIN                               HAL_GPIO_PIN_2
+
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -34,7 +40,6 @@ extern "C" {
 /******************************************************************************/
 /* Exported functions for UART in HAL layer */
 /******************************************************************************/
-
 /**
   * @brief mx_usart2_uart init function
   * This function configures the hardware resources used in this example

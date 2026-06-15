@@ -37,10 +37,6 @@ extern "C" {
 #define NETR16_2_PORT                         HAL_GPIOA
 #define NETR16_2_PIN                          HAL_GPIO_PIN_15
 
-/** Primary aliases for I2S1_SDI pin */
-#define PA6_PORT                              HAL_GPIOA
-#define PA6_PIN                               HAL_GPIO_PIN_6
-
 /** Primary aliases for I2S1_SDO pin */
 #define PA7_PORT                              HAL_GPIOA
 #define PA7_PIN                               HAL_GPIO_PIN_7
@@ -71,14 +67,7 @@ hal_i2s_handle_t *mx_spi1_i2s_gethandle(void);
 /******************************************************************************/
 /*                      LPDMA1 channel0 global interrupt                      */
 /******************************************************************************/
-
 void LPDMA1_CH0_IRQHandler(void);
-
-/******************************************************************************/
-/*                           SPI1 global interrupt                            */
-/******************************************************************************/
-
-void SPI1_IRQHandler(void);
 
 #ifdef __cplusplus
 }

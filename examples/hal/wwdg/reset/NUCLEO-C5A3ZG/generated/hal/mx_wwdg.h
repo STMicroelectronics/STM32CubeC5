@@ -49,11 +49,12 @@ hal_wwdg_handle_t *mx_wwdg_init(void);
   * @retval  HAL_ERROR Operation completed with error.
   */
 hal_status_t mx_wwdg_start(void);
- /**
+
+/**
   * @brief  Get the WWDG object.
   * @retval Pointer on the WWDG Handle
   */
-hal_wwdg_handle_t *mx_wwdg_wwdg_gethandle(void);
+hal_wwdg_handle_t *mx_wwdg_gethandle(void);
 
 #ifdef __cplusplus
 }

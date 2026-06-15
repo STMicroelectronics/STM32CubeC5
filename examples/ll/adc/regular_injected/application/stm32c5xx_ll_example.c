@@ -67,7 +67,7 @@ inline system_status_t ADC_Activate(void)
     }
 
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout_ms-- == 0U)
       {
@@ -131,7 +131,7 @@ inline system_status_t ADC_Calibrate(void)
   while (LL_ADC_IsEnabled(MX_ADCx) != 0UL)
   {
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout_ms-- == 0U)
       {
@@ -159,7 +159,7 @@ inline system_status_t ADC_Calibrate(void)
   while (LL_ADC_IsCalibrationOnGoing(MX_ADCx) != 0U)
   {
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    if (SysTick_IsActiveCounterFlag() != 0)
     {
       if (timeout_ms-- == 0U)
       {
@@ -207,7 +207,7 @@ inline system_status_t ADC_REG_StartConversion(void)
     while (LL_ADC_IsActiveFlag_EOS(MX_ADCx) == 0U)
     {
 #if defined(USE_LL_APP_TIMEOUT) && (USE_LL_APP_TIMEOUT == 1)
-      if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+      if (SysTick_IsActiveCounterFlag() != 0)
       {
         if (timeout_ms-- == 0U)
         {

@@ -2,7 +2,7 @@
 
 # __Example: *lwip_iperf_freertos*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -44,12 +44,12 @@ participant "iPerf TCP Client" as Client
 
 loop Continuous operation
     alt Incoming connection
-    Client --> Server: Connect\n    Address: IPERF_SERVER_ADDR\n    Port: IPERF_SERVER_PORT
+    Client -> Server: Connect\n    Address: IPERF_SERVER_ADDR\n    Port: IPERF_SERVER_PORT
     loop
       Client -> Server: Send TCP data
       Server -> Client: Acknowledge data
     end loop
-    Client --> Server: Disconnect
+    Client -> Server: Disconnect
     Server -> Server: print results
     end
 

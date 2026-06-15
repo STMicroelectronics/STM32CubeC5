@@ -75,23 +75,23 @@ system_status_t mx_rcc_init(void)
 
   /** Configure MCO (clock source, IO and divider) */
 
+  /* ### RCC GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    RCC GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA9     ------>   RCC_MCO2
+       PA9     ------>   RCC_MCO2   ------>  PA9
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_VERY_HIGH;
   gpio_config.alternate   = HAL_GPIO_AF_0;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_9, &gpio_config);
+  HAL_GPIO_Init(PA9_PORT, PA9_PIN, &gpio_config);
 
   HAL_RCC_SetConfigMCO(HAL_RCC_MCO2_SRC_HSIDIV3, HAL_RCC_MCO2_PRESCALER15);
 
@@ -112,6 +112,11 @@ system_status_t mx_rcc_peripherals_clock_config(void)
     USART2
   */
 
+  /* Peripherals using HSIDIV3 (48 MHz):
+    CRS
+  */
+  /* HSIDIV3 already enabled inside mx_rcc_init() */
+
   /* Peripherals using LSE (32.768 kHz):
     CRS
   */
@@ -124,7 +129,7 @@ system_status_t mx_rcc_peripherals_clock_config(void)
     /* In order to simplify the code generation and management for the user, the write protection is not enabled by
        default. In real case application, we advise to enable it once all the necessary configurations are done. */
     /* Enable RTC Domain Write Protection */
-    //HAL_PWR_EnableRTCDomainWriteProtection();
+    /* HAL_PWR_EnableRTCDomainWriteProtection(); */
 
     return SYSTEM_CLOCK_ERROR;
   }
@@ -132,7 +137,7 @@ system_status_t mx_rcc_peripherals_clock_config(void)
   /* In order to simplify the code generation and management for the user, the write protection is not enabled by
      default. In real case application, we advise to enable it once all the necessary configurations are done. */
   /* Enable RTC Domain Write Protection */
-  //HAL_PWR_EnableRTCDomainWriteProtection();
+  /* HAL_PWR_EnableRTCDomainWriteProtection(); */
 
   return SYSTEM_OK;
 }

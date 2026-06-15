@@ -23,23 +23,23 @@ endif()
 
 # Include Pre_Include_Global.h globally if needed
 if(CMSIS_Tcompiler STREQUAL "IAR")
-    target_compile_options(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "SHELL:--preinclude ${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h")
+    target_compile_options(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "SHELL:--preinclude $<QUOTE>${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h$<QUOTE>")
 else()
-    target_compile_options(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "SHELL:-include ${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h")
+    target_compile_options(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "SHELL:-include $<QUOTE>${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h$<QUOTE>")
 endif()
 
 
 
 # Enable all components in this package
 if(CMSIS_ENTIRE_generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1)
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORE#Cversion:2.0.0#generated:true")
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORTEX MPU#Cversion:2.0.0#generated:true")
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORTEX NVIC#Cversion:2.0.0#generated:true")
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:GPIO#Cversion:2.0.0#generated:true")
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:ICACHE#Cversion:2.0.0#generated:true")
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:RCC#Cversion:2.0.0#generated:true")
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:System#Cversion:2.0.0#generated:true")
-  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:TIM#Cversion:2.0.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORE#Cversion:2.1.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORTEX MPU#Cversion:2.1.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORTEX NVIC#Cversion:2.1.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:GPIO#Cversion:2.1.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:ICACHE#Cversion:2.1.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:RCC#Cversion:2.1.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:System#Cversion:2.1.0#generated:true")
+  list(APPEND CMSIS_COMPONENTS_LIST "Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:TIM#Cversion:2.1.0#generated:true")
 endif()
 
 # All conditions used by this package
@@ -407,7 +407,7 @@ endif()
 # condition: generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1:HAL CORE Init GPIO and RCC
 # description: STMicroelectronics HAL Common Init
 if(((CMSIS_Dname MATCHES "STM32C5.*" AND CMSIS_Dvendor STREQUAL "STMicroelectronics:13") AND (CMSIS_Dname MATCHES "STM32C5.*" AND CMSIS_Dvendor STREQUAL "STMicroelectronics:13")))
-  set(generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_GPIO_and_RCC "$<AND:$<AND:$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:CORTEX(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:EXTI(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:PWR(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:RCC(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:Core(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:CORTEX(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:RCC(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:CMSIS#.*Cgroup:CORE(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:UTILS(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32CubeMX2 Codegen#.*Csub:Generated Code(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:timebases#.*Cvariant:SYSTICK(#.*|$)>,>>>,$<AND:$<AND:$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:CORTEX(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:EXTI(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:PWR(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:RCC(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:Core(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:CORTEX(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:RCC(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:CMSIS#.*Cgroup:CORE(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:UTILS(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32CubeMX2 Codegen#.*Csub:Generated Code(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:timebases#.*Cvariant:SYSTICK(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:GPIO(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:SBS(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:PWR(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:FLASH(#.*|$)>,>>>")
+  set(generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_GPIO_and_RCC "$<AND:$<AND:$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:CORTEX(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:EXTI(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:PWR(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:RCC(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:Core(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:CORTEX(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:RCC(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:CMSIS#.*Cgroup:CORE(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:UTILS(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32CubeMX2 Codegen#.*Csub:Generated Code(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:timebases#.*Cvariant:SYSTICK(#.*|$)>,>>>,$<AND:$<AND:$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:CORTEX(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:EXTI(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:PWR(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:RCC(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:Core(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:CORTEX(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:RCC(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:CMSIS#.*Cgroup:CORE(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:UTILS(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32CubeMX2 Codegen#.*Csub:Generated Code(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:timebases#.*Cvariant:SYSTICK(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:GPIO(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 LL#.*Csub:SBS(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:PWR(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:FLASH_ITF(#.*|$)>,>>>")
   message(DEBUG "CMSIS condition generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_GPIO_and_RCC enabled")
 else()
   set(generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_GPIO_and_RCC 0)
@@ -996,57 +996,57 @@ set(generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_Use_mutex "1")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_Use_mutex enabled")
 
 # Files and components in this package
-if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORE#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_CORE_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_Generated_code}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_CORE_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORE#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_CORE_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_Generated_code}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_CORE_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_Generated_code}:${CMAKE_CURRENT_LIST_DIR}/.>")
 endif()
 
-if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORTEX MPU#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_CORTEX_MPU_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_CORTEX}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_CORTEX_MPU_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORTEX MPU#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_CORTEX_MPU_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_CORTEX}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_CORTEX_MPU_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_CORTEX}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_CORTEX}:${CMAKE_CURRENT_LIST_DIR}/mx_cortex_mpu.c>")
 endif()
 
-if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORTEX NVIC#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_CORTEX_NVIC_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_CORTEX}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_CORTEX_NVIC_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:CORTEX NVIC#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_CORTEX_NVIC_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_CORTEX}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_CORTEX_NVIC_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_CORTEX}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_CORTEX}:${CMAKE_CURRENT_LIST_DIR}/mx_cortex_nvic.c>")
 endif()
 
-if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:GPIO#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_GPIO_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_GPIO_Init}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_GPIO_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:GPIO#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_GPIO_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_GPIO_Init}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_GPIO_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_GPIO_Init}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_GPIO_Init}:${CMAKE_CURRENT_LIST_DIR}/mx_gpio_default.c>")
 endif()
 
-if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:ICACHE#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_ICACHE_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_ICACHE}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_ICACHE_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:ICACHE#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_ICACHE_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_ICACHE}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_ICACHE_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_ICACHE}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_and_ICACHE}:${CMAKE_CURRENT_LIST_DIR}/mx_icache.c>")
 endif()
 
-if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:RCC#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_RCC_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_GPIO_and_RCC}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_RCC_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:RCC#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_RCC_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_GPIO_and_RCC}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_RCC_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_GPIO_and_RCC}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_Init_GPIO_and_RCC}:${CMAKE_CURRENT_LIST_DIR}/mx_rcc.c>")
 endif()
 
-if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:System#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_System_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_System_Init}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_System_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:System#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_System_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_System_Init}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_System_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_System_Init}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_System_Init}:${CMAKE_CURRENT_LIST_DIR}/mx_system.c>")
 endif()
 
-if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:TIM#Cversion:2.0.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
-  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_TIM_2_0_0")
-  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_GPIO_DMA_Init_and_TIM}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_TIM_2_0_0=1>")
+if("Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32CubeMX2 Config#Csub:TIM#Cversion:2.1.0#generated:true" IN_LIST CMSIS_COMPONENTS_LIST)  # TO BE DEFINED
+  message(DEBUG "Using component generated_Device_STM32CubeMX2_Config_TIM_2_1_0")
+  target_compile_definitions(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_GPIO_DMA_Init_and_TIM}:-DCMSIS_USE_generated_Device_STM32CubeMX2_Config_TIM_2_1_0=1>")
   target_include_directories(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_GPIO_DMA_Init_and_TIM}:${CMAKE_CURRENT_LIST_DIR}/.>")
   target_sources(generated_STMicroelectronics_stm32c5xx_hal_drivers_0_0_1 INTERFACE "$<${generated_STMicroelectronics.stm32c5xx_hal_drivers.0.0.1_HAL_CORE_GPIO_DMA_Init_and_TIM}:${CMAKE_CURRENT_LIST_DIR}/mx_tim2.c>")
 endif()

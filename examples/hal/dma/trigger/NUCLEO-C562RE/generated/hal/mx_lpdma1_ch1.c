@@ -19,7 +19,6 @@
 #include "mx_lpdma1_ch1.h"
 
 /* Exported variables by reference------------------------------------------------------------------------------------*/
-
 static hal_dma_handle_t hLPDMA1_CH1;
 
 /**********************************************************************************************************************/
@@ -78,6 +77,9 @@ if (HAL_DMA_Init(&hLPDMA1_CH1, HAL_LPDMA1_CH1) != HAL_OK)
   */
 void mx_lpdma1_ch1_deinit(void)
 {
+  /* Disable the interruption for LPDMA1_CH1 */
+  HAL_CORTEX_NVIC_DisableIRQ(LPDMA1_CH1_IRQn);
+
   (void)HAL_DMA_DeInit(&hLPDMA1_CH1);
 }
 
@@ -88,6 +90,7 @@ hal_dma_handle_t *mx_lpdma1_ch1_gethandle(void)
 {
   return &hLPDMA1_CH1;
 }
+
 /******************************************************************************/
 /* LPDMA1 channel1 global interrupt */
 /******************************************************************************/

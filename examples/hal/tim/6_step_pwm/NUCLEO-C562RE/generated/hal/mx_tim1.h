@@ -52,10 +52,10 @@ extern "C" {
 /** Primary aliases for TIM1_CH3N pin */
 #define PB15_PORT                             HAL_GPIOB
 #define PB15_PIN                              HAL_GPIO_PIN_15
+
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-
 /******************************************************************************/
 /* Exported functions for TIM in HAL layer */
 /******************************************************************************/
@@ -81,7 +81,6 @@ hal_tim_handle_t *mx_tim1_gethandle(void);
 /******************************************************************************/
 /*  TIM1 trigger and commutation/TIM1 Direction Change interrupt/TIM1 Index   */
 /******************************************************************************/
-
 void TIM1_TRGI_COM_DIR_IDX_IRQHandler(void);
 
 #ifdef __cplusplus

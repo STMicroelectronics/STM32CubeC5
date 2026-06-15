@@ -2,7 +2,7 @@
 
 # __Example: *ll_adc_single_conversion_trigger_sw_it*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -59,7 +59,7 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
   <details>
   <summary>On board NUCLEO-C542RC.</summary>
 
-  | Board pin   | MCU pin | Signal name          | ARDUINO <br> connector pin |User Label|
+  | Board pin   | MCU pin | Signal name          | ARDUINO <br/> connector pin |User Label|
   | :---:       | :---:   | :---:                | :---:                      |          |
   | CN8-3       | PA4     | ADC1_INP4            | A2                         |PA4       |
   | CN5_6       | PA5     | LED                  | D13                        |PA5       |
@@ -70,7 +70,7 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
   <details>
   <summary>On board NUCLEO-C562RE.</summary>
 
-  | Board pin   | MCU pin | Signal name          | ARDUINO <br> connector pin |User Label|
+  | Board pin   | MCU pin | Signal name          | ARDUINO <br/> connector pin |User Label|
   | :---:       | :---:   | :---:                | :---:                      |          |
   | CN8-3       | PA4     | ADC1_INP4            | A2                         |PA4       |
   | CN5_6       | PA5     | LED                  | D13                        |PA5       |
@@ -81,7 +81,7 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
   <details>
   <summary>On board NUCLEO-C5A3ZG.</summary>
 
-  | Board pin   | MCU pin | Signal name          | ARDUINO <br> connector pin |User Label|
+  | Board pin   | MCU pin | Signal name          | ARDUINO <br/> connector pin |User Label|
   | :---:       | :---:   | :---:                | :---:                      |          |
   | CN8-3       | PA4     | ADC1_INP4            | A2                         |PA4       |
   | CN5_6       | PA5     | LED                  | D13                        |PA5       |
@@ -90,7 +90,6 @@ To control voltage converted by ADC, apply a voltage level in range [0; VDDA] on
   
   </details>
 </details>
-
 
 ## __4. Troubleshooting__
 

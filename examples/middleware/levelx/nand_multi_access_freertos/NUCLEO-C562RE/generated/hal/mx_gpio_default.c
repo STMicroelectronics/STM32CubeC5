@@ -5,7 +5,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
@@ -14,6 +14,7 @@
   *
   ******************************************************************************
   */
+
 /* Includes ------------------------------------------------------------------*/
 #include "mx_gpio_default.h"
 
@@ -24,7 +25,7 @@
 /* Exported variables by reference -------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for GPIO in HAL layer (SW instance MyGPIO_1) */
+/* Exported functions for GPIO in HAL layer                                   */
 /******************************************************************************/
 system_status_t mx_gpio_default_init(void)
 {
@@ -32,15 +33,17 @@ system_status_t mx_gpio_default_init(void)
 
   HAL_RCC_GPIOC_EnableClock();
 
-  /* PC9  --------->  NETR16_2 */
-
+  /*
+    GPIO pin labels :
+    PC9   ---------> PC9
+    */
+  /* Configure PC9 GPIO pin in output mode */
   gpio_config.mode            = HAL_GPIO_MODE_OUTPUT;
   gpio_config.speed           = HAL_GPIO_SPEED_FREQ_VERY_HIGH;
   gpio_config.pull            = HAL_GPIO_PULL_NO;
   gpio_config.output_type     = HAL_GPIO_OUTPUT_PUSHPULL;
-  gpio_config.init_state      = HAL_GPIO_PIN_SET;
-
-  if (HAL_GPIO_Init(NETR16_2_GPIO_PORT, NETR16_2_GPIO_PIN, &gpio_config) != HAL_OK)
+  gpio_config.init_state      = PC9_INIT_STATE;
+  if (HAL_GPIO_Init(PC9_PORT, PC9_PIN, &gpio_config) != HAL_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
@@ -50,12 +53,8 @@ system_status_t mx_gpio_default_init(void)
 
 system_status_t mx_gpio_default_deinit(void)
 {
-
-  /* PA15  --------->  NETR16_2 */
-
-  HAL_GPIO_DeInit(NETR16_2_GPIO_PORT, NETR16_2_GPIO_PIN);
+  /* De-initialize pins of GPIOC port */
+  HAL_GPIO_DeInit(PC9_PORT, PC9_PIN);
 
   return SYSTEM_OK;
 }
-
-

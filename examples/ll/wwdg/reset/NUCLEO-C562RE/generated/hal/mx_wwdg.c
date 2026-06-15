@@ -23,10 +23,9 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private functions prototype------------------------------------------------*/
 /* Exported variables by reference--------------------------------------------*/
-
-/******************************************************************************/
-/* Exported functions for WWDG in LL layer (SW instance MyWWDG_1) */
-/******************************************************************************/
+/********************************************/
+/* Exported functions for WWDG in LL layer */
+/********************************************/
 WWDG_TypeDef *mx_wwdg_init(void)
 {
   LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_WWDG);

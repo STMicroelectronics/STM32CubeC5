@@ -25,7 +25,7 @@
 /* Private functions prototype------------------------------------------------*/
 
 /******************************************************************************/
-/* Exported functions for PWR in LL layer (SW instance PWR) */
+/* Exported functions for PWR in LL layer */
 /******************************************************************************/
 
 system_status_t mx_pwr_init(void)
@@ -47,6 +47,9 @@ system_status_t mx_pwr_enter_low_power(void)
   SCB_EnableDeepSleep();
 
   LL_PWR_SetPowerMode(LL_PWR_STOP0_MODE);
+
+  /* DSB to ensure there are no outstanding memory transactions prior to executing WFI and going to STOP0_MODE */
+  __DSB();
 
   /* Wait for interrupt request */
   __WFI();

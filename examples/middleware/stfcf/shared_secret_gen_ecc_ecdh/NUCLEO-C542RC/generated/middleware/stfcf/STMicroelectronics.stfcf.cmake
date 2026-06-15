@@ -14,9 +14,9 @@ add_library(generated_STMicroelectronics_stfcf_1_0_0 INTERFACE)
 
 # Include Pre_Include_Global.h globally if needed
 if(CMSIS_Tcompiler STREQUAL "IAR")
-    target_compile_options(generated_STMicroelectronics_stfcf_1_0_0 INTERFACE "SHELL:--preinclude ${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h")
+    target_compile_options(generated_STMicroelectronics_stfcf_1_0_0 INTERFACE "SHELL:--preinclude $<QUOTE>${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h$<QUOTE>")
 else()
-    target_compile_options(generated_STMicroelectronics_stfcf_1_0_0 INTERFACE "SHELL:-include ${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h")
+    target_compile_options(generated_STMicroelectronics_stfcf_1_0_0 INTERFACE "SHELL:-include $<QUOTE>${CMAKE_CURRENT_LIST_DIR}/Pre_Include_Global.h$<QUOTE>")
 endif()
 
 
@@ -28,15 +28,9 @@ endif()
 
 # All conditions used by this package
 
-# condition: generated_STMicroelectronics.stfcf.1.0.0: alt chachapoly condition
-# description: Enable chachapoly_alt implementation
-set(generated_STMicroelectronics.stfcf.1.0.0__alt_chachapoly_condition "$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt STCryptoLib(#.*|$)>,>>")
-message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0__alt_chachapoly_condition enabled")
-
-
 # condition: generated_STMicroelectronics.stfcf.1.0.0:KWE condition
 # description: Requires CCB HAL driver component
-set(generated_STMicroelectronics.stfcf.1.0.0_KWE_condition "$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32 HAL#.*Csub:CCB(#.*|$)>,>>")
+set(generated_STMicroelectronics.stfcf.1.0.0_KWE_condition "$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32CubeMX2 Config#.*Csub:CCB(#.*|$)>,>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_KWE_condition enabled")
 
 
@@ -48,7 +42,7 @@ message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_Mbed_TLS
 
 # condition: generated_STMicroelectronics.stfcf.1.0.0:Mbed TLS Alt STCryptoLib condition
 # description: Requires STCryptoLib config component
-set(generated_STMicroelectronics.stfcf.1.0.0_Mbed_TLS_Alt_STCryptoLib_condition "$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt Common(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STM32CubeMX2 Config#.*Csub:STCryptoLib(#.*|$)>,>>>")
+set(generated_STMicroelectronics.stfcf.1.0.0_Mbed_TLS_Alt_STCryptoLib_condition "$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt Common(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STCryptoLib#.*Csub:CMOX API(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STM32CubeMX2 Config#.*Csub:STCryptoLib(#.*|$)>,>>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_Mbed_TLS_Alt_STCryptoLib_condition enabled")
 
 
@@ -60,7 +54,7 @@ message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_PSA_inte
 
 # condition: generated_STMicroelectronics.stfcf.1.0.0:STFCF config condition
 # description: STFCF possible implementations
-set(generated_STMicroelectronics.stfcf.1.0.0_STFCF_config_condition "$<AND:$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:PSA API(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt HAL(#.*|$)>,>>,$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt Common(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32CubeMX2 Config#.*Csub:RNG(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt STCryptoLib(#.*|$)>,>>,$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt Common(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STM32CubeMX2 Config#.*Csub:STCryptoLib(#.*|$)>,>>>>,$<NOT:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:Core(#.*|$)>,>>>>")
+set(generated_STMicroelectronics.stfcf.1.0.0_STFCF_config_condition "$<AND:$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:PSA API(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt HAL(#.*|$)>,>>,$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt Common(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Device#.*Cgroup:STM32CubeMX2 Config#.*Csub:RNG(#.*|$)>,>>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt STCryptoLib(#.*|$)>,>>,$<AND:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt Common(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STCryptoLib#.*Csub:CMOX API(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STM32CubeMX2 Config#.*Csub:STCryptoLib(#.*|$)>,>>>>,$<NOT:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:Core(#.*|$)>,>>>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_STFCF_config_condition enabled")
 
 
@@ -72,13 +66,19 @@ message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_aes_
 
 # condition: generated_STMicroelectronics.stfcf.1.0.0:alt ccm condition
 # description: Enable ccm_alt implementation
-set(generated_STMicroelectronics.stfcf.1.0.0_alt_ccm_condition "1")
+set(generated_STMicroelectronics.stfcf.1.0.0_alt_ccm_condition "$<NOT:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:PSA API(#.*|$)>,>>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_ccm_condition enabled")
+
+
+# condition: generated_STMicroelectronics.stfcf.1.0.0:alt chachapoly condition
+# description: Enable chachapoly_alt implementation
+set(generated_STMicroelectronics.stfcf.1.0.0_alt_chachapoly_condition "$<NOT:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:PSA API(#.*|$)>,>>>")
+message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_chachapoly_condition enabled")
 
 
 # condition: generated_STMicroelectronics.stfcf.1.0.0:alt cmac condition
 # description: Enable cmac_alt implementation
-set(generated_STMicroelectronics.stfcf.1.0.0_alt_cmac_condition "$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt STCryptoLib(#.*|$)>,>>")
+set(generated_STMicroelectronics.stfcf.1.0.0_alt_cmac_condition "$<NOT:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:PSA API(#.*|$)>,>>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_cmac_condition enabled")
 
 
@@ -102,19 +102,19 @@ message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_entr
 
 # condition: generated_STMicroelectronics.stfcf.1.0.0:alt gcm condition
 # description: Enable aes_alt implementation
-set(generated_STMicroelectronics.stfcf.1.0.0_alt_gcm_condition "$<OR:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt HAL(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt STCryptoLib(#.*|$)>,>>>")
+set(generated_STMicroelectronics.stfcf.1.0.0_alt_gcm_condition "$<NOT:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:PSA API(#.*|$)>,>>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_gcm_condition enabled")
 
 
 # condition: generated_STMicroelectronics.stfcf.1.0.0:alt rsa condition
 # description: Enable rsa_alt implementation
-set(generated_STMicroelectronics.stfcf.1.0.0_alt_rsa_condition "$<OR:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt HAL(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt STCryptoLib(#.*|$)>,>>>")
+set(generated_STMicroelectronics.stfcf.1.0.0_alt_rsa_condition "$<NOT:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:PSA API(#.*|$)>,>>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_rsa_condition enabled")
 
 
 # condition: generated_STMicroelectronics.stfcf.1.0.0:alt sha1 condition
 # description: Enable sha1_alt implementation
-set(generated_STMicroelectronics.stfcf.1.0.0_alt_sha1_condition "$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt HAL(#.*|$)>,>>")
+set(generated_STMicroelectronics.stfcf.1.0.0_alt_sha1_condition "$<NOT:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:PSA API(#.*|$)>,>>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_sha1_condition enabled")
 
 
@@ -126,7 +126,7 @@ message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_sha2
 
 # condition: generated_STMicroelectronics.stfcf.1.0.0:alt sha512 condition
 # description: Enable sha512_alt implementation
-set(generated_STMicroelectronics.stfcf.1.0.0_alt_sha512_condition "$<OR:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt STCryptoLib(#.*|$)>,>>,$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:MbedTLS Alt HAL(#.*|$)>,>>>")
+set(generated_STMicroelectronics.stfcf.1.0.0_alt_sha512_condition "$<NOT:$<NOT:$<STREQUAL:$<FILTER:${CMSIS_COMPONENTS_LIST},INCLUDE,.*Cclass:Security#.*Cgroup:STFCF#.*Csub:PSA API(#.*|$)>,>>>")
 message(DEBUG "CMSIS condition generated_STMicroelectronics.stfcf.1.0.0_alt_sha512_condition enabled")
 
 # Files and components in this package

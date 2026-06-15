@@ -2,7 +2,7 @@
 
 # __Example: *usbx_host_msc_freertos*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube Firmware package.")
 
@@ -30,8 +30,8 @@ In case of successful operations:
 
 You can verify the USBX stack operates as expected:
 
-- Plug the USB MSC device into the STM32U575I-EV board through 'Type C  to A-Female' cable to the connector:
-    - CN1: to use USB OTG IP in full speed (FS)
+- Plug the USB MSC device into the 'Type C  to A-Female' cable to the connector:
+
     - Connect ST-Link cable to the PC USB port to display data on the HyperTerminal.
 
     A virtual COM port will then appear in the HyperTerminal:
@@ -99,7 +99,7 @@ This section describes the exact hardware configurations of your project.
   <details>
     <summary>On board NUCLEO-C562RE.</summary>
 
-  | Board connector   | MCU pin | Signal name     | ARDUINO Uno V3 <br> connector pin |
+  | Board connector   | MCU pin | Signal name     | ARDUINO Uno V3 <br/> connector pin |
   | :---:             | :---:   | :---:           | :---:                             |
   | CN5-6             | PA5     | MX_STATUS_LED   | Not exposed                       |
 
@@ -114,8 +114,7 @@ This section describes the exact hardware configurations of your project.
   |         -         |    PH1    |  RCC_OSC_OUT  |              -               | PH1_OSC_OUT  |
 
   </details>
-</details>
-
+  </details>
 
 ## __4. Troubleshooting__
 
@@ -139,7 +138,7 @@ This [wiki](https://wiki.st.com/stm32mcu/wiki/Introduction_to_USBX) introduction
 
 More information about the STM32 Cube Drivers can be found in the drivers' user manual of the STM32 series you are using.
 
-For instance, for the STM32U5 series: [User Manual](https://www.st.com/resource/en/user_manual/dm00813340-.pdf).
+For instance, for the STM32C5 series: [User Manual](https://www.st.com).
 
 More information about the STM32 ecosystem can be found in the [STM32 MCU Developer Zone](https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/embedded-software.html).
 

@@ -8,7 +8,7 @@
 
 
 // RTE Content
-#if (CMSIS_USE_generated_Utility_STM32CubeMX2_Config_SEQUENCER_1_0_0)
+#if (CMSIS_USE_generated_Utility_STM32CubeMX2_Config_SEQUENCER_1_1_0)
     #define SEQ_USER_CONFIG
 #endif
 

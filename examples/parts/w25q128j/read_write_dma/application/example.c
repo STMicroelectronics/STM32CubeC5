@@ -35,12 +35,16 @@
 
 /* Private define ------------------------------------------------------------*/
 
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+          Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ACCESS_ALIGNMENT        (8U)
+
 /* Private variables ---------------------------------------------------------*/
-__attribute__((section(".bss.non_cacheable_tx_buffer"), aligned(32)))
+__attribute__((section("non_cacheable_tx_buffer"), aligned(DMA_ACCESS_ALIGNMENT)))
 uint8_t TxBuffer[BUFFER_SIZE] = {0U}; /* buffer used for write operations */
-__attribute__((section(".bss.non_cacheable_rx_buffer"), aligned(32)))
+__attribute__((section("non_cacheable_rx_buffer"), aligned(DMA_ACCESS_ALIGNMENT)))
 uint8_t RxBuffer[BUFFER_SIZE] = {0U}; /* buffer used for read operations */
-__attribute__((section(".bss.non_cacheable_part_obj"), aligned(32)))
+__attribute__((section("non_cacheable_part_obj"), aligned(DMA_ACCESS_ALIGNMENT)))
 w25q128j_obj_t      *pFlashObj;
 volatile uint32_t callback_flag;
 
@@ -91,6 +95,8 @@ _app_init_exit:
 app_status_t app_process(void)
 {
   app_status_t return_status = EXEC_STATUS_ERROR;
+  w25q128j_status_t error_status;
+  w25q128j_async_write_phase_t async_write_phase;
 
   /* Prepare the data to be written to the flash memory */
   BufferFill(TxBuffer, BUFFER_SIZE);
@@ -115,13 +121,24 @@ app_status_t app_process(void)
   {
     goto _app_process_exit;
   }
-  /* Write to the flash memory */
-  if (w25q128j_write_dma(pFlashObj, TxBuffer, W25Q128J_START_ADDRESS, BUFFER_SIZE) != W25Q128J_OK)
+  /* Start the asynchronous write to the flash memory */
+  if (w25q128j_write_dma_async(pFlashObj, TxBuffer, W25Q128J_START_ADDRESS, BUFFER_SIZE) != W25Q128J_OK)
   {
     goto _app_process_exit;
   }
-
-  while (callback_flag == 0);
+  do
+  {
+    /* Handle wait state management - Poll the busy bit when necessary */
+    error_status = w25q128j_exec_data_handler(pFlashObj);
+    /* Get the current phase of the asynchronous write operation */
+    async_write_phase = w25q128j_get_async_write_phase(pFlashObj);
+    /* wait until the asynchronous write operation is complete or an error occurs */
+  } while ((async_write_phase != W25Q128J_ASYNC_WRITE_IDLE) && (error_status != W25Q128J_ERROR));
+  if (error_status != W25Q128J_OK)
+  {
+    /* Timeout error */
+    goto _app_process_exit;
+  }
   callback_flag = 0; /* reset flag */
 
   PRINTF("[INFO] Step 3: Data buffer written to the flash memory asynchronously.\n");

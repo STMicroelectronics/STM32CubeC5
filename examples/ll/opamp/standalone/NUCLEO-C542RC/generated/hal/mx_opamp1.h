@@ -38,6 +38,10 @@ extern "C" {
 #define PA6_PORT                              GPIOA
 #define PA6_PIN                               LL_GPIO_PIN_6
 
+/** Primary aliases for OPAMP1_VINM0 pin */
+#define PA2_PORT                              GPIOA
+#define PA2_PIN                               LL_GPIO_PIN_2
+
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

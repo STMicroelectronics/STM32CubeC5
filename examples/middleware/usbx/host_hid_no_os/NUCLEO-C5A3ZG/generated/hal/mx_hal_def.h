@@ -6,15 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef MX_HAL_DEF_H
 #define MX_HAL_DEF_H
@@ -24,162 +25,178 @@ extern "C" {
 #endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
+#include "mx_def.h"
 #include "stm32_hal.h"
+#include "mx_cortex_mpu.h"
+#include "mx_cortex_nvic.h"
 #include "mx_gpio_default.h"
 #include "mx_usb_drd_fs.h"
-#include "mx_usart2.h"
-#include "mx_cortex_mpu.h"
 #include "mx_icache.h"
 #include "mx_rcc.h"
-#include "mx_usbx_app.h"
-
+#include "mx_usart2.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
 
+  /* *************************************************************
+    USART2 / LPDMA1_CH0: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for Channel instance
+    ************************************************************* */
+
+/* Exported macros -----------------------------------------------------------*/
 
 /* ########### Aliases to initialization functions ########### */
 
-/* *********************************************************** */
-/*        ICACHE_MyICACHE_1: aliases for initialization functions */
-/* *********************************************************** */
+  /* *************************************************************
+    Cortex_MPU: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_cortex_mpu_init
+    ************************************************************* */
+
+  /* *************************************************************
+    Cortex_NVIC: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_cortex_nvic_init
+    ************************************************************* */
+
+  /* ***********************************************************
+      gpio_default: aliases for initialization functions
+    *********************************************************** */
 
 /**
-  * @brief  Initialize the mx_icache_hal with HAL layer
+  * @brief  Initialize the mx_gpio_default with HAL layer
   *         Name of the User label:
-  *                   MyICACHE_1
-  * @retval hal_icache_handle_t Pointer on the handle on the ICACHE instance
+  *                   mx_gpio_status_led
+  * @retval system_status_t Value based on the system_status_t
   */
-#define myicache_1_init mx_icache_hal_init
+#define mx_gpio_status_led_init mx_gpio_default_init
 
-
-/* *********************************************************** */
-/*        USB_DRD_FS: aliases for initialization functions     */
-/* *********************************************************** */
+  /* ***********************************************************
+      USB_DRD_FS_HOST: aliases for initialization functions
+    *********************************************************** */
 
 /**
-  * @brief  Initialize the mx_hcd_usb_drd_fs_cfg1_init with HAL layer
+  * @brief  Initialize the mx_usb_drd_fs_host with HAL layer
   *         Name of the User label:
   *                   mx_example_hcd
-  * @retval hal_hcd_handle_t Pointer on the handle on the USB_DRD_FS instance
+  * @retval hal_hcd_handle_t Pointer on the handle on the USB_DRD_FS_HOST instance
   */
-#define mx_example_hcd_init           mx_hcd_usb_drd_fs_cfg1_init
+#define mx_example_hcd_init mx_usb_drd_fs_host_init
 
-/* *********************************************************** */
-/*        gpio_default_MyGPIO_1: aliases for initialization functions */
-/* *********************************************************** */
+  /* *************************************************************
+    ICACHE: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_icache_init
+    ************************************************************* */
+
+  /* *************************************************************
+    RCC: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_rcc_init
+    ************************************************************* */
+
+  /* ***********************************************************
+      USART2: aliases for initialization functions
+    *********************************************************** */
 
 /**
-  * @brief  Initialize the mx_gpio_default_cfg1_hal with HAL layer
+  * @brief  Initialize the mx_usart2_uart with HAL layer
   *         Name of the User label:
-  *                   MyGPIO_1
-  *                   mx_status_led
-  * @retval hal_gpio_handle_t Pointer on the handle on the gpio_default instance
+  *                   adv_trace
+  * @retval hal_uart_handle_t Pointer on the handle on the USART2 instance
   */
-#define mygpio_1_init mx_gpio_default_cfg1_hal_init
+#define adv_trace_init mx_usart2_uart_init
 
 /* ########################################################### */
 
 /* ########### Aliases to De-Initialization functions ########### */
 
-/* *********************************************************** */
-/*        USB_DRD_FS: aliases for De-Initialization functions */
-/* *********************************************************** */
+  /* *************************************************************
+    Cortex_MPU: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_cortex_mpu_deinit
+    ************************************************************* */
+
+  /* *************************************************************
+    Cortex_NVIC: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_cortex_nvic_deinit
+    ************************************************************* */
+
+  /* ***********************************************************
+      gpio_default: aliases for De-Initialization functions
+    *********************************************************** */
 
 /**
-  * @brief  De-Initialize the mx_hcd_USB_DRD_FS_cfg1_init with HAL layer
+  * @brief  De-Initialize the mx_gpio_default with HAL layer
+  *         Name of the User label:
+  *                   mx_gpio_status_led
+  */
+#define mx_gpio_status_led_deinit mx_gpio_default_deinit
+
+  /* ***********************************************************
+      USB_DRD_FS_HOST: aliases for De-Initialization functions
+    *********************************************************** */
+
+/**
+  * @brief  De-Initialize the mx_usb_drd_fs_host with HAL layer
   *         Name of the User label:
   *                   mx_example_hcd
   */
-#define mx_example_hcd_deinit mx_hcd_usb_drd_fs_cfg1_deinit
+#define mx_example_hcd_deinit mx_usb_drd_fs_host_deinit
 
-/* *********************************************************** */
-/*        gpio_default_MyGPIO_1: aliases for De-Initialization functions */
-/* *********************************************************** */
+  /* *************************************************************
+    ICACHE: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_icache_deinit
+    ************************************************************* */
+
+  /* ***********************************************************
+      USART2: aliases for De-Initialization functions
+    *********************************************************** */
 
 /**
-  * @brief  De-Initialize the mx_gpio_default_cfg1_hal with HAL layer
+  * @brief  De-Initialize the mx_usart2_uart with HAL layer
   *         Name of the User label:
-  *                   MyGPIO_1
+  *                   adv_trace
   */
-#define mygpio_1_deinit mx_gpio_default_cfg1_hal_deinit
+#define adv_trace_deinit mx_usart2_uart_deinit
 
 /* ########################################################### */
 
 /* ########### Aliases to get HAL handle functions ########### */
 
-
-/* *********************************************************** */
-/*        USB_DRD_FS: aliases for get handle functions */
-/* *********************************************************** */
-
-/**
-  * @brief  Get the HAL handle for HCD
+  /* ***********************************************************
+      USB_DRD_FS_HOST: aliases for get handle functions
+    *********************************************************** *//**
+  * @brief  Get the HAL handle for USB_DRD_FS_HOST
   *         Name of the User label:
   *                   mx_example_hcd
-  * @retval hal_hcd_handle_t Pointer on the handle on the CRC instance
+  * @retval hal_hcd_handle_t Pointer on the handle on the USB_DRD_FS_HOST instance
   */
-#define mx_example_hcd_gethandle                mx_usb_hcd_gethandle
+#define mx_example_hcd_gethandle mx_usb_drd_fs_host_gethandle
 
-/* *********************************************************** */
-/*        usart2_instance2: aliases for initialization functions */
-/* *********************************************************** */
+  /* *************************************************************
+    ICACHE: No software label has been defined for this peripheral instance
+      in the STM32CubeMX2 configuration panel.
+      As a result, no aliases are generated for mx_icache_gethandle
+    ************************************************************* */
 
-/**
-  * @brief  Initialize the mx_usart2_cfg1_hal_uart with HAL layer
+  /* ***********************************************************
+      USART2: aliases for get handle functions
+    *********************************************************** *//**
+  * @brief  Get the HAL handle for USART2
   *         Name of the User label:
-  *                   mx_usart2
-  *         Name of the Config label:
-  *
-  * @retval hal_uart_handle_t Pointer on the handle on the usart2 instance
+  *                   adv_trace
+  * @retval hal_uart_handle_t Pointer on the handle on the USART2 instance
   */
-#define mx_example_uart_init          mx_usart2_hal_uart_init
-
-/* *********************************************************** */
-/*        usart2_instance2: aliases for De-Initialization functions */
-/* *********************************************************** */
-
-/**
-  * @brief  De-Initialize the mx_usart2_cfg1_hal_uart with HAL layer
-  *         Name of the User label:
-  *                   mx_usart2
-  *         Name of the Config label:
-  *
-  */
-#define mx_example_uart_deinit        mx_usart2_hal_uart_deinit
-
-/* *********************************************************** */
-/*        usart2_instance2: aliases for get handle functions */
-/* *********************************************************** */
-
-/**
-  * @brief  Get the HAL handle for usart2
-  *         Name of the User label:
-  *                   mx_usart2
-  * @retval hal_uart_handle_t Pointer on the handle on the usart2 instance
-  */
-#define mx_example_uart_gethandle mx_usart2_hal_uart_gethandle
-/* Aliases to get HAL handle functions */
-#define adv_trace_gethandle        mx_example_uart_gethandle
+#define adv_trace_gethandle mx_usart2_uart_gethandle
 
 /* ########################################################### */
 
-/* ########### Aliases to De-Initialization functions ########### */
-
-/* *********************************************************** */
-/*        tim6_instance1: aliases for De-Initialization functions */
-/* *********************************************************** */
-/* *********************************************************** */
-/*        ICACHE_MyICACHE_1: aliases for De-Initialization functions */
-/* *********************************************************** */
-
-/**
-  * @brief  De-Initialize the mx_icache_hal with HAL layer
-  *         Name of the User label:
-  *                   MyICACHE_1
-  */
-#define myicache_1_deinit mx_icache_hal_deinit
+/* ########### Aliases to get IRQ Handlers functions ########### */
+  /* ########################################################### */
 
 #ifdef __cplusplus
 }

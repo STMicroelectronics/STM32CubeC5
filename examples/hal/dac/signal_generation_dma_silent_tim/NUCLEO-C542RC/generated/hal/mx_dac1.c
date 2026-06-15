@@ -30,10 +30,15 @@ static hal_dma_node_t DMA_Node_DAC1_CH1;
 static hal_dma_handle_t hLPDMA1_CH0;
 
 /******************************************************************************/
-/* Exported functions for DAC1 in HAL layer (SW instance MyDAC_1) */
+/* Exported functions for DAC1 in HAL layer */
 /******************************************************************************/
 hal_dac_handle_t *mx_dac1_init(void)
 {
+  if (HAL_DAC_Init(&hDAC1, HAL_DAC1) != HAL_OK)
+  {
+    return NULL;
+  }
+
   HAL_RCC_DAC1_EnableClock();
 
   if (HAL_RCC_ADCDAC_SetKernelClkSource(HAL_RCC_ADCDAC_CLK_SRC_PSIS) != HAL_OK)
@@ -44,11 +49,6 @@ hal_dac_handle_t *mx_dac1_init(void)
   /****************************************************************************/
   /* Initialization of DAC instance                                           */
   /****************************************************************************/
-
-  if (HAL_DAC_Init(&hDAC1, HAL_DAC1) != HAL_OK)
-  {
-    return NULL;
-  }
 
   hal_dac_config_t dac_config;
   dac_config.high_frequency_mode = HAL_DAC_HIGH_FREQ_MODE_ABOVE_80MHZ;
@@ -78,20 +78,19 @@ hal_dac_handle_t *mx_dac1_init(void)
   /* Configuration of GPIO                                                    */
   /****************************************************************************/
 
+  /* ### DAC1 GPIO Configuration ########################### */
+  /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    DAC1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA4     ------>   DAC1_OUT1
+       PA4     ------>   DAC1_OUT1   ------>  PA4
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ANALOG;
-  gpio_config.pull        = HAL_GPIO_PULL_NO;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_4, &gpio_config);
+  HAL_GPIO_Init(PA4_PORT, PA4_PIN, &gpio_config);
 
   /****************************************************************************/
   /* Configuration of DMA                                                     */
@@ -136,8 +135,8 @@ void mx_dac1_deinit(void)
 
   HAL_RCC_DAC1_Reset();
 
-  /* De-initialize all GPIO pins associated with DAC1 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_4);
+  /* De-initialize all GPIOA pins associated with DAC1 */
+  HAL_GPIO_DeInit(PA4_PORT, PA4_PIN);
 
   /* De-initialize the DMA channel */
   HAL_DMA_DeInit(&hLPDMA1_CH0);

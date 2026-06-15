@@ -56,7 +56,6 @@ hal_hash_handle_t *mx_hash_gethandle(void);
 /******************************************************************************/
 /*                      LPDMA1 channel0 global interrupt                      */
 /******************************************************************************/
-
 void LPDMA1_CH0_IRQHandler(void);
 #ifdef __cplusplus
 }

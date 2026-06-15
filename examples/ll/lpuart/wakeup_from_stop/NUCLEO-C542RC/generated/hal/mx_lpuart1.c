@@ -26,7 +26,6 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /* Exported function definition ----------------------------------------------*/
-
 /******************************************************************************/
 /* Exported functions for UART in LL layer */
 /******************************************************************************/
@@ -54,36 +53,36 @@ USART_TypeDef *mx_lpuart1_uart_init(void)
   /* Wake up from low power mode configuration */
   LL_USART_EnableInStopMode(LPUART1);
 
+  /* ### LPUART1 GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
 
   /**
-    LPUART1 GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PB7     ------>   LPUART1_RX
-       PB6     ------>   LPUART1_TX
+       PB7     ------>   LPUART1_RX   ------>  PB7
+       PB6     ------>   LPUART1_TX   ------>  PB6
     **/
 
   /* Configure IO output speed (Low, Medium, High or Very-High) */
-  /* LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_7, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_6, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PB7_PORT, PB7_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinSpeed(PB6_PORT, PB6_PIN, LL_GPIO_SPEED_FREQ_LOW); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_7 | LL_GPIO_PIN_6, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinOutputType(GPIOB, PB7_PIN | PB6_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_7, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
-  /* LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_6, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PB7_PORT, PB7_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PB6_PORT, PB6_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure the Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_7, LL_GPIO_AF_8);
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_6, LL_GPIO_AF_8);
+  LL_GPIO_SetAFPin_0_7(PB7_PORT, PB7_PIN, LL_GPIO_AF_8);
+  LL_GPIO_SetAFPin_0_7(PB6_PORT, PB6_PIN, LL_GPIO_AF_8);
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_7, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_6, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PB7_PORT, PB7_PIN, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PB6_PORT, PB6_PIN, LL_GPIO_MODE_ALTERNATE);
 
   /* Enable interrupt */
   NVIC_SetPriority(LPUART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
@@ -107,26 +106,26 @@ void mx_lpuart1_uart_deinit(void)
   /* ### GPIO deinitialization of LPUART1: LPUART1_RX,LPUART1_TX ########################### */
 
   /* Configure IO in Analog Mode */
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_7, LL_GPIO_MODE_ANALOG);
-  LL_GPIO_SetPinMode(GPIOB, LL_GPIO_PIN_6, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PB7_PORT, PB7_PIN, LL_GPIO_MODE_ANALOG);
+  LL_GPIO_SetPinMode(PB6_PORT, PB6_PIN, LL_GPIO_MODE_ANALOG);
 
   /* Configure the default Alternate Function in current IO */
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_7, LL_GPIO_AF_0);
-  LL_GPIO_SetAFPin_0_7(GPIOB, LL_GPIO_PIN_6, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PB7_PORT, PB7_PIN, LL_GPIO_AF_0);
+  LL_GPIO_SetAFPin_0_7(PB6_PORT, PB6_PIN, LL_GPIO_AF_0);
 
   /* Configure the default value for IO Speed */
-  LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_7, LL_GPIO_SPEED_FREQ_LOW);
-  LL_GPIO_SetPinSpeed(GPIOB, LL_GPIO_PIN_6, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PB7_PORT, PB7_PIN, LL_GPIO_SPEED_FREQ_LOW);
+  LL_GPIO_SetPinSpeed(PB6_PORT, PB6_PIN, LL_GPIO_SPEED_FREQ_LOW);
 
   /* Configure the default value IO Output Type */
-  LL_GPIO_SetPinOutputType(GPIOB, LL_GPIO_PIN_7 | LL_GPIO_PIN_6, LL_GPIO_OUTPUT_PUSHPULL);
+  LL_GPIO_SetPinOutputType(GPIOB, PB7_PIN | PB6_PIN, LL_GPIO_OUTPUT_PUSHPULL);
 
   /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_7, LL_GPIO_PULL_NO);
-  LL_GPIO_SetPinPull(GPIOB, LL_GPIO_PIN_6, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PB7_PORT, PB7_PIN, LL_GPIO_PULL_NO);
+  LL_GPIO_SetPinPull(PB6_PORT, PB6_PIN, LL_GPIO_PULL_NO);
 
   /* Reset the IO output state */
-  LL_GPIO_WriteOutputPin(GPIOB, LL_GPIO_PIN_7 | LL_GPIO_PIN_6, LL_GPIO_PIN_RESET);
+  LL_GPIO_WriteOutputPin(PB7_PORT, PB7_PIN | PB6_PIN, LL_GPIO_PIN_RESET);
 }
 
 /******************************************************************************/

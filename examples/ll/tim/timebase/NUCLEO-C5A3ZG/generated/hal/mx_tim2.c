@@ -26,10 +26,10 @@
 /* Exported variables by reference--------------------------------------------*/
 
 /* Exported function definition ----------------------------------------------*/
+/******************************************************************************/
+/* Exported functions for TIM2 in LL layer */
+/******************************************************************************/
 
-/******************************************************************************/
-/* Exported functions for TIM2 in LL layer (SW instance MyTIM_1) */
-/******************************************************************************/
 TIM_TypeDef *mx_tim2_init(void)
 {
   LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM2);
@@ -48,6 +48,8 @@ TIM_TypeDef *mx_tim2_init(void)
 
   /* Master Mode Configuration */
 
+  /* No GPIO configuration required for TIM2 */
+
   /* Enable the Timer global interrupt */
   NVIC_SetPriority(TIM2_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
   NVIC_EnableIRQ(TIM2_IRQn);
@@ -61,6 +63,8 @@ void mx_tim2_deinit(void)
 
   LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM2);
   LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM2);
+
+  /* No GPIO de-initialization required for TIM2 */
 
   /* Disable Timer global interrupt */
   NVIC_DisableIRQ(TIM2_IRQn);

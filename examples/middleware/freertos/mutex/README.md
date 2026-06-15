@@ -2,7 +2,7 @@
 
 # __Example: *freertos_mutex*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -55,6 +55,11 @@ If you enable `USE_TRACE`, you can follow these execution steps in the terminal 
 
 [![Configuration Manual](doc/configure_with-ConfigurationMa.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/configure/config_toc.html "An offline version is also available in the STM32Cube firmware package.")
 
+__TIM__:
+
+FreeRTOS exclusively uses the SysTick as its timebase. Thus a timer should be configured to be used as a separate timebase for the HAL.
+To do so, the HALCore is configured to use the desired TIM peripheral. The initialization is handled through the HAL within HAL_InitTick() function.
+
 
 ## __3. Hardware environment and setup__
 
@@ -67,7 +72,9 @@ This section describes the exact hardware configurations of your project.
 <details>
   <summary>On STM32C5 series.</summary>
   <details>
-  <summary>On board NUCLEO-C562RE.</summary>
+    <summary>On board NUCLEO-C562RE.</summary>
+
+  The `TIM6`, is used as a separate timebase for the HAL.
 
   | Board connector   | MCU pin | Signal name      | ARDUINO pin |
   | :---:             | :---:   | :---:            | :---:       |
@@ -88,6 +95,8 @@ This section describes the exact hardware configurations of your project.
 - [FreeRTOS usage of semaphores as mutex API](https://www.freertos.org/CreateMutex.html) to understand the FreeRTOS semaphore API when used as a mutex.
 - [FreeRTOS Task Notifications](https://www.freertos.org/Documentation/02-Kernel/04-API-references/05-Direct-to-task-notifications/00-RTOS-task-notifications
 ) to understand the example status management.
+
+- example_hal_timebase_tim: Describe how to use a timer as HAL tick source rather than the systick.
 
 
 ## __6. License__

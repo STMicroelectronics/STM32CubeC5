@@ -111,9 +111,9 @@ app_status_t app_process(void)
     hal_status = HAL_SPI_TransmitReceive_IT(pSPI, pTxData, RxBuffer, BUFFER_SIZE);
     if (hal_status != HAL_OK)
     {
-      spi_error_code = HAL_SPI_GetLastErrorCodes(pSPI);
-      return_status  = HandleTransferError(hal_status, spi_error_code);
-      continue;
+      /* Failure of HAL API here must be due to a wrong configuration and cannot be recovered */
+      PRINTF("[ERROR] Responder -  Unrecoverable configuration error");
+      goto _app_process_exit;
     }
 
     /** ########## Step 3 ##########
@@ -142,6 +142,7 @@ app_status_t app_process(void)
 
   } /* end while */
 
+_app_process_exit:
   return return_status;
 } /* end app_process */
 
@@ -198,6 +199,7 @@ static inline void UpdateBuffers(void)
   memset(RxBuffer, 0U, BUFFER_SIZE);
 } /* end UpdateBuffers */
 
+
 /** brief:  Checks the correctness of the data when the transfer is completed.
   * param:  none
   * retval: example status
@@ -220,7 +222,10 @@ static app_status_t HandleTransferCplt(void)
   return return_status;
 } /* end HandleTransferCplt */
 
-/** brief:  This function is executed in case of a data transfer error.
+
+/** brief: This function is executed in case of a data transfer error.
+  * @user: - This function implementation only illustrates error processing.
+  *        - It can be customized to match the application recovery strategy.
   * param hal_status:  HAL status of the SPI TX/RX operations.
   * param spi_error_code:  SPI Error Code.
   * retval: example status

@@ -27,7 +27,7 @@
 static hal_crc_handle_t hCRC;
 
 /******************************************************************************/
-/* Exported functions for CRC (SW instance MyCRC_1 in HAL) layer */
+/* Exported functions for CRC in HAL layer */
 /******************************************************************************/
 hal_crc_handle_t *mx_crc_init(void)
 {

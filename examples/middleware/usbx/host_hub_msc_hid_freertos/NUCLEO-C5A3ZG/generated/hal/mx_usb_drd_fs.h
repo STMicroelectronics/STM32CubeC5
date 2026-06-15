@@ -5,38 +5,71 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software is licensed under terms that can be found in the mx_stm32c5xx_hal_drivers_license.md file
+  * in the same directory as the generated code.
+  * If no mx_stm32c5xx_hal_drivers_license.md file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32_USB_DRD_FS_H
-#define STM32_USB_DRD_FS_H
+#ifndef MX_USB_DRD_FS_H
+#define MX_USB_DRD_FS_H
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_hal.h"
-#include "mx_gpio_default.h"
+#include "mx_def.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
 
-void *mx_hcd_usb_drd_fs_cfg1_init(void);
-void mx_hcd_usb_drd_fs_cfg1_deinit(void);
-void *mx_usb_hcd_gethandle(void);
+/** Primary aliases for USB_DM pin */
+#define USB_FS_N_PORT                         HAL_GPIOA
+#define USB_FS_N_PIN                          HAL_GPIO_PIN_11
+
+/** Primary aliases for USB_DP pin */
+#define USB_FS_P_PORT                         HAL_GPIOA
+#define USB_FS_P_PIN                          HAL_GPIO_PIN_12
+/* Exported macro ------------------------------------------------------------*/
+/* Exported variables --------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+/******************************************************************************/
+/* Exported functions for USB_DRD_FS HOST (HCD) in HAL layer */
+/******************************************************************************/
+/**
+  * @brief mx_usb_drd_fs_host init function
+  * This function configures the hardware resources used in this example
+  * @retval pointer to handle or NULL in case of failure
+  */
+hal_hcd_handle_t *mx_usb_drd_fs_host_init(void);
+
+/**
+  * @brief  De-initialize usb_drd_fs instance and return it.
+  */
+void mx_usb_drd_fs_host_deinit(void);
+
+/**
+  * @brief  Get the USB_DRD_FS object.
+  * @retval Pointer on the USB_DRD_FS Handle
+  */
+hal_hcd_handle_t *mx_usb_drd_fs_host_gethandle(void);
+
+/**
+  * @brief Handling USB event interrupt request
+  * @param None
+  * @retval None
+  */
 void USB_DRD_FS_IRQHandler(void);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
-#endif /* STM32_USB_DRD_FS_H */
+#endif /* MX_USB_DRD_FS_H */

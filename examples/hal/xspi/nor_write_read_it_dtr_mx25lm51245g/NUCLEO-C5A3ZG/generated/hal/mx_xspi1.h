@@ -104,7 +104,6 @@ hal_xspi_handle_t *mx_xspi1_gethandle(void);
 /******************************************************************************/
 /*                         OCTOSPI1 global interrupt                          */
 /******************************************************************************/
-
 void XSPI1_IRQHandler(void);
 
 #ifdef __cplusplus

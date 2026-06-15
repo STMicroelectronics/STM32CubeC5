@@ -69,31 +69,31 @@ system_status_t mx_rcc_init(void)
 
   /** Configure MCO (clock source, IO and divider) */
 
+  /* ### RCC GPIO Configuration ########################### */
+
   /* GPIO Clocks activation */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
 
   /**
-    RCC GPIO Configuration
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-    [GPIO Pin] ------> [Signal Name]
-
-       PA9     ------>   RCC_MCO2
+       PA9     ------>   RCC_MCO2   ------>  PA9
     **/
 
   /* Configure IO output speed (Low, Medium, High or Very-High) */
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_9, LL_GPIO_SPEED_FREQ_VERY_HIGH);
+  LL_GPIO_SetPinSpeed(PA9_PORT, PA9_PIN, LL_GPIO_SPEED_FREQ_VERY_HIGH);
 
   /* Configure IO output type (Push-Pull or Open-Drain) */
-  /* LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_9, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinOutputType(PA9_PORT, PA9_PIN, LL_GPIO_OUTPUT_PUSHPULL); */ /* Configuration matches register reset state at startup. */
 
   /* Activate the Pull-up, Pull-down resistor, or No pull for the current IO */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_9, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetPinPull(PA9_PORT, PA9_PIN, LL_GPIO_PULL_NO); */ /* Configuration matches register reset state at startup. */
 
   /* Configure the Alternate Function in current IO */
-  /* LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_9, LL_GPIO_AF_0); */ /* Configuration matches register reset state at startup. */
+  /* LL_GPIO_SetAFPin_8_15(PA9_PORT, PA9_PIN, LL_GPIO_AF_0); */ /* Configuration matches register reset state at startup. */
 
   /* Configure IO direction mode (Input, Output, Alternate or Analog) */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_9, LL_GPIO_MODE_ALTERNATE);
+  LL_GPIO_SetPinMode(PA9_PORT, PA9_PIN, LL_GPIO_MODE_ALTERNATE);
 
   LL_RCC_ConfigMCO(LL_RCC_MCO2SOURCE_HSIDIV3, LL_RCC_MCO2_PRESCALER_15);
 
@@ -151,12 +151,16 @@ LL_RCC_WRITE_REG(CIER, RCC_CIER_Rst); /* Disable all interrupts */
   */
 system_status_t mx_rcc_peripherals_clock_config(void)
 {
+  /* Peripherals using HSIDIV3 (48 MHz):
+    CRS
+  */
+  /* HSIDIV3 already enabled inside mx_rcc_init() */
+
   /* Peripherals using LSE (32.768 kHz):
     CRS
   */
   /* Disable RTC Domain Write Protection */
   LL_PWR_DisableRTCDomainWriteProtection();
-
   LL_RCC_LSE_SetDriveCapability(LL_RCC_LSEDRIVE_MEDIUMHIGH);
   LL_RCC_LSE_Enable();
   while(LL_RCC_LSE_IsReady() != 1U)
@@ -165,7 +169,7 @@ system_status_t mx_rcc_peripherals_clock_config(void)
   /* In order to simplify the code generation and management for the user, the write protection is not enabled by
      default. In real case application, we advise to enable it once all the necessary configurations are done. */
   /* Enable RTC Domain Write Protection */
-  //LL_PWR_EnableRTCDomainWriteProtection();
+  /* LL_PWR_EnableRTCDomainWriteProtection(); */
 
   return SYSTEM_OK;
 }

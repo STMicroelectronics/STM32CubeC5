@@ -2,7 +2,7 @@
 
 # __Example: *ll_i3c_private_it_controller*__
 
-**Example version:** 2.0.0
+**Example version:** 2.0.3
 
 [![User Manual](doc/read_the-UM.svg)](https://dev.st.com/stm32cube-docs/examples/arch-v1/en/index.html "An offline version is also available in the STM32Cube firmware package.")
 
@@ -173,6 +173,8 @@ Here are the points of attention for this specific example:
 
 
   4. For correct synchronization, always run the target application before running the controller. This ensures the target is ready to respond to the controller's private I3C communication requests.
+
+  5. When this controller is used with a target wakeup example, the target wakes up when the controller starts a private transfer. The target may need extra time to restore its clock and flash execution after wakeup. For this wakeup use case only, add a short delay on the controller side, and use controller RX stall, before starting the private transfer.
 
 __Error handling__: In LL examples, error handling is controlled by the USE_LL_APP_ERROR constant in the application files to reduce code footprint. This compilation flag is disabled by default. If the example does not behave as expected, enable error handling for debugging by setting USE_LL_APP_ERROR to 1 in ll_example.h.
 

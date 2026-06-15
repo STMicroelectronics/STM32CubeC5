@@ -32,6 +32,10 @@
 #define PAGE_SIZE             64U
 #define TIMEOUT_MS            1000U
 
+/* @user: The maximum data bus width used by DMA in STM32 devices is 64 bits.
+   Therefore, 8-byte alignment is the minimum recommended alignment for DMA buffers across STM32 devices. */
+#define DMA_ALIGNMENT      (8U)
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 hal_i2c_handle_t *pI2C;
@@ -39,8 +43,15 @@ volatile uint8_t TxTransferComplete; /* Set to 1 if the write transfer is correc
 volatile uint8_t RxTransferComplete; /* Set to 1 if the read transfer is correctly completed */
 volatile uint8_t TransferError;      /* Set to 1 if a transmission or a reception error is detected */
 
-uint8_t TxBuffer[BUFFER_SIZE] __ALIGNED(8); /* Transmit buffer used for EEPROM write operations */
-uint8_t RxBuffer[BUFFER_SIZE] __ALIGNED(8); /* Receive buffer used for EEPROM read operations */
+/** Buffer for CPU and DMA.
+  * - Non-cacheable memory for data cache consistency.
+  * - Aligned for DMA constraints.
+  * - Mandatory with data cache enabled, harmless otherwise: portable across STM32 series.
+  */
+__attribute__((section(".bss.non_cacheable_area"), aligned(DMA_ALIGNMENT)))
+uint8_t TxBuffer[BUFFER_SIZE]; /* Transmit buffer used for EEPROM write operations */
+__attribute__((section(".bss.non_cacheable_area"), aligned(DMA_ALIGNMENT)))
+uint8_t RxBuffer[BUFFER_SIZE]; /* Receive buffer used for EEPROM read operations */
 
 /* Private functions prototype -----------------------------------------------*/
 static void BufferFill(uint8_t *pbuffer, uint32_t buff_length);

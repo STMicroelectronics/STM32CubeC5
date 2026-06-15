@@ -76,6 +76,18 @@ extern "C" {
 #define PSA_KWE_DRIVER_ENABLED
 
 /**
+  * \def KWE_SYMMETRIC_KEY_WRAP_ENABLED
+  *
+  * Enables STM32 KWE PSA Driver that manages symmetric keys in wrapped forme.
+  *
+  * Uncomment a macro to enable symmetric key wrap operations on STM32 key
+  * key wrap engine.
+  *
+  * Requires PSA_KWE_DRIVER_ENABLED.
+  */
+/* #define KWE_SYMMETRIC_KEY_WRAP_ENABLED */
+
+/**
   * \def KWE_ASYMMETRIC_KEY_WRAP_ENABLED
   *
   * Enables STM32 KWE PSA Driver that manages asymmetric keys in wrapped forme.

@@ -151,3 +151,14 @@ void HAL_RTC_TimestampEventCallback()
   HAL_RTC_TIMESTAMP_GetDateTime((hal_rtc_time_t *)&RtcTimeStamp, (hal_rtc_date_t *)&RtcDateStamp,
                                 (hal_rtc_timestamp_information_t *)&TimeStampInfo);
 }
+
+/**  User hook function called before the HAL_Init() function
+  */
+system_status_t pre_system_init_hook(void)
+{
+  /* Reset the RTC domain (RTC, TAMP, backup registers, LSE configuration, etc) */
+  HAL_PWR_DisableRTCDomainWriteProtection();
+  HAL_RCC_ResetRTCDomain();
+
+  return SYSTEM_OK;
+}
