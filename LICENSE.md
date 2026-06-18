@@ -9,7 +9,7 @@
 Copyright &copy; 2026 STMicroelectronics
 
 All rights reserved
-    
+
 [![ST logo](_htmresc/st_logo_2020.png)](https://www.st.com)
 
 ## <mark>__OVERVIEW__</mark>
@@ -254,15 +254,15 @@ PROPERTY RIGHTS OF STMICROELECTRONICS OR ANY THIRD PARTY.
 
 
 ###### <a name="lic2"></a>
-        ::: {.collapse}
-        <input type="checkbox" id="collapse-annex2" checked aria-hidden="true">
-        <label for="collapse-annex2" aria-hidden="true">__Annex 2__</label>
-        <div>
-        <div>
-        
-        #### BSD-3-Clause
-        
-        BSD-3-Clause
+
+<input type="checkbox" id="collapse-annex2" checked aria-hidden="true">
+<label for="collapse-annex2" aria-hidden="true">__Annex 2__</label>
+<div>
+<div>
+
+#### BSD-3-Clause
+
+BSD-3-Clause
 
 Copyright [YEAR] [COPYRIGHT HOLDER]
 
@@ -276,21 +276,21 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-        
-        </div>
-        </div>
-        :::
-        
+
+</div>
+</div>
+
+
 ###### <a name="lic3"></a>
-        ::: {.collapse}
-        <input type="checkbox" id="collapse-annex3" checked aria-hidden="true">
-        <label for="collapse-annex3" aria-hidden="true">__Annex 3__</label>
-        <div>
-        <div>
-        
-        #### Apache-2.0
-        
-        Apache-2.0
+
+<input type="checkbox" id="collapse-annex3" checked aria-hidden="true">
+<label for="collapse-annex3" aria-hidden="true">__Annex 3__</label>
+<div>
+<div>
+
+#### Apache-2.0
+
+Apache-2.0
 
 Version 2.0, February 2004
 =========================
@@ -355,35 +355,35 @@ END OF TERMS AND CONDITIONS
 APPENDIX: How to apply the Apache License to your work
 To apply the Apache License to your work, attach the following boilerplate notice, with the fields enclosed by brackets “[]” replaced with your own identifying information. (Don’t include the brackets!) The text should be enclosed in the appropriate comment syntax for the file format. We also recommend that a file or class name and description of purpose be included on the same “printed page” as the copyright notice for easier identification within third-party archives.
 
-   Copyright [yyyy] [name of copyright owner]
+Copyright [yyyy] [name of copyright owner]
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-        
-        </div>
-        </div>
-        :::
-        
+
+</div>
+</div>
+
+
 ###### <a name="lic4"></a>
-        ::: {.collapse}
-        <input type="checkbox" id="collapse-annex4" checked aria-hidden="true">
-        <label for="collapse-annex4" aria-hidden="true">__Annex 4__</label>
-        <div>
-        <div>
-        
-        #### MIT
-        
-        MIT
+
+<input type="checkbox" id="collapse-annex4" checked aria-hidden="true">
+<label for="collapse-annex4" aria-hidden="true">__Annex 4__</label>
+<div>
+<div>
+
+#### MIT
+
+MIT
 
 Copyright [YEAR] [COPYRIGHT HOLDER]
 
@@ -393,707 +393,758 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-        
-        </div>
-        </div>
-        :::
-        
+
+</div>
+</div>
+
+
 <label for="collapse-copyrights" aria-hidden="true">__Copyrights Statements__</label>
 <div>
 ###### <a name="cp1"></a>
 
-        <label for="collapse-copyright1" aria-hidden="true">Full Copyrights for stm32c5xx_DFP</label>
-        
-        <div>
-        
-        Copyrights statements for [stm32c5xx_DFP]
+<label for="collapse-copyright1" aria-hidden="true">Full Copyrights for stm32c5xx_DFP</label>
 
-	Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [stm32c5xx_DFP]
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp2"></a>
 
-        <label for="collapse-copyright2" aria-hidden="true">Full Copyrights for stm32c5xx_HAL_Drivers</label>
-        
-        <div>
-        
-        Copyrights statements for [stm32c5xx_HAL_Drivers]
+<label for="collapse-copyright2" aria-hidden="true">Full Copyrights for stm32c5xx_HAL_Drivers</label>
 
-	Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [stm32c5xx_HAL_Drivers]
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp3"></a>
 
-        <label for="collapse-copyright3" aria-hidden="true">Full Copyrights for button_Part_Drivers</label>
-        
-        <div>
-        
-        Copyrights statements for [button_Part_Drivers]
+<label for="collapse-copyright3" aria-hidden="true">Full Copyrights for button_Part_Drivers</label>
 
-	Copyright (c) 2026 STMicroelectronics",
-	
-	Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [button_Part_Drivers]
+
+Copyright (c) 2026 STMicroelectronics",
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp4"></a>
 
-        <label for="collapse-copyright4" aria-hidden="true">Full Copyrights for lan8742_Part_Drivers</label>
-        
-        <div>
-        
-        Copyrights statements for [lan8742_Part_Drivers]
+<label for="collapse-copyright4" aria-hidden="true">Full Copyrights for lan8742_Part_Drivers</label>
 
-	Copyright (c) 2026 STMicroelectronics",
-	
-	Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [lan8742_Part_Drivers]
+
+Copyright (c) 2026 STMicroelectronics",
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp5"></a>
 
-        <label for="collapse-copyright5" aria-hidden="true">Full Copyrights for led_Part_Drivers</label>
-        
-        <div>
-        
-        Copyrights statements for [led_Part_Drivers]
+<label for="collapse-copyright5" aria-hidden="true">Full Copyrights for led_Part_Drivers</label>
 
-	Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [led_Part_Drivers]
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp6"></a>
 
-        <label for="collapse-copyright6" aria-hidden="true">Full Copyrights for w25n01gvxx_Part_Drivers</label>
-        
-        <div>
-        
-        Copyrights statements for [w25n01gvxx_Part_Drivers]
+<label for="collapse-copyright6" aria-hidden="true">Full Copyrights for w25n01gvxx_Part_Drivers</label>
 
-	Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [w25n01gvxx_Part_Drivers]
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp7"></a>
 
-        <label for="collapse-copyright7" aria-hidden="true">Full Copyrights for w25q128j_Part_Drivers</label>
-        
-        <div>
-        
-        Copyrights statements for [w25q128j_Part_Drivers]
+<label for="collapse-copyright7" aria-hidden="true">Full Copyrights for w25q128j_Part_Drivers</label>
 
-	Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [w25q128j_Part_Drivers]
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp8"></a>
 
-        <label for="collapse-copyright8" aria-hidden="true">Full Copyrights for ARM-software/CMSIS-DSP</label>
-        
-        <div>
-        
-        Copyrights statements for [ARM-software/CMSIS-DSP]
+<label for="collapse-copyright8" aria-hidden="true">Full Copyrights for ARM-software/CMSIS-DSP</label>
 
-	Copyright (C) 1997-2020 by Dimitri van Heesch
-	
-	Copyright (c) 2007 Ariel Flesler - aflesler
-	
-	Copyright (c) 2010-2019 Arm Limited or its affiliates. All rights reserved
-	
-	Copyright (c) 2010-2020 Arm Limited or its affiliates. All rights reserved
-	
-	Copyright (c) 2010-2021 Arm Limited or its affiliates. All rights reserved
-	
-	Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved
-	
-	Copyright (c) 2018 Steven Benner (http://stevenbenner.com/).
-	
-	Copyright (C) 2019-2020 ARM Limited. All rights reserved
-	
-	Copyright (c) 2021 - 2022 jothepro
-	
-	Copyright jQuery Foundation and other contributors; Licensed MIT
-	
-	Copyright Vasil Dinkov, Vadikom Web Ltd. http://vadikom.com; Licensed MIT
-	
-	copyright</span></div>
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [ARM-software/CMSIS-DSP]
+
+Copyright (C) 1997-2020 by Dimitri van Heesch
+
+Copyright (c) 2007 Ariel Flesler - aflesler
+
+Copyright (c) 2010-2019 Arm Limited or its affiliates. All rights reserved
+
+Copyright (c) 2010-2020 Arm Limited or its affiliates. All rights reserved
+
+Copyright (c) 2010-2021 Arm Limited or its affiliates. All rights reserved
+
+Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved
+
+Copyright (c) 2018 Steven Benner (http://stevenbenner.com/).
+
+Copyright (C) 2019-2020 ARM Limited. All rights reserved
+
+Copyright (c) 2021 - 2022 jothepro
+
+Copyright jQuery Foundation and other contributors; Licensed MIT
+
+Copyright Vasil Dinkov, Vadikom Web Ltd. http://vadikom.com; Licensed MIT
+
+copyright</span></div>
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp9"></a>
 
-        <label for="collapse-copyright9" aria-hidden="true">Full Copyrights for ARM-software/CMSIS_6</label>
-        
-        <div>
-        
-        Copyrights statements for [ARM-software/CMSIS_6]
+<label for="collapse-copyright9" aria-hidden="true">Full Copyrights for ARM-software/CMSIS_6</label>
 
-	Copyright (C) 1997-2020 by Dimitri van Heesch
-	Copyright (c) 2006-2016, Arm Limited, All Rights Reserved
-	Copyright (c) 2007 Ariel Flesler - aflesler
-	Copyright (c) 2009-2017 ARM Limited. All rights reserved
-	Copyright (c) 2009-2018 Arm Limited. All rights reserved
-	Copyright (c) 2009-2021 Arm Limited. All rights reserved
-	Copyright (c) 2009-2022 Arm Limited. All rights reserved
-	Copyright (c) 2009-2023 ARM Limited. All rights reserved
-	Copyright (c) 2009-2024 Arm Limited. All rights reserved
-	Copyright (c) 2009-2025 Arm Limited.
-	Copyright (c) 2009-2025 Arm Limited. All rights reserved
-	Copyright (c) 2013-2017 ARM Limited. All rights reserved
-	Copyright (c) 2013-2018 Arm Limited. All rights reserved
-	Copyright (c) 2013-2020 ARM Limited. All rights reserved
-	Copyright (c) 2013-2023 Arm Limited. All rights reserved
-	Copyright (c) 2013-2024 Arm Limited. All rights reserved
-	Copyright (c) 2015-2020 ARM Limited. All rights reserved
-	Copyright (c) 2016-2018 Arm Limited. All rights reserved
-	Copyright (c) 2017 ARM Limited. All rights reserved
-	Copyright (c) 2017-2018 Arm Limited. All rights reserved
-	Copyright (c) 2017-2020 ARM Limited. All rights reserved
-	Copyright (c) 2017-2021 ARM Limited. All rights reserved
-	Copyright (c) 2017-2022 ARM Limited. All rights reserved
-	Copyright (c) 2017-2023 ARM Limited. All rights reserved
-	Copyright (c) 2017-2024 Arm Limited. All rights reserved
-	Copyright (c) 2017-2024 IAR Systems
-	Copyright (c) 2018 Steven Benner (http://stevenbenner.com/).
-	Copyright (c) 2018-2022 Arm China.
-	Copyright (c) 2018-2023 Arm Limited. All rights reserved
-	Copyright (c) 2018-2024 Arm Limited. All rights reserved
-	Copyright (c) 2018-2025 Arm Limited. All rights reserved
-	Copyright (c) 2018-2025 Arm Limited. Copyright (c) 2024 Arm Technology (China) Co., Ltd. All rights reserved
-	Copyright (c) 2018-2025 Arm Limited. Copyright (c) 2025 Arm Technology (China) Co., Ltd. All rights reserved
-	Copyright (c) 2019-2022 Arm Limited. All rights reserved
-	Copyright (c) 2019-2023 Arm Limited. All rights reserved
-	Copyright (c) 2020 Arm Limited. All rights reserved
-	Copyright (c) 2020-2021 Arm Limited. All rights reserved
-	Copyright (c) 2021 - 2022 jothepro
-	Copyright (c) 2022 Arm Limited. All rights reserved
-	Copyright (c) 2022-2024 Arm Limited. All rights reserved
-	Copyright (c) 2023 ARM Limited. All rights reserved
-	Copyright (c) 2023-2024 Arm Limited. All rights reserved
-	Copyright (c) 2023-2025 ARM Limited. All rights reserved
-	Copyright (c) 2025 Arm Limited. All rights reserved
-	Copyright jQuery Foundation and other contributors; Licensed MIT
-	Copyright Vasil Dinkov, Vadikom Web Ltd. http://vadikom.com; Licensed MIT
-	Copyright © 2026 Arm Limited (or its affiliates). All rights reserved
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [ARM-software/CMSIS_6]
+
+
+Copyright (C) 1997-2020 by Dimitri van Heesch
+
+Copyright (c) 2006-2016, Arm Limited, All Rights Reserved
+
+Copyright (c) 2007 Ariel Flesler - aflesler
+
+Copyright (c) 2009-2017 ARM Limited. All rights reserved
+
+Copyright (c) 2009-2018 Arm Limited. All rights reserved
+
+Copyright (c) 2009-2021 Arm Limited. All rights reserved
+
+Copyright (c) 2009-2022 Arm Limited. All rights reserved
+
+Copyright (c) 2009-2023 ARM Limited. All rights reserved
+
+Copyright (c) 2009-2024 Arm Limited. All rights reserved
+
+Copyright (c) 2009-2025 Arm Limited.
+
+Copyright (c) 2009-2025 Arm Limited. All rights reserved
+
+Copyright (c) 2013-2017 ARM Limited. All rights reserved
+
+Copyright (c) 2013-2018 Arm Limited. All rights reserved
+
+Copyright (c) 2013-2020 ARM Limited. All rights reserved
+
+Copyright (c) 2013-2023 Arm Limited. All rights reserved
+
+Copyright (c) 2013-2024 Arm Limited. All rights reserved
+
+Copyright (c) 2015-2020 ARM Limited. All rights reserved
+
+Copyright (c) 2016-2018 Arm Limited. All rights reserved
+
+Copyright (c) 2017 ARM Limited. All rights reserved
+
+Copyright (c) 2017-2018 Arm Limited. All rights reserved
+
+Copyright (c) 2017-2020 ARM Limited. All rights reserved
+
+Copyright (c) 2017-2021 ARM Limited. All rights reserved
+
+Copyright (c) 2017-2022 ARM Limited. All rights reserved
+
+Copyright (c) 2017-2023 ARM Limited. All rights reserved
+
+Copyright (c) 2017-2024 Arm Limited. All rights reserved
+
+Copyright (c) 2017-2024 IAR Systems
+
+Copyright (c) 2018 Steven Benner (http://stevenbenner.com/).
+
+Copyright (c) 2018-2022 Arm China.
+
+Copyright (c) 2018-2023 Arm Limited. All rights reserved
+
+Copyright (c) 2018-2024 Arm Limited. All rights reserved
+
+Copyright (c) 2018-2025 Arm Limited. All rights reserved
+
+Copyright (c) 2018-2025 Arm Limited. 
+
+Copyright (c) 2024 Arm Technology (China) Co., Ltd. All rights reserved
+
+Copyright (c) 2018-2025 Arm Limited. 
+
+Copyright (c) 2025 Arm Technology (China) Co., Ltd. All rights reserved
+
+Copyright (c) 2019-2022 Arm Limited. All rights reserved
+
+Copyright (c) 2019-2023 Arm Limited. All rights reserved
+
+Copyright (c) 2020 Arm Limited. All rights reserved
+
+Copyright (c) 2020-2021 Arm Limited. All rights reserved
+
+Copyright (c) 2021 - 2022 jothepro
+
+Copyright (c) 2022 Arm Limited. All rights reserved
+
+Copyright (c) 2022-2024 Arm Limited. All rights reserved
+
+Copyright (c) 2023 ARM Limited. All rights reserved
+
+Copyright (c) 2023-2024 Arm Limited. All rights reserved
+
+Copyright (c) 2023-2025 ARM Limited. All rights reserved
+
+Copyright (c) 2025 Arm Limited. All rights reserved
+
+Copyright jQuery Foundation and other contributors; Licensed MIT
+
+Copyright Vasil Dinkov, Vadikom Web Ltd. http://vadikom.com; Licensed MIT
+
+Copyright © 2026 Arm Limited (or its affiliates). All rights reserved
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp10"></a>
 
-        <label for="collapse-copyright10" aria-hidden="true">Full Copyrights for Advanced_Trace</label>
-        
-        <div>
-        
-        Copyrights statements for [Advanced_Trace]
+<label for="collapse-copyright10" aria-hidden="true">Full Copyrights for Advanced_Trace</label>
 
-    Copyright (c) 2024-2026 STMicroelectronics.
+<div>
 
-    Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+Copyrights statements for [Advanced_Trace]
+
+Copyright (c) 2024-2026 STMicroelectronics.
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp11"></a>
 
-        <label for="collapse-copyright11" aria-hidden="true">Full Copyrights for Basic_STDIO</label>
-        
-        <div>
-        
-        Copyrights statements for [Basic_STDIO]
+<label for="collapse-copyright11" aria-hidden="true">Full Copyrights for Basic_STDIO</label>
 
-    Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [Basic_STDIO]
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp12"></a>
 
-        <label for="collapse-copyright12" aria-hidden="true">Full Copyrights for EEPROM_Emulation</label>
-        
-        <div>
-        
-        Copyrights statements for [EEPROM_Emulation]
+<label for="collapse-copyright12" aria-hidden="true">Full Copyrights for EEPROM_Emulation</label>
 
-    Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [EEPROM_Emulation]
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp13"></a>
 
-        <label for="collapse-copyright13" aria-hidden="true">Full Copyrights for Sequencer</label>
-        
-        <div>
-        
-        Copyrights statements for [Sequencer]
+<label for="collapse-copyright13" aria-hidden="true">Full Copyrights for Sequencer</label>
 
-    Copyright (c) 2019-2026 STMicroelectronics.
+<div>
 
-    Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+Copyrights statements for [Sequencer]
+
+Copyright (c) 2019-2026 STMicroelectronics.
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp14"></a>
 
-        <label for="collapse-copyright14" aria-hidden="true">Full Copyrights for Syscalls</label>
-        
-        <div>
-        
-        Copyrights statements for [Syscalls]
+<label for="collapse-copyright14" aria-hidden="true">Full Copyrights for Syscalls</label>
 
-    Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [Syscalls]
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp15"></a>
 
-        <label for="collapse-copyright15" aria-hidden="true">Full Copyrights for FreeRTOS Real Time Kernel</label>
-        
-        <div>
-        
-        Copyrights statements for [FreeRTOS Real Time Kernel]
+<label for="collapse-copyright15" aria-hidden="true">Full Copyrights for FreeRTOS Real Time Kernel</label>
 
-	Copyright (C) 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved
-	
-	Copyright 2024 Arm Limited and/or its affiliates
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [FreeRTOS Real Time Kernel]
+
+Copyright (C) 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved
+
+Copyright 2024 Arm Limited and/or its affiliates
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp16"></a>
 
-        <label for="collapse-copyright16" aria-hidden="true">Full Copyrights for MbedTLS</label>
-        
-        <div>
-        
-        Copyrights statements for [MbedTLS]
+<label for="collapse-copyright16" aria-hidden="true">Full Copyrights for MbedTLS</label>
 
-	Copyright (C) STMicroelectronics, All Rights Reserved
-	
-	Copyright The Mbed TLS Contributors
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [MbedTLS]
+
+Copyright (C) STMicroelectronics, All Rights Reserved
+
+Copyright The Mbed TLS Contributors
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp17"></a>
 
-        <label for="collapse-copyright17" aria-hidden="true">Full Copyrights for STCryptoLib</label>
-        
-        <div>
-        
-        Copyrights statements for [STCryptoLib]
+<label for="collapse-copyright17" aria-hidden="true">Full Copyrights for STCryptoLib</label>
 
-	Copyright (c) 2021-2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [STCryptoLib]
+
+Copyright (c) 2021-2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp18"></a>
 
-        <label for="collapse-copyright18" aria-hidden="true">Full Copyrights for STFCF</label>
-        
-        <div>
-        
-        Copyrights statements for [STFCF]
+<label for="collapse-copyright18" aria-hidden="true">Full Copyrights for STFCF</label>
 
-	Copyright (c) 2026 STMicroelectronics - All rights reserved
-	
-	Copyright (c) 2026 STMicroelectronics.
-	
-	Copyright The Mbed TLS Contributors
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [STFCF]
+
+Copyright (c) 2026 STMicroelectronics - All rights reserved
+
+Copyright (c) 2026 STMicroelectronics.
+
+Copyright The Mbed TLS Contributors
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp19"></a>
 
-        <label for="collapse-copyright19" aria-hidden="true">Full Copyrights for eclipse-threadx/filex</label>
-        
-        <div>
-        
-        Copyrights statements for [eclipse-threadx/filex]
+<label for="collapse-copyright19" aria-hidden="true">Full Copyrights for eclipse-threadx/filex</label>
 
-	Copyright (c) 2024 Microsoft Corporation
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [eclipse-threadx/filex]
+
+Copyright (c) 2024 Microsoft Corporation
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp20"></a>
 
-        <label for="collapse-copyright20" aria-hidden="true">Full Copyrights for eclipse-threadx/levelx</label>
-        
-        <div>
-        
-        Copyrights statements for [eclipse-threadx/levelx]
+<label for="collapse-copyright20" aria-hidden="true">Full Copyrights for eclipse-threadx/levelx</label>
 
-	Copyright (c) 2024 Microsoft Corporation
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [eclipse-threadx/levelx]
+
+Copyright (c) 2024 Microsoft Corporation
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp21"></a>
 
-        <label for="collapse-copyright21" aria-hidden="true">Full Copyrights for eclipse-threadx/usbx_STM32</label>
-        
-        <div>
-        
-        Copyrights statements for [eclipse-threadx/usbx_STM32]
+<label for="collapse-copyright21" aria-hidden="true">Full Copyrights for eclipse-threadx/usbx_STM32</label>
 
-	Copyright (c) 2024 Microsoft Corporation.
+<div>
 
-	Copyright (c) 2025-2026 STMicroelectronics.
+Copyrights statements for [eclipse-threadx/usbx_STM32]
 
-	Copyright (c) 2026 STMicroelectronics.
+Copyright (c) 2024 Microsoft Corporation.
 
-	Copyright (c) Microsoft Corporation. All rights reserved
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+Copyright (c) 2025-2026 STMicroelectronics.
+
+Copyright (c) 2026 STMicroelectronics.
+
+Copyright (c) Microsoft Corporation. All rights reserved
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp22"></a>
 
-        <label for="collapse-copyright22" aria-hidden="true">Full Copyrights for git.trustedfirmware.org/TF-M/trusted-firmware-m</label>
-        
-        <div>
-        
-        Copyrights statements for [git.trustedfirmware.org/TF-M/trusted-firmware-m]
+<label for="collapse-copyright22" aria-hidden="true">Full Copyrights for git.trustedfirmware.org/TF-M/trusted-firmware-m</label>
 
-	Copyright (c) 2017 Linaro Limited
-	
-	Copyright (c) 2018-2020 Arm Limited.
-	
-	Copyright (c) 2018-2020, Arm Limited. All rights reserved
-	
-	Copyright (c) 2019 Arm Limited.
-	
-	Copyright (c) 2020-2023, Arm Limited. All rights reserved
-	
-	Copyright (c) 2021-2024, Arm Limited. All rights reserved
-	
-	git.trustedfirmware.org/TF-M/trusted-firmware-m 1.3.0 long_tail:git.trustedfirmware.org/TF-M/trusted-firmware-m#TF-Mv1.3.0
-	
-	Copyright (c) 2021-2024, Arm Limited. All rights reserved
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [git.trustedfirmware.org/TF-M/trusted-firmware-m]
+
+Copyright (c) 2017 Linaro Limited
+
+Copyright (c) 2018-2020 Arm Limited.
+
+Copyright (c) 2018-2020, Arm Limited. All rights reserved
+
+Copyright (c) 2019 Arm Limited.
+
+Copyright (c) 2020-2023, Arm Limited. All rights reserved
+
+Copyright (c) 2021-2024, Arm Limited. All rights reserved
+
+git.trustedfirmware.org/TF-M/trusted-firmware-m 1.3.0 long_tail:git.trustedfirmware.org/TF-M/trusted-firmware-m#TF-Mv1.3.0
+
+Copyright (c) 2021-2024, Arm Limited. All rights reserved
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp23"></a>
 
-        <label for="collapse-copyright23" aria-hidden="true">Full Copyrights for lwIP</label>
-        
-        <div>
-        
-        Copyrights statements for [lwIP]
+<label for="collapse-copyright23" aria-hidden="true">Full Copyrights for lwIP</label>
 
-	Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved
-	
-	Copyright (c) 1989 Carnegie Mellon University.
-	
-	Copyright (c) 1989 Regents of the University of California.
-	
-	Copyright (c) 1993-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 1994 The Australian National University.
-	
-	Copyright (c) 1994-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 1995 Eric Rosenquist. All rights reserved
-	
-	Copyright (c) 1995, 1996, 1997 Francis.Dupont@inria.fr, INRIA Rocquencourt,
-	
-	Copyright (c) 1996-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 1997 by Global Election Systems Inc.
-	
-	Copyright (c) 1998 by Global Election Systems Inc.
-	
-	Copyright (c) 1998, 1999 Francis.Dupont@inria.fr, GIE DYADE,
-	
-	Copyright (c) 1999 Tommi Komulainen. All rights reserved
-	
-	Copyright (c) 1999-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 2000-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 2001 by Sun Microsystems, Inc.
-	
-	Copyright (c) 2001-2003 Swedish Institute of Computer Science.
-	
-	Copyright (c) 2001-2004 Axon Digital Design B.V., The Netherlands.
-	
-	Copyright (c) 2001-2004 Leon Woestenberg <leon.woestenberg@gmx.net>
-	
-	Copyright (c) 2001-2004 Swedish Institute of Computer Science.
-	
-	Copyright (c) 2002 CITEL Technologies Ltd.
-	
-	Copyright (c) 2002 Google, Inc.
-	
-	Copyright (c) 2002 Google, Inc. All rights reserved
-	
-	Copyright (c) 2002 The NetBSD Foundation, Inc.
-	
-	Copyright (c) 2002,2003,2004 Google, Inc.
-	
-	Copyright (c) 2002-2003, Adam Dunkels.
-	
-	Copyright (c) 2003 by Marc Boucher, Services Informatiques (MBSI) inc.
-	
-	Copyright (c) 2003 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 2003-2004 Axon Digital Design B.V., The Netherlands.
-	
-	Copyright (c) 2003-2004 Leon Woestenberg <leon.woestenberg@axon.tv>
-	
-	Copyright (c) 2006 by Marc Boucher, Services Informatiques (MBSI) inc.
-	
-	Copyright (C) 2006-2008 Christophe Devine
-	
-	Copyright (c) 2007 Dominik Spies <kontakt@dspies.de>
-	
-	Copyright (c) 2007-2009 Fr
-	
-	Copyright (C) 2009 Paul Bakker <polarssl_maintainer at polarssl dot org>
-	
-	Copyright (c) 2010 Inico Technologies Ltd.
-	
-	Copyright (c) 2014 Simon Goldschmidt
-	
-	Copyright (c) 2015 Inico Technologies Ltd.
-	
-	Copyright (c) 2015 Inico Technologies Ltd. , Author: Ivan Delamer <delamer@inicotech.com>
-	
-	Copyright (c) 2015 Verisure Innovation AB
-	
-	Copyright (c) 2016 Erik Andersson <erian747@gmail.com>
-	
-	Copyright (c) 2017 Benjamin Aigner
-	
-	Copyright (c) 2017 Simon Goldschmidt
-	
-	Copyright (c) 2017 Simon Goldschmidt.
-	
-	Copyright (c) 2018 Jasper Verschueren <jasper.verschueren@apart-audio.com>
-	
-	Copyright (c) 2018 Simon Goldschmidt
-	
-	Copyright (c) 2026 STMicroelectronics.
-	
-	Copyright (c) Deltatee Enterprises Ltd. 2013
-	
-	lwIP STABLE-2_2_1_RELEASE gnu:lwip:STABLE-2_2_1_RELEASE: http://savannah.nongnu.org/projects/lwip/
-	
-	Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved
-	
-	Copyright (c) 1989 Carnegie Mellon University.
-	
-	Copyright (c) 1989 Regents of the University of California.
-	
-	Copyright (c) 1993-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 1994 The Australian National University.
-	
-	Copyright (c) 1994-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 1995 Eric Rosenquist. All rights reserved
-	
-	Copyright (c) 1995, 1996, 1997 Francis.Dupont@inria.fr, INRIA Rocquencourt,
-	
-	Copyright (c) 1996-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 1997 by Global Election Systems Inc.
-	
-	Copyright (c) 1997 Global Election Systems Inc.
-	
-	Copyright (c) 1998 by Global Election Systems Inc.
-	
-	Copyright (c) 1998 Global Election Systems Inc.
-	
-	Copyright (c) 1998, 1999 Francis.Dupont@inria.fr, GIE DYADE,
-	
-	Copyright (c) 1999 Tommi Komulainen. All rights reserved
-	
-	Copyright (c) 1999-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 2000-2002 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 2001 by Cognizant Pty Ltd.
-	
-	Copyright (c) 2001 by Sun Microsystems, Inc.
-	
-	Copyright (c) 2001, 2002 Axon Digital Design B.V., The Netherlands.
-	
-	Copyright (c) 2001, 2002 Leon Woestenberg <leon.woestenberg@axon.tv>
-	
-	Copyright (c) 2001, Swedish Institute of Computer Science.
-	
-	Copyright (c) 2001-2003 Swedish Institute of Computer Science.
-	
-	Copyright (c) 2001-2004 Axon Digital Design B.V., The Netherlands.
-	
-	Copyright (c) 2001-2004 Leon Woestenberg <leon.woestenberg@gmx.net>
-	
-	Copyright (c) 2001-2004 Swedish Institute of Computer Science.
-	
-	Copyright (c) 2002 CITEL Technologies Ltd.
-	
-	Copyright (c) 2002 Google, Inc.
-	
-	Copyright (c) 2002 Google, Inc. All rights reserved
-	
-	Copyright (c) 2002 The NetBSD Foundation, Inc.
-	
-	Copyright (c) 2002,2003,2004 Google, Inc.
-	
-	Copyright (c) 2002-2003, Adam Dunkels.
-	
-	Copyright (c) 2003 by Marc Boucher, Services Informatiques (MBSI) inc.
-	
-	Copyright (c) 2003 Paul Mackerras. All rights reserved
-	
-	Copyright (c) 2003-2004 Axon Digital Design B.V., The Netherlands.
-	
-	Copyright (c) 2003-2004 Leon Woestenberg <leon.woestenberg@axon.tv>
-	
-	Copyright (c) 2006 Axon Digital Design B.V., The Netherlands.
-	
-	Copyright (c) 2006 by Marc Boucher, Services Informatiques (MBSI) inc.
-	
-	Copyright (C) 2006-2008 Christophe Devine
-	
-	Copyright (c) 2007 Dominik Spies <kontakt@dspies.de>
-	
-	Copyright (c) 2007-2009 Fr
-	
-	Copyright (c) 2008 Paul Mackerras. All rights reserved
-	
-	Copyright (C) 2009 Paul Bakker <polarssl_maintainer at polarssl dot org>
-	
-	Copyright (c) 2010 Inico Technologies Ltd.
-	
-	Copyright (c) 2014 Simon Goldschmidt
-	
-	Copyright (c) 2015 Dirk Ziegelmeier
-	
-	Copyright (c) 2015 Inico Technologies Ltd.
-	
-	Copyright (c) 2015 Inico Technologies Ltd. , Author: Ivan Delamer <delamer@inicotech.com>
-	
-	Copyright (c) 2015 Verisure Innovation AB
-	
-	Copyright (c) 2016 Elias Oenal and Dirk Ziegelmeier.
-	
-	Copyright (c) 2016 Elias Oenal.
-	
-	Copyright (c) 2016 Erik Andersson
-	
-	Copyright (c) 2016 Erik Andersson <erian747@gmail.com>
-	
-	Copyright (c) 2017 Benjamin Aigner
-	
-	Copyright (c) 2017 Dirk Ziegelmeier.
-	
-	Copyright (c) 2017 Joel Cunningham, Garmin International, Inc. <joel.cunningham@garmin.com>
-	
-	Copyright (c) 2017 Simon Goldschmidt
-	
-	Copyright (c) 2017 Simon Goldschmidt <goldsimon@gmx.de>
-	
-	Copyright (c) 2017 Simon Goldschmidt.
-	
-	Copyright (c) 2017 The MINIX 3 Project.
-	
-	Copyright (c) 2018 Jasper Verschueren <jasper.verschueren@apart-audio.com>
-	
-	Copyright (c) 2018 Simon Goldschmidt
-	
-	Copyright (c) 2018 Simon Goldschmidt <goldsimon@gmx.de>
-	
-	Copyright (c) 2018 Simon Goldschmidt.
-	
-	Copyright (c) 2018 Swedish Institute of Computer Science.
-	
-	Copyright (c) Deltatee Enterprises Ltd. 2013
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [lwIP]
+
+Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved
+
+Copyright (c) 1989 Carnegie Mellon University.
+
+Copyright (c) 1989 Regents of the University of California.
+
+Copyright (c) 1993-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 1994 The Australian National University.
+
+Copyright (c) 1994-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 1995 Eric Rosenquist. All rights reserved
+
+Copyright (c) 1995, 1996, 1997 Francis.Dupont@inria.fr, INRIA Rocquencourt,
+
+Copyright (c) 1996-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 1997 by Global Election Systems Inc.
+
+Copyright (c) 1998 by Global Election Systems Inc.
+
+Copyright (c) 1998, 1999 Francis.Dupont@inria.fr, GIE DYADE,
+
+Copyright (c) 1999 Tommi Komulainen. All rights reserved
+
+Copyright (c) 1999-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 2000-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 2001 by Sun Microsystems, Inc.
+
+Copyright (c) 2001-2003 Swedish Institute of Computer Science.
+
+Copyright (c) 2001-2004 Axon Digital Design B.V., The Netherlands.
+
+Copyright (c) 2001-2004 Leon Woestenberg <leon.woestenberg@gmx.net>
+
+Copyright (c) 2001-2004 Swedish Institute of Computer Science.
+
+Copyright (c) 2002 CITEL Technologies Ltd.
+
+Copyright (c) 2002 Google, Inc.
+
+Copyright (c) 2002 Google, Inc. All rights reserved
+
+Copyright (c) 2002 The NetBSD Foundation, Inc.
+
+Copyright (c) 2002,2003,2004 Google, Inc.
+
+Copyright (c) 2002-2003, Adam Dunkels.
+
+Copyright (c) 2003 by Marc Boucher, Services Informatiques (MBSI) inc.
+
+Copyright (c) 2003 Paul Mackerras. All rights reserved
+
+Copyright (c) 2003-2004 Axon Digital Design B.V., The Netherlands.
+
+Copyright (c) 2003-2004 Leon Woestenberg <leon.woestenberg@axon.tv>
+
+Copyright (c) 2006 by Marc Boucher, Services Informatiques (MBSI) inc.
+
+Copyright (C) 2006-2008 Christophe Devine
+
+Copyright (c) 2007 Dominik Spies <kontakt@dspies.de>
+
+Copyright (c) 2007-2009 Fr
+
+Copyright (C) 2009 Paul Bakker <polarssl_maintainer at polarssl dot org>
+
+Copyright (c) 2010 Inico Technologies Ltd.
+
+Copyright (c) 2014 Simon Goldschmidt
+
+Copyright (c) 2015 Inico Technologies Ltd.
+
+Copyright (c) 2015 Inico Technologies Ltd. , Author: Ivan Delamer <delamer@inicotech.com>
+
+Copyright (c) 2015 Verisure Innovation AB
+
+Copyright (c) 2016 Erik Andersson <erian747@gmail.com>
+
+Copyright (c) 2017 Benjamin Aigner
+
+Copyright (c) 2017 Simon Goldschmidt
+
+Copyright (c) 2017 Simon Goldschmidt.
+
+Copyright (c) 2018 Jasper Verschueren <jasper.verschueren@apart-audio.com>
+
+Copyright (c) 2018 Simon Goldschmidt
+
+Copyright (c) 2026 STMicroelectronics.
+
+Copyright (c) Deltatee Enterprises Ltd. 2013
+
+lwIP STABLE-2_2_1_RELEASE gnu:lwip:STABLE-2_2_1_RELEASE: http://savannah.nongnu.org/projects/lwip/
+
+Copyright (c) 1984-2000 Carnegie Mellon University. All rights reserved
+
+Copyright (c) 1989 Carnegie Mellon University.
+
+Copyright (c) 1989 Regents of the University of California.
+
+Copyright (c) 1993-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 1994 The Australian National University.
+
+Copyright (c) 1994-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 1995 Eric Rosenquist. All rights reserved
+
+Copyright (c) 1995, 1996, 1997 Francis.Dupont@inria.fr, INRIA Rocquencourt,
+
+Copyright (c) 1996-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 1997 by Global Election Systems Inc.
+
+Copyright (c) 1997 Global Election Systems Inc.
+
+Copyright (c) 1998 by Global Election Systems Inc.
+
+Copyright (c) 1998 Global Election Systems Inc.
+
+Copyright (c) 1998, 1999 Francis.Dupont@inria.fr, GIE DYADE,
+
+Copyright (c) 1999 Tommi Komulainen. All rights reserved
+
+Copyright (c) 1999-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 2000-2002 Paul Mackerras. All rights reserved
+
+Copyright (c) 2001 by Cognizant Pty Ltd.
+
+Copyright (c) 2001 by Sun Microsystems, Inc.
+
+Copyright (c) 2001, 2002 Axon Digital Design B.V., The Netherlands.
+
+Copyright (c) 2001, 2002 Leon Woestenberg <leon.woestenberg@axon.tv>
+
+Copyright (c) 2001, Swedish Institute of Computer Science.
+
+Copyright (c) 2001-2003 Swedish Institute of Computer Science.
+
+Copyright (c) 2001-2004 Axon Digital Design B.V., The Netherlands.
+
+Copyright (c) 2001-2004 Leon Woestenberg <leon.woestenberg@gmx.net>
+
+Copyright (c) 2001-2004 Swedish Institute of Computer Science.
+
+Copyright (c) 2002 CITEL Technologies Ltd.
+
+Copyright (c) 2002 Google, Inc.
+
+Copyright (c) 2002 Google, Inc. All rights reserved
+
+Copyright (c) 2002 The NetBSD Foundation, Inc.
+
+Copyright (c) 2002,2003,2004 Google, Inc.
+
+Copyright (c) 2002-2003, Adam Dunkels.
+
+Copyright (c) 2003 by Marc Boucher, Services Informatiques (MBSI) inc.
+
+Copyright (c) 2003 Paul Mackerras. All rights reserved
+
+Copyright (c) 2003-2004 Axon Digital Design B.V., The Netherlands.
+
+Copyright (c) 2003-2004 Leon Woestenberg <leon.woestenberg@axon.tv>
+
+Copyright (c) 2006 Axon Digital Design B.V., The Netherlands.
+
+Copyright (c) 2006 by Marc Boucher, Services Informatiques (MBSI) inc.
+
+Copyright (C) 2006-2008 Christophe Devine
+
+Copyright (c) 2007 Dominik Spies <kontakt@dspies.de>
+
+Copyright (c) 2007-2009 Fr
+
+Copyright (c) 2008 Paul Mackerras. All rights reserved
+
+Copyright (C) 2009 Paul Bakker <polarssl_maintainer at polarssl dot org>
+
+Copyright (c) 2010 Inico Technologies Ltd.
+
+Copyright (c) 2014 Simon Goldschmidt
+
+Copyright (c) 2015 Dirk Ziegelmeier
+
+Copyright (c) 2015 Inico Technologies Ltd.
+
+Copyright (c) 2015 Inico Technologies Ltd. , Author: Ivan Delamer <delamer@inicotech.com>
+
+Copyright (c) 2015 Verisure Innovation AB
+
+Copyright (c) 2016 Elias Oenal and Dirk Ziegelmeier.
+
+Copyright (c) 2016 Elias Oenal.
+
+Copyright (c) 2016 Erik Andersson
+
+Copyright (c) 2016 Erik Andersson <erian747@gmail.com>
+
+Copyright (c) 2017 Benjamin Aigner
+
+Copyright (c) 2017 Dirk Ziegelmeier.
+
+Copyright (c) 2017 Joel Cunningham, Garmin International, Inc. <joel.cunningham@garmin.com>
+
+Copyright (c) 2017 Simon Goldschmidt
+
+Copyright (c) 2017 Simon Goldschmidt <goldsimon@gmx.de>
+
+Copyright (c) 2017 Simon Goldschmidt.
+
+Copyright (c) 2017 The MINIX 3 Project.
+
+Copyright (c) 2018 Jasper Verschueren <jasper.verschueren@apart-audio.com>
+
+Copyright (c) 2018 Simon Goldschmidt
+
+Copyright (c) 2018 Simon Goldschmidt <goldsimon@gmx.de>
+
+Copyright (c) 2018 Simon Goldschmidt.
+
+Copyright (c) 2018 Swedish Institute of Computer Science.
+
+Copyright (c) Deltatee Enterprises Ltd. 2013
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 ###### <a name="cp24"></a>
 
-        <label for="collapse-copyright24" aria-hidden="true">Full Copyrights for RoT_Provisioning</label>
-        
-        <div>
-        
-        Copyrights statements for [RoT_Provisioning]
+<label for="collapse-copyright24" aria-hidden="true">Full Copyrights for RoT_Provisioning</label>
 
-	Copyright (c) 2026 STMicroelectronics - All rights reserved
-	
-	Copyright (c) 2026 STMicroelectronics.
-        
-        </div>
-        
-        [Back to top](#top)
-        <BR>
-        
+<div>
+
+Copyrights statements for [RoT_Provisioning]
+
+Copyright (c) 2026 STMicroelectronics - All rights reserved
+
+Copyright (c) 2026 STMicroelectronics.
+
+</div>
+
+[Back to top](#top)
+<BR>
+
 <div>
 
 </div>
