@@ -53,7 +53,7 @@ Delivered [SBOM in CycloneDX v1.5 format](sbom_cdx.json)
 
 ## Additional information
 
-Browse the STM32C5 embedded software documentation from: [stm32cube-docs](https://stm32cubedocs-dev.st.com/stm32cube-docs/embedded-software/latest/en/index.html)
+Browse the STM32C5 embedded software documentation from: [stm32cube-docs](https://dev.st.com/stm32cube-docs/embedded-software/2.1.0/en/index.html)
 
 For complete documentation on STM32 microcontrollers, visit: [www.st.com/STM32](http://www.st.com/STM32)
 
